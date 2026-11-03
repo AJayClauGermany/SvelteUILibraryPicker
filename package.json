@@ -1,0 +1,40 @@
+{
+  "name": "svelte-ui-library-picker",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Compare Svelte UI libraries side by side: features, Svelte support, components, and links back to the official docs.",
+  "license": "MIT",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build && vite build --config previews/vite.config.ts",
+    "preview": "vite preview",
+    "prepare": "svelte-kit sync || echo ''",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "validate": "vitest run",
+    "verify": "pnpm validate && pnpm check && pnpm build"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-static": "^4.0.1",
+    "@sveltejs/kit": "^3.1.1",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@sveltepress/theme-default": "^8.11.0",
+    "@sveltepress/vite": "^1.10.0",
+    "@types/node": "^24.19.2",
+    "bits-ui": "2.20.3",
+    "carbon-components-svelte": "0.113.1",
+    "svelte": "^5.57.3",
+    "svelte-check": "^4.7.8",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.5",
+    "vitest": "^5.1.0"
+  },
+  "imports": {
+    "#lib": "./src/lib",
+    "#lib/*": "./src/lib/*"
+  }
+}

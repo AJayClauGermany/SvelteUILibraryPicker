@@ -1,0 +1,35 @@
+name: Add a library
+description: Suggest a Svelte UI library to list.
+labels: [library-request]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Library name
+    validations:
+      required: true
+  - type: input
+    id: docs
+    attributes:
+      label: Official documentation URL
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Repository URL
+  - type: input
+    id: package
+    attributes:
+      label: npm package
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything notable?
+      description: Svelte versions supported, styling approach, license, AI policy (llms.txt, MCP, restrictions)…
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Contribution
+      options:
+        - label: I'd like to open the PR myself (see docs/playbooks/add-library.md)

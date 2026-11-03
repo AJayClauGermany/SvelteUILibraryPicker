@@ -1,0 +1,91 @@
+/* Site-level tokens layered on SveltePress' default theme variables. */
+:root {
+	--ulp-border: var(--svp-divider);
+	--ulp-surface: var(--svp-expansion-bg);
+	--ulp-surface-2: var(--svp-expansion-bg-darker);
+	--ulp-muted: #6b7280;
+	--ulp-accent: #e11d48;
+	--ulp-ok: #15803d;
+	--ulp-warn: #b45309;
+	--ulp-bad: #b91c1c;
+	--ulp-radius: 10px;
+}
+
+html.dark,
+html[data-theme='dark'] {
+	--ulp-muted: #a1a1aa;
+	--ulp-accent: #fb7185;
+	--ulp-ok: #4ade80;
+	--ulp-warn: #fbbf24;
+	--ulp-bad: #f87171;
+}
+
+.ulp-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	padding: 0.1rem 0.55rem;
+	border: 1px solid var(--ulp-border);
+	border-radius: 999px;
+	font-size: 0.78rem;
+	line-height: 1.5;
+	white-space: nowrap;
+	background: var(--ulp-surface);
+}
+
+.ulp-muted {
+	color: var(--ulp-muted);
+}
+
+.ulp-table-wrap {
+	overflow-x: auto;
+	border: 1px solid var(--ulp-border);
+	border-radius: var(--ulp-radius);
+}
+
+.ulp-table {
+	border-collapse: collapse;
+	width: 100%;
+	font-size: 0.9rem;
+}
+
+.ulp-table th,
+.ulp-table td {
+	padding: 0.5rem 0.75rem;
+	border-bottom: 1px solid var(--ulp-border);
+	text-align: left;
+	vertical-align: top;
+}
+
+.ulp-table thead th {
+	background: var(--ulp-surface-2);
+	position: sticky;
+	top: 0;
+}
+
+.ulp-filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem 1.25rem;
+	align-items: flex-end;
+	margin: 1rem 0 1.5rem;
+}
+
+.ulp-filters label {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	font-size: 0.8rem;
+	color: var(--ulp-muted);
+}
+
+.ulp-filters input,
+.ulp-filters select {
+	padding: 0.4rem 0.6rem;
+	border: 1px solid var(--ulp-border);
+	border-radius: 8px;
+	background: var(--ulp-surface);
+	color: inherit;
+	font: inherit;
+	font-size: 0.9rem;
+}
