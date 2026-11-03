@@ -46,7 +46,7 @@ pnpm dev        # site + preview app on one dev server (http://localhost:5173)
 pnpm validate   # data rules (vitest), fast; run after any data change
 pnpm check      # svelte-check / TypeScript
 pnpm build      # static site -> dist/ (site, then preview app into dist/preview)
-pnpm verify         # validate + check + build; run before opening a PR
+pnpm verify     # validate + check + build; run before opening a PR
 ```
 
 Node >= 22, pnpm 10.
@@ -73,6 +73,10 @@ Node >= 22, pnpm 10.
   `+layout.svelte` in its GlobalLayout. Don't name route files `+page@*.svelte`, because the
   SveltePress transform empties them. Dynamic pages set their title with
   `#lib/components/PageMeta.svelte`.
+- **Base path:** the site is deployed under a sub-path on GitHub Pages (`BASE_PATH`). In
+  Svelte code, build internal links with `url('/libraries/x/')` from `#lib/url.ts`, never a bare
+  `href="/..."`. Markdown links and theme `navbar`/`sidebar` entries are prefixed automatically.
+  Check with `BASE_PATH=/SvelteUILibraryPicker pnpm build`.
 - **Previews never go through SvelteKit**, so site CSS can't leak in. Don't import site styles
   into `previews/`.
 - Static svelte pages declare metadata with `<script module> export const frontmatter = {...}`.

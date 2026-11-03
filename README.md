@@ -39,6 +39,16 @@ pnpm dev        # http://localhost:5173
 
 Requires Node 22+ and pnpm 10.
 
+## Deployment
+
+Every push to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`. One-time setup:
+**Settings → Pages → Build and deployment → Source: GitHub Actions**. To test a sub-path build
+locally:
+
+```sh
+BASE_PATH=/SvelteUILibraryPicker pnpm build
+```
+
 ## Tech
 
 [SveltePress](https://github.com/SveltePress/sveltepress) (default theme) on SvelteKit 3,

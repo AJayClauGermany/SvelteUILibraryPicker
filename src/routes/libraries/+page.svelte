@@ -6,6 +6,7 @@
 </script>
 
 <script lang="ts">
+	import { url } from '#lib/url.ts'
 	import LibraryCard from '#lib/components/LibraryCard.svelte'
 	import { libraries } from '#lib/data/index.ts'
 
@@ -31,7 +32,7 @@
 
 <p>
 	Pick a library to see what it offers, then head to its <strong>official documentation</strong> —
-	that's always the source of truth. Want to see them side by side? Try <a href="/compare/">Compare</a>.
+	that's always the source of truth. Want to see them side by side? Try <a href={url('/compare/')}>Compare</a>.
 </p>
 
 <div class="ulp-filters">

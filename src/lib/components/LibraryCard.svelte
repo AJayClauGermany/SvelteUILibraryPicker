@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { url } from '#lib/url.ts'
 	import type { Library } from '#lib/data/schema.ts'
 	import AiPolicyBadge from './AiPolicyBadge.svelte'
 	import DocsLink from './DocsLink.svelte'
@@ -9,7 +10,7 @@
 
 <article class="card">
 	<header>
-		<h3><a href="/libraries/{library.id}/">{library.name}</a></h3>
+		<h3><a href={url(`/libraries/${library.id}/`)}>{library.name}</a></h3>
 		<span class="ulp-chip" title="License">{library.license.spdx}</span>
 	</header>
 	<p class="desc">{library.description}</p>
@@ -22,7 +23,7 @@
 	<footer>
 		<DocsLink href={library.docs}>Official docs</DocsLink>
 		<a href={library.repository} target="_blank" rel="noopener noreferrer">Source</a>
-		<a href="/libraries/{library.id}/">Details →</a>
+		<a href={url(`/libraries/${library.id}/`)}>Details →</a>
 	</footer>
 </article>
 

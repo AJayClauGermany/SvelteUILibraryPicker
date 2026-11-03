@@ -1,9 +1,10 @@
 <script lang="ts">
+	import { url } from '#lib/url.ts'
 	/**
 	 * Embeds an isolated, prerendered preview page. Falls back to a docs link when
 	 * no preview exists yet — the docs are always the real reference.
 	 */
-	import { hasPreview, previewUrl } from '#lib/previews.ts'
+	import { hasPreview, previewPath } from '#lib/previews.ts'
 	import DocsLink from './DocsLink.svelte'
 
 	interface Props {
@@ -25,7 +26,7 @@
 	</figcaption>
 	{#if available}
 		<iframe
-			src={previewUrl(library, component)}
+			src={url(previewPath(library, component))}
 			title="{libraryName} {componentName} preview (default styles)"
 			loading="lazy"
 		></iframe>
@@ -33,7 +34,7 @@
 		<div class="empty">
 			<p>No live preview yet.</p>
 			<p><DocsLink href={docs}>See it in the official docs</DocsLink></p>
-			<p class="ulp-muted"><a href="/guide/contributing/#adding-a-preview">Add a preview</a></p>
+			<p class="ulp-muted"><a href={url('/guide/contributing/#adding-a-preview')}>Add a preview</a></p>
 		</div>
 	{/if}
 </figure>

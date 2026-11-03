@@ -58,6 +58,18 @@ CSS and stop showing a library's real defaults. So previews are a tiny separate 
   `page.route.id`).
 - Desktop navbar links appear at widths of 1440px and up; below that they're in the menu.
 
+## Deployment
+
+`.github/workflows/deploy.yml` builds on every push to `main` and publishes `dist/` to GitHub
+Pages. `actions/configure-pages` provides the base path (`/SvelteUILibraryPicker` for the project
+site, or empty with a custom domain), and it's passed to both builds through `BASE_PATH`:
+
+- The site uses `svelteKitOptions.paths.base`. Svelte code links via `url()` in `#lib/url.ts`.
+- The preview app uses Vite `base: ${BASE_PATH}/preview/`.
+
+The output is plain static files, so any static host works (set `BASE_PATH` if it serves from
+a sub-path).
+
 ## SvelteKit 3 notes
 
 - `$lib` is replaced by `#lib` (package.json `imports`). Import TS with explicit extensions:

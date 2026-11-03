@@ -4,10 +4,10 @@
 
 ## Pages
 
-- [Libraries](/libraries/): all tracked libraries with filters
-- [Components](/components/): every component type and which libraries provide it
-- [Compare](/compare/): side-by-side matrix with live previews; state in ?libs=a,b&component=x
-- [Licenses & AI policy](/guide/licenses-and-ai/): how we use library material and respect AI boundaries
+- [Libraries](./libraries/): all tracked libraries with filters
+- [Components](./components/): every component type and which libraries provide it
+- [Compare](./compare/): side-by-side matrix with live previews; state in ?libs=a,b&component=x
+- [Licenses & AI policy](./guide/licenses-and-ai/): how we use library material and respect AI boundaries
 
 ## Source data
 

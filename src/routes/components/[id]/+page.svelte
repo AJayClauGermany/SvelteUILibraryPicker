@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { url } from '#lib/url.ts'
 	import PageMeta from '#lib/components/PageMeta.svelte'
 	import DocsLink from '#lib/components/DocsLink.svelte'
 	import PreviewFrame from '#lib/components/PreviewFrame.svelte'
@@ -32,7 +33,7 @@
 				{#each providers as lib (lib.id)}
 					{@const c = findComponent(lib, data.id)!}
 					<tr>
-						<td><a href="/libraries/{lib.id}/">{lib.name}</a></td>
+						<td><a href={url(`/libraries/${lib.id}/`)}>{lib.name}</a></td>
 						<td>{c.name}</td>
 						<td><DocsLink href={c.docs}>{lib.name} docs</DocsLink></td>
 						<td class="ulp-muted">{c.notes ?? ''}</td>
@@ -58,7 +59,7 @@
 
 {#if missing.length}
 	<h2 id="not-provided">Not listed for</h2>
-	<p class="ulp-muted">{missing.map(l => l.name).join(', ')}. If one of these does provide it, please <a href="/guide/contributing/">send a correction</a>.</p>
+	<p class="ulp-muted">{missing.map(l => l.name).join(', ')}. If one of these does provide it, please <a href={url('/guide/contributing/')}>send a correction</a>.</p>
 {/if}
 
 <style>

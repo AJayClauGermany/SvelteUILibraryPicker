@@ -18,7 +18,7 @@ function previewsDevServer(): Plugin {
 			})
 			server.httpServer?.on('close', () => previews.close())
 			server.middlewares.use((req, res, next) => {
-				if (req.url?.startsWith('/preview/') || req.url === '/preview') return previews.middlewares(req, res, next)
+				if (req.url?.startsWith(`${BASE}/preview/`) || req.url === `${BASE}/preview`) return previews.middlewares(req, res, next)
 				next()
 			})
 		},
@@ -49,6 +49,12 @@ const browseSidebar = [
 	},
 	{ title: 'Libraries', collapsible: true, items: librarySidebar() },
 ]
+
+/**
+ * Deploy base path. Empty for local dev and root-domain hosting; set BASE_PATH=/RepoName
+ * for GitHub Pages project sites (the deploy workflow does this).
+ */
+const BASE = (process.env.BASE_PATH ?? '') as '' | `/${string}`
 
 const REPO = 'https://github.com/AJayClauGermany/SvelteUILibraryPicker'
 
@@ -91,11 +97,12 @@ export default defineConfig({
 			svelteKitOptions: {
 				preprocess: [vitePreprocess()],
 				adapter: adapter({ pages: 'dist' }),
+				paths: { base: BASE },
 				prerender: {
 					handleMissingId: 'warn',
 					// /preview/ is a separate static app built after the site (see previews/).
 					handleHttpError: ({ path, message }) => {
-						if (path.startsWith('/preview/')) return
+						if (path.startsWith(`${BASE}/preview/`)) return
 						throw new Error(message)
 					},
 				},

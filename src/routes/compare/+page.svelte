@@ -6,27 +6,29 @@
 </script>
 
 <script lang="ts">
+	import { url } from '#lib/url.ts'
 	import type { ComponentId } from '#lib/data/index.ts'
-	import { replaceState } from '$app/navigation'
+	import { afterNavigate, replaceState } from '$app/navigation'
+	import { page } from '$app/state'
 	import DocsLink from '#lib/components/DocsLink.svelte'
 	import PreviewFrame from '#lib/components/PreviewFrame.svelte'
 	import { categories, componentsByCategory, components, coveredComponentIds, findComponent, libraries } from '#lib/data/index.ts'
-	import { onMount } from 'svelte'
 
 	let selected = $state<string[]>(libraries.slice(0, 3).map(l => l.id))
 	let category = $state('')
 	let onlyDifferences = $state(false)
 	let focus = $state<ComponentId | ''>('')
-	let ready = false
+	let ready = $state(false)
 
 	// State lives in the URL (?libs=a,b&component=x) so comparisons can be shared.
-	// The page is prerendered, so we only read it in the browser.
-	onMount(() => {
-		const params = new URLSearchParams(window.location.search)
+	// Read it after navigation completes (the page is prerendered, and during a
+	// client-side navigation window.location still points at the previous page).
+	afterNavigate(() => {
+		const params = page.url.searchParams
 		const libs = params.get('libs')?.split(',').filter(id => libraries.some(l => l.id === id))
 		if (libs?.length) selected = libs
 		const c = params.get('component')
-		if (c && c in components) focus = c as ComponentId
+		focus = c && c in components ? (c as ComponentId) : ''
 		category = params.get('category') ?? ''
 		ready = true
 	})
@@ -111,7 +113,7 @@
 			<thead>
 				<tr>
 					<th>Component</th>
-					{#each chosen as lib (lib.id)}<th><a href="/libraries/{lib.id}/">{lib.name}</a></th>{/each}
+					{#each chosen as lib (lib.id)}<th><a href={url(`/libraries/${lib.id}/`)}>{lib.name}</a></th>{/each}
 				</tr>
 			</thead>
 			<tbody>

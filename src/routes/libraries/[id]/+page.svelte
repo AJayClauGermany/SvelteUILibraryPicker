@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { url } from '#lib/url.ts'
 	import PageMeta from '#lib/components/PageMeta.svelte'
 	// Named `+page@.svelte` so SveltePress doesn't auto-wrap it with static
 	// frontmatter; we wrap PageLayout ourselves to give it a dynamic title.
@@ -7,7 +8,7 @@
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
 	import SvelteSupport from '#lib/components/SvelteSupport.svelte'
 	import { componentsByCategory, components } from '#lib/data/index.ts'
-	import { hasPreview, previewUrl } from '#lib/previews.ts'
+	import { hasPreview, previewPath } from '#lib/previews.ts'
 
 	const { data } = $props()
 	const lib = $derived(data.library)
@@ -25,7 +26,7 @@
 <p class="actions">
 	<DocsLink href={lib.docs} primary>Official documentation</DocsLink>
 	<a href={lib.repository} target="_blank" rel="noopener noreferrer">Source code</a>
-	<a href="/compare/?libs={lib.id}">Compare with others</a>
+	<a href={url(`/compare/?libs=${lib.id}`)}>Compare with others</a>
 </p>
 
 <SecondarySourceNotice lastVerified={lib.lastVerified} />
@@ -72,9 +73,9 @@
 					{@const c = byId.get(id)!}
 					<tr>
 						<td>{c.name}{#if c.notes}<div class="ulp-muted">{c.notes}</div>{/if}</td>
-						<td><a href="/components/{id}/">{components[id].name}</a></td>
+						<td><a href={url(`/components/${id}/`)}>{components[id].name}</a></td>
 						<td><DocsLink href={c.docs}>docs</DocsLink></td>
-						<td>{#if hasPreview(lib.id, id)}<a href={previewUrl(lib.id, id)} target="_blank" rel="noopener">live</a>{:else}<span class="ulp-muted">—</span>{/if}</td>
+						<td>{#if hasPreview(lib.id, id)}<a href={url(previewPath(lib.id, id))} target="_blank" rel="noopener">live</a>{:else}<span class="ulp-muted">—</span>{/if}</td>
 					</tr>
 				{/each}
 			</tbody>

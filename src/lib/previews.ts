@@ -22,6 +22,7 @@ export function hasPreview(library: string, component: string): boolean {
 	return `/previews/src/${library}/${component}.svelte` in files
 }
 
-export function previewUrl(library: string, component: string): string {
+/** Path of a preview page, WITHOUT the base path; wrap it in `url()` from `#lib/url.ts`. */
+export function previewPath(library: string, component: string): string {
 	return `/preview/?library=${encodeURIComponent(library)}&component=${encodeURIComponent(component)}`
 }

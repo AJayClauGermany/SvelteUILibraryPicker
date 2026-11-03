@@ -6,6 +6,7 @@
 </script>
 
 <script lang="ts">
+	import { url } from '#lib/url.ts'
 	import { componentsByCategory, components, coveredComponentIds, librariesWith, libraries } from '#lib/data/index.ts'
 
 	let showAll = $state(false)
@@ -25,7 +26,7 @@
 	<div class="grid">
 		{#each group.ids as id (id)}
 			{@const count = librariesWith(id).length}
-			<a class="item" href="/components/{id}/">
+			<a class="item" href={url(`/components/${id}/`)}>
 				<strong>{components[id].name}</strong>
 				<span class="ulp-muted">{components[id].description}</span>
 				<span class="ulp-chip">{count} / {libraries.length} libraries</span>

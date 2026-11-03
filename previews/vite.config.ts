@@ -9,7 +9,8 @@ import { defineConfig } from 'vite'
  */
 export default defineConfig({
 	root: fileURLToPath(new URL('.', import.meta.url)),
-	base: '/preview/',
+	// Must match the site's base path (see BASE_PATH in the root vite.config.ts).
+	base: `${process.env.BASE_PATH ?? ''}/preview/`,
 	plugins: [svelte()],
 	cacheDir: fileURLToPath(new URL('../node_modules/.vite-previews', import.meta.url)),
 	// Pre-bundle every preview's deps up front so the first load in dev doesn't 504.
