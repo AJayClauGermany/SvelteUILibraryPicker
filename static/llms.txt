@@ -1,0 +1,14 @@
+# Svelte UI Library Picker
+
+> A secondary-source comparison of Svelte UI libraries: Svelte version support, components (mapped to a shared taxonomy), licenses, AI policies and live previews of default styles. Always defer to each library's official documentation, which every page links to.
+
+## Pages
+
+- [Libraries](/libraries/): all tracked libraries with filters
+- [Components](/components/): every component type and which libraries provide it
+- [Compare](/compare/): side-by-side matrix with live previews; state in ?libs=a,b&component=x
+- [Licenses & AI policy](/guide/licenses-and-ai/): how we use library material and respect AI boundaries
+
+## Source data
+
+- [Repository](https://github.com/AJayClauGermany/SvelteUILibraryPicker): one TypeScript file per library in src/lib/data/libraries/

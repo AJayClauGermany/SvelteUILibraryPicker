@@ -1,0 +1,22 @@
+name: Maintainer request
+description: For maintainers of a listed library — corrections, removal, preview or AI-policy requests. Prioritised.
+labels: [maintainer-request]
+body:
+  - type: input
+    id: library
+    attributes:
+      label: Library
+    validations:
+      required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: What would you like us to change?
+      description: e.g. fix data, remove previews, update your AI policy (no AI-generated content, etc.), remove the listing.
+    validations:
+      required: true
+  - type: input
+    id: role
+    attributes:
+      label: Your role in the project
+      description: Helps us verify the request (e.g. link to your maintainer profile/commit).
