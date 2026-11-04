@@ -2,6 +2,7 @@ import { defineLibrary } from '../schema'
 
 const fc = 'https://www.skeleton.dev/docs/svelte/framework-components'
 const tw = 'https://www.skeleton.dev/docs/svelte/tailwind-components'
+const design = 'https://www.skeleton.dev/docs/svelte/design'
 
 export default defineLibrary({
 	id: 'skeleton',
@@ -50,11 +51,24 @@ export default defineLibrary({
 		},
 		{ id: 'file-upload', name: 'File Upload', docs: `${fc}/file-upload` },
 		{
+			id: 'floating-panel',
+			name: 'Floating Panel',
+			docs: `${fc}/floating-panel`,
+			notes: 'Draggable and resizable panel with minimize and maximize controls.',
+		},
+		{
 			id: 'list',
 			name: 'Listbox',
 			docs: `${fc}/listbox`,
 			notes: 'Selectable list supporting single or multiple selection.',
 		},
+		{
+			id: 'locale-provider',
+			name: 'Locale Provider',
+			docs: `${fc}/locale-provider`,
+			notes: 'Beta. Sets locale and reading direction for descendant components.',
+		},
+		{ id: 'marquee', name: 'Marquee', docs: `${fc}/marquee`, notes: 'Beta.' },
 		{
 			id: 'dropdown-menu',
 			name: 'Menu',
@@ -72,6 +86,12 @@ export default defineLibrary({
 			docs: `${fc}/navigation`,
 			notes: 'One component covering bar, rail, and sidebar navigation layouts.',
 		},
+		{
+			id: 'bottom-navigation',
+			name: 'Navigation (Bar)',
+			docs: `${fc}/navigation#bar`,
+			notes: 'The bar layout of the same Navigation component, meant to be fixed to the bottom on small screens.',
+		},
 		{ id: 'pagination', name: 'Pagination', docs: `${fc}/pagination` },
 		{ id: 'popover', name: 'Popover', docs: `${fc}/popover` },
 		{ id: 'portal', name: 'Portal', docs: `${fc}/portal` },
@@ -80,6 +100,12 @@ export default defineLibrary({
 			name: 'Progress - Linear',
 			docs: `${fc}/progress-linear`,
 			notes: 'A circular variant has its own page: Progress - Circular.',
+		},
+		{
+			id: 'qr-code',
+			name: 'QR Code',
+			docs: `${fc}/qr-code`,
+			notes: 'Beta. Supports a frame, overlay and a download trigger.',
 		},
 		{ id: 'rating', name: 'Rating Group', docs: `${fc}/rating-group` },
 		{
@@ -106,6 +132,12 @@ export default defineLibrary({
 		},
 		{ id: 'button', name: 'Buttons', docs: `${tw}/buttons`, notes: 'CSS classes only.' },
 		{ id: 'card', name: 'Cards', docs: `${tw}/cards`, notes: 'CSS classes only.' },
+		{
+			id: 'alert-dialog',
+			name: 'Dialogs (Alert Dialog)',
+			docs: `${tw}/dialogs#alert-dialog`,
+			notes: 'CSS classes only (beta); the native dialog element with role="alertdialog". The component-based Dialog is listed separately.',
+		},
 		{ id: 'separator', name: 'Dividers', docs: `${tw}/dividers`, notes: 'CSS classes only.' },
 		{ id: 'skeleton', name: 'Placeholders', docs: `${tw}/placeholders`, notes: 'CSS classes only.' },
 		{ id: 'table', name: 'Tables', docs: `${tw}/tables`, notes: 'CSS classes only.' },
@@ -152,10 +184,24 @@ export default defineLibrary({
 			notes: 'Tailwind classes for the native meter element.',
 		},
 		{
+			id: 'color-picker',
+			name: 'Forms and Inputs: Color',
+			docs: `${tw}/forms#color`,
+			notes: 'Tailwind classes for the native color input; no custom picker component.',
+		},
+		{
 			id: 'form',
 			name: 'Forms and Inputs: Fieldsets',
 			docs: `${tw}/forms#fieldsets`,
 			notes: 'Fieldset/legend styling only; no validation helpers.',
+		},
+
+		// Design system
+		{
+			id: 'typography',
+			name: 'Typography',
+			docs: `${design}/typography`,
+			notes: 'CSS classes only: opt-in utility classes for headings, paragraphs, code and other native text elements plus a theme-driven type scale.',
 		},
 	],
 	ai: {
@@ -170,11 +216,12 @@ export default defineLibrary({
 		],
 		llmsTxt: 'https://www.skeleton.dev/llms.txt',
 	},
-	lastVerified: '2026-11-03',
+	lastVerified: '2026-11-04',
 	notes: [
 		'Install both @skeletonlabs/skeleton (Tailwind theme and utilities) and @skeletonlabs/skeleton-svelte (components); the same docs also cover a React package.',
 		'Entries marked "CSS classes only" come from the Tailwind components section and are styles for native HTML elements rather than Svelte components.',
-		'Locale Provider, Marquee and QR Code are beta; Floating Panel, Segmented Control, Chips and Progress - Circular have no separate canonical entry here.',
+		'Locale Provider, Marquee and QR Code are beta. Segmented Control, Chips and Progress - Circular have no separate canonical entry here (see the Toggle Group, Badges and Progress notes).',
+		'Code Block (an integration guide for Shiki), Iconography (icon sizing utilities; the docs recommend Lucide) and the Layouts guide describe patterns rather than shipped components, so they are not listed.',
 		'The docs cookbook has recipes (e.g. breadcrumbs, alerts, light switch, clipboard) that are copyable patterns, not package components, so they are not listed.',
 	],
 })

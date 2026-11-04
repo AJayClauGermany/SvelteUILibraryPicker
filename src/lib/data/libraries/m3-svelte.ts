@@ -1,9 +1,12 @@
 import { defineLibrary } from '../schema'
 
 // The docs site has no per-component pages: every component is a demo card on the
-// home page, with a heading anchor built as `${title.toLowerCase().replaceAll(" ", "-")}-demo`
-// (see src/routes/_card.svelte in the repo).
-const c = (anchor: string) => `https://kendell.dev/m3-svelte/#${anchor}-demo`
+// home page (src/demos.md in the repo), with a heading anchor built as
+// `${title.toLowerCase().replaceAll(" ", "-")}-demo` (see src/routes/_card.svelte). Cards whose
+// demo has no interactive controls (Bottom sheet, Snackbar, Time picker, Layer) render a plain
+// button with no id, so they have no anchor and link to the home page instead.
+const home = 'https://kendell.dev/m3-svelte/'
+const c = (anchor: string) => `${home}#${anchor}-demo`
 
 export default defineLibrary({
 	id: 'm3-svelte',
@@ -30,6 +33,7 @@ export default defineLibrary({
 		{ id: 'button', name: 'Button', docs: c('button') },
 		{ id: 'button-group', name: 'ConnectedButtons', docs: c('connected-buttons'), notes: 'Can also act as a single/multi-select segmented control.' },
 		{ id: 'floating-action-button', name: 'FAB', docs: c('fab') },
+		{ id: 'split-button', name: 'SplitButton', docs: c('split-button'), notes: 'Main action plus a Menu of alternatives; elevated, filled, tonal and outlined variants.' },
 		{ id: 'dropdown-menu', name: 'Menu', docs: c('menu'), notes: 'Docs flag it as not yet updated to M3 Expressive.' },
 		{ id: 'input', name: 'TextField', docs: c('text-field'), notes: 'Filled and outlined (TextFieldOutlined) variants.' },
 		{ id: 'textarea', name: 'TextFieldMultiline', docs: c('text-field') },
@@ -39,19 +43,20 @@ export default defineLibrary({
 		{ id: 'select', name: 'Select', docs: c('select'), notes: 'SelectOutlined is the outlined variant.' },
 		{ id: 'slider', name: 'Slider', docs: c('slider') },
 		{ id: 'dialog', name: 'Dialog', docs: c('dialog') },
-		{ id: 'drawer', name: 'BottomSheet', docs: c('bottom-sheet') },
+		{ id: 'drawer', name: 'BottomSheet', docs: home, notes: 'Bottom edge only. Its demo card has no anchor, so the link goes to the docs home page.' },
 		{ id: 'tabs', name: 'Tabs', docs: c('tabs'), notes: 'VariableTabs sizes tabs to their content.' },
 		{ id: 'navigation-menu', name: 'NavCMLX', docs: c('nav-for-c/m/l/x'), notes: 'Adaptive navigation that changes form by window size class.' },
 		{ id: 'sidebar', name: 'NavigationRail', docs: c('navigation-rail') },
 		{ id: 'card', name: 'Card', docs: c('card') },
 		{ id: 'separator', name: 'Divider', docs: c('list'), notes: 'Shown inside the List demo; no demo of its own.' },
-		{ id: 'toast', name: 'Snackbar', docs: c('snackbar') },
+		{ id: 'toast', name: 'Snackbar', docs: home, notes: 'Queued through a snackbar() helper. Its demo card has no anchor, so the link goes to the docs home page.' },
 		{ id: 'progress', name: 'LinearProgress', docs: c('progress'), notes: 'Also wavy and circular variants, plus time-estimate versions.' },
 		{ id: 'spinner', name: 'LoadingIndicator', docs: c('loading') },
 		{ id: 'badge', name: 'Chip', docs: c('chip'), notes: 'Material chips are interactive (assist, filter, input), not passive badges.' },
 		{ id: 'list', name: 'ListItem', docs: c('list'), notes: 'Docs flag it as not yet updated to M3 Expressive.' },
 		{ id: 'date-picker', name: 'DateField', docs: c('date-field'), notes: 'Text field with a docked calendar picker; DateFieldOutlined is the outlined variant.' },
-		{ id: 'time-picker', name: 'TimePickerDial', docs: c('time-picker') },
+		{ id: 'time-picker', name: 'TimePickerDial', docs: home, notes: 'Dial-style picker opened in a dialog. Its demo card has no anchor, so the link goes to the docs home page.' },
+		{ id: 'icon', name: 'Icon', docs: c('icons'), notes: 'Renders Iconify-format icon objects (e.g. from @ktibow/iconset-material-symbols); no icon set is bundled.' },
 	],
 	ai: {
 		status: 'welcomes',
@@ -64,11 +69,12 @@ export default defineLibrary({
 		],
 		llmsTxt: 'https://kendell.dev/m3-svelte/llms.txt',
 	},
-	lastVerified: '2026-11-03',
+	lastVerified: '2026-11-04',
 	notes: [
 		'Docs have no per-component pages; component links point to the demo cards on the docs home page.',
 		'Needs the vite-plugin-functions-mixins Vite plugin and @ktibow/material-color-utilities-nightly as peer dependencies.',
 		'Tailwind and UnoCSS integrations are optional extras; styling ships as plain CSS custom properties.',
-		'Split button and an Icon component are also included but have no matching comparison category.',
+		'Also ships Material motion helpers (UI transitions, easings), a state-layer CSS class and shape paths, which have no comparison category.',
+		'ChipChooser and DatePickerDocked are exported but have no demo card of their own, so they are not listed here.',
 	],
 })

@@ -1,57 +1,125 @@
 # Backlog and good first issues
 
-Known gaps from the initial research (2026-11-03). Each item is a good self-contained task for
+Known gaps from the initial research (2026-11-03), updated 2026-11-04. Each item is a good self-contained task for
 a human or an agent. Re-verify against the official docs before acting; these notes are leads,
 not facts.
 
 ## Component types we don't have yet
 
-These components exist in at least one library but have no canonical id, so they are not listed.
-To fix one: add the id to `src/lib/data/components.ts`, then map every library that has it (with
-verified docs URLs).
+The first batch of suggestions (date/time range fields, typography, empty state, code block, split
+button, search, password input, editable, signature pad, angle slider, image cropper, floating
+panel, tour, marquee, QR code, timeline, table of contents, bottom navigation, footer, stack,
+virtual list, icon, timer, locale provider) was added to the taxonomy on 2026-11-04 and mapped
+for every library that documents them.
+
+These components still exist in at least one library but have no canonical id. To fix one: add
+the id to `src/lib/data/components.ts`, then map every library that has it (with verified docs
+URLs; most of these are already mentioned in `notes` of a nearby entry).
 
 | Suggested id | Category | Seen in |
 | --- | --- | --- |
-| `date-range-field` | date-time | Bits UI |
-| `time-range-field` | date-time | Bits UI |
-| `typography` | data-display | shadcn-svelte, Flowbite Svelte, Carbon |
-| `empty-state` | feedback | shadcn-svelte, Carbon |
-| `code-block` | data-display | shadcn-svelte, Carbon (CodeSnippet) |
-| `split-button` | actions | Carbon (ComboButton), M3 Svelte |
-| `search` | forms | Carbon |
-| `password-input` | forms | Ark UI |
-| `editable` / `inline-edit` | forms | Ark UI, Carbon |
-| `signature-pad` | forms | Ark UI |
-| `angle-slider` | forms | Ark UI |
-| `image-cropper` | forms | Ark UI |
-| `floating-panel` | overlays | Skeleton, Ark UI |
-| `tour` | overlays | Flowbite Svelte, Ark UI |
-| `marquee` | data-display | Skeleton, Ark UI |
-| `qr-code` | data-display | Skeleton, Ark UI |
-| `timeline` | data-display | Flowbite Svelte |
-| `table-of-contents` | navigation | Ark UI, Svelte UX, Carbon |
-| `bottom-navigation` | navigation | Flowbite Svelte |
-| `footer` | layout | Flowbite Svelte |
-| `stack` | layout | Svelte UX, Carbon |
-| `virtual-list` | data-display | Flowbite Svelte, Carbon, Svelte UX (InfiniteScroll) |
-| `icon` | data-display | Svelte UX, M3 Svelte, Sveltestrap, SVAR |
-| `timer` / `relative-time` | date-time | Ark UI, Carbon |
-| `locale-provider` | utilities | Skeleton, Ark UI, SVAR |
-| `spatial-menu` | navigation | Melt (WIP) |
-| chat components | (new category?) | shadcn-svelte, Carbon |
+| `segmented-control` | actions | Ark UI (Segment Group), Skeleton (Segmented Control) — currently folded into `toggle-group` |
+| `chip` (interactive) | actions | Skeleton (Chips), M3 Svelte (ChipChooser, undocumented) — currently folded into `badge` |
+| `progress-circular` | feedback | Ark UI, Skeleton, Flowbite (Progressradial) — currently a note under `progress` |
+| `banner` | feedback | Flowbite Svelte (Banner), Carbon (PageHeader is different) |
+| `page-header` | layout | Carbon (PageHeader) |
+| `description-list` | data-display | Carbon (DescriptionList, StructuredList) |
+| `content-switcher` | navigation | Carbon (ContentSwitcher) |
+| `step-indicator` | navigation | Flowbite Svelte (Step Indicator) — currently a note under `stepper` |
+| `kanban` | data-display | Flowbite Svelte (Kanban Board) |
+| `masonry` | layout | Flowbite Svelte (Virtual Masonry) |
+| `video` | data-display | Flowbite Svelte (Video) |
+| `device-mockup` | data-display | Flowbite Svelte (Device Mockups) |
+| `phone-input` | forms | Flowbite Svelte (Phone Input) |
+| `floating-label` | forms | Flowbite Svelte (Floating Label) — currently a note under `input` |
+| `input-group` | forms | Sveltestrap (InputGroup), shadcn-svelte (Input Group), Carbon (InputGroup, master only) |
+| `close-button` | actions | Flowbite Svelte (Close Button) |
+| `rich-text-editor` | forms | Flowbite Svelte (WYSIWYG plugin) |
+| `fullscreen` | utilities | SVAR Core (Fullscreen) |
+| `hotkeys` | utilities | Ark UI (Hotkeys, preview) |
+| `presence` / `transition` | utilities | Ark UI (Presence), Sveltestrap (Fade), M3 Svelte (UI transitions) |
+| `highlight` | data-display | Ark UI (Highlight) |
+| `format` helpers | utilities | Ark UI (Format Byte / Number / Time / Relative Time) |
+| `download-trigger` | utilities | Ark UI |
+| `client-only` / `lazy` | utilities | Ark UI (Client Only), Svelte UX (Lazy), Carbon (LazyMount, master only) |
+| `json-tree-view` | data-display | Ark UI (preview) — currently a note under `tree-view` |
+| `toggletip` | overlays | Carbon (Toggletip) |
+| `overlay` | overlays | Svelte UX (Overlay) |
+| `animated-value` | data-display | Svelte UX (ScrollingValue, SpringValue, TweenedValue) |
+| `effects` | utilities | Svelte UX (Shine, Tilt, Gooey) |
+| `storage` | utilities | Carbon (LocalStorage, SessionStorage) |
+| `spatial-menu` | navigation | Melt (WIP, no usage docs yet) |
+| chat components | (new category?) | shadcn-svelte (Message, Message Scroller, Bubble, Attachment, Marker, Trace, Questionnaire; plus an "AI Elements" docs section), Carbon (ChatLog, ChatButton on master; `@carbon/ai-chat` is a separate package) |
+
+Documented as guides or recipes rather than shipped components, so not mapped on purpose:
+Skeleton's Code Block (Shiki integration), Table of Contents, Alerts, Breadcrumbs, Light Switch and
+Clipboard cookbook pages. Revisit if the taxonomy ever lists recipes.
+
+Exported but undocumented (no deep link possible, so left out): Svelte UX `Kbd`, `SectionDivider`;
+Sveltestrap `Portal`, `Jumbotron`, `FormText`, `FormCheck`; M3 Svelte `ChipChooser`,
+`DatePickerDocked`; Ark UI `Portal`.
 
 ## Libraries to consider adding
 
-Check Svelte 5 support, license and AI stance first: e.g. Svelte Material UI (`@smui/*`),
-headless UI ports, and newer Svelte 5 libraries. Open an issue with the "Add a library"
-template to discuss.
+Source: the "What's new in Svelte" posts from January 2024 to October 2026 (read from the
+`sveltejs/svelte.dev` repo) plus well-known older kits, checked against npm and each repo on
+2026-11-04. Added in that pass: Svelte Material UI, Zag.js, Konsta UI, Kampsy UI, Bootstrap Svelte,
+Sivir UI and Lily. Still open:
+
+**shadcn-svelte registries (no npm package).** These install through the `shadcn-svelte` or
+`jsrepo` CLI. Decision (2026-11-04): add each one as a normal library entry. Record the CLI package
+in `packages` (e.g. `shadcn-svelte`, `jsrepo`), the registry's own release or repo version in
+`version`, `styling: ['copy-paste', 'tailwind']`, and say in `notes` that it is installed from a
+shadcn-svelte (or jsrepo) registry, the same way entries already note that a library needs Tailwind
+or Bootstrap CSS. Candidates:
+
+| Library | Repo | Docs | Notes |
+| --- | --- | --- | --- |
+| coss ui for Svelte | github.com/cossui-svelte/cossui-svelte | cossui-svelte.com | 69 components, MIT, llms.txt and agent skills; npm `cossui-svelte` is a placeholder |
+| shadcn-svelte-extras | github.com/ieedan/shadcn-svelte-extras | shadcn-svelte-extras.com | 33 components plus hooks and actions, MIT, llms.txt |
+| RetroUI Svelte | github.com/Mhamad6000/retroui-svelte | retroui-svelte.netlify.app | 40 components, MIT, last commit 2026-06 |
+| neobrutalism-svelte | github.com/olegpolin/neobrutalism-svelte | neobrutalism-svelte.flenze.com | 35 components, MIT |
+
+**Wait for a stable release or public docs:**
+
+| Library | Package | Why it waits |
+| --- | --- | --- |
+| Quaff (Material Design 3) | `@quaffui/quaff` 1.0.0-beta35 | prerelease |
+| FluentUI Svelte | `fluentui-svelte` 0.6.0 | README says the docs site is still being built |
+| MUKADE UI | `mukade-ui` 1.2.0 | docs site source not public, per-component URLs unverifiable |
+| Uniface Element | `@ticatec/uniface-element` 5.1.1 | no docs site; repo behind npm |
+| fox ui | `@foxui/core` 0.9.1 | README calls it a public alpha |
+| Trioxide | `@obelusfi/trioxide` 0.4.12 | work in progress, no LICENSE file |
+| Svelte Polaris | `svelte-polaris` 0.0.7 | 0.0.x and idle |
+| lomer-ui | `lomer-ui` 0.0.22 | 0.0.x; describes itself as not a component library |
+| mielui | `@mielui/svelte` 0.4.0 | found via npm, not researched yet |
+| svelte-headlessui (CaptainCodeman) | `svelte-headlessui` 0.0.46 | 0.0.x, idle since 2025-01 |
+
+**Probably not, unless something changes:** apple-svelte (idle, no LICENSE file), Origin UI Svelte
+(idle since 2025-06), Tark UI (no LICENSE file), SvelteUI (Svelte 3/4 only), Atom Forge UI
+(custom non-SPDX "Patron License"), Material Svelte by flenze (repo not found).
+
+**Skipped on purpose:** archived or Svelte 3/4-only kits (svelte-5-ui-lib, STWUI, Attractions,
+rgossiaux svelte-headlessui, Smelte, fluent-svelte, svelte-atoms, Grail UI, radix-svelte, the
+legacy `@melt-ui/svelte`), non-Svelte libraries (AgnosticUI, FlyonUI, daisyUI), single-purpose
+components (Formsnap, svelte-sonner, PaneForge, vaul-svelte, select-kit, data grids) and chart/3D
+libraries (LayerChart, Threlte). A "related tools" page could list the single-purpose ones later.
 
 ## Previews
 
-- Tailwind-based libraries need the Tailwind setup described in [previews.md](previews.md#roadmap).
-- Headless libraries (Melt, Ark UI) can get previews today, with no CSS needed.
-- Styled libraries that ship plain CSS (Sveltestrap with Bootstrap CSS, M3 Svelte, SVAR) can
-  get previews today.
+Coverage is tracked in [previews.md](previews.md#current-coverage). Open items:
+
+- **Svelte UX**: blocked on Tailwind 3 until 2.0 is stable (2.0.0-next.26 as of 2026-11-04).
+- **shadcn-svelte**: needs generated components; see the roadmap in previews.md.
+- Grow the per-library set beyond the eight target components (e.g. select, combobox,
+  date-picker, table) where several libraries share them.
+- Dark mode toggle for previews, where a library documents a default dark theme.
+- **Screenshot tests** (Playwright) are deferred on purpose. The open question is how useful they
+  are when run deterministically in CI: fonts, third-party CDN assets and animation timing make
+  pixel comparisons flaky, and a tolerant comparison may miss real regressions. For now previews
+  are checked by opening each one in a headless browser and asserting that it renders without
+  console errors (see the scripts used in the 2026-11-04 pass). Revisit once there is a plan for
+  deterministic rendering (bundled fonts, blocked network, disabled animations).
 
 ## Data notes to double-check
 
@@ -62,4 +130,18 @@ template to discuss.
 - **M3 Svelte** links go to anchored demo cards on its single-page docs.
 - **Sveltestrap** uses one `Input` component for many form controls, and several entries point
   to that page.
-- **Svelte UX 2.0** (Svelte 5, runes) is in prerelease. Update the entry when it's released.
+- **Svelte UX 2.0** (Svelte 5, runes, Tailwind 4) is still in prerelease (`next` dist-tag,
+  2.0.0-next.26). Update the entry and add previews when it's released.
+- **Carbon Components Svelte** deploys its docs site from `master`, which documents about 25
+  components that the published 0.113.1 does not export (Card, SidePanel, Splitter, StarRating,
+  Stepper, TagInput, Kbd, ConfirmModal, EmptyState, InlineEdit, TableOfContents, LayoutDirection,
+  Countdown, Prose, Layer, ThemeZone, AILabel, ChatLog, ChatButton, CopyText, CssGrid, InputGroup,
+  TooltipGroup, LazyMount). The entry follows the npm release; re-map these when 0.114.0 ships.
+- **M3 Svelte** demo cards without controls (Bottom Sheet, Snackbar, Time Picker, Layer) have no
+  anchor, so those entries link to the docs home.
+- **Docs hosts and network policy**: in the cloud agent environment most docs hosts (bits-ui.com,
+  ark-ui.com, skeleton.dev, flowbite-svelte.com, shadcn-svelte.com, next.melt-ui.com,
+  svelte.carbondesignsystem.com, kendell.dev, docs.svar.dev, sveltestrap.js.org,
+  svelte-ux.techniq.dev, svelte.dev) were blocked, so the 2026-11-04 URLs were derived from each
+  repo's docs source routing in a shallow clone, not fetched live. A spot check from a normal
+  browser is welcome.

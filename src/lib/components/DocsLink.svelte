@@ -18,6 +18,7 @@
 
 <style>
 	.docs-link {
+		position: relative;
 		display: inline-flex;
 		align-items: center;
 		gap: 0.2rem;
