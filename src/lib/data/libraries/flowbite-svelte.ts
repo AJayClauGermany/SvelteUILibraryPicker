@@ -6,6 +6,7 @@ const f = `${base}/forms`
 const t = `${base}/typography`
 const x = `${base}/extend`
 const u = `${base}/utilities`
+const i = 'https://flowbite-svelte.com/icons'
 
 export default defineLibrary({
 	id: 'flowbite-svelte',
@@ -43,6 +44,7 @@ export default defineLibrary({
 			docs: `${c}/badge`,
 			notes: 'A separate Indicator component shows dot/count markers positioned on other elements.',
 		},
+		{ id: 'bottom-navigation', name: 'Bottom Navigation', docs: `${c}/bottom-navigation` },
 		{ id: 'breadcrumb', name: 'Breadcrumb', docs: `${c}/breadcrumb` },
 		{ id: 'button-group', name: 'Button group', docs: `${c}/button-group` },
 		{ id: 'button', name: 'Button', docs: `${c}/buttons`, notes: 'GradientButton variant also exported.' },
@@ -70,6 +72,7 @@ export default defineLibrary({
 		},
 		{ id: 'drawer', name: 'Drawer', docs: `${c}/drawer` },
 		{ id: 'dropdown-menu', name: 'Dropdown', docs: `${c}/dropdown` },
+		{ id: 'footer', name: 'Footer', docs: `${c}/footer` },
 		{
 			id: 'form',
 			name: 'Forms',
@@ -103,7 +106,7 @@ export default defineLibrary({
 			id: 'sidebar',
 			name: 'Sidebar',
 			docs: `${c}/sidebar`,
-			notes: 'A mobile-style Bottom Navigation component is documented separately.',
+			notes: 'The mobile-style Bottom Navigation bar is mapped separately.',
 		},
 		{ id: 'skeleton', name: 'Skeleton', docs: `${c}/skeleton`, notes: 'Includes several preset placeholders (card, list, image...).' },
 		{ id: 'floating-action-button', name: 'SpeedDial', docs: `${c}/speed-dial` },
@@ -112,7 +115,7 @@ export default defineLibrary({
 			id: 'stepper',
 			name: 'Stepper',
 			docs: `${c}/stepper`,
-			notes: 'Timeline and StepIndicator components cover related patterns.',
+			notes: 'A StepIndicator component (Extend section) covers a similar pattern; Timeline is mapped separately.',
 		},
 		{
 			id: 'table',
@@ -121,6 +124,12 @@ export default defineLibrary({
 			notes: 'Includes a TableSearch helper; a DataTables plugin ships as a separate package.',
 		},
 		{ id: 'tabs', name: 'Tabs', docs: `${c}/tabs` },
+		{
+			id: 'timeline',
+			name: 'Timeline',
+			docs: `${c}/timeline`,
+			notes: 'Vertical, horizontal, activity-log and grouped variants of a chronological event list.',
+		},
 		{ id: 'toast', name: 'Toast', docs: `${c}/toast` },
 		{ id: 'tooltip', name: 'Tooltip', docs: `${c}/tooltip` },
 
@@ -136,17 +145,35 @@ export default defineLibrary({
 			id: 'input',
 			name: 'Input',
 			docs: `${f}/input-field`,
-			notes: 'Floating Label, Search and Phone input variants have their own pages.',
+			notes: 'Floating Label and Phone input variants have their own pages; Search is mapped separately.',
+		},
+		{
+			id: 'combobox',
+			name: 'Input (combobox)',
+			docs: `${f}/input-field`,
+			notes: 'Combobox mode of the Input component, enabled by passing a list of suggestions via the data prop.',
 		},
 		{ id: 'number-input', name: 'Number Input', docs: `${f}/number-input` },
 		{ id: 'radio-group', name: 'Radio', docs: `${f}/radio` },
+		{ id: 'search', name: 'Search', docs: `${f}/search-input`, notes: 'Includes clearable, dropdown and voice-search examples.' },
 		{ id: 'slider', name: 'Range', docs: `${f}/range` },
 		{ id: 'select', name: 'Select', docs: `${f}/select`, notes: 'MultiSelect is also available.' },
 		{ id: 'textarea', name: 'Textarea', docs: `${f}/textarea` },
-		{ id: 'time-picker', name: 'Timepicker', docs: `${f}/timepicker` },
+		{
+			id: 'time-picker',
+			name: 'Timepicker',
+			docs: `${f}/timepicker`,
+			notes: 'Also documents a start/end time range mode built from the same select-based picker.',
+		},
 		{ id: 'switch', name: 'Toggle', docs: `${f}/toggle` },
 
 		// Typography
+		{
+			id: 'typography',
+			name: 'Heading',
+			docs: `${t}/heading`,
+			notes: 'One of several typography components (Heading, P, Text, Blockquote, List) documented on separate pages.',
+		},
 		{ id: 'separator', name: 'Hr', docs: `${t}/hr` },
 		{ id: 'image', name: 'Img', docs: `${t}/image` },
 		{ id: 'link', name: 'A', docs: `${t}/link` },
@@ -159,8 +186,16 @@ export default defineLibrary({
 			notes: 'Supports single or multiple selection; individual ButtonToggle buttons are also exported.',
 		},
 		{ id: 'command-palette', name: 'CommandPalette', docs: `${x}/command-palette` },
+		{
+			id: 'table-of-contents',
+			name: 'Scroll Spy',
+			docs: `${x}/scroll-spy`,
+			notes: 'In-page navigation that highlights the section currently in view; links are supplied by you.',
+		},
 		{ id: 'resizable', name: 'SplitPane', docs: `${x}/split-pane` },
 		{ id: 'tags-input', name: 'Tags', docs: `${x}/tags` },
+		{ id: 'tour', name: 'Tour', docs: `${x}/tour` },
+		{ id: 'virtual-list', name: 'Virtual List', docs: `${x}/virtual-list`, notes: 'Supports variable item heights and scroll-to-index.' },
 
 		// Utilities
 		{ id: 'label', name: 'Label', docs: `${u}/label` },
@@ -172,6 +207,12 @@ export default defineLibrary({
 			name: 'Charts',
 			docs: `${base}/plugins/charts`,
 			notes: 'ApexCharts-based; installed separately as @flowbite-svelte-plugins/chart.',
+		},
+		{
+			id: 'icon',
+			name: 'Flowbite Svelte Icons',
+			docs: `${i}/quickstart`,
+			notes: 'Documented on the same site but installed separately as flowbite-svelte-icons.',
 		},
 	],
 	ai: {
@@ -187,11 +228,11 @@ export default defineLibrary({
 		],
 		llmsTxt: 'https://flowbite-svelte.com/llms.txt',
 	},
-	lastVerified: '2026-11-03',
+	lastVerified: '2026-11-04',
 	notes: [
 		'Requires Tailwind CSS v4 (peerDependency tailwindcss ^4.1.4).',
 		'A 2.0 pre-release is published under the npm "next" tag; facts here describe the 1.x "latest" release.',
 		'Charts, DataTables and WYSIWYG are documented as plugins but ship in separate @flowbite-svelte-plugins packages; icons are also a separate package.',
-		'Not mapped to a canonical id: Banner, Bottom Navigation, Device Mockups, Footer, Gallery, Indicator, Mega Menu, Timeline, Video, typography pieces (Heading, Paragraph, Blockquote, Text), Clipboard Manager, Kanban Board, Scroll Spy, Tour, Virtual List, Virtual Masonry, Close Button, WYSIWYG.',
+		'Not mapped to a canonical id: Banner, Device Mockups, Gallery, Indicator, Mega Menu, Video, Floating Label, Phone Input, Clipboard Manager, Kanban Board, Virtual Masonry, Close Button, Progressradial, StepIndicator, DataTables, WYSIWYG.',
 	],
 })
