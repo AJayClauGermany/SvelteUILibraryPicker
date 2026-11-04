@@ -61,9 +61,46 @@ Sveltestrap `Portal`, `Jumbotron`, `FormText`, `FormCheck`; M3 Svelte `ChipChoos
 
 ## Libraries to consider adding
 
-Check Svelte 5 support, license and AI stance first: e.g. Svelte Material UI (`@smui/*`),
-headless UI ports, and newer Svelte 5 libraries. Open an issue with the "Add a library"
-template to discuss.
+Source: the "What's new in Svelte" posts from January 2024 to October 2026 (read from the
+`sveltejs/svelte.dev` repo) plus well-known older kits, checked against npm and each repo on
+2026-11-04. Added in that pass: Svelte Material UI, Zag.js, Konsta UI, Kampsy UI, Bootstrap Svelte,
+Sivir UI and Lily. Still open:
+
+**shadcn-svelte registries (no npm package).** These install through the `shadcn-svelte` or
+`jsrepo` CLI, so the schema's `packages`/`version` fields don't fit yet. Decide how to record
+registries (e.g. a `distribution: 'registry'` flag plus the repo version), then add:
+
+| Library | Repo | Docs | Notes |
+| --- | --- | --- | --- |
+| coss ui for Svelte | github.com/cossui-svelte/cossui-svelte | cossui-svelte.com | 69 components, MIT, llms.txt and agent skills; npm `cossui-svelte` is a placeholder |
+| shadcn-svelte-extras | github.com/ieedan/shadcn-svelte-extras | shadcn-svelte-extras.com | 33 components plus hooks and actions, MIT, llms.txt |
+| RetroUI Svelte | github.com/Mhamad6000/retroui-svelte | retroui-svelte.netlify.app | 40 components, MIT, last commit 2026-06 |
+| neobrutalism-svelte | github.com/olegpolin/neobrutalism-svelte | neobrutalism-svelte.flenze.com | 35 components, MIT |
+
+**Wait for a stable release or public docs:**
+
+| Library | Package | Why it waits |
+| --- | --- | --- |
+| Quaff (Material Design 3) | `@quaffui/quaff` 1.0.0-beta35 | prerelease |
+| FluentUI Svelte | `fluentui-svelte` 0.6.0 | README says the docs site is still being built |
+| MUKADE UI | `mukade-ui` 1.2.0 | docs site source not public, per-component URLs unverifiable |
+| Uniface Element | `@ticatec/uniface-element` 5.1.1 | no docs site; repo behind npm |
+| fox ui | `@foxui/core` 0.9.1 | README calls it a public alpha |
+| Trioxide | `@obelusfi/trioxide` 0.4.12 | work in progress, no LICENSE file |
+| Svelte Polaris | `svelte-polaris` 0.0.7 | 0.0.x and idle |
+| lomer-ui | `lomer-ui` 0.0.22 | 0.0.x; describes itself as not a component library |
+| mielui | `@mielui/svelte` 0.4.0 | found via npm, not researched yet |
+| svelte-headlessui (CaptainCodeman) | `svelte-headlessui` 0.0.46 | 0.0.x, idle since 2025-01 |
+
+**Probably not, unless something changes:** apple-svelte (idle, no LICENSE file), Origin UI Svelte
+(idle since 2025-06), Tark UI (no LICENSE file), SvelteUI (Svelte 3/4 only), Atom Forge UI
+(custom non-SPDX "Patron License"), Material Svelte by flenze (repo not found).
+
+**Skipped on purpose:** archived or Svelte 3/4-only kits (svelte-5-ui-lib, STWUI, Attractions,
+rgossiaux svelte-headlessui, Smelte, fluent-svelte, svelte-atoms, Grail UI, radix-svelte, the
+legacy `@melt-ui/svelte`), non-Svelte libraries (AgnosticUI, FlyonUI, daisyUI), single-purpose
+components (Formsnap, svelte-sonner, PaneForge, vaul-svelte, select-kit, data grids) and chart/3D
+libraries (LayerChart, Threlte). A "related tools" page could list the single-purpose ones later.
 
 ## Previews
 
