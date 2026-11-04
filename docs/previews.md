@@ -13,6 +13,9 @@ styling**, side by side, with a docs link for each.
   only. Each library has its own `previews/src/<lib>/styles.css` that imports Tailwind with
   `source(none)`, the library's documented default theme, and `@source` limited to that
   library's folder and package, so themes and utilities never mix between libraries.
+- **M3 Svelte** compiles its component styles through the `vite-plugin-functions-mixins` plugin
+  from its quick start, registered in `previews/vite.config.ts`; `previews/src/m3-svelte/styles.css`
+  holds the quick start's base styles and the theme page's default colour snippet.
 - **Copy-paste libraries** (shadcn-svelte): the "default" is the generated component with its
   default theme. Not supported yet, because it needs generated files per component.
 
@@ -33,6 +36,7 @@ styling**, side by side, with a docs link for each.
 | Bits UI | accordion, button, checkbox, dialog, switch, tabs |
 | Carbon Components Svelte | accordion, alert, badge, button, checkbox, dialog, switch, tabs |
 | Flowbite Svelte | accordion, alert, badge, button, checkbox, dialog, switch, tabs |
+| M3 Svelte | badge, button, checkbox, dialog, switch, tabs |
 | Melt UI (next-gen) | accordion, dialog, tabs |
 | Skeleton | accordion, badge, button, checkbox, dialog, switch, tabs |
 | SVAR Core | button, checkbox, dialog, switch, tabs |
@@ -47,9 +51,6 @@ Not covered yet:
 - **Svelte UX** 1.x requires Tailwind 3 (its theme is a Tailwind 3 plugin), so it cannot run in
   the Tailwind 4 pipeline. Revisit when Svelte UX 2.0 (Svelte 5 + Tailwind 4) leaves prerelease.
 - **shadcn-svelte** is copy-paste; see above.
-- **M3 Svelte** needs the `vite-plugin-functions-mixins` Vite plugin from its quick start, which
-  compiles the mixins its component styles use; see the M3 Svelte section in the preview app
-  once added.
 
 ## Roadmap
 

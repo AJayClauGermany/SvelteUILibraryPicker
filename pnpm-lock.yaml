@@ -67,7 +67,7 @@ importers:
         version: 1.33.1(rollup@2.80.0)(svelte@5.57.3)(tailwindcss@4.3.4)
       m3-svelte:
         specifier: 7.2.1
-        version: 7.2.1(svelte@5.57.3)
+        version: 7.2.1(svelte@5.57.3)(vite-plugin-functions-mixins@0.4.1(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1)))
       melt:
         specifier: 0.44.0
         version: 0.44.0(@floating-ui/dom@1.8.0)(svelte@5.57.3)
@@ -89,6 +89,9 @@ importers:
       vite:
         specifier: ^8.3.5
         version: 8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1)
+      vite-plugin-functions-mixins:
+        specifier: 0.4.1
+        version: 0.4.1(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1))
       vitest:
         specifier: ^5.1.0
         version: 5.1.0(@types/node@24.19.2)(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1))
@@ -4265,6 +4268,11 @@ packages:
     resolution: {integrity: sha512-FwjApRNZyN+RucPW9Z9kf0dyzyi3r3zlDfrTnzHXNaYpmT3pZ5w//d6QkApy1iypbDm+3fq+Gwfv+PYA4j4uYw==}
     engines: {node: '>=20.0.0'}
 
+  vite-plugin-functions-mixins@0.4.1:
+    resolution: {integrity: sha512-xl9wCfeEvJls+5wnEa76xQ3nrnNOw1Zm9C4mc49dQrHTXRNTV3mwOsFILGxRsjOCm6mJwp3TfjIDFbyFPppe1g==}
+    peerDependencies:
+      vite: ^7.2.4
+
   vite-plugin-inspect@11.4.1:
     resolution: {integrity: sha512-ShOFe2PURXGvRS5OrgmOLZOCwDTD7dEBVt0tMpFPKb9AsvqXKCRGM8QgKrUbRbJYFXScHvDPpGRd28rYidC0tA==}
     engines: {node: '>=14'}
@@ -8327,11 +8335,13 @@ snapshots:
 
   lz-string@1.5.0: {}
 
-  m3-svelte@7.2.1(svelte@5.57.3):
+  m3-svelte@7.2.1(svelte@5.57.3)(vite-plugin-functions-mixins@0.4.1(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1))):
     dependencies:
       '@iconify/types': 2.0.0
       '@ktibow/iconset-material-symbols': 0.0.1764827375
       svelte: 5.57.3
+    optionalDependencies:
+      vite-plugin-functions-mixins: 0.4.1(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1))
 
   magic-string@0.30.21:
     dependencies:
@@ -9868,6 +9878,10 @@ snapshots:
       sharp: 0.34.5
     transitivePeerDependencies:
       - rollup
+
+  vite-plugin-functions-mixins@0.4.1(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1)):
+    dependencies:
+      vite: 8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1)
 
   vite-plugin-inspect@11.4.1(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1)):
     dependencies:
