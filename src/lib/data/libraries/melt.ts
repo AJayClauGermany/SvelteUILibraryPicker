@@ -50,7 +50,7 @@ export default defineLibrary({
 			'https://github.com/melt-ui/next-gen/tree/main/docs',
 		],
 	},
-	lastVerified: '2026-11-03',
+	lastVerified: '2026-11-04',
 	notes: [
 		'Still 0.x; this is the successor to @melt-ui/svelte (the Svelte 3/4-era store-based library), published under the npm name "melt".',
 		'Requires @floating-ui/dom (^1.6.0) as a peer dependency.',

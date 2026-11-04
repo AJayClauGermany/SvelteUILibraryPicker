@@ -41,6 +41,7 @@ export const components = {
 	'context-menu': { name: 'Context Menu', category: 'actions', description: 'A menu opened by right-click / long-press.' },
 	menubar: { name: 'Menubar', category: 'actions', description: 'A horizontal bar of persistent menus.' },
 	'floating-action-button': { name: 'Floating Action Button', category: 'actions', description: 'A prominent floating primary action.', aliases: ['FAB', 'Speed Dial'] },
+	'split-button': { name: 'Split Button', category: 'actions', description: 'A primary action with an attached menu of alternatives.', aliases: ['Combo Button'] },
 
 	// Forms & Inputs
 	input: { name: 'Text Input', category: 'forms', description: 'Single-line text field.', aliases: ['TextField', 'Input'] },
@@ -59,6 +60,12 @@ export const components = {
 	'rating': { name: 'Rating', category: 'forms', description: 'Pick a score, usually with stars.', aliases: ['Rating Group'] },
 	label: { name: 'Label', category: 'forms', description: 'Accessible label for a control.' },
 	form: { name: 'Form', category: 'forms', description: 'Form helpers: fields, validation, errors.', aliases: ['Field', 'Fieldset'] },
+	search: { name: 'Search', category: 'forms', description: 'Text input tailored for searching, often with a clear button.', aliases: ['Search Input'] },
+	'password-input': { name: 'Password Input', category: 'forms', description: 'Text field with a show/hide toggle.' },
+	editable: { name: 'Editable', category: 'forms', description: 'Text that becomes an input when activated.', aliases: ['Inline Edit'] },
+	'signature-pad': { name: 'Signature Pad', category: 'forms', description: 'Draw a signature with pointer or touch.' },
+	'angle-slider': { name: 'Angle Slider', category: 'forms', description: 'Pick an angle on a circular control.' },
+	'image-cropper': { name: 'Image Cropper', category: 'forms', description: 'Crop and resize an image.' },
 
 	// Overlays
 	dialog: { name: 'Dialog', category: 'overlays', description: 'Modal window over the page.', aliases: ['Modal'] },
@@ -68,6 +75,8 @@ export const components = {
 	tooltip: { name: 'Tooltip', category: 'overlays', description: 'Short hint on hover/focus.' },
 	'hover-card': { name: 'Hover Card', category: 'overlays', description: 'Rich preview shown on hover.', aliases: ['Link Preview'] },
 	'command-palette': { name: 'Command Palette', category: 'overlays', description: 'Searchable list of commands.', aliases: ['Command'] },
+	'floating-panel': { name: 'Floating Panel', category: 'overlays', description: 'Draggable, resizable window-like panel.' },
+	tour: { name: 'Tour', category: 'overlays', description: 'Step-by-step walkthrough highlighting parts of the page.', aliases: ['Onboarding', 'Walkthrough'] },
 
 	// Navigation
 	tabs: { name: 'Tabs', category: 'navigation', description: 'Switch between panels of content.' },
@@ -75,8 +84,10 @@ export const components = {
 	pagination: { name: 'Pagination', category: 'navigation', description: 'Navigate between pages of content.' },
 	'navigation-menu': { name: 'Navigation Menu', category: 'navigation', description: 'Site navigation links with optional flyouts.', aliases: ['Navbar', 'App Bar', 'Navigation'] },
 	sidebar: { name: 'Sidebar', category: 'navigation', description: 'Vertical app navigation.', aliases: ['Navigation Rail', 'Side Nav'] },
-	stepper: { name: 'Steps', category: 'navigation', description: 'Progress through a multi-step flow.', aliases: ['Stepper', 'Wizard', 'Timeline'] },
+	stepper: { name: 'Steps', category: 'navigation', description: 'Progress through a multi-step flow.', aliases: ['Stepper', 'Wizard'] },
 	link: { name: 'Link', category: 'navigation', description: 'Styled anchor.' },
+	'table-of-contents': { name: 'Table of Contents', category: 'navigation', description: 'In-page links that track the visible heading.', aliases: ['TOC', 'On this page'] },
+	'bottom-navigation': { name: 'Bottom Navigation', category: 'navigation', description: 'Fixed bar of primary destinations at the bottom of the screen.', aliases: ['Bottom Nav', 'Tab Bar'] },
 
 	// Layout
 	accordion: { name: 'Accordion', category: 'layout', description: 'Stacked, expandable sections.' },
@@ -88,6 +99,8 @@ export const components = {
 	resizable: { name: 'Resizable', category: 'layout', description: 'Panels resized by dragging.', aliases: ['Splitter', 'Pane Group'] },
 	toolbar: { name: 'Toolbar', category: 'layout', description: 'A container of grouped controls.' },
 	grid: { name: 'Grid', category: 'layout', description: 'Layout grid helpers.' },
+	stack: { name: 'Stack', category: 'layout', description: 'Lays children out in a row or column with consistent spacing.', aliases: ['Flex', 'Layout'] },
+	footer: { name: 'Footer', category: 'layout', description: 'Page footer with links and legal text.' },
 
 	// Feedback
 	alert: { name: 'Alert', category: 'feedback', description: 'Inline, non-modal status message.', aliases: ['Callout', 'Banner', 'Notification'] },
@@ -95,6 +108,7 @@ export const components = {
 	progress: { name: 'Progress', category: 'feedback', description: 'Shows completion of a task.', aliases: ['Progress Bar', 'Progress Ring'] },
 	spinner: { name: 'Spinner', category: 'feedback', description: 'Indeterminate loading indicator.', aliases: ['Loading', 'Loader'] },
 	skeleton: { name: 'Skeleton', category: 'feedback', description: 'Placeholder while content loads.', aliases: ['Placeholder'] },
+	'empty-state': { name: 'Empty State', category: 'feedback', description: 'Placeholder shown when there is nothing to display.', aliases: ['Empty'] },
 
 	// Data display
 	avatar: { name: 'Avatar', category: 'data-display', description: 'Image or initials for a user.' },
@@ -107,6 +121,13 @@ export const components = {
 	image: { name: 'Image', category: 'data-display', description: 'Image helpers.' },
 	meter: { name: 'Meter', category: 'data-display', description: 'A scalar value within a known range.' },
 	chart: { name: 'Chart', category: 'data-display', description: 'Data visualisation.' },
+	typography: { name: 'Typography', category: 'data-display', description: 'Styled headings, paragraphs and text helpers.', aliases: ['Heading', 'Text', 'Prose'] },
+	'code-block': { name: 'Code Block', category: 'data-display', description: 'Displays source code, usually with copy or highlighting.', aliases: ['Code Snippet', 'Code'] },
+	timeline: { name: 'Timeline', category: 'data-display', description: 'Events laid out along a vertical or horizontal line.' },
+	marquee: { name: 'Marquee', category: 'data-display', description: 'Content that scrolls continuously.' },
+	'qr-code': { name: 'QR Code', category: 'data-display', description: 'Renders a QR code from a value.' },
+	'virtual-list': { name: 'Virtual List', category: 'data-display', description: 'Renders only the visible rows of a long list.', aliases: ['Virtual Scroll', 'Infinite Scroll'] },
+	icon: { name: 'Icon', category: 'data-display', description: 'Renders an icon from a set or an SVG path.' },
 
 	// Date & Time
 	calendar: { name: 'Calendar', category: 'date-time', description: 'Inline month view for picking dates.' },
@@ -115,6 +136,9 @@ export const components = {
 	'date-range-picker': { name: 'Date Range Picker', category: 'date-time', description: 'Choose a start and end date.' },
 	'time-picker': { name: 'Time Picker', category: 'date-time', description: 'Choose a time.', aliases: ['Time Field'] },
 	'date-field': { name: 'Date Field', category: 'date-time', description: 'Segmented keyboard-editable date input.' },
+	'date-range-field': { name: 'Date Range Field', category: 'date-time', description: 'Segmented keyboard-editable start and end date input.' },
+	'time-range-field': { name: 'Time Range Field', category: 'date-time', description: 'Segmented keyboard-editable start and end time input.' },
+	timer: { name: 'Timer', category: 'date-time', description: 'Counts up or down, or shows a relative time.', aliases: ['Countdown', 'Relative Time'] },
 
 	// Utilities
 	portal: { name: 'Portal', category: 'utilities', description: 'Render content elsewhere in the DOM.' },
@@ -122,6 +146,7 @@ export const components = {
 	'focus-trap': { name: 'Focus Trap', category: 'utilities', description: 'Keep focus inside a region.' },
 	'theme-switcher': { name: 'Theme Switcher', category: 'utilities', description: 'Toggle light/dark or themes.', aliases: ['Dark Mode', 'Light Switch'] },
 	clipboard: { name: 'Clipboard', category: 'utilities', description: 'Copy to clipboard helpers.' },
+	'locale-provider': { name: 'Locale Provider', category: 'utilities', description: 'Sets locale, direction or environment for descendant components.', aliases: ['Locale', 'Environment Provider', 'Settings'] },
 } as const satisfies Record<string, ComponentDefinition>
 
 export type ComponentId = keyof typeof components
