@@ -37,7 +37,13 @@ Output: `previews/src/<library-id>/<component-id>.svelte`, plus the library as a
    - Write a **minimal** example of your own. Don't copy the docs' examples.
    - **No styles of ours.** No `<style>` blocks, classes or wrappers that change the look.
    - Import the library's CSS inside the preview file, not globally.
-   - Libraries that need Tailwind are not supported yet (see `docs/previews.md`).
+   - Libraries that need Tailwind get one `previews/src/<library-id>/styles.css` (see Skeleton
+     or Flowbite Svelte for the pattern: `@import 'tailwindcss' source(none)`, the library's
+     documented theme imports, and `@source` lines for this folder and the library's package).
+     Every preview of that library imports `./styles.css`. Add any plugin package the
+     library's install guide requires (e.g. `flowbite`, `@tailwindcss/forms`) as a devDependency.
+   - Libraries that need a Vite plugin (e.g. M3 Svelte) register it in `previews/vite.config.ts`
+     only, never in the site's root config.
 4. Check it: `pnpm dev`, then open `/preview/?library=<id>&component=<id>` and the component's
    page at `/components/<id>/`.
 5. `pnpm verify`
