@@ -67,8 +67,11 @@ Source: the "What's new in Svelte" posts from January 2024 to October 2026 (read
 Sivir UI and Lily. Still open:
 
 **shadcn-svelte registries (no npm package).** These install through the `shadcn-svelte` or
-`jsrepo` CLI, so the schema's `packages`/`version` fields don't fit yet. Decide how to record
-registries (e.g. a `distribution: 'registry'` flag plus the repo version), then add:
+`jsrepo` CLI. Decision (2026-11-04): add each one as a normal library entry. Record the CLI package
+in `packages` (e.g. `shadcn-svelte`, `jsrepo`), the registry's own release or repo version in
+`version`, `styling: ['copy-paste', 'tailwind']`, and say in `notes` that it is installed from a
+shadcn-svelte (or jsrepo) registry, the same way entries already note that a library needs Tailwind
+or Bootstrap CSS. Candidates:
 
 | Library | Repo | Docs | Notes |
 | --- | --- | --- | --- |
@@ -110,8 +113,13 @@ Coverage is tracked in [previews.md](previews.md#current-coverage). Open items:
 - **shadcn-svelte**: needs generated components; see the roadmap in previews.md.
 - Grow the per-library set beyond the eight target components (e.g. select, combobox,
   date-picker, table) where several libraries share them.
-- **Screenshot tests** (Playwright) so preview regressions show up in PRs.
 - Dark mode toggle for previews, where a library documents a default dark theme.
+- **Screenshot tests** (Playwright) are deferred on purpose. The open question is how useful they
+  are when run deterministically in CI: fonts, third-party CDN assets and animation timing make
+  pixel comparisons flaky, and a tolerant comparison may miss real regressions. For now previews
+  are checked by opening each one in a headless browser and asserting that it renders without
+  console errors (see the scripts used in the 2026-11-04 pass). Revisit once there is a plan for
+  deterministic rendering (bundled fonts, blocked network, disabled animations).
 
 ## Data notes to double-check
 
