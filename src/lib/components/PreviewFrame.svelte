@@ -34,7 +34,7 @@
 		<div class="empty">
 			<p>No live preview yet.</p>
 			<p><DocsLink href={docs}>See it in the official docs</DocsLink></p>
-			<p class="ulp-muted"><a href={url('/guide/contributing/#adding-a-preview')}>Add a preview</a></p>
+			<p class="ulp-muted"><a href={url('/guide/contributing/#Adding-a-preview')}>Add a preview</a></p>
 		</div>
 	{/if}
 </figure>
