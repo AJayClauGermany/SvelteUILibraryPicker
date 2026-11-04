@@ -22,6 +22,8 @@ Works for any agent or human. Output: one file, `src/lib/data/libraries/<id>.ts`
 | `license` | The LICENSE file in the repo (SPDX id exactly as stated) |
 | `docs`, `repository` | Package `homepage`/`repository` fields and the README |
 | `components[].docs` | The docs site, or the docs source routing in the repo (e.g. `docs/content/components/x.md` gives `/docs/components/x`) |
+| `dependencies` | `npm view <pkg>@<version> peerDependencies peerDependenciesMeta --json`, plus the install / getting-started and theming docs (Tailwind, UnoCSS, Sass, PostCSS, CSS framework, Vite plugins) |
+| `features` | The docs and source, against the definitions in `featureInfo` in `schema.ts` (e.g. `semantic-colors` needs role-based color props the theme maps; `accessibility` needs per-component keyboard/ARIA docs) |
 | `ai` | Look for `llms.txt`, MCP servers, `AGENTS.md`/`CLAUDE.md`, CONTRIBUTING sections on AI, and LICENSE terms |
 
 If the docs site is unreachable: `git clone --depth 1 <repo>` into a temp dir and read the docs source.
@@ -36,6 +38,10 @@ Copy an existing entry (e.g. `bits-ui.ts`) and follow `src/lib/data/schema.ts`:
   Use one entry per id, choosing the closest match and noting alternatives in `notes`. If no id
   fits, add a generic one to `components.ts` (kebab-case, right category), or list the
   component in the PR description and `docs/backlog.md`.
+- `dependencies`: packages the user adds to *their* project besides `svelte` and `packages`. Don't
+  list the library's regular `dependencies` (npm installs those). Each item needs `kind`, `required`
+  (does a basic install need it?) and a `source` URL. Use `[]` when nothing else is needed. If
+  `styling` includes `tailwind`, list `tailwindcss` as required with its major in `range`.
 - `ai.status`:
   - `welcomes`: an explicit pro-AI signal (llms.txt, MCP, agent skills, AI docs).
   - `no-statement`: you checked and found nothing.

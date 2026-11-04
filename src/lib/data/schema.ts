@@ -27,11 +27,15 @@ export type StylingApproach =
 	/** Components are copied into your project (shadcn-style) rather than imported. */
 	| 'copy-paste'
 
-/** Free-form but conventional feature tags. Prefer an existing tag before adding one. */
+/**
+ * Conventional feature tags. Only add a tag when the library's own docs or source back it up,
+ * using the definitions in `featureInfo` below. Prefer an existing tag before adding one.
+ */
 export type FeatureTag =
 	| 'typescript'
 	| 'ssr'
 	| 'accessibility'
+	| 'semantic-colors'
 	| 'theming'
 	| 'dark-mode'
 	| 'rtl'
@@ -43,6 +47,88 @@ export type FeatureTag =
 	| 'design-system'
 	| 'runes'
 	| 'cli'
+
+/** Label and the bar a library must clear for each feature tag (shown on the site). */
+export const featureInfo: Record<FeatureTag, { label: string, description: string }> = {
+	'typescript': {
+		label: 'Fully typed',
+		description: 'Written in TypeScript or ships type definitions, so component props, events and snippets are typed.',
+	},
+	'ssr': { label: 'SSR', description: 'Docs state the components work with server-side rendering (e.g. in SvelteKit).' },
+	'accessibility': {
+		label: 'Accessibility',
+		description: 'Docs describe keyboard support and WAI-ARIA roles/patterns for the components, not just a general claim.',
+	},
+	'semantic-colors': {
+		label: 'Semantic colors',
+		description: 'Components take colors by role (primary, secondary, success, warning, error…) that the theme maps to actual colors.',
+	},
+	'theming': { label: 'Theming', description: 'Documents a way to change the look globally (tokens, CSS variables, theme files).' },
+	'dark-mode': { label: 'Dark mode', description: 'Ships or documents a dark theme / dark variant for its components.' },
+	'rtl': { label: 'RTL', description: 'Documents right-to-left layout support.' },
+	'i18n': { label: 'i18n', description: 'Documents localization of built-in strings, dates or numbers.' },
+	'forms': { label: 'Forms', description: 'Covers form controls broadly, or documents form/validation integration.' },
+	'charts': { label: 'Charts', description: 'Ships or documents chart components.' },
+	'data-grid': { label: 'Data grid', description: 'Ships a data grid / advanced table with sorting, filtering or virtualization.' },
+	'icons': { label: 'Icons', description: 'Ships an icon set or icon component.' },
+	'design-system': { label: 'Design system', description: 'Implements a named design system (e.g. Material Design, Carbon).' },
+	'runes': { label: 'Runes', description: 'Current release is written with Svelte 5 runes.' },
+	'cli': { label: 'CLI', description: 'Ships a CLI for setup or for adding components.' },
+}
+
+/**
+ * What a dependency you add to your own project is for. Used for filtering, so
+ * prefer an existing kind. The first five are "build tooling" (see `toolingKinds`).
+ */
+export type DependencyKind =
+	/** Tailwind CSS. Put the major version in `range`. */
+	| 'tailwind'
+	/** UnoCSS (or a preset of it). */
+	| 'unocss'
+	/** Sass / SCSS compiler, needed to build or theme the library's styles. */
+	| 'sass'
+	/** PostCSS or a PostCSS plugin you must add to your build config. */
+	| 'postcss'
+	/** A separate CSS framework stylesheet you load yourself (e.g. Bootstrap's CSS). */
+	| 'css-framework'
+	/** A Vite plugin or Svelte preprocessor you must register. */
+	| 'build-plugin'
+	/** A meta-framework the library requires (e.g. @sveltejs/kit). */
+	| 'framework'
+	/** Any other package you install next to the library (e.g. @internationalized/date). */
+	| 'peer'
+
+/** Kinds that change your build setup; these drive the "Build tooling" filter. */
+export const toolingKinds = ['tailwind', 'unocss', 'sass', 'postcss', 'css-framework', 'build-plugin'] as const satisfies readonly DependencyKind[]
+
+export const dependencyKindLabels: Record<DependencyKind, string> = {
+	'tailwind': 'Tailwind CSS',
+	'unocss': 'UnoCSS',
+	'sass': 'Sass',
+	'postcss': 'PostCSS',
+	'css-framework': 'CSS framework',
+	'build-plugin': 'Build plugin',
+	'framework': 'Framework',
+	'peer': 'Peer package',
+}
+
+/**
+ * A package you add to YOUR project to use the library, besides `svelte` and the library's
+ * own `packages`. Don't list the library's regular `dependencies`, which npm installs for you.
+ */
+export interface ProjectDependency {
+	/** npm package name, e.g. `tailwindcss`, `sass`, `@internationalized/date`. */
+	package: string
+	kind: DependencyKind
+	/** Version range, verbatim from peerDependencies or the install docs. */
+	range?: string
+	/** `true` if a basic install needs it; `false` if only some components or theming do. */
+	required: boolean
+	/** Short note in your own words (e.g. "only for the date components"). */
+	notes?: string
+	/** REQUIRED: where you verified it (install docs page, or package.json on GitHub/npm). */
+	source: string
+}
 
 /**
  * What a library's maintainers have said about AI tools / agents using their
@@ -116,6 +202,11 @@ export interface Library {
 	/** Version of the primary package these facts were verified against. */
 	version: string
 	styling: StylingApproach[]
+	/**
+	 * Packages you add to your own project (Tailwind, Sass, peer packages...). Use `[]` when
+	 * nothing beyond `svelte` and `packages` is needed.
+	 */
+	dependencies: ProjectDependency[]
 	features: FeatureTag[]
 	components: LibraryComponent[]
 	ai: AiPolicy

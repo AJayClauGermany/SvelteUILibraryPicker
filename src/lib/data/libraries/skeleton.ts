@@ -23,7 +23,24 @@ export default defineLibrary({
 	},
 	version: '5.0.1',
 	styling: ['tailwind'],
-	features: ['typescript', 'accessibility', 'theming', 'dark-mode', 'rtl', 'cli', 'design-system'],
+	dependencies: [
+		{
+			package: 'tailwindcss',
+			kind: 'tailwind',
+			range: '^4.0.0',
+			required: true,
+			notes: 'Peer dependency of @skeletonlabs/skeleton; the install guides list Tailwind 4 as the minimum.',
+			source: 'https://github.com/skeletonlabs/skeleton/blob/main/packages/skeleton/package.json',
+		},
+		{
+			package: '@tailwindcss/vite',
+			kind: 'build-plugin',
+			required: false,
+			notes: 'The Vite + Svelte guide installs it and registers it before the Svelte plugin; the SvelteKit guide sets Tailwind up through the Svelte CLI instead.',
+			source: 'https://www.skeleton.dev/docs/svelte/get-started/installation/vite-svelte',
+		},
+	],
+	features: ['typescript', 'semantic-colors', 'theming', 'dark-mode', 'rtl', 'cli', 'design-system'],
 	components: [
 		// Framework (Svelte) components
 		{ id: 'accordion', name: 'Accordion', docs: `${fc}/accordion` },

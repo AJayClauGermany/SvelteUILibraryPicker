@@ -24,7 +24,31 @@ export default defineLibrary({
 	},
 	version: '9.0.6',
 	styling: ['css'],
-	features: ['typescript', 'theming', 'dark-mode', 'rtl', 'design-system', 'runes'],
+	dependencies: [
+		{
+			package: 'sass',
+			kind: 'sass',
+			range: '^1.105.1',
+			required: false,
+			notes: 'Comes in as a dependency of smui-theme, which uses it to compile your theme, so you do not install it yourself. Not used with the prebuilt CSS.',
+			source: 'https://github.com/hperrin/svelte-material-ui/blob/master/packages/smui-theme/package.json',
+		},
+		{
+			package: 'svelte-material-ui',
+			kind: 'peer',
+			required: false,
+			notes: 'Only for the prebuilt bare.css or the premade light/dark CSS themes, as an alternative to compiling a theme with smui-theme.',
+			source: 'https://github.com/hperrin/svelte-material-ui/blob/master/INSTALL.md#the-default-theme',
+		},
+		{
+			package: '@mdi/js',
+			kind: 'peer',
+			required: false,
+			notes: 'Optional SVG icon set the docs suggest in place of the Material Icons font.',
+			source: 'https://github.com/hperrin/svelte-material-ui/blob/master/INSTALL.md#icons',
+		},
+	],
+	features: ['typescript', 'semantic-colors', 'theming', 'dark-mode', 'rtl', 'design-system', 'runes'],
 	components: [
 		{ id: 'button', name: 'Button', docs: `${d}/button` },
 		{ id: 'button-group', name: 'Group', docs: `${d}/button`, notes: 'Group and GroupItem are exported by @smui/button and shown in the "Button groups" demo.' },
@@ -82,7 +106,9 @@ export default defineLibrary({
 	notes: [
 		'Every component is its own package (@smui/<name>, or @smui-extra/<name> for accordion, autocomplete, badge, bottom-app-bar and chip-input); install only the ones you use plus smui-theme.',
 		'No svelte peerDependency is declared. The README states that SMUI v8 and higher requires Svelte 5 and that v7 is the last version for Svelte 4; the repo root devDependency is svelte ^5.57.2 and components use runes ($props).',
-		'Styles are Sass: compile a theme with the smui-theme CLI (light and dark) or use a prebuilt CSS theme from the svelte-material-ui package. Roboto and the Material Icons font are loaded separately.',
+		'Styles are Sass, compiled into light and dark CSS files by the smui-theme CLI, which lists sass as its own dependency, so you do not add sass yourself. Rebuild the theme after adding a component package.',
+		'The docs load Roboto, Roboto Mono and the Material Icons font from Google Fonts with <link> tags rather than from npm.',
+		'Rollup and Webpack projects must add the "svelte" export condition to their resolver config.',
 		'v9 no longer depends on MDC-Web packages; MDC-Web\'s TypeScript was vendored and is slated for removal in v10.',
 	],
 })

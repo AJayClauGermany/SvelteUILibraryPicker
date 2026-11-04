@@ -21,6 +21,7 @@ export default defineLibrary({
 	},
 	version: '0.44.0',
 	styling: ['headless'],
+	dependencies: [],
 	features: ['typescript', 'accessibility', 'runes'],
 	components: [
 		{ id: 'accordion', name: 'Accordion', docs: `${d}/accordion` },
@@ -53,7 +54,7 @@ export default defineLibrary({
 	lastVerified: '2026-11-04',
 	notes: [
 		'Still 0.x; this is the successor to @melt-ui/svelte (the Svelte 3/4-era store-based library), published under the npm name "melt".',
-		'Requires @floating-ui/dom (^1.6.0) as a peer dependency.',
+		'Lists @floating-ui/dom (^1.6.0) as a peer dependency, but it is also a regular dependency, so installing melt pulls it in; the install guide only asks for melt.',
 		'A work-in-progress Spatial Menu builder is also documented but has no canonical id here.',
 	],
 })

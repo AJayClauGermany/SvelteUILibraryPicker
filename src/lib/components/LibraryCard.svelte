@@ -4,6 +4,7 @@
 	import AiPolicyBadge from './AiPolicyBadge.svelte'
 	import DocsLink from './DocsLink.svelte'
 	import SvelteSupport from './SvelteSupport.svelte'
+	import ToolingChips from './ToolingChips.svelte'
 
 	const { library }: { library: Library } = $props()
 </script>
@@ -16,7 +17,8 @@
 	<p class="desc">{library.description}</p>
 	<SvelteSupport svelte={library.svelte} />
 	<div class="tags">
-		{#each library.styling as s (s)}<span class="ulp-chip">{s}</span>{/each}
+		{#each library.styling.filter(s => s !== 'tailwind') as s (s)}<span class="ulp-chip">{s}</span>{/each}
+		<ToolingChips {library} />
 		<span class="ulp-chip">{library.components.length} components</span>
 		<AiPolicyBadge status={library.ai.status} />
 	</div>

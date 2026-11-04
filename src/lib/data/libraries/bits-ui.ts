@@ -23,6 +23,16 @@ export default defineLibrary({
 	},
 	version: '2.20.4',
 	styling: ['headless'],
+	dependencies: [
+		{
+			package: '@internationalized/date',
+			kind: 'peer',
+			range: '^3.8.1',
+			required: false,
+			notes: 'Declared as a peer dependency, but only the date and time components (calendars, date/time fields and pickers) use it.',
+			source: 'https://bits-ui.com/docs/dates',
+		},
+	],
 	features: ['typescript', 'accessibility', 'runes'],
 	components: [
 		{ id: 'accordion', name: 'Accordion', docs: `${d}/accordion` },
@@ -81,7 +91,4 @@ export default defineLibrary({
 		llmsTxt: 'https://bits-ui.com/llms.txt',
 	},
 	lastVerified: '2026-11-04',
-	notes: [
-		'Requires @internationalized/date (^3.8.1) as a peer dependency for the date and time components.',
-	],
 })

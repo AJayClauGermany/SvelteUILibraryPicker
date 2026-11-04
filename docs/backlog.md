@@ -139,6 +139,23 @@ Coverage is tracked in [previews.md](previews.md#current-coverage). Open items:
   TooltipGroup, LazyMount). The entry follows the npm release; re-map these when 0.114.0 ships.
 - **M3 Svelte** demo cards without controls (Bottom Sheet, Snackbar, Time Picker, Layer) have no
   anchor, so those entries link to the docs home.
+- **Dependencies and feature tags (2026-11-04 pass).** Most docs hosts were blocked, so
+  `dependencies` sources and the new `semantic-colors` tag were checked against npm and each repo's
+  docs source; several GitHub README anchors were derived from heading text. Judgment calls worth a
+  second look:
+  - `@tailwindcss/vite` is recorded as optional for Skeleton, shadcn-svelte and Sivir UI, and not
+    listed for Flowbite, Konsta or Kampsy, because the install guides set Tailwind up through
+    `sv add tailwindcss` rather than naming the plugin.
+  - Konsta's Tailwind range (`4`) comes from its 5.0.0 changelog; the install docs don't state a major.
+  - M3 Svelte: `vite-plugin-functions-mixins` is an optional peer on npm but recorded as required,
+    because the quick start always registers it and the components use its mixins.
+  - Svelte Material UI: `sass` comes in through `smui-theme`, so it's listed as optional.
+  - `semantic-colors` is borderline for Flowbite Svelte (only primary/secondary are theme roles;
+    status colors are palette names). Kampsy UI was left out because its role variants map to fixed
+    palette tokens per component, not to theme tokens.
+  - `accessibility` was removed from Skeleton (its own pages make general claims and link to Zag.js
+    for keyboard/ARIA details). It's borderline for Melt and Lily. Not added for Flowbite, Konsta,
+    SVAR, Sveltestrap, Svelte UX, Sivir UI or Svelte Material UI under the per-component bar.
 - **Docs hosts and network policy**: in the cloud agent environment most docs hosts (bits-ui.com,
   ark-ui.com, skeleton.dev, flowbite-svelte.com, shadcn-svelte.com, next.melt-ui.com,
   svelte.carbondesignsystem.com, kendell.dev, docs.svar.dev, sveltestrap.js.org,

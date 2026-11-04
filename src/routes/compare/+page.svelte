@@ -12,7 +12,8 @@
 	import { page } from '$app/state'
 	import DocsLink from '#lib/components/DocsLink.svelte'
 	import PreviewFrame from '#lib/components/PreviewFrame.svelte'
-	import { categories, componentsByCategory, components, coveredComponentIds, findComponent, libraries } from '#lib/data/index.ts'
+	import ToolingChips from '#lib/components/ToolingChips.svelte'
+	import { categories, componentsByCategory, components, coveredComponentIds, featureInfo, findComponent, libraries, usedFeatureTags } from '#lib/data/index.ts'
 
 	let selected = $state<string[]>(libraries.slice(0, 3).map(l => l.id))
 	let category = $state('')
@@ -54,6 +55,13 @@
 				}),
 			}))
 			.filter(g => g.ids.length),
+	)
+
+	const featureRows = $derived(
+		usedFeatureTags.filter((f) => {
+			const has = chosen.map(l => l.features.includes(f))
+			return !onlyDifferences || (has.some(Boolean) && has.some(h => !h))
+		}),
 	)
 
 	function toggle(id: string) {
@@ -117,6 +125,30 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr class="group"><th colspan={chosen.length + 1}>Setup</th></tr>
+				<tr>
+					<th scope="row">Styling</th>
+					{#each chosen as lib (lib.id)}<td>{lib.styling.join(', ')}</td>{/each}
+				</tr>
+				<tr>
+					<th scope="row">Build tooling</th>
+					{#each chosen as lib (lib.id)}<td class="chips"><ToolingChips library={lib} showOptional emptyText="None" /></td>{/each}
+				</tr>
+				<tr>
+					<th scope="row">License</th>
+					{#each chosen as lib (lib.id)}<td><a href={lib.license.url} target="_blank" rel="noopener noreferrer">{lib.license.spdx}</a></td>{/each}
+				</tr>
+				{#if featureRows.length}
+					<tr class="group"><th colspan={chosen.length + 1}>Features <a href={url('/guide/features/')}>(definitions)</a></th></tr>
+					{#each featureRows as f (f)}
+						<tr>
+							<th scope="row" title={featureInfo[f].description}>{featureInfo[f].label}</th>
+							{#each chosen as lib (lib.id)}
+								<td>{#if lib.features.includes(f)}<span class="yes" aria-label="yes">✓</span>{:else}<span class="ulp-muted" aria-label="not listed">—</span>{/if}</td>
+							{/each}
+						</tr>
+					{/each}
+				{/if}
 				{#each rows as group (group.category)}
 					<tr class="group"><th colspan={chosen.length + 1}>{group.label}</th></tr>
 					{#each group.ids as id (id)}
@@ -169,6 +201,18 @@
 		font-size: 0.75rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
+	}
+	.group th a {
+		text-transform: none;
+		letter-spacing: normal;
+		font-weight: normal;
+	}
+	.chips :global(.ulp-chip) {
+		margin: 0 0.2rem 0.2rem 0;
+	}
+	.yes {
+		color: var(--ulp-ok);
+		font-weight: 600;
 	}
 	tr.active {
 		outline: 2px solid var(--ulp-accent);

@@ -24,6 +24,7 @@ export default defineLibrary({
 	},
 	version: '5.25.1',
 	styling: ['headless'],
+	dependencies: [],
 	features: ['typescript', 'accessibility', 'i18n', 'rtl', 'forms'],
 	components: [
 		{ id: 'accordion', name: 'Accordion', docs: `${c}/accordion` },

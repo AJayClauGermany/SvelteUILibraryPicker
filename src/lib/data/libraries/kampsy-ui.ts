@@ -23,7 +23,17 @@ export default defineLibrary({
 	},
 	version: '2.10.0',
 	styling: ['tailwind'],
-	features: ['typescript', 'runes', 'dark-mode', 'icons'],
+	dependencies: [
+		{
+			package: 'tailwindcss',
+			kind: 'tailwind',
+			range: '^4',
+			required: true,
+			notes: 'Tailwind v4 has to process your app CSS (the guide sets it up through sv create); kampsy-ui/theme.css relies on v4 @theme and @variant directives.',
+			source: 'https://github.com/kampsy/ui/blob/main/src/docs/data/installation.ts',
+		},
+	],
+	features: ['typescript', 'accessibility', 'runes', 'dark-mode', 'icons'],
 	components: [
 		{ id: 'avatar', name: 'Avatar', docs: `${d}/avatar`, notes: 'Also AvatarGroup and AvatarWithIcon.' },
 		{ id: 'badge', name: 'Badge', docs: `${d}/badge`, notes: 'A Pill variant is documented on the same page. StatusDot (/status-dot) is a separate deployment-state indicator.' },
@@ -73,7 +83,7 @@ export default defineLibrary({
 	},
 	lastVerified: '2026-11-04',
 	notes: [
-		'Requires Tailwind CSS v4 in your app: import kampsy-ui/theme.css and add an @source entry for the package so its classes are generated.',
+		'Setup: import kampsy-ui/theme.css after Tailwind in your CSS and add an @source entry for the package dist folder so its classes are generated.',
 		'The npm release 2.10.0 matches the v2.10.0 git tag; the version in the repo root package.json is a placeholder set by semantic-release at publish time.',
 		'Several documented components have no canonical id here: Banner, ProjectBanner, Description, Error, StatusDot and ShowMore. The /radio and /feedback routes exist but are not in the docs sidebar or the package exports.',
 	],
