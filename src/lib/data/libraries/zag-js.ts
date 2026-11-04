@@ -26,6 +26,23 @@ export default defineLibrary({
 	},
 	version: '1.47.0',
 	styling: ['headless'],
+	dependencies: [
+		{
+			package: '@zag-js/<component>',
+			kind: 'peer',
+			required: true,
+			notes: 'One machine package per component you use (e.g. @zag-js/dialog), installed next to the Svelte adapter.',
+			source: 'https://zagjs.com/overview/installation',
+		},
+		{
+			package: '@internationalized/date',
+			kind: 'peer',
+			range: '>=3.0.0',
+			required: false,
+			notes: 'Peer of the date-picker and date-input machines only.',
+			source: 'https://github.com/chakra-ui/zag/blob/main/packages/machines/date-picker/package.json',
+		},
+	],
 	features: ['typescript', 'accessibility', 'rtl', 'forms', 'runes'],
 	components: [
 		{ id: 'accordion', name: 'Accordion', docs: `${c}/accordion` },

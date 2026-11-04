@@ -22,10 +22,27 @@ export default defineLibrary({
 	},
 	version: '0.113.1',
 	styling: ['css'],
+	dependencies: [
+		{
+			package: 'carbon-preprocess-svelte',
+			kind: 'build-plugin',
+			required: false,
+			notes: 'Optional dev dependency: a preprocessor that speeds up builds by rewriting barrel imports, plus a plugin that strips unused Carbon CSS from production builds.',
+			source: 'https://github.com/carbon-design-system/carbon-components-svelte/blob/v0.113.1/README.md#preprocessors--plugins',
+		},
+		{
+			package: 'carbon-components',
+			kind: 'css-framework',
+			required: false,
+			notes: 'Only for the alternative of compiling Carbon v10 SCSS yourself (with your own Sass setup) instead of importing a prebuilt theme CSS file from the library.',
+			source: 'https://github.com/carbon-design-system/carbon-components-svelte/blob/v0.113.1/README.md#scss',
+		},
+	],
 	features: [
 		'typescript',
 		'ssr',
 		'accessibility',
+		'semantic-colors',
 		'theming',
 		'dark-mode',
 		'rtl',

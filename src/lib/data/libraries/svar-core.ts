@@ -26,7 +26,9 @@ export default defineLibrary({
 	},
 	version: '2.6.1',
 	styling: ['css'],
-	features: ['typescript', 'theming', 'dark-mode', 'i18n'],
+	// No peerDependencies (npm view @svar-ui/svelte-core@2.6.1); the README install steps only import the package.
+	dependencies: [],
+	features: ['typescript', 'semantic-colors', 'theming', 'dark-mode', 'i18n'],
 	components: [
 		{ id: 'button', name: 'Button', docs: c('button') },
 		{ id: 'toggle', name: 'TwoState', docs: c('twostate') },
@@ -75,6 +77,8 @@ export default defineLibrary({
 		'Component links go to the official live samples because the API docs site is not in the repository and could not be verified per component.',
 		'The package declares no svelte peerDependency; Svelte 5 support comes from the changelog (2.0.1) and the runes-based source.',
 		'Themes: Willow, WillowDark and Material wrapper components.',
+		'By default the theme components load their web font and the wxi icon stylesheet from cdn.svar.dev; pass fonts={false} to skip that and load them yourself.',
+		'Button and TwoState take a role-based type (primary, secondary, danger), and notices accept info, success, warning or danger; the theme maps these through CSS variables.',
 		'Fullscreen (a fullscreen-toggle wrapper) and the SuggestDropdown list helper have no equivalent here.',
 		'Menu, Toolbar, file uploader and other widgets are separate SVAR packages.',
 	],

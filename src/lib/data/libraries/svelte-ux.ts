@@ -21,7 +21,31 @@ export default defineLibrary({
 	},
 	version: '1.0.11',
 	styling: ['tailwind'],
-	features: ['typescript', 'theming', 'dark-mode', 'forms'],
+	dependencies: [
+		{
+			package: 'tailwindcss',
+			kind: 'tailwind',
+			range: '3',
+			required: true,
+			notes: 'Tailwind 4 is not supported in 1.x. The config loads the @layerstack/tailwind plugin (installed with svelte-ux) and scans svelte-ux files in content.',
+			source: 'https://github.com/techniq/svelte-ux/blob/main/packages/svelte-ux/src/routes/+page.svelte',
+		},
+		{
+			package: 'postcss',
+			kind: 'postcss',
+			required: true,
+			notes: 'Part of the Tailwind 3 SvelteKit setup guide the install docs point to.',
+			source: 'https://github.com/tailwindlabs/tailwindcss.com/blob/v3/src/pages/docs/guides/sveltekit.js',
+		},
+		{
+			package: 'autoprefixer',
+			kind: 'postcss',
+			required: true,
+			notes: 'Installed alongside PostCSS by the same Tailwind 3 guide.',
+			source: 'https://github.com/tailwindlabs/tailwindcss.com/blob/v3/src/pages/docs/guides/sveltekit.js',
+		},
+	],
+	features: ['typescript', 'semantic-colors', 'theming', 'dark-mode', 'forms'],
 	components: [
 		{ id: 'button', name: 'Button', docs: c('Button') },
 		{ id: 'button-group', name: 'ButtonGroup', docs: c('ButtonGroup') },
@@ -89,7 +113,7 @@ export default defineLibrary({
 	},
 	lastVerified: '2026-11-04',
 	notes: [
-		'The current 1.x release requires Tailwind CSS 3; the docs say Tailwind 4 is not supported until 2.0.',
+		'The Svelte CLI (sv) now sets up Tailwind 4, which 1.x cannot use, so the docs send new projects to the official Tailwind v3 SvelteKit guide instead.',
 		'Components use Svelte 4 syntax (export let, slots). A 2.0 rewrite that requires Svelte 5 and Tailwind 4 is still in prerelease (npm tag next, 2.0.0-next.26; no stable 2.x as of 2026-11-04) with a preview site at next.svelte-ux.techniq.dev.',
 	],
 })

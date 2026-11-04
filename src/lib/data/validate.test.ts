@@ -11,6 +11,7 @@ import { describe, expect, it } from 'vitest'
 import { previews } from '../previews'
 import { componentIds, components } from './components'
 import { libraries } from './index'
+import { featureInfo } from './schema'
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
@@ -78,6 +79,27 @@ describe('libraries', () => {
 					expect(lib.ai.sources.length, 'add at least one source URL').toBeGreaterThan(0)
 				for (const src of lib.ai.sources) expect(isHttpsUrl(src), src).toBe(true)
 				if (lib.ai.llmsTxt) expect(isHttpsUrl(lib.ai.llmsTxt)).toBe(true)
+			})
+
+			it('lists project dependencies with a source and consistent styling', () => {
+				const seen = new Set<string>()
+				for (const d of lib.dependencies) {
+					expect(d.package.trim(), 'dependency package name').not.toBe('')
+					expect(seen.has(d.package), `duplicate dependency "${d.package}"`).toBe(false)
+					seen.add(d.package)
+					expect(lib.packages, `"${d.package}" is already one of the library's packages`).not.toContain(d.package)
+					expect(d.package, 'svelte itself is implied').not.toBe('svelte')
+					expect(isHttpsUrl(d.source), `${d.package} source: ${d.source}`).toBe(true)
+				}
+				// Tailwind-styled libraries must say which Tailwind they need, and vice versa.
+				const needsTailwind = lib.dependencies.some(d => d.kind === 'tailwind' && d.required)
+				expect(needsTailwind, 'styling "tailwind" needs a required tailwind dependency (and the reverse)')
+					.toBe(lib.styling.includes('tailwind'))
+			})
+
+			it('uses known feature tags once each', () => {
+				for (const f of lib.features) expect(f in featureInfo, `unknown feature "${f}"`).toBe(true)
+				expect(new Set(lib.features).size, 'duplicate feature tag').toBe(lib.features.length)
 			})
 
 			it('maps components to canonical ids, each with a docs link', () => {

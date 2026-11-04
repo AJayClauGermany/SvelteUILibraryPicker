@@ -23,7 +23,24 @@ export default defineLibrary({
 	},
 	version: '7.1.0',
 	styling: ['css'],
-	features: ['typescript', 'theming', 'dark-mode', 'forms'],
+	dependencies: [
+		{
+			package: 'bootstrap',
+			kind: 'css-framework',
+			range: '^5',
+			required: true,
+			notes: 'Only the Bootstrap 5 stylesheet is needed, not its JavaScript. The docs load it from the jsDelivr CDN, either with a link tag, a CSS @import, or the Styles component; no npm install of bootstrap is shown.',
+			source: 'https://github.com/sveltestrap/sveltestrap/blob/main/README.md#bootstrap-css',
+		},
+		{
+			package: 'bootstrap-icons',
+			kind: 'peer',
+			required: false,
+			notes: 'Only for the Icon component. The docs link its CSS from the jsDelivr CDN; the Styles component adds it by default.',
+			source: 'https://github.com/sveltestrap/sveltestrap/blob/main/README.md#bootstrap-icons',
+		},
+	],
+	features: ['typescript', 'semantic-colors', 'theming', 'dark-mode', 'forms'],
 	components: [
 		{ id: 'button', name: 'Button', docs: c('components-button') },
 		{ id: 'button-group', name: 'ButtonGroup', docs: c('components-buttongroup'), notes: 'ButtonToolbar groups several button groups.' },
@@ -78,7 +95,6 @@ export default defineLibrary({
 	},
 	lastVerified: '2026-11-04',
 	notes: [
-		'Bootstrap CSS is not bundled: load Bootstrap 5 yourself (CDN, CSS import) or use the Styles component.',
 		'Components use Svelte 4 syntax (export let, slots); Svelte 5 works through the peer range but the API is not rune-based.',
 		'Latest release 7.1.0 dates from February 2025. For Svelte 3, the original sveltestrap package is the one to use.',
 		'Form controls are thin wrappers around native inputs, so there is no custom number stepper, date picker or color picker.',

@@ -27,7 +27,24 @@ export default defineLibrary({
 	},
 	version: '1.33.1',
 	styling: ['tailwind'],
-	features: ['typescript', 'theming', 'dark-mode', 'forms'],
+	dependencies: [
+		{
+			package: 'tailwindcss',
+			kind: 'tailwind',
+			range: '^4.1.4',
+			required: true,
+			notes: 'Install docs add it with `npx sv add tailwindcss`, then import it in your main CSS file.',
+			source: 'https://github.com/themesberg/flowbite-svelte/blob/main/package.json',
+		},
+		{
+			package: 'flowbite',
+			kind: 'peer',
+			required: true,
+			notes: 'Install docs have you add it yourself and load flowbite/plugin as a Tailwind plugin in your main CSS file.',
+			source: 'https://flowbite-svelte.com/docs/pages/quickstart',
+		},
+	],
+	features: ['typescript', 'semantic-colors', 'theming', 'dark-mode', 'forms'],
 	components: [
 		// Components
 		{ id: 'accordion', name: 'Accordion', docs: `${c}/accordion` },
@@ -230,7 +247,7 @@ export default defineLibrary({
 	},
 	lastVerified: '2026-11-04',
 	notes: [
-		'Requires Tailwind CSS v4 (peerDependency tailwindcss ^4.1.4).',
+		'Role colors are limited to primary and secondary (set through Tailwind theme variables); status colors are picked by Tailwind palette name, e.g. red or green.',
 		'A 2.0 pre-release is published under the npm "next" tag; facts here describe the 1.x "latest" release.',
 		'Charts, DataTables and WYSIWYG are documented as plugins but ship in separate @flowbite-svelte-plugins packages; icons are also a separate package.',
 		'Not mapped to a canonical id: Banner, Device Mockups, Gallery, Indicator, Mega Menu, Video, Floating Label, Phone Input, Clipboard Manager, Kanban Board, Virtual Masonry, Close Button, Progressradial, StepIndicator, DataTables, WYSIWYG.',

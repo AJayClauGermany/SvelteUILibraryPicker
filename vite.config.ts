@@ -78,6 +78,7 @@ export default defineConfig({
 							title: 'Guide',
 							items: [
 								{ title: 'About & principles', to: '/guide/about/' },
+								{ title: 'Features & tooling', to: '/guide/features/' },
 								{ title: 'Licenses & AI policy', to: '/guide/licenses-and-ai/' },
 								{ title: 'Contributing', to: '/guide/contributing/' },
 							],

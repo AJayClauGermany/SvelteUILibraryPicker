@@ -22,7 +22,18 @@ export default defineLibrary({
 	},
 	version: '1.8.0',
 	styling: ['copy-paste', 'tailwind'],
-	features: ['typescript', 'accessibility', 'theming', 'dark-mode', 'forms', 'charts', 'cli', 'runes'],
+	dependencies: [
+		{ package: 'tailwindcss', kind: 'tailwind', range: '^4.0.0', required: true, notes: 'The init command refuses to run without Tailwind CSS v4.', source: 'https://github.com/huntabyte/shadcn-svelte/blob/main/packages/cli/src/commands/init/preflight.ts' },
+		{ package: '@tailwindcss/vite', kind: 'build-plugin', required: false, notes: 'Tailwind v4 Vite plugin; the install guides add it through `sv add tailwindcss` (or `astro add tailwind`).', source: 'https://shadcn-svelte.com/docs/migration/tailwind-v4' },
+		{ package: 'tailwind-variants', kind: 'peer', required: true, notes: 'Added by the CLI on init; used for component variants.', source: 'https://shadcn-svelte.com/docs/installation/manual' },
+		{ package: 'cn', kind: 'peer', required: true, notes: 'Added by the CLI on init; provides the class-merging helper in lib/utils.', source: 'https://shadcn-svelte.com/docs/installation/manual' },
+		{ package: 'tw-animate-css', kind: 'peer', required: true, notes: 'Added by the CLI on init; imported in the global CSS for animations.', source: 'https://shadcn-svelte.com/docs/installation/manual' },
+		{ package: '@lucide/svelte', kind: 'peer', required: true, notes: 'Default icon library, added by the CLI on init; the CLI can be set to another icon set.', source: 'https://shadcn-svelte.com/docs/installation/manual' },
+		{ package: 'bits-ui', kind: 'peer', required: true, notes: 'Headless layer behind most components; the CLI adds it when you add a component that uses it.', source: 'https://shadcn-svelte.com/docs/components/accordion' },
+		{ package: '@internationalized/date', kind: 'peer', required: true, notes: 'A non-optional peer of bits-ui, so the CLI adds it with every bits-ui component; the date components also import it directly.', source: 'https://github.com/huntabyte/shadcn-svelte/blob/main/docs/static/registry/accordion.json' },
+		{ package: 'layerchart', kind: 'peer', required: false, notes: 'Only for the Chart component.', source: 'https://shadcn-svelte.com/docs/components/chart' },
+	],
+	features: ['typescript', 'accessibility', 'semantic-colors', 'theming', 'dark-mode', 'forms', 'charts', 'cli', 'runes'],
 	components: [
 		{ id: 'accordion', name: 'Accordion', docs: `${d}/accordion` },
 		{ id: 'alert', name: 'Alert', docs: `${d}/alert` },
@@ -97,7 +108,7 @@ export default defineLibrary({
 	},
 	lastVerified: '2026-11-04',
 	notes: [
-		'The npm package is the CLI; components are added to your project as source and depend on bits-ui and Tailwind CSS v4.',
+		'The npm package is the CLI; components are added to your project as source files you own.',
 		'Docs for older setups live separately: Svelte 5 + Tailwind v3 (tw3.shadcn-svelte.com) and Svelte 4 + Tailwind v3 (svelte-4.shadcn-svelte.com).',
 		'The main component list also includes chat-oriented components (Message Scroller, Message, Bubble, Attachment, Marker, Trace, Questionnaire) that have no canonical id yet.',
 		'A separate "AI Elements" docs section (/docs/ai-elements) documents agent-interface patterns such as Chat, Prompt Input, Reasoning, Tool and Plan, composed from the components above.',

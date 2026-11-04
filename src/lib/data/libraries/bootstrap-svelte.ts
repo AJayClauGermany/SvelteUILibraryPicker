@@ -27,7 +27,24 @@ export default defineLibrary({
 	},
 	version: '2.2.1',
 	styling: ['css'],
-	features: ['typescript', 'ssr', 'accessibility', 'theming', 'dark-mode', 'forms', 'runes'],
+	dependencies: [
+		{
+			package: 'bootstrap',
+			kind: 'css-framework',
+			range: '^5.3',
+			required: true,
+			notes: 'Not bundled: import its compiled CSS (or its SCSS) yourself. Bootstrap JavaScript is not needed.',
+			source: `${site}/guides/sveltekit-bootstrap-5`,
+		},
+		{
+			package: 'sass',
+			kind: 'sass',
+			required: false,
+			notes: 'Only if you import Bootstrap SCSS instead of the CSS, e.g. to override its Sass variables.',
+			source: `${site}/theming`,
+		},
+	],
+	features: ['typescript', 'ssr', 'accessibility', 'semantic-colors', 'theming', 'dark-mode', 'forms', 'runes'],
 	components: [
 		{ id: 'button', name: 'Button', docs: c('button') },
 		{ id: 'button-group', name: 'ButtonGroup', docs: c('button-group'), notes: 'ButtonToolbar groups several button groups.' },
@@ -117,7 +134,6 @@ export default defineLibrary({
 	},
 	lastVerified: '2026-11-04',
 	notes: [
-		'Bootstrap CSS is not bundled: install bootstrap@^5.3 alongside and import its CSS or SCSS yourself. Bootstrap JavaScript is not needed.',
 		'Sveltestrap (also listed here) is the other Bootstrap 5 option; the docs include a comparison guide. The short version: this library is Svelte 5-only with runes and TypeScript, Sveltestrap also supports Svelte 4 with a classic flat API.',
 		"Form controls are thin, typed wrappers around native inputs (one component per input type), so date, time and color pickers are the browser's own.",
 		'A young library: 2.0.0 shipped on 2026-09-18 and releases are frequent. 2.2.0 (2026-10-29) raised the Svelte floor to 5.55.7 for the Svelte security advisories.',

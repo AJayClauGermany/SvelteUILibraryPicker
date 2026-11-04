@@ -23,7 +23,32 @@ export default defineLibrary({
 	},
 	version: '0.4.5',
 	styling: ['tailwind', 'copy-paste'],
-	features: ['typescript', 'runes', 'theming', 'dark-mode', 'cli'],
+	dependencies: [
+		{
+			package: 'tailwindcss',
+			kind: 'tailwind',
+			range: '^4.0.0',
+			required: true,
+			notes: 'v4 only; the library stylesheet ui.css imports Tailwind and replaces your own Tailwind import.',
+			source: 'https://sivir.dev/docs/installation',
+		},
+		{
+			package: '@tailwindcss/vite',
+			kind: 'build-plugin',
+			required: false,
+			notes: 'The Tailwind v4 Vite plugin. The docs set Tailwind up with sv add tailwindcss, and the packed-consumer check in the repo registers this plugin.',
+			source: 'https://github.com/aidan-neel/sivir-ui/blob/main/packages/sivir/scripts/verify-packed-consumer.ts',
+		},
+		{
+			package: '@sveltejs/kit',
+			kind: 'framework',
+			range: '^2.0.0',
+			required: true,
+			notes: 'Breadcrumb (exported from the package root) imports $app/state. Kit 3 is outside this range although the repo itself builds with Kit 3.',
+			source: 'https://github.com/aidan-neel/sivir-ui/blob/main/packages/sivir/package.json',
+		},
+	],
+	features: ['typescript', 'runes', 'semantic-colors', 'theming', 'dark-mode', 'cli'],
 	components: [
 		{ id: 'accordion', name: 'Accordion', docs: `${d}/accordion` },
 		{ id: 'alert', name: 'Alert', docs: `${d}/alert` },
@@ -90,10 +115,9 @@ export default defineLibrary({
 	lastVerified: '2026-11-04',
 	notes: [
 		'Pre-1.0 (0.4.x): minor releases carry breaking renames, which the changelog documents (0.4.5 renamed Reasoning and Tool props, for example).',
-		'Peer dependencies also require tailwindcss ^4.0.0 and @sveltejs/kit ^2.0.0; SvelteKit 3 is outside the declared range even though the repo itself develops against Kit 3.',
 		'Two install modes: import from @sivir-ui/svelte, or run the bundled sivir CLI (npx @sivir-ui/svelte init, then add <component>) to copy component source into your project. The unrelated npm package named "sivir" is not this CLI.',
 		'Twelve of the 59 documented components are AI-interface primitives with no canonical id here: Composer, Conversation, Message, Response Stream, Reasoning, Tool, Source, Question, File Diff, Markdown, Show More and Fullscreen Nav. Two composed blocks (Thread, Agent) are documented under /docs/blocks.',
 		'Separator, Toolbar, Panel, Marquee and Approval Request were removed; the components index points to replacements.',
-		'Depends on @lucide/svelte for icons, Inter and JetBrains Mono via Fontsource, highlight.js and marked.',
+		'Depends on @lucide/svelte for icons, Inter and JetBrains Mono via Fontsource, highlight.js and marked. In CLI mode these land in your own package.json: init installs the shared ones (cnfast, @floating-ui/dom and the two Fontsource fonts) and add offers to install whatever each copied component needs.',
 	],
 })

@@ -7,6 +7,10 @@ import { defineLibrary } from '../schema'
 // button with no id, so they have no anchor and link to the home page instead.
 const home = 'https://kendell.dev/m3-svelte/'
 const c = (anchor: string) => `${home}#${anchor}-demo`
+// The docs site was unreachable when checking dependencies, so sources point at the docs
+// source files in the repo instead.
+const src = 'https://github.com/KTibow/m3-svelte/blob/main'
+const quickStart = `${src}/src/routes/docs/quick-start/+page.svelte`
 
 export default defineLibrary({
 	id: 'm3-svelte',
@@ -28,7 +32,53 @@ export default defineLibrary({
 	},
 	version: '7.2.1',
 	styling: ['css'],
-	features: ['typescript', 'theming', 'dark-mode', 'design-system'],
+	dependencies: [
+		{
+			package: 'vite-plugin-functions-mixins',
+			kind: 'build-plugin',
+			range: '^0.4.1',
+			required: true,
+			notes: 'npm marks this peer optional, but the quick start always installs it and registers it in vite.config with m3-svelte as a dep, since the component styles use CSS custom functions and @apply mixins.',
+			source: quickStart,
+		},
+		{
+			package: '@fontsource-variable/google-sans-flex',
+			kind: 'peer',
+			required: false,
+			notes: 'Font suggested by the quick start; you can instead point --m3-font at a font of your choice.',
+			source: quickStart,
+		},
+		{
+			package: 'vite-plugin-token-shaker',
+			kind: 'build-plugin',
+			required: false,
+			notes: 'Optional quick-start add-on that inlines or mangles the design tokens to shrink CSS.',
+			source: quickStart,
+		},
+		{
+			package: '@ktibow/material-color-utilities-nightly',
+			kind: 'peer',
+			range: '^0.4.1768930731000',
+			required: false,
+			notes: 'Optional peer, imported only by the m3-svelte/etc/colors helpers (generating a color scheme in code) and the UnoCSS preset. Themes pasted from the theme page do not need it.',
+			source: `${src}/src/lib/etc/colors.ts`,
+		},
+		{
+			package: 'tailwindcss',
+			kind: 'tailwind',
+			required: false,
+			notes: 'Only for the Tailwind app type: the theme page adds m3-svelte/etc/tailwind-styles.css (Tailwind v4 @theme syntax). Docs warn Tailwind may not handle the CSS mixins yet.',
+			source: `${src}/src/routes/theme/SchemeShowcase.svelte`,
+		},
+		{
+			package: 'unocss',
+			kind: 'unocss',
+			required: false,
+			notes: 'Only for the m3-svelte/etc/unocss-preset export; the docs pages do not cover it.',
+			source: `${src}/src/lib/etc/unocss-preset.ts`,
+		},
+	],
+	features: ['typescript', 'semantic-colors', 'theming', 'dark-mode', 'design-system'],
 	components: [
 		{ id: 'button', name: 'Button', docs: c('button') },
 		{ id: 'button-group', name: 'ConnectedButtons', docs: c('connected-buttons'), notes: 'Can also act as a single/multi-select segmented control.' },
@@ -56,7 +106,7 @@ export default defineLibrary({
 		{ id: 'list', name: 'ListItem', docs: c('list'), notes: 'Docs flag it as not yet updated to M3 Expressive.' },
 		{ id: 'date-picker', name: 'DateField', docs: c('date-field'), notes: 'Text field with a docked calendar picker; DateFieldOutlined is the outlined variant.' },
 		{ id: 'time-picker', name: 'TimePickerDial', docs: home, notes: 'Dial-style picker opened in a dialog. Its demo card has no anchor, so the link goes to the docs home page.' },
-		{ id: 'icon', name: 'Icon', docs: c('icons'), notes: 'Renders Iconify-format icon objects (e.g. from @ktibow/iconset-material-symbols); no icon set is bundled.' },
+		{ id: 'icon', name: 'Icon', docs: c('icons'), notes: 'Renders Iconify-format icon objects; @ktibow/iconset-material-symbols comes in as a regular dependency of 7.2.1.' },
 	],
 	ai: {
 		status: 'welcomes',
@@ -72,8 +122,6 @@ export default defineLibrary({
 	lastVerified: '2026-11-04',
 	notes: [
 		'Docs have no per-component pages; component links point to the demo cards on the docs home page.',
-		'Needs the vite-plugin-functions-mixins Vite plugin and @ktibow/material-color-utilities-nightly as peer dependencies.',
-		'Tailwind and UnoCSS integrations are optional extras; styling ships as plain CSS custom properties.',
 		'Also ships Material motion helpers (UI transitions, easings), a state-layer CSS class and shape paths, which have no comparison category.',
 		'ChipChooser and DatePickerDocked are exported but have no demo card of their own, so they are not listed here.',
 	],

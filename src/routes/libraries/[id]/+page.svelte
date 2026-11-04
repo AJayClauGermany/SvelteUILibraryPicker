@@ -7,7 +7,8 @@
 	import DocsLink from '#lib/components/DocsLink.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
 	import SvelteSupport from '#lib/components/SvelteSupport.svelte'
-	import { componentsByCategory, components } from '#lib/data/index.ts'
+	import ToolingChips from '#lib/components/ToolingChips.svelte'
+	import { componentsByCategory, components, dependencyKindLabels, featureInfo } from '#lib/data/index.ts'
 	import { hasPreview, previewPath } from '#lib/previews.ts'
 
 	const { data } = $props()
@@ -39,7 +40,8 @@
 			<tr><th scope="row">Version checked</th><td><code>{lib.packages[0]}@{lib.version}</code></td></tr>
 			<tr><th scope="row">Install</th><td>{#each lib.packages as p (p)}<code>{p}</code> {/each}</td></tr>
 			<tr><th scope="row">Styling</th><td>{lib.styling.join(', ')}</td></tr>
-			<tr><th scope="row">Features</th><td>{#each lib.features as f (f)}<span class="ulp-chip">{f}</span> {/each}</td></tr>
+			<tr><th scope="row">Build tooling</th><td><ToolingChips library={lib} showOptional emptyText="None beyond Svelte" /> <a href="#dependencies" class="ulp-muted">details</a></td></tr>
+			<tr><th scope="row">Features</th><td>{#each lib.features as f (f)}<span class="ulp-chip" title={featureInfo[f].description}>{featureInfo[f].label}</span> {/each} <a href={url('/guide/features/')} class="ulp-muted">what these mean</a></td></tr>
 			<tr><th scope="row">License</th><td><a href={lib.license.url} target="_blank" rel="noopener noreferrer">{lib.license.spdx}</a>{#if lib.license.notes}<div class="ulp-muted">{lib.license.notes}</div>{/if}</td></tr>
 			<tr>
 				<th scope="row">AI policy</th>
@@ -55,6 +57,27 @@
 		</tbody>
 	</table>
 </div>
+
+<h2 id="dependencies">Dependencies you install</h2>
+{#if lib.dependencies.length}
+	<p class="ulp-muted">Packages to add to your own project besides <code>svelte</code> and the packages above. Check each source before you install.</p>
+	<div class="ulp-table-wrap">
+		<table class="ulp-table">
+			<thead><tr><th>Package</th><th>Needed</th><th>Notes</th></tr></thead>
+			<tbody>
+				{#each lib.dependencies as d (d.package)}
+					<tr>
+						<td class="nowrap"><code>{d.package}</code>{#if d.range} <code>{d.range}</code>{/if}<div class="ulp-muted">{dependencyKindLabels[d.kind]}</div></td>
+						<td>{d.required ? 'Required' : 'Optional'}</td>
+						<td>{d.notes ?? ''} <a href={d.source} target="_blank" rel="noopener noreferrer">Source</a></td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+{:else}
+	<p>Nothing beyond <code>svelte</code> and the packages above (npm installs the library's own dependencies for you).</p>
+{/if}
 
 {#if lib.notes?.length}
 	<h2 id="notes">Notes</h2>
@@ -92,6 +115,9 @@
 		gap: 1.25rem;
 		align-items: center;
 		flex-wrap: wrap;
+	}
+	.nowrap {
+		white-space: nowrap;
 	}
 	th[scope='row'] {
 		width: 10rem;

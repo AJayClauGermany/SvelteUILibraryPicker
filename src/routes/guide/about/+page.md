@@ -8,9 +8,11 @@ affiliated with any library listed here.
 
 ## What you can do here
 
-- **[Libraries](/libraries/)** — filter by Svelte version, styling approach and license.
+- **[Libraries](/libraries/)** — filter by Svelte version, styling approach, license, build tooling
+  (Tailwind, Sass, PostCSS…) and [features](/guide/features/) such as full typing, accessibility and
+  semantic colors.
 - **[Components](/components/)** — see which libraries ship a given component, under what name.
-- **[Compare](/compare/)** — pick libraries and line their components up, with live previews of their default styles.
+- **[Compare](/compare/)** — pick libraries and line up their setup, features and components, with live previews of their default styles.
 
 ## Principles
 

@@ -8,12 +8,16 @@
 <script lang="ts">
 	import { url } from '#lib/url.ts'
 	import LibraryCard from '#lib/components/LibraryCard.svelte'
-	import { libraries } from '#lib/data/index.ts'
+	import type { FeatureTag, ToolingKind } from '#lib/data/index.ts'
+	import { dependencyKindLabels, featureInfo, libraries, requiredTooling, usedFeatureTags, usedToolingKinds } from '#lib/data/index.ts'
 
 	let query = $state('')
 	let svelteMajor = $state('5')
 	let styling = $state('')
 	let license = $state('')
+	/** '' = any, 'none' = no extra build tooling, otherwise a tooling kind. */
+	let tooling = $state<'' | 'none' | ToolingKind>('')
+	let features = $state<FeatureTag[]>([])
 
 	const stylingOptions = [...new Set(libraries.flatMap(l => l.styling))].sort()
 	const licenseOptions = [...new Set(libraries.map(l => l.license.spdx))].sort()
@@ -25,6 +29,10 @@
 			if (svelteMajor && !l.svelte.supported.includes(Number(svelteMajor) as 3 | 4 | 5)) return false
 			if (styling && !l.styling.includes(styling as never)) return false
 			if (license && l.license.spdx !== license) return false
+			const tools = requiredTooling(l)
+			if (tooling === 'none' && tools.length) return false
+			if (tooling && tooling !== 'none' && !tools.includes(tooling)) return false
+			if (!features.every(f => l.features.includes(f))) return false
 			return true
 		}),
 	)
@@ -57,7 +65,24 @@
 			{#each licenseOptions as s (s)}<option value={s}>{s}</option>{/each}
 		</select>
 	</label>
+	<label>Build tooling
+		<select bind:value={tooling}>
+			<option value="">Any</option>
+			<option value="none">None needed</option>
+			{#each usedToolingKinds as k (k)}<option value={k}>Needs {dependencyKindLabels[k]}</option>{/each}
+		</select>
+	</label>
 </div>
+
+<fieldset class="features">
+	<legend>Features <a href={url('/guide/features/')} class="ulp-muted">(what these mean)</a></legend>
+	{#each usedFeatureTags as f (f)}
+		<label class="ulp-chip pick" class:on={features.includes(f)} title={featureInfo[f].description}>
+			<input type="checkbox" value={f} bind:group={features} />
+			{featureInfo[f].label}
+		</label>
+	{/each}
+</fieldset>
 
 <p class="ulp-muted" aria-live="polite">{filtered.length} of {libraries.length} libraries</p>
 
@@ -70,6 +95,28 @@
 </div>
 
 <style>
+	.features {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		border: 0;
+		padding: 0;
+		margin: 0 0 1rem;
+	}
+	.features legend {
+		font-size: 0.8rem;
+		margin-bottom: 0.4rem;
+	}
+	.pick {
+		cursor: pointer;
+		font-size: 0.85rem;
+	}
+	.pick input {
+		margin: 0;
+	}
+	.pick.on {
+		border-color: var(--ulp-accent);
+	}
 	.grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));

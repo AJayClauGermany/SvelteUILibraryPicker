@@ -23,6 +23,16 @@ export default defineLibrary({
 	},
 	version: '5.5.0',
 	styling: ['tailwind'],
+	dependencies: [
+		{
+			package: 'tailwindcss',
+			kind: 'tailwind',
+			range: '4',
+			required: true,
+			notes: 'The install docs assume a project already set up with Tailwind and import konsta/svelte/theme.css after it; the 5.0.0 changelog moved Konsta to the Tailwind v4 API. Add Tailwind the way its own guide describes for your setup.',
+			source: 'https://konstaui.com/svelte/installation',
+		},
+	],
 	features: ['typescript', 'theming', 'dark-mode', 'runes'],
 	components: [
 		{ id: 'button', name: 'Button', docs: `${d}/button`, notes: 'Renders an anchor instead of a button when href or component="a" is set.' },
@@ -90,8 +100,8 @@ export default defineLibrary({
 	lastVerified: '2026-11-04',
 	notes: [
 		'The npm package declares no svelte peer dependency. Svelte 5 support comes from the repo: devDependency svelte ^5.37.1 in package.json and the 5.0.0 CHANGELOG entry saying all Svelte components moved to the runes API (snippets instead of slots).',
-		'One package for three frameworks; Svelte components are imported from konsta/svelte and the theme CSS from konsta/theme.css.',
-		'Requires Tailwind CSS v4 in your app; Konsta is configured through an @theme CSS declaration.',
+		'One package for three frameworks; Svelte components are imported from konsta/svelte and the theme CSS from konsta/svelte/theme.css.',
+		'Theme colors are set in a Tailwind @theme declaration with --color-brand- variables; extra brand colors are applied with a k-color-brand-<name> class rather than a color prop.',
 		'Each component renders in an iOS or a Material look depending on the theme set on App / KonstaProvider.',
 		'Layout and app-shell components (App, Page, Block, Messages, Messagebar, Glass) have no canonical id here.',
 	],
