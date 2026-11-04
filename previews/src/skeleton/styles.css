@@ -1,0 +1,19 @@
+/*
+  Skeleton's default setup, as its SvelteKit / Vite install guide describes: the Tailwind
+  package, the Svelte component styles and the default "cerberus" theme. The install guide
+  also sets `data-theme="cerberus"` on <html>; each preview does that in its script, since
+  the preview shell's index.html is shared by every library. Nothing of ours is added.
+
+  `source(none)` turns off automatic class scanning; the two @source lines limit it to this
+  folder and the skeleton-svelte package, so no other library's utilities end up here.
+  Docs: https://www.skeleton.dev/docs/get-started/installation/sveltekit
+*/
+@import 'tailwindcss' source(none);
+/* Skeleton's forms page requires the official forms plugin for its input classes. */
+@plugin '@tailwindcss/forms';
+@import '@skeletonlabs/skeleton';
+@import '@skeletonlabs/skeleton-svelte';
+@import '@skeletonlabs/skeleton/themes/cerberus';
+
+@source '.';
+@source '../../../node_modules/@skeletonlabs/skeleton-svelte/dist';
