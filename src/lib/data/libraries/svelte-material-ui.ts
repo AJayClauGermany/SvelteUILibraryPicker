@@ -1,0 +1,88 @@
+import { defineLibrary } from '../schema'
+
+// Demo pages live at packages/site/src/routes/demo/<name>/+page.svelte in the repo,
+// so each page is served at https://sveltematerialui.com/demo/<name>.
+const d = 'https://sveltematerialui.com/demo'
+
+export default defineLibrary({
+	id: 'svelte-material-ui',
+	name: 'Svelte Material UI',
+	description:
+		'Material Design components for Svelte 5, published as one npm package per component and themed through Sass.',
+	docs: 'https://sveltematerialui.com',
+	repository: 'https://github.com/hperrin/svelte-material-ui',
+	packages: ['@smui/button', '@smui/textfield', '@smui/dialog', '@smui/card', '@smui/list', 'smui-theme'],
+	license: {
+		spdx: 'Apache-2.0',
+		url: 'https://github.com/hperrin/svelte-material-ui/blob/master/LICENSE',
+		notes:
+			'The README states that portions derived from Google\'s MDC-Web (mainly the Sass styling) are MIT-licensed, and that those files carry their own MIT notice.',
+	},
+	svelte: {
+		supported: [5],
+		runes: true,
+	},
+	version: '9.0.6',
+	styling: ['css'],
+	features: ['typescript', 'theming', 'dark-mode', 'rtl', 'design-system', 'runes'],
+	components: [
+		{ id: 'button', name: 'Button', docs: `${d}/button` },
+		{ id: 'button-group', name: 'Group', docs: `${d}/button`, notes: 'Group and GroupItem are exported by @smui/button and shown in the "Button groups" demo.' },
+		{ id: 'split-button', name: 'Button', docs: `${d}/button`, notes: 'No separate component; the Button page has a "Split buttons" demo built from a button group and a menu.' },
+		{ id: 'toggle', name: 'Icon Button', docs: `${d}/icon-button`, notes: 'Icon buttons with the toggle prop bind a pressed state.' },
+		{ id: 'toggle-group', name: 'Segmented Button', docs: `${d}/segmented-button`, notes: 'Single or multiple selection.' },
+		{ id: 'dropdown-menu', name: 'Menu', docs: `${d}/menu`, notes: 'Built on List and Menu Surface.' },
+		{ id: 'floating-action-button', name: 'Floating Action Button', docs: `${d}/fab` },
+		{ id: 'input', name: 'Text Field', docs: `${d}/textfield`, notes: 'Standard, filled and outlined variants with helper text, character count, prefix/suffix and icons.' },
+		{ id: 'textarea', name: 'Text Field', docs: `${d}/textfield`, notes: 'Text Field with textarea; a Textarea sub-component is exported by @smui/textfield.' },
+		{ id: 'checkbox', name: 'Checkbox', docs: `${d}/checkbox` },
+		{ id: 'radio-group', name: 'Radio', docs: `${d}/radio`, notes: 'Individual Radio components sharing a bound group value.' },
+		{ id: 'switch', name: 'Switch', docs: `${d}/switch` },
+		{ id: 'select', name: 'Select', docs: `${d}/select` },
+		{ id: 'combobox', name: 'Autocomplete', docs: `${d}/autocomplete`, notes: 'Package @smui-extra/autocomplete.' },
+		{ id: 'slider', name: 'Slider', docs: `${d}/slider` },
+		{ id: 'tags-input', name: 'Chip Input', docs: `${d}/chip-input`, notes: 'Package @smui-extra/chip-input.' },
+		{ id: 'label', name: 'Form Field', docs: `${d}/form-field`, notes: 'Pairs a checkbox, radio or switch with a clickable label. Buttons, lists and others use the Label from @smui/common.' },
+		{ id: 'dialog', name: 'Dialog', docs: `${d}/dialog`, notes: 'Includes full-screen, sheet, selection and scrollable variants.' },
+		{ id: 'alert-dialog', name: 'Dialog', docs: `${d}/dialog`, notes: 'No separate component; the Dialog page has a "mandatory" demo that cannot be dismissed with the scrim or Escape.' },
+		{ id: 'drawer', name: 'Drawer', docs: `${d}/drawer`, notes: 'Modal, dismissible and permanent variants.' },
+		{ id: 'sidebar', name: 'Drawer', docs: `${d}/drawer`, notes: 'Permanent and dismissible drawers serve as a side navigation.' },
+		{ id: 'popover', name: 'Menu Surface', docs: `${d}/menu-surface`, notes: 'An anchored floating surface for arbitrary content; Menu builds on it.' },
+		{ id: 'tooltip', name: 'Tooltip', docs: `${d}/tooltip`, notes: 'Plain and rich tooltips.' },
+		{ id: 'tabs', name: 'Tabs', docs: `${d}/tabs`, notes: 'Packages @smui/tab and @smui/tab-bar.' },
+		{ id: 'navigation-menu', name: 'Top App Bar', docs: `${d}/top-app-bar`, notes: 'Standard, fixed, short and static variants, with dense and prominent modifiers.' },
+		{ id: 'bottom-navigation', name: 'Bottom App Bar', docs: `${d}/bottom-app-bar`, notes: 'Package @smui-extra/bottom-app-bar. An action bar with an optional FAB rather than a set of destinations.' },
+		{ id: 'pagination', name: 'Pagination', docs: `${d}/data-table`, notes: 'Exported by @smui/data-table and shown in the Data Table "Pagination" demo.' },
+		{ id: 'accordion', name: 'Accordion', docs: `${d}/accordion`, notes: 'Package @smui-extra/accordion. A single Panel also works as a collapsible section.' },
+		{ id: 'card', name: 'Card', docs: `${d}/card`, notes: 'Paper (documented separately) is a plain elevated surface.' },
+		{ id: 'separator', name: 'Separator', docs: `${d}/list`, notes: 'Exported by @smui/list for use inside lists and menus.' },
+		{ id: 'grid', name: 'Layout Grid', docs: `${d}/layout-grid` },
+		{ id: 'alert', name: 'Banner', docs: `${d}/banner` },
+		{ id: 'toast', name: 'Snackbar', docs: `${d}/snackbar` },
+		{ id: 'progress', name: 'Linear Progress', docs: `${d}/linear-progress`, notes: 'Circular Progress has its own page.' },
+		{ id: 'spinner', name: 'Circular Progress', docs: `${d}/circular-progress`, notes: 'Indeterminate mode of the Circular Progress component.' },
+		{ id: 'badge', name: 'Badge', docs: `${d}/badge`, notes: 'Package @smui-extra/badge. Chips (choice, filter, input) have their own page.' },
+		{ id: 'table', name: 'Data Table', docs: `${d}/data-table`, notes: 'Row selection, sorting, sticky header and pagination.' },
+		{ id: 'list', name: 'List', docs: `${d}/list`, notes: 'One-, two- and three-line items, groups, checkbox and radio lists.' },
+		{ id: 'image', name: 'Image List', docs: `${d}/image-list`, notes: 'A grid of images with optional labels, not a single image helper.' },
+		{ id: 'typography', name: 'Typography', docs: `${d}/typography`, notes: 'Material type scale classes from @smui/common.' },
+		{ id: 'icon', name: 'Icon', docs: `${d}/common`, notes: 'Icon and Svg from @smui/common render font icons or SVG paths; see the Icon Button page for SVG usage.' },
+	],
+	ai: {
+		status: 'restricted',
+		summary:
+			'CONTRIBUTING.md has an "AI Generated Code Policy" stating that SMUI does not accept AI-generated code and asking contributors not to submit any. No llms.txt, AGENTS.md, CLAUDE.md or MCP server was found in the repo.',
+		sources: [
+			'https://github.com/hperrin/svelte-material-ui/blob/master/CONTRIBUTING.md',
+		],
+		upstreamContributing:
+			'Do not submit AI-generated code to the SMUI repository; the maintainers refuse it.',
+	},
+	lastVerified: '2026-11-04',
+	notes: [
+		'Every component is its own package (@smui/<name>, or @smui-extra/<name> for accordion, autocomplete, badge, bottom-app-bar and chip-input); install only the ones you use plus smui-theme.',
+		'No svelte peerDependency is declared. The README states that SMUI v8 and higher requires Svelte 5 and that v7 is the last version for Svelte 4; the repo root devDependency is svelte ^5.57.2 and components use runes ($props).',
+		'Styles are Sass: compile a theme with the smui-theme CLI (light and dark) or use a prebuilt CSS theme from the svelte-material-ui package. Roboto and the Material Icons font are loaded separately.',
+		'v9 no longer depends on MDC-Web packages; MDC-Web\'s TypeScript was vendored and is slated for removal in v10.',
+	],
+})
