@@ -13,6 +13,8 @@ affiliated with any library listed here.
   semantic colors.
 - **[Components](/components/)** — see which libraries ship a given component, under what name.
 - **[Compare](/compare/)** — pick libraries and line up their setup, features and components, with live previews of their default styles.
+- **[Tools](/tools/)** — single-purpose packages (charts, data tables, toasts…) and building blocks
+  for making your own components, linked to the libraries that build on them.
 
 ## Principles
 

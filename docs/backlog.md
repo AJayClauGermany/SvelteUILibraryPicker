@@ -103,7 +103,20 @@ or Bootstrap CSS. Candidates:
 rgossiaux svelte-headlessui, Smelte, fluent-svelte, svelte-atoms, Grail UI, radix-svelte, the
 legacy `@melt-ui/svelte`), non-Svelte libraries (AgnosticUI, FlyonUI, daisyUI), single-purpose
 components (Formsnap, svelte-sonner, PaneForge, vaul-svelte, select-kit, data grids) and chart/3D
-libraries (LayerChart, Threlte). A "related tools" page could list the single-purpose ones later.
+libraries (LayerChart, Threlte). Single-purpose packages now live in the [Tools](#tools) section
+instead.
+
+## Tools
+
+The Tools section (`src/lib/data/tools/`, added 2026-11-06) starts with packages for components
+that tracked libraries already provide. Next steps:
+
+- More tools for covered components, e.g. other chart libraries (Flowbite Svelte's chart plugin,
+  Chart.js/ECharts wrappers), `focus-trap`, `@iconify/svelte`,
+  `runed` and `svelte-toolbelt` (Svelte 5 helpers several libraries build on).
+- Widen the grounding rule to components no tracked library has yet (drag and drop, rich-text
+  editors, maps, 3D with Threlte, Kanban) once there's a plan for how they appear on the site.
+- Previews for tools: the preview registry is library-only today.
 
 ## Previews
 

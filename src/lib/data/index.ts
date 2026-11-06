@@ -1,7 +1,7 @@
 import type { CategoryId, ComponentId } from './components'
-import type { DependencyKind, FeatureTag, Library, LibraryComponent, ProjectDependency } from './schema'
+import type { DependencyKind, FeatureTag, Library, LibraryComponent, ProjectDependency, Tool, ToolKind } from './schema'
 import { categories, componentIds, components } from './components'
-import { dependencyKindLabels, featureInfo, toolingKinds } from './schema'
+import { dependencyKindLabels, featureInfo, toolKindInfo, toolingKinds } from './schema'
 
 const modules = import.meta.glob<{ default: Library }>('./libraries/*.ts', { eager: true })
 
@@ -72,5 +72,26 @@ export const usedFeatureTags: FeatureTag[] = (Object.keys(featureInfo) as Featur
 /** Canonical components that at least one library provides. */
 export const coveredComponentIds: ComponentId[] = componentIds.filter(id => librariesWith(id).length > 0)
 
-export { categories, componentIds, components, dependencyKindLabels, featureInfo, toolingKinds }
-export type { CategoryId, ComponentId, DependencyKind, FeatureTag, Library, LibraryComponent, ProjectDependency }
+const toolModules = import.meta.glob<{ default: Tool }>('./tools/*.ts', { eager: true })
+
+/** All tools (single-purpose packages and building blocks), sorted by name. */
+export const tools: Tool[] = Object.values(toolModules)
+	.map(m => m.default)
+	.sort((a, b) => a.name.localeCompare(b.name))
+
+export function getTool(id: string): Tool | undefined {
+	return tools.find(t => t.id === id)
+}
+
+/** Tools that provide or help build a given canonical component. */
+export function toolsFor(id: ComponentId): Tool[] {
+	return tools.filter(t => t.components.includes(id))
+}
+
+/** Tools a given library builds on or documents. */
+export function toolsUsedBy(libraryId: string): Tool[] {
+	return tools.filter(t => t.usedBy.some(u => u.library === libraryId))
+}
+
+export { categories, componentIds, components, dependencyKindLabels, featureInfo, toolKindInfo, toolingKinds }
+export type { CategoryId, ComponentId, DependencyKind, FeatureTag, Library, LibraryComponent, ProjectDependency, Tool, ToolKind }

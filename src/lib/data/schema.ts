@@ -220,3 +220,81 @@ export interface Library {
 export function defineLibrary(library: Library): Library {
 	return library
 }
+
+/* ------------------------------------------------------------------------------------------
+ * Tools: single-purpose packages and building blocks
+ *
+ * One file per tool lives in `src/lib/data/tools/<id>.ts` and default-exports
+ * `defineTool({...})`. These are NOT full UI libraries: they cover one kind of component
+ * (charts, data tables, toasts...) or help you build your own components (positioning,
+ * dates...). The same ground rules apply: primary sources, own words, always link back.
+ * ---------------------------------------------------------------------------------------- */
+
+/** What kind of help a tool gives. */
+export type ToolKind =
+	/** A ready-made, styled or styleable component you drop in (e.g. a chart or toast library). */
+	| 'component'
+	/** State and behaviour only; you render the markup (e.g. a table or virtualizer engine). */
+	| 'headless'
+	/** A lower-level helper for building components (positioning, dates, form handling...). */
+	| 'utility'
+
+export const toolKindInfo: Record<ToolKind, { label: string, description: string }> = {
+	component: { label: 'Ready-made component', description: 'Drop it in when your UI library lacks the component, or you need more than it offers.' },
+	headless: { label: 'Headless engine', description: 'Handles state and behaviour; you write the markup and styles.' },
+	utility: { label: 'Building block', description: 'Lower-level helpers that UI libraries themselves are built on.' },
+}
+
+/** A tracked library that builds on (or officially integrates) a tool. */
+export interface ToolUsage {
+	/** Id of a library in `src/lib/data/libraries/`. */
+	library: string
+	/** Short note in your own words, e.g. "Chart component is built on it". */
+	how: string
+	/** REQUIRED: where you verified it (docs page, or package.json / source on GitHub). */
+	source: string
+}
+
+export interface Tool {
+	/** URL-safe slug, must match the file name. */
+	id: string
+	name: string
+	/** One sentence, own words. */
+	description: string
+	kind: ToolKind
+	/** Official documentation home. REQUIRED — we always link back. */
+	docs: string
+	repository: string
+	/** npm package(s) a user installs. The first one is treated as the primary package. */
+	packages: string[]
+	license: LicenseInfo
+	/**
+	 * Svelte support of the current release. Omit for framework-agnostic packages
+	 * (e.g. a positioning engine) and say so in `notes`.
+	 */
+	svelte?: {
+		supported: SvelteMajor[]
+		/** The `svelte` peerDependency range of the version recorded below, verbatim. */
+		peerRange?: string
+		runes?: boolean
+	}
+	/** Version of the primary package these facts were verified against. */
+	version: string
+	/**
+	 * Canonical components this tool provides or helps build. Each one must be provided by
+	 * at least one tracked library, so every tool stays grounded in what the site compares.
+	 */
+	components: ComponentId[]
+	/** Tracked libraries that build on or document this tool. `[]` if none. */
+	usedBy: ToolUsage[]
+	ai: AiPolicy
+	/** ISO date (YYYY-MM-DD) the entry was last checked against the source. */
+	lastVerified: string
+	/** Optional extra caveats shown on the tool page. */
+	notes?: string[]
+}
+
+/** Identity helper that gives editors autocomplete + type checking. */
+export function defineTool(tool: Tool): Tool {
+	return tool
+}

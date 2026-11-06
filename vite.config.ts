@@ -25,15 +25,15 @@ function previewsDevServer(): Plugin {
 	}
 }
 
-/** Sidebar entries for every library, read from the data files (name + id). */
-function librarySidebar() {
-	const dir = new URL('./src/lib/data/libraries/', import.meta.url)
+/** Sidebar entries for every library or tool, read from the data files (name + id). */
+function dataSidebar(kind: 'libraries' | 'tools') {
+	const dir = new URL(`./src/lib/data/${kind}/`, import.meta.url)
 	return readdirSync(dir)
 		.filter(f => f.endsWith('.ts'))
 		.map((f) => {
 			const src = readFileSync(new URL(f, dir), 'utf8')
 			const name = src.match(/\bname:\s*'([^']+)'/)?.[1] ?? f.replace(/\.ts$/, '')
-			return { title: name, to: `/libraries/${f.replace(/\.ts$/, '')}/` }
+			return { title: name, to: `/${kind}/${f.replace(/\.ts$/, '')}/` }
 		})
 		.sort((a, b) => a.title.localeCompare(b.title))
 }
@@ -45,10 +45,14 @@ const browseSidebar = [
 			{ title: 'All libraries', to: '/libraries/' },
 			{ title: 'Components', to: '/components/' },
 			{ title: 'Compare', to: '/compare/' },
+			{ title: 'Tools', to: '/tools/' },
 		],
 	},
-	{ title: 'Libraries', collapsible: true, items: librarySidebar() },
+	{ title: 'Libraries', collapsible: true, items: dataSidebar('libraries') },
 ]
+
+/** Tools pages also list every tool; elsewhere the sidebar stays focused on libraries. */
+const toolsSidebar = [...browseSidebar, { title: 'Tools', collapsible: true, items: dataSidebar('tools') }]
 
 /**
  * Deploy base path. Empty for local dev and root-domain hosting; set BASE_PATH=/RepoName
@@ -68,11 +72,13 @@ export default defineConfig({
 					{ title: 'Components', to: '/components/' },
 					{ title: 'Compare', to: '/compare/' },
 					{ title: 'Guide', to: '/guide/about/' },
+					{ title: 'Tools', to: '/tools/' },
 				],
 				sidebar: {
 					'/libraries/': browseSidebar,
 					'/components/': browseSidebar,
 					'/compare/': browseSidebar,
+					'/tools/': toolsSidebar,
 					'/guide/': [
 						{
 							title: 'Guide',

@@ -10,7 +10,7 @@ import { basename, join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { previews } from '../previews'
 import { componentIds, components } from './components'
-import { libraries } from './index'
+import { coveredComponentIds, libraries, tools } from './index'
 import { featureInfo } from './schema'
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
@@ -113,6 +113,86 @@ describe('libraries', () => {
 			})
 		})
 	}
+})
+
+describe('tools', () => {
+	const files = readdirSync(join(__dirname, 'tools')).filter(f => f.endsWith('.ts'))
+
+	it('has unique ids that match their file names', () => {
+		const ids = tools.map(t => t.id)
+		expect(new Set(ids).size).toBe(ids.length)
+		expect(ids.sort()).toEqual(files.map(f => basename(f, '.ts')).sort())
+	})
+
+	for (const tool of tools) {
+		describe(tool.id, () => {
+			it('has a valid slug and basic fields', () => {
+				expect(tool.id).toMatch(SLUG)
+				expect(tool.name.trim()).not.toBe('')
+				expect(tool.description.trim()).not.toBe('')
+				expect(tool.description.length, 'keep descriptions to one short sentence').toBeLessThanOrEqual(200)
+				expect(tool.packages.length).toBeGreaterThan(0)
+				expect(tool.version.trim()).not.toBe('')
+				if (tool.svelte) expect(tool.svelte.supported.length).toBeGreaterThan(0)
+			})
+
+			it('links to official docs, repo and license (https)', () => {
+				expect(isHttpsUrl(tool.docs), `docs: ${tool.docs}`).toBe(true)
+				expect(isHttpsUrl(tool.repository), `repository: ${tool.repository}`).toBe(true)
+				expect(isHttpsUrl(tool.license.url), `license.url: ${tool.license.url}`).toBe(true)
+				expect(tool.license.spdx.trim()).not.toBe('')
+			})
+
+			it('has a valid lastVerified date', () => {
+				expect(tool.lastVerified).toMatch(ISO_DATE)
+				expect(tool.lastVerified <= today, 'lastVerified is in the future').toBe(true)
+			})
+
+			it('backs its AI policy with sources (unless unreviewed)', () => {
+				expect(tool.ai.summary.trim()).not.toBe('')
+				if (tool.ai.status !== 'unreviewed')
+					expect(tool.ai.sources.length, 'add at least one source URL').toBeGreaterThan(0)
+				for (const src of tool.ai.sources) expect(isHttpsUrl(src), src).toBe(true)
+				if (tool.ai.llmsTxt) expect(isHttpsUrl(tool.ai.llmsTxt)).toBe(true)
+			})
+
+			// Grounding: tools only cover components that tracked UI libraries already provide.
+			it('maps to components that at least one tracked library provides', () => {
+				expect(tool.components.length, 'list at least one canonical component').toBeGreaterThan(0)
+				expect(new Set(tool.components).size, 'duplicate component id').toBe(tool.components.length)
+				for (const id of tool.components) {
+					expect(id in components, `unknown component id "${id}"`).toBe(true)
+					expect(coveredComponentIds, `no tracked library provides "${id}"`).toContain(id)
+				}
+			})
+
+			it('names tracked libraries in usedBy, each with a source', () => {
+				const seen = new Set<string>()
+				for (const u of tool.usedBy) {
+					expect(libraries.some(l => l.id === u.library), `unknown library "${u.library}"`).toBe(true)
+					expect(seen.has(u.library), `duplicate usedBy "${u.library}"`).toBe(false)
+					seen.add(u.library)
+					expect(u.how.trim()).not.toBe('')
+					expect(isHttpsUrl(u.source), `${u.library} source: ${u.source}`).toBe(true)
+				}
+			})
+		})
+	}
+
+	// The same fact can live in two places: a library's `dependencies` and a tool's `usedBy`.
+	// If a library tells users to install a tool's package, the tool must list that library.
+	it('agree with library dependencies', () => {
+		for (const lib of libraries) {
+			for (const d of lib.dependencies) {
+				const tool = tools.find(t => t.packages.includes(d.package))
+				if (!tool) continue
+				expect(
+					tool.usedBy.some(u => u.library === lib.id),
+					`${lib.id} lists "${d.package}" as a dependency, so tools/${tool.id}.ts should list "${lib.id}" in usedBy`,
+				).toBe(true)
+			}
+		}
+	})
 })
 
 describe('previews', () => {
