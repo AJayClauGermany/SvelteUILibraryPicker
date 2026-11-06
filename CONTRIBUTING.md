@@ -36,6 +36,11 @@ In the PR, link the source that proves the change.
 
 Follow [docs/playbooks/add-library.md](docs/playbooks/add-library.md). One library per PR, please.
 
+### Add a tool
+
+Follow [docs/playbooks/add-tool.md](docs/playbooks/add-tool.md). Tools are single-purpose
+packages (charts, data tables, toasts…) and building blocks for your own components.
+
 ### Add a live preview
 
 Follow [docs/playbooks/add-preview.md](docs/playbooks/add-preview.md). Background is in

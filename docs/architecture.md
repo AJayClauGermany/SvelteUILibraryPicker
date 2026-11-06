@@ -8,6 +8,7 @@ src/
       schema.ts              Library type and field rules
       components.ts          canonical component taxonomy
       libraries/<id>.ts      one file per library (eagerly globbed)
+      tools/<id>.ts          one file per tool: single-purpose packages and building blocks
       index.ts               queries: libraries, getLibrary, librariesWith, ...
       validate.test.ts       `pnpm validate`
     previews.ts              which previews exist and their URLs (file list only)
@@ -17,6 +18,7 @@ src/
     libraries/[id]/          library detail pages
     components/[id]/         one component across all libraries, with previews
     compare/                 matrix plus side-by-side previews (state in the URL query)
+    tools/[id]/              tool pages (linked from component and library pages)
     guide/                   about, licenses and AI policy, contributing
 previews/
   index.html, main.ts        standalone preview app (Vite + Svelte, no SvelteKit)
@@ -30,7 +32,11 @@ Library files are plain TypeScript modules. `src/lib/data/index.ts` loads them w
 `import.meta.glob(..., { eager: true })`, so adding a file is all it takes. Pages read from
 there at build time and are prerendered (`adapter-static`, `trailingSlash: 'always'`).
 
-`vite.config.ts` also reads the library files (a simple regex on `name:`) to build the sidebar.
+Tools in `src/lib/data/tools/` load the same way (`tools`, `toolsFor(componentId)`,
+`toolsUsedBy(libraryId)`). Every tool must map to a component that a tracked library provides,
+which keeps the section grounded in what the site compares.
+
+`vite.config.ts` also reads the library and tool files (a simple regex on `name:`) to build the sidebar.
 
 ## Why previews are a separate app
 

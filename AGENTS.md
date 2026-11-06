@@ -58,6 +58,7 @@ Node >= 22, pnpm 10.
 | `src/lib/data/schema.ts` | Types and rules for library entries (read this first) |
 | `src/lib/data/components.ts` | Canonical component taxonomy (ids, categories, aliases) |
 | `src/lib/data/libraries/<id>.ts` | One file per library (`export default defineLibrary({...})`) |
+| `src/lib/data/tools/<id>.ts` | One file per tool: single-purpose packages and building blocks (`defineTool({...})`) |
 | `src/lib/data/validate.test.ts` | The data rules `pnpm validate` enforces |
 | `previews/src/<library>/<component>.svelte` | Live previews (default styling only) |
 | `previews/` | Standalone Vite app that renders previews in isolation at `/preview/` |
@@ -89,9 +90,10 @@ Step-by-step procedures (plain Markdown, usable by any agent):
 
 - [Add or update a library](docs/playbooks/add-library.md)
 - [Add a live preview](docs/playbooks/add-preview.md)
+- [Add or update a tool](docs/playbooks/add-tool.md)
 
 ## Pull requests
 
-- Keep PRs focused: one library, one preview set, or one feature.
+- Keep PRs focused: one library, one tool, one preview set, or one feature.
 - Run `pnpm verify` and say in the PR what you verified and how (npm, repo path, docs URL).
 - Say in the PR when an AI agent did the work (no blame, it helps reviewers).

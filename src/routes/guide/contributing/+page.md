@@ -24,6 +24,12 @@ pnpm verify         # validate + type check + build
 4. Check the library's stance on AI (`llms.txt`, CONTRIBUTING, AGENTS.md…) and record it with sources.
 5. Set `lastVerified` to today and run `pnpm validate`.
 
+## Adding a tool
+
+Tools are single-purpose packages and building blocks, in `src/lib/data/tools/<id>.ts`. For now
+each one must map to a component that a tracked library already provides. See the
+[tool playbook](https://github.com/AJayClauGermany/SvelteUILibraryPicker/blob/main/docs/playbooks/add-tool.md).
+
 ## Adding a preview
 
 Previews live in `previews/src/<library-id>/<component-id>.svelte`. Each one is a **minimal**

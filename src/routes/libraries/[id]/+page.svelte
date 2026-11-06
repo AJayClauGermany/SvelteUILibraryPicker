@@ -8,7 +8,7 @@
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
 	import SvelteSupport from '#lib/components/SvelteSupport.svelte'
 	import ToolingChips from '#lib/components/ToolingChips.svelte'
-	import { componentsByCategory, components, dependencyKindLabels, featureInfo } from '#lib/data/index.ts'
+	import { componentsByCategory, components, dependencyKindLabels, featureInfo, toolsUsedBy } from '#lib/data/index.ts'
 	import { hasPreview, previewPath } from '#lib/previews.ts'
 
 	const { data } = $props()
@@ -17,6 +17,7 @@
 	const description = $derived(lib.description)
 	const groups = $derived(componentsByCategory(lib.components.map(c => c.id)))
 	const byId = $derived(new Map(lib.components.map(c => [c.id, c])))
+	const builtOn = $derived(toolsUsedBy(lib.id))
 </script>
 
 <PageMeta {title} {description} />
@@ -77,6 +78,17 @@
 	</div>
 {:else}
 	<p>Nothing beyond <code>svelte</code> and the packages above (npm installs the library's own dependencies for you).</p>
+{/if}
+
+{#if builtOn.length}
+	<h2 id="tools">Tools it builds on</h2>
+	<p class="ulp-muted">Focused packages this library uses or documents. Useful if you want the same behaviour without the whole library. See <a href={url('/tools/')}>all tools</a>.</p>
+	<ul>
+		{#each builtOn as t (t.id)}
+			{@const u = t.usedBy.find(x => x.library === lib.id)!}
+			<li><a href={url(`/tools/${t.id}/`)}>{t.name}</a> <span class="ulp-muted">— {u.how}</span></li>
+		{/each}
+	</ul>
 {/if}
 
 {#if lib.notes?.length}

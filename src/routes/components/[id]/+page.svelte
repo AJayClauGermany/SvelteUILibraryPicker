@@ -4,7 +4,7 @@
 	import DocsLink from '#lib/components/DocsLink.svelte'
 	import PreviewFrame from '#lib/components/PreviewFrame.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
-	import { categories, components, findComponent, libraries, librariesWith } from '#lib/data/index.ts'
+	import { categories, components, findComponent, libraries, librariesWith, toolKindInfo, toolsFor } from '#lib/data/index.ts'
 
 	const { data } = $props()
 	const def = $derived(components[data.id])
@@ -12,6 +12,7 @@
 	const description = $derived(`${def.name} across Svelte UI libraries.`)
 	const providers = $derived(librariesWith(data.id))
 	const missing = $derived(libraries.filter(l => !providers.includes(l)))
+	const relatedTools = $derived(toolsFor(data.id))
 </script>
 
 <PageMeta {title} {description} />
@@ -54,6 +55,25 @@
 			{@const c = findComponent(lib, data.id)!}
 			<PreviewFrame library={lib.id} libraryName={lib.name} component={data.id} componentName={c.name} docs={c.docs} />
 		{/each}
+	</div>
+{/if}
+
+{#if relatedTools.length}
+	<h2 id="tools">Related tools</h2>
+	<p class="ulp-muted">Focused packages for this component, for when you need more than a UI library offers or are building your own. See <a href={url('/tools/')}>all tools</a>.</p>
+	<div class="ulp-table-wrap">
+		<table class="ulp-table">
+			<thead><tr><th>Tool</th><th>Type</th><th>Official docs</th></tr></thead>
+			<tbody>
+				{#each relatedTools as t (t.id)}
+					<tr>
+						<td><a href={url(`/tools/${t.id}/`)}>{t.name}</a><div class="ulp-muted">{t.description}</div></td>
+						<td>{toolKindInfo[t.kind].label}</td>
+						<td><DocsLink href={t.docs}>{t.name} docs</DocsLink></td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
 	</div>
 {/if}
 
