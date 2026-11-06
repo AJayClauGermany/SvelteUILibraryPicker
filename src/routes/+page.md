@@ -19,8 +19,6 @@ features:
     description: Every library's components mapped onto one shared list, so a Dialog in one lines up with a Modal in another.
   - title: Default styles, side by side
     description: Live previews render each library in an isolated frame with its own default styling.
-  - title: Tools for building your own
-    description: Charts, data tables, toasts, positioning and date helpers that UI libraries build on, mapped to the same components.
   - title: Always links back
     description: We're a secondary source. Every library and every component links straight to its official documentation.
 ---

@@ -49,8 +49,10 @@ const browseSidebar = [
 		],
 	},
 	{ title: 'Libraries', collapsible: true, items: dataSidebar('libraries') },
-	{ title: 'Tools', collapsible: true, items: dataSidebar('tools') },
 ]
+
+/** Tools pages also list every tool; elsewhere the sidebar stays focused on libraries. */
+const toolsSidebar = [...browseSidebar, { title: 'Tools', collapsible: true, items: dataSidebar('tools') }]
 
 /**
  * Deploy base path. Empty for local dev and root-domain hosting; set BASE_PATH=/RepoName
@@ -69,14 +71,14 @@ export default defineConfig({
 					{ title: 'Libraries', to: '/libraries/' },
 					{ title: 'Components', to: '/components/' },
 					{ title: 'Compare', to: '/compare/' },
-					{ title: 'Tools', to: '/tools/' },
 					{ title: 'Guide', to: '/guide/about/' },
+					{ title: 'Tools', to: '/tools/' },
 				],
 				sidebar: {
 					'/libraries/': browseSidebar,
 					'/components/': browseSidebar,
 					'/compare/': browseSidebar,
-					'/tools/': browseSidebar,
+					'/tools/': toolsSidebar,
 					'/guide/': [
 						{
 							title: 'Guide',

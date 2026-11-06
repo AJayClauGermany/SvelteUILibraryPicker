@@ -29,7 +29,7 @@ range, the repo's LICENSE file for `license`, and the docs or repo for `docs`/`r
 | `kind` | `component` (ready-made, styled or styleable), `headless` (state/behaviour, you render the markup) or `utility` (a lower-level helper). See `toolKindInfo` in `schema.ts`. |
 | `svelte` | Omit for framework-agnostic packages (e.g. `@floating-ui/dom`) and say so in `notes`. |
 | `components` | Canonical ids from `components.ts` that the tool provides or helps build. |
-| `usedBy` | Tracked libraries that depend on it or officially document it, each with a source (their `package.json`, a docs page, or a registry file). Check with `npm view <library-pkg> dependencies peerDependencies --json`. `[]` is fine. |
+| `usedBy` | Tracked libraries that depend on it or officially document it, each with a source (their `package.json`, a docs page, or a registry file). Check with `npm view <library-pkg> dependencies peerDependencies --json`. `[]` is fine. If a library's own `dependencies` lists the tool's package, `pnpm validate` requires that library here too. |
 | `ai` | Same rules as libraries (`llms.txt`, MCP, `AGENTS.md`, CONTRIBUTING, LICENSE). |
 
 **Never guess a URL.** If the docs site is unreachable, `git clone --depth 1` the repo and read

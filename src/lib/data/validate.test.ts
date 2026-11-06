@@ -178,6 +178,21 @@ describe('tools', () => {
 			})
 		})
 	}
+
+	// The same fact can live in two places: a library's `dependencies` and a tool's `usedBy`.
+	// If a library tells users to install a tool's package, the tool must list that library.
+	it('agree with library dependencies', () => {
+		for (const lib of libraries) {
+			for (const d of lib.dependencies) {
+				const tool = tools.find(t => t.packages.includes(d.package))
+				if (!tool) continue
+				expect(
+					tool.usedBy.some(u => u.library === lib.id),
+					`${lib.id} lists "${d.package}" as a dependency, so tools/${tool.id}.ts should list "${lib.id}" in usedBy`,
+				).toBe(true)
+			}
+		}
+	})
 })
 
 describe('previews', () => {

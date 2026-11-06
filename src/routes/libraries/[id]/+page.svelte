@@ -80,17 +80,6 @@
 	<p>Nothing beyond <code>svelte</code> and the packages above (npm installs the library's own dependencies for you).</p>
 {/if}
 
-{#if builtOn.length}
-	<h2 id="tools">Tools it builds on</h2>
-	<p class="ulp-muted">Focused packages this library uses or documents. Useful if you want the same behaviour without the whole library. See <a href={url('/tools/')}>all tools</a>.</p>
-	<ul>
-		{#each builtOn as t (t.id)}
-			{@const u = t.usedBy.find(x => x.library === lib.id)!}
-			<li><a href={url(`/tools/${t.id}/`)}>{t.name}</a> <span class="ulp-muted">— {u.how}</span></li>
-		{/each}
-	</ul>
-{/if}
-
 {#if lib.notes?.length}
 	<h2 id="notes">Notes</h2>
 	<ul>{#each lib.notes as n (n)}<li>{n}</li>{/each}</ul>
@@ -117,6 +106,17 @@
 		</table>
 	</div>
 {/each}
+
+{#if builtOn.length}
+	<h2 id="tools">Tools it builds on</h2>
+	<p class="ulp-muted">Focused packages this library uses or documents. Useful if you want the same behaviour without the whole library. See <a href={url('/tools/')}>all tools</a>.</p>
+	<ul>
+		{#each builtOn as t (t.id)}
+			{@const u = t.usedBy.find(x => x.library === lib.id)!}
+			<li><a href={url(`/tools/${t.id}/`)}>{t.name}</a> <span class="ulp-muted">— {u.how}</span></li>
+		{/each}
+	</ul>
+{/if}
 
 <style>
 	.lead {
