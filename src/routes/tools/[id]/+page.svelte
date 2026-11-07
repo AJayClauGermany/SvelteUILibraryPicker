@@ -15,9 +15,17 @@
 	const alternatives = $derived(
 		[...new Set(tool.components.flatMap(id => toolsFor(id)))].filter(t => t.id !== tool.id),
 	)
+	/** "On this page" entries; keep in step with the headings below. */
+	const anchors = $derived([
+		{ title: 'At a glance', slugId: 'at-a-glance', depth: 2 },
+		...(tool.notes?.length ? [{ title: 'Notes', slugId: 'notes', depth: 2 }] : []),
+		{ title: 'Related components', slugId: 'components', depth: 2 },
+		{ title: 'Used by tracked libraries', slugId: 'used-by', depth: 2 },
+		...(alternatives.length ? [{ title: 'Other tools for the same components', slugId: 'alternatives', depth: 2 }] : []),
+	])
 </script>
 
-<PageMeta {title} {description} />
+<PageMeta {title} {description} {anchors} />
 
 <h1 class="page-title">{title}</h1>
 <p class="lead">{tool.description}</p>

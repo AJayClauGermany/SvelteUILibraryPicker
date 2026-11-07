@@ -13,9 +13,16 @@
 	const providers = $derived(librariesWith(data.id))
 	const missing = $derived(libraries.filter(l => !providers.includes(l)))
 	const relatedTools = $derived(toolsFor(data.id))
+	/** "On this page" entries; keep in step with the headings below. */
+	const anchors = $derived([
+		{ title: `Provided by ${providers.length} of ${libraries.length} libraries`, slugId: 'libraries', depth: 2 },
+		...(providers.length ? [{ title: 'Default styles, side by side', slugId: 'previews', depth: 2 }] : []),
+		...(relatedTools.length ? [{ title: 'Related tools', slugId: 'tools', depth: 2 }] : []),
+		...(missing.length ? [{ title: 'Not listed for', slugId: 'not-provided', depth: 2 }] : []),
+	])
 </script>
 
-<PageMeta {title} {description} />
+<PageMeta {title} {description} {anchors} />
 
 <h1 class="page-title">{title}</h1>
 <p>

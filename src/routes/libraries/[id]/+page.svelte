@@ -18,9 +18,18 @@
 	const groups = $derived(componentsByCategory(lib.components.map(c => c.id)))
 	const byId = $derived(new Map(lib.components.map(c => [c.id, c])))
 	const builtOn = $derived(toolsUsedBy(lib.id))
+	/** "On this page" entries; keep in step with the headings below. */
+	const anchors = $derived([
+		{ title: 'At a glance', slugId: 'at-a-glance', depth: 2 },
+		{ title: 'Dependencies you install', slugId: 'dependencies', depth: 2 },
+		...(lib.notes?.length ? [{ title: 'Notes', slugId: 'notes', depth: 2 }] : []),
+		{ title: `Components (${lib.components.length})`, slugId: 'components', depth: 2 },
+		...groups.map(g => ({ title: g.label, slugId: `cat-${g.category}`, depth: 3 })),
+		...(builtOn.length ? [{ title: 'Tools it builds on', slugId: 'tools', depth: 2 }] : []),
+	])
 </script>
 
-<PageMeta {title} {description} />
+<PageMeta {title} {description} {anchors} />
 
 <h1 class="page-title">{title}</h1>
 <p class="lead">{lib.description}</p>

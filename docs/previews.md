@@ -19,6 +19,14 @@ styling**, side by side, with a docs link for each.
 - **Copy-paste libraries** (shadcn-svelte): the "default" is the generated component with its
   default theme. Not supported yet, because it needs generated files per component.
 
+## How they appear on the site
+
+`PreviewFrame.svelte` shows each preview as a card: the front embeds the preview page in an
+`<iframe>`, and **Code** flips it over to show the preview file's source (loaded on demand from
+`previews/src/` with `?raw`, see `loadPreviewSource` in `src/lib/previews.ts`). So the file *is*
+what visitors read: keep it minimal, keep the header comment with the docs URL, and don't add
+anything you wouldn't want shown.
+
 ## Rules
 
 - Allowed only when the library's `ai.status` is `welcomes` or `no-statement`. `pnpm validate`

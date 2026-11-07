@@ -8,8 +8,9 @@
  * See docs/previews.md.
  */
 
-// `?raw` + lazy: we only need the file list here; never pulls library code into the site.
-const files = import.meta.glob('/previews/src/*/*.svelte', { query: '?raw' })
+// `?raw` + lazy: the site only needs the file list up front, and the source text (for the
+// code side of a preview card) on demand; it never pulls library code into the site.
+const files = import.meta.glob('/previews/src/*/*.svelte', { query: '?raw', import: 'default' }) as Record<string, () => Promise<string>>
 
 function keyOf(path: string) {
 	const [, library = '', component = ''] = path.match(/\/previews\/src\/([^/]+)\/([^/]+)\.svelte$/) ?? []
@@ -20,6 +21,12 @@ export const previews = Object.keys(files).map(keyOf)
 
 export function hasPreview(library: string, component: string): boolean {
 	return `/previews/src/${library}/${component}.svelte` in files
+}
+
+/** Source of a preview file, as written (the whole `.svelte` file including its header comment). */
+export function loadPreviewSource(library: string, component: string): Promise<string> {
+	const load = files[`/previews/src/${library}/${component}.svelte`]
+	return load ? load() : Promise.reject(new Error(`No preview for ${library}/${component}`))
 }
 
 /** Path of a preview page, WITHOUT the base path; wrap it in `url()` from `#lib/url.ts`. */

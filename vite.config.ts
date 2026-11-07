@@ -1,4 +1,5 @@
 import { readdirSync, readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import adapter from '@sveltejs/adapter-static'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import { defaultTheme } from '@sveltepress/theme-default'
@@ -62,7 +63,15 @@ const BASE = (process.env.BASE_PATH ?? '') as '' | `/${string}`
 
 const REPO = 'https://github.com/AJayClauGermany/SvelteUILibraryPicker'
 
+/**
+ * The theme's layout stores (the "On this page" anchors its Toc renders) live in a file its
+ * package.json doesn't export. Alias it so dynamic pages can fill the TOC the way Markdown
+ * pages do (see `#lib/components/PageMeta.svelte`). Typed in `src/theme-layout.d.ts`.
+ */
+const THEME_LAYOUT = fileURLToPath(new URL('./layout.js', import.meta.resolve('@sveltepress/theme-default/PageLayout.svelte')))
+
 export default defineConfig({
+	resolve: { alias: { '#theme-layout': THEME_LAYOUT } },
 	plugins: [
 		previewsDevServer(),
 		sveltepress({

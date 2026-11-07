@@ -59,7 +59,13 @@ CSS and stop showing a library's real defaults. So previews are a tiny separate 
   layout-reset names.
 - Dynamic pages can't set the frontmatter title, so they use `PageMeta.svelte` (marker metas
   that `hooks.server.ts` swaps into the prerendered HTML, plus `document.title` on client
-  navigation).
+  navigation). The same component takes the page's `anchors` ("On this page") and writes them
+  to the theme's own TOC store, which the theme doesn't export: `vite.config.ts` aliases it as
+  `#theme-layout`, typed in `src/theme-layout.d.ts`. Static `.svelte` pages put `anchors` in
+  their frontmatter instead; Markdown pages get them from their headings.
+- The theme lays pages out as sidebar | content | TOC inside a 1440px frame. Pages without a
+  TOC (the lists and Compare) would leave the third column empty, so `site.css` widens their
+  content into it on desktop (`main:not(:has(.toc))`). Pages with a TOC keep the theme's column.
 - Route groups like `(group)` break the theme's home and sidebar detection (it reads
   `page.route.id`).
 - Desktop navbar links appear at widths of 1440px and up; below that they're in the menu.
