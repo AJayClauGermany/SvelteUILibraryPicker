@@ -11,6 +11,21 @@
 	--ulp-radius: 10px;
 }
 
+/*
+ * The theme lays pages out as sidebar | content | "On this page" (TOC) inside a 1440px frame.
+ * Pages without a TOC (lists, compare) would leave that third column empty on desktop, so
+ * their content widens into it. Pages with a TOC keep the theme's centred column.
+ */
+@media (min-width: 950px) {
+	main:not(:has(.toc)) .theme-default--page-layout .content {
+		--ulp-frame-gutter: max(0px, (100vw - 1440px) / 2);
+		width: auto;
+		max-width: none;
+		margin-left: calc(var(--ulp-frame-gutter) + min(25vw, 288px) + 3rem);
+		margin-right: calc(var(--ulp-frame-gutter) + 3rem);
+	}
+}
+
 html.dark,
 html[data-theme='dark'] {
 	--ulp-muted: #a1a1aa;

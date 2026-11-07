@@ -2,6 +2,11 @@
 	export const frontmatter = {
 		title: 'Features & tooling',
 		description: 'What each feature tag and build-tooling label on this site means, and what a library needs to earn it.',
+		// "On this page" list (Markdown pages get this from their headings automatically).
+		anchors: [
+			{ title: 'Feature tags', slugId: 'features', depth: 2 },
+			{ title: 'Dependencies and build tooling', slugId: 'dependencies', depth: 2 },
+		],
 	}
 </script>
 

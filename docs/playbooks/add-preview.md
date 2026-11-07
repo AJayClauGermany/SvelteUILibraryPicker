@@ -33,6 +33,8 @@ Output: `previews/src/<library-id>/<component-id>.svelte`, plus the library as a
    ```
 
 3. Rules:
+   - The file's source is shown on the site (the "Code" side of the preview card), so keep it
+     readable and keep the header comment.
    - Use the **default** theme or styles, exactly as the library's install guide sets them up.
    - Write a **minimal** example of your own. Don't copy the docs' examples.
    - **No styles of ours.** No `<style>` blocks, classes or wrappers that change the look.
