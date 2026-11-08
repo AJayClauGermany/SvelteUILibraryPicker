@@ -22,10 +22,14 @@ styling**, side by side, with a docs link for each.
 ## How they appear on the site
 
 `PreviewFrame.svelte` shows each preview as a card: the front embeds the preview page in an
-`<iframe>`, and **Code** flips it over to show the preview file's source (loaded on demand from
-`previews/src/` with `?raw`, see `loadPreviewSource` in `src/lib/previews.ts`). So the file *is*
-what visitors read: keep it minimal, keep the header comment with the docs URL, and don't add
-anything you wouldn't want shown.
+`<iframe>`, and **Code** flips it over (a cross-fade when the visitor prefers reduced motion) to
+show the preview file's source. The source is rendered by SveltePress' own code-block pipeline,
+the same one Markdown pages use: shiki with the theme's light and dark themes, the copy button,
+and twoslash type hovers. `previewCode()` in `vite.config.ts` turns
+`previews/src/<lib>/<component>.svelte?svp-code` into a Svelte component built from the theme's
+`highlighter` output; `loadPreviewCode` in `src/lib/previews.ts` loads it on demand. So the file
+*is* what visitors read: keep it minimal, keep the header comment with the docs URL, and don't
+add anything you wouldn't want shown.
 
 ## Rules
 

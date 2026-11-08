@@ -38,6 +38,17 @@ which keeps the section grounded in what the site compares.
 
 `vite.config.ts` also reads the library and tool files (a simple regex on `name:`) to build the sidebar.
 
+## Code blocks and twoslash
+
+The theme highlights fenced code blocks at build time with shiki (`highlighter` from
+`@sveltepress/theme-default`). `highlighter.twoslash` is on in `vite.config.ts`, so `ts` and
+`svelte` blocks get type hovers; it runs with twoslash's `noErrors` because its TypeScript setup
+doesn't resolve every library's types the way the real build does, and we want hovers, not
+diagnostics. Preview cards reuse the same pipeline: the `previewCode()` plugin answers
+`previews/src/<lib>/<component>.svelte?svp-code` with a Svelte component made from the
+highlighter's output (it is Svelte markup, with `<CopyCode />` and twoslash `<Floating>` snippets,
+so it has to be compiled rather than injected as HTML). `src/lib/previews.ts` globs those modules.
+
 ## Why previews are a separate app
 
 SveltePress wraps the root layout in its `GlobalLayout`, which imports the theme CSS (UnoCSS

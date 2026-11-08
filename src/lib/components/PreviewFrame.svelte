@@ -5,7 +5,8 @@
 	 * it over to show the preview's source. Falls back to a docs link when no preview exists
 	 * yet — the docs are always the real reference.
 	 */
-	import { hasPreview, loadPreviewSource, previewPath } from '#lib/previews.ts'
+	import type { Component } from 'svelte'
+	import { hasPreview, loadPreviewCode, previewPath } from '#lib/previews.ts'
 	import DocsLink from './DocsLink.svelte'
 
 	interface Props {
@@ -20,12 +21,14 @@
 	const available = $derived(hasPreview(library, component))
 
 	let showCode = $state(false)
-	let source = $state<string | null>(null)
+	/** The highlighted source, loaded the first time the card is flipped. */
+	let Code = $state<Component | null>(null)
+	let failed = $state(false)
 
 	function flip() {
 		showCode = !showCode
-		if (showCode && source === null)
-			loadPreviewSource(library, component).then(s => (source = s), () => (source = ''))
+		if (showCode && !Code && !failed)
+			loadPreviewCode(library, component).then(c => (Code = c), () => (failed = true))
 	}
 </script>
 
@@ -62,7 +65,13 @@
 		{#if available}
 			<div class="face back" inert={!showCode}>
 				{@render header('code')}
-				<pre class="code" aria-label="{libraryName} {componentName} preview source"><code>{source ?? 'Loading…'}</code></pre>
+				<div class="code" aria-label="{libraryName} {componentName} preview source">
+					{#if Code}
+						<Code />
+					{:else}
+						<p class="ulp-muted status">{failed ? 'Could not load the source.' : 'Loading…'}</p>
+					{/if}
+				</div>
 			</div>
 		{/if}
 	</div>
@@ -100,10 +109,19 @@
 	.frame:not(.flipped) .back {
 		visibility: hidden;
 	}
+	/* With reduced motion the sides cross-fade in place instead of turning. */
 	@media (prefers-reduced-motion: reduce) {
 		.card,
+		.flipped .card,
+		.back {
+			transform: none;
+		}
 		.face {
-			transition: none;
+			transition: opacity 0.3s, visibility 0s linear 0.3s;
+		}
+		.flipped .front,
+		.frame:not(.flipped) .back {
+			opacity: 0;
 		}
 	}
 	header {
@@ -135,19 +153,19 @@
 	.code {
 		flex: 1;
 		min-height: 0;
+		overflow: auto;
+	}
+	/* The theme's code block, minus the margins/border it has as a standalone block. */
+	.code :global(.svp-code-block-wrapper) {
+		margin: 0;
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+	}
+	.status {
 		margin: 0;
 		padding: 0.75rem;
-		overflow: auto;
-		background: var(--ulp-surface);
-		font-family: var(--svp-code-font, ui-monospace, monospace);
-		font-size: 0.8rem;
-		line-height: 1.5;
-		tab-size: 2;
-	}
-	.code code {
-		background: none;
-		padding: 0;
-		font-size: inherit;
+		font-size: 0.85rem;
 	}
 	.empty {
 		height: 260px;

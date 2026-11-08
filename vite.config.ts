@@ -2,7 +2,7 @@ import { readdirSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import adapter from '@sveltejs/adapter-static'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
-import { defaultTheme } from '@sveltepress/theme-default'
+import { defaultTheme, highlighter } from '@sveltepress/theme-default'
 import { sveltepress } from '@sveltepress/vite'
 import { createServer, defineConfig, type Plugin } from 'vite'
 
@@ -22,6 +22,33 @@ function previewsDevServer(): Plugin {
 				if (req.url?.startsWith(`${BASE}/preview/`) || req.url === `${BASE}/preview`) return previews.middlewares(req, res, next)
 				next()
 			})
+		},
+	}
+}
+
+/**
+ * `import('/previews/src/<lib>/<component>.svelte?svp-code')` gives a Svelte component that
+ * renders the preview's source as a SveltePress code block: the theme's own `highlighter`
+ * (shiki, light/dark themes, copy button, twoslash hovers), exactly as a fenced block in a
+ * Markdown page. The output is Svelte markup (it contains `<CopyCode />` and `<Floating>`
+ * snippets), so it is compiled as a component rather than injected as HTML.
+ */
+function previewCode(): Plugin {
+	const QUERY = '?svp-code'
+	const COMPONENTS = ['CopyCode', 'Floating']
+	return {
+		name: 'ulp:preview-code',
+		enforce: 'pre',
+		async load(id) {
+			if (!id.endsWith(`.svelte${QUERY}`)) return
+			const file = id.slice(0, -QUERY.length)
+			this.addWatchFile(file)
+			// Same a11y suppression SveltePress applies to its Markdown output (shiki sets tabindex="0").
+			const html = (await highlighter(readFileSync(file, 'utf8'), 'svelte', ''))
+				.replace(/<pre\s[^>]*tabindex="0"/g, '<!-- svelte-ignore a11y_no_noninteractive_tabindex -->$&')
+			const used = COMPONENTS.filter(c => html.includes(`<${c}`))
+			const imports = used.length ? `import { ${used.join(', ')} } from '@sveltepress/theme-default/components'` : ''
+			return `<script>\n${imports}\n</script>\n${html}\n`
 		},
 	}
 }
@@ -74,6 +101,7 @@ export default defineConfig({
 	resolve: { alias: { '#theme-layout': THEME_LAYOUT } },
 	plugins: [
 		previewsDevServer(),
+		previewCode(),
 		sveltepress({
 			theme: defaultTheme({
 				navbar: [
@@ -100,6 +128,10 @@ export default defineConfig({
 						},
 					],
 				},
+				// Type hovers (twoslash) on `ts` and `svelte` code blocks, including preview cards.
+				// `noErrors`: twoslash type-checks snippets in its own TS setup, where some library
+				// types don't resolve as they do in the real build; we want hovers, not diagnostics.
+				highlighter: { twoslash: { handbookOptions: { noErrors: true } } },
 				github: REPO,
 				editLink: `${REPO}/edit/main/src/routes/:route`,
 				logo: '/logo.svg',
