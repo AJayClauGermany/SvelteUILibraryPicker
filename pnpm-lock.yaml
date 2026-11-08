@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@sveltepress/theme-default@8.11.0':
+    hash: 8b19395d0bc06d6256b516b676000bc4dac7eb9e68b2b85875e56e71d02d33ee
+    path: patches/@sveltepress__theme-default@8.11.0.patch
+
 importers:
 
   .:
@@ -34,7 +39,7 @@ importers:
         version: 7.3.1(svelte@5.57.3)(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1))
       '@sveltepress/theme-default':
         specifier: ^8.11.0
-        version: 8.11.0(f8c8e2e14e9e660225fe9f9702b2d326)
+        version: 8.11.0(patch_hash=8b19395d0bc06d6256b516b676000bc4dac7eb9e68b2b85875e56e71d02d33ee)(f8c8e2e14e9e660225fe9f9702b2d326)
       '@sveltepress/vite':
         specifier: ^1.10.0
         version: 1.10.0(@sveltejs/kit@3.1.1(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3)(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1)))(svelte@5.57.3)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1)))(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3)(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1)))(rollup@2.80.0)(svelte@5.57.3)(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1))
@@ -5936,7 +5941,7 @@ snapshots:
       '@docsearch/js': 4.7.1
       svelte: 5.57.3
 
-  '@sveltepress/theme-default@8.11.0(f8c8e2e14e9e660225fe9f9702b2d326)':
+  '@sveltepress/theme-default@8.11.0(patch_hash=8b19395d0bc06d6256b516b676000bc4dac7eb9e68b2b85875e56e71d02d33ee)(f8c8e2e14e9e660225fe9f9702b2d326)':
     dependencies:
       '@shikijs/twoslash': 3.23.0(typescript@6.0.3)
       '@sveltejs/kit': 3.1.1(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.3)(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1)))(svelte@5.57.3)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1))

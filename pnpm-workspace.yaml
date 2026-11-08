@@ -1,0 +1,2 @@
+patchedDependencies:
+  '@sveltepress/theme-default@8.11.0': patches/@sveltepress__theme-default@8.11.0.patch

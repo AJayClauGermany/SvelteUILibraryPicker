@@ -5,7 +5,9 @@
 	 * it over to show the preview's source. Falls back to a docs link when no preview exists
 	 * yet — the docs are always the real reference.
 	 */
-	import { hasPreview, loadPreviewSource, previewPath } from '#lib/previews.ts'
+	import type { Component } from 'svelte'
+	import { hasPreview, loadPreviewCode, previewPath, type PreviewTheme } from '#lib/previews.ts'
+	import { siteTheme } from '#lib/site-theme.svelte.ts'
 	import DocsLink from './DocsLink.svelte'
 
 	interface Props {
@@ -19,13 +21,32 @@
 	const { library, libraryName, component, componentName, docs }: Props = $props()
 	const available = $derived(hasPreview(library, component))
 
+	// Previews follow the site's light/dark mode; a card can be switched on its own to compare.
+	// The frame reads the site's mode itself when it loads (see previews/main.ts), and is told
+	// about later changes by message, so switching never reloads it.
+	let override = $state<PreviewTheme | null>(null)
+	const scheme = $derived<PreviewTheme>(override ?? (siteTheme.dark ? 'dark' : 'light'))
+	const other = $derived<PreviewTheme>(scheme === 'dark' ? 'light' : 'dark')
+	let frame = $state<HTMLIFrameElement | null>(null)
+
+	function sendTheme() {
+		frame?.contentWindow?.postMessage({ type: 'ulp:theme', theme: scheme }, window.location.origin)
+	}
+
+	$effect(() => {
+		void scheme
+		sendTheme()
+	})
+
 	let showCode = $state(false)
-	let source = $state<string | null>(null)
+	/** The highlighted source, loaded the first time the card is flipped. */
+	let Code = $state<Component | null>(null)
+	let failed = $state(false)
 
 	function flip() {
 		showCode = !showCode
-		if (showCode && source === null)
-			loadPreviewSource(library, component).then(s => (source = s), () => (source = ''))
+		if (showCode && !Code && !failed)
+			loadPreviewCode(library, component).then(c => (Code = c), () => (failed = true))
 	}
 </script>
 
@@ -34,9 +55,16 @@
 		<strong>{libraryName}</strong> · {componentName}
 		<DocsLink href={docs}>docs</DocsLink>
 		{#if available}
-			<button type="button" class="flip" onclick={flip}>
-				{side === 'preview' ? 'Code' : 'Preview'}
-			</button>
+			<span class="buttons">
+				{#if side === 'preview'}
+					<button type="button" onclick={() => (override = other)} aria-label="Show this preview in {other} mode">
+						{other === 'dark' ? 'Dark' : 'Light'}
+					</button>
+				{/if}
+				<button type="button" onclick={flip}>
+					{side === 'preview' ? 'Code' : 'Preview'}
+				</button>
+			</span>
 		{/if}
 	</header>
 {/snippet}
@@ -47,9 +75,11 @@
 			{@render header('preview')}
 			{#if available}
 				<iframe
+					bind:this={frame}
 					src={url(previewPath(library, component))}
 					title="{libraryName} {componentName} preview (default styles)"
 					loading="lazy"
+					onload={sendTheme}
 				></iframe>
 			{:else}
 				<div class="empty">
@@ -62,7 +92,13 @@
 		{#if available}
 			<div class="face back" inert={!showCode}>
 				{@render header('code')}
-				<pre class="code" aria-label="{libraryName} {componentName} preview source"><code>{source ?? 'Loading…'}</code></pre>
+				<div class="code" aria-label="{libraryName} {componentName} preview source">
+					{#if Code}
+						<Code />
+					{:else}
+						<p class="ulp-muted status">{failed ? 'Could not load the source.' : 'Loading…'}</p>
+					{/if}
+				</div>
 			</div>
 		{/if}
 	</div>
@@ -100,10 +136,19 @@
 	.frame:not(.flipped) .back {
 		visibility: hidden;
 	}
+	/* With reduced motion the sides cross-fade in place instead of turning. */
 	@media (prefers-reduced-motion: reduce) {
 		.card,
+		.flipped .card,
+		.back {
+			transform: none;
+		}
 		.face {
-			transition: none;
+			transition: opacity 0.3s, visibility 0s linear 0.3s;
+		}
+		.flipped .front,
+		.frame:not(.flipped) .back {
+			opacity: 0;
 		}
 	}
 	header {
@@ -115,8 +160,12 @@
 		background: var(--ulp-surface-2);
 		font-size: 0.85rem;
 	}
-	.flip {
+	.buttons {
 		margin-left: auto;
+		display: inline-flex;
+		gap: 0.35rem;
+	}
+	.buttons button {
 		border: 1px solid var(--ulp-border);
 		background: var(--ulp-surface);
 		color: inherit;
@@ -130,24 +179,25 @@
 		width: 100%;
 		height: 260px;
 		border: 0;
-		background: #fff;
+		/* The frame paints its own canvas (light or dark); keep the card neutral until it does. */
+		background: var(--ulp-surface);
 	}
 	.code {
 		flex: 1;
 		min-height: 0;
+		overflow: auto;
+	}
+	/* The theme's code block, minus the margins/border it has as a standalone block. */
+	.code :global(.svp-code-block-wrapper) {
+		margin: 0;
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+	}
+	.status {
 		margin: 0;
 		padding: 0.75rem;
-		overflow: auto;
-		background: var(--ulp-surface);
-		font-family: var(--svp-code-font, ui-monospace, monospace);
-		font-size: 0.8rem;
-		line-height: 1.5;
-		tab-size: 2;
-	}
-	.code code {
-		background: none;
-		padding: 0;
-		font-size: inherit;
+		font-size: 0.85rem;
 	}
 	.empty {
 		height: 260px;

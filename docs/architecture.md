@@ -38,6 +38,17 @@ which keeps the section grounded in what the site compares.
 
 `vite.config.ts` also reads the library and tool files (a simple regex on `name:`) to build the sidebar.
 
+## Code blocks and twoslash
+
+The theme highlights fenced code blocks at build time with shiki (`highlighter` from
+`@sveltepress/theme-default`). `highlighter.twoslash` is on in `vite.config.ts`, so `ts` and
+`svelte` blocks get type hovers; it runs with twoslash's `noErrors` because its TypeScript setup
+doesn't resolve every library's types the way the real build does, and we want hovers, not
+diagnostics. Preview cards reuse the same pipeline: the `previewCode()` plugin answers
+`previews/src/<lib>/<component>.svelte?svp-code` with a Svelte component made from the
+highlighter's output (it is Svelte markup, with `<CopyCode />` and twoslash `<Floating>` snippets,
+so it has to be compiled rather than injected as HTML). `src/lib/previews.ts` globs those modules.
+
 ## Why previews are a separate app
 
 SveltePress wraps the root layout in its `GlobalLayout`, which imports the theme CSS (UnoCSS
@@ -50,6 +61,8 @@ CSS and stop showing a library's real defaults. So previews are a tiny separate 
   mounts it at `/preview/`, so one `pnpm dev` serves both.
 - **Runtime:** `/preview/?library=x&component=y` lazily imports only that one preview module and
   its CSS. Each preview is shown in its own `<iframe>`, so libraries never share a document.
+- **Light/dark:** the frame follows the site (`previews/theme.svelte.ts` applies each library's
+  documented dark switch; `PreviewFrame` posts mode changes to the frame). See previews.md.
 
 ## SveltePress quirks to know
 
@@ -69,6 +82,10 @@ CSS and stop showing a library's real defaults. So previews are a tiny separate 
 - Route groups like `(group)` break the theme's home and sidebar detection (it reads
   `page.route.id`).
 - Desktop navbar links appear at widths of 1440px and up; below that they're in the menu.
+- `patches/@sveltepress__theme-default@8.11.0.patch` (registered in `pnpm-workspace.yaml`) fixes the
+  theme's dark-mode toggle under `prefers-reduced-motion: reduce`: its non-animated branch compared
+  the `darkMode` store object, not `$darkMode`, so clicks did nothing. Drop the patch once a theme
+  release fixes `ToggleDark.svelte`.
 
 ## Deployment
 

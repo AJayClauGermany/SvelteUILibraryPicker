@@ -6,9 +6,12 @@
 
   `source(none)` turns off automatic class scanning; the two @source lines limit it to this
   folder and the skeleton-svelte package, so no other library's utilities end up here.
+  Dark mode uses the docs' data-attribute strategy ("Dark Mode" guide): the custom variant
+  below plus `data-mode="dark"` on <html>, which previews/theme.svelte.ts sets.
   Docs: https://www.skeleton.dev/docs/get-started/installation/sveltekit
 */
 @import 'tailwindcss' source(none);
+@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
 /* Skeleton's forms page requires the official forms plugin for its input classes. */
 @plugin '@tailwindcss/forms';
 @import '@skeletonlabs/skeleton';

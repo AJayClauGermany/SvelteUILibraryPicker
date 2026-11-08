@@ -126,7 +126,13 @@ Coverage is tracked in [previews.md](previews.md#current-coverage). Open items:
 - **shadcn-svelte**: needs generated components; see the roadmap in previews.md.
 - Grow the per-library set beyond the eight target components (e.g. select, combobox,
   date-picker, table) where several libraries share them.
-- Dark mode toggle for previews, where a library documents a default dark theme.
+- **Type hovers in preview code** (twoslash, added 2026-11-08) are thin for some libraries:
+  twoslash type-checks in its own TypeScript setup, so where a library's types don't resolve
+  there (or the library ships none), components hover as `any`. Options: per-library
+  `compilerOptions`/`paths` for twoslash, or hand-written `customTypes` for libraries without
+  TypeScript. Diagnostics are off (`noErrors`) for the same reason.
+- **Compare component props across libraries** (content, not design; later): a props table per
+  component id, sourced from each library's docs or `.d.ts`. Would pair well with the hovers above.
 - **Screenshot tests** (Playwright) are deferred on purpose. The open question is how useful they
   are when run deterministically in CI: fonts, third-party CDN assets and animation timing make
   pixel comparisons flaky, and a tolerant comparison may miss real regressions. For now previews
