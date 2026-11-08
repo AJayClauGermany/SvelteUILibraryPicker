@@ -82,10 +82,13 @@ CSS and stop showing a library's real defaults. So previews are a tiny separate 
 - Route groups like `(group)` break the theme's home and sidebar detection (it reads
   `page.route.id`).
 - Desktop navbar links appear at widths of 1440px and up; below that they're in the menu.
-- `patches/@sveltepress__theme-default@8.11.0.patch` (registered in `pnpm-workspace.yaml`) fixes the
-  theme's dark-mode toggle under `prefers-reduced-motion: reduce`: its non-animated branch compared
-  the `darkMode` store object, not `$darkMode`, so clicks did nothing. Drop the patch once a theme
-  release fixes `ToggleDark.svelte`.
+- `patches/@sveltepress__theme-default@8.11.0.patch` (registered in `pnpm-workspace.yaml`) fixes two
+  things in the theme's `ToggleDark.svelte`. Clicks did nothing under `prefers-reduced-motion:
+  reduce` because the non-animated branch compared the `darkMode` store object, not `$darkMode`.
+  And its `--at-apply` listed both `h-[28px]` and `h-100%`; which one UnoCSS emitted last differed
+  between machines, and a 28px toggle sits at the top of the navbar instead of centred (that is
+  what the GitHub Pages build produced). The patch keeps only `h-100%`. Drop the patch once a theme
+  release fixes both.
 
 ## Deployment
 
