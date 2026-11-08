@@ -1,0 +1,21 @@
+diff --git a/dist/components/ToggleDark.svelte b/dist/components/ToggleDark.svelte
+index 1389f01b407161b0f0d78dc85f0217e70e860298..fcf415116c52acdcb38fb553096a4a944ea79424 100644
+--- a/dist/components/ToggleDark.svelte
++++ b/dist/components/ToggleDark.svelte
+@@ -35,13 +35,13 @@
+       !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+ 
+     if (!isAppearanceTransition) {
+-      if (darkMode === 'light') {
++      if ($darkMode === 'light') {
+         $darkMode = 'dark'
+         $isDark = true
+-      } else if (darkMode === 'dark') {
++      } else if ($darkMode === 'dark') {
+         $darkMode = 'auto'
+         $isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+-      } else if (darkMode === 'auto') {
++      } else if ($darkMode === 'auto') {
+         $darkMode = 'light'
+         $isDark = false
+       }
