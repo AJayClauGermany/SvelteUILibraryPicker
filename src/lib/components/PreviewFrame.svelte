@@ -6,7 +6,8 @@
 	 * yet — the docs are always the real reference.
 	 */
 	import type { Component } from 'svelte'
-	import { hasPreview, loadPreviewCode, previewPath } from '#lib/previews.ts'
+	import { hasPreview, loadPreviewCode, previewPath, type PreviewTheme } from '#lib/previews.ts'
+	import { siteTheme } from '#lib/site-theme.svelte.ts'
 	import DocsLink from './DocsLink.svelte'
 
 	interface Props {
@@ -19,6 +20,23 @@
 
 	const { library, libraryName, component, componentName, docs }: Props = $props()
 	const available = $derived(hasPreview(library, component))
+
+	// Previews follow the site's light/dark mode; a card can be switched on its own to compare.
+	// The frame reads the site's mode itself when it loads (see previews/main.ts), and is told
+	// about later changes by message, so switching never reloads it.
+	let override = $state<PreviewTheme | null>(null)
+	const scheme = $derived<PreviewTheme>(override ?? (siteTheme.dark ? 'dark' : 'light'))
+	const other = $derived<PreviewTheme>(scheme === 'dark' ? 'light' : 'dark')
+	let frame = $state<HTMLIFrameElement | null>(null)
+
+	function sendTheme() {
+		frame?.contentWindow?.postMessage({ type: 'ulp:theme', theme: scheme }, window.location.origin)
+	}
+
+	$effect(() => {
+		void scheme
+		sendTheme()
+	})
 
 	let showCode = $state(false)
 	/** The highlighted source, loaded the first time the card is flipped. */
@@ -37,9 +55,16 @@
 		<strong>{libraryName}</strong> · {componentName}
 		<DocsLink href={docs}>docs</DocsLink>
 		{#if available}
-			<button type="button" class="flip" onclick={flip}>
-				{side === 'preview' ? 'Code' : 'Preview'}
-			</button>
+			<span class="buttons">
+				{#if side === 'preview'}
+					<button type="button" onclick={() => (override = other)} aria-label="Show this preview in {other} mode">
+						{other === 'dark' ? 'Dark' : 'Light'}
+					</button>
+				{/if}
+				<button type="button" onclick={flip}>
+					{side === 'preview' ? 'Code' : 'Preview'}
+				</button>
+			</span>
 		{/if}
 	</header>
 {/snippet}
@@ -50,9 +75,11 @@
 			{@render header('preview')}
 			{#if available}
 				<iframe
+					bind:this={frame}
 					src={url(previewPath(library, component))}
 					title="{libraryName} {componentName} preview (default styles)"
 					loading="lazy"
+					onload={sendTheme}
 				></iframe>
 			{:else}
 				<div class="empty">
@@ -133,8 +160,12 @@
 		background: var(--ulp-surface-2);
 		font-size: 0.85rem;
 	}
-	.flip {
+	.buttons {
 		margin-left: auto;
+		display: inline-flex;
+		gap: 0.35rem;
+	}
+	.buttons button {
 		border: 1px solid var(--ulp-border);
 		background: var(--ulp-surface);
 		color: inherit;
@@ -148,7 +179,8 @@
 		width: 100%;
 		height: 260px;
 		border: 0;
-		background: #fff;
+		/* The frame paints its own canvas (light or dark); keep the card neutral until it does. */
+		background: var(--ulp-surface);
 	}
 	.code {
 		flex: 1;

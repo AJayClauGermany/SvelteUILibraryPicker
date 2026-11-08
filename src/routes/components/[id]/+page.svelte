@@ -54,8 +54,9 @@
 	<h2 id="previews">Default styles, side by side</h2>
 	<p class="ulp-muted">
 		Each preview is a minimal example with the library's <em>default</em> styling, rendered in an
-		isolated frame. Headless libraries intentionally look unstyled. For real usage and options,
-		follow the docs link.
+		isolated frame that follows this site's light or dark mode (use a card's Light/Dark button
+		to see the other one). Headless libraries intentionally look unstyled. For real usage and
+		options, follow the docs link.
 	</p>
 	<div class="previews">
 		{#each providers as lib (lib.id)}

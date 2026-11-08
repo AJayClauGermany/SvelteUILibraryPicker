@@ -19,6 +19,26 @@ styling**, side by side, with a docs link for each.
 - **Copy-paste libraries** (shadcn-svelte): the "default" is the generated component with its
   default theme. Not supported yet, because it needs generated files per component.
 
+## Light and dark
+
+Previews follow the site's mode, so defaults can be judged in context; each card also has a
+Light/Dark button to see the other one. `previews/theme.svelte.ts` applies the mode: every
+preview gets the browser's own dark rendering (`color-scheme`, which darkens the page canvas and
+form controls; that is all a headless library has), and styled libraries additionally get their
+**own documented** dark switch, with the source noted next to each entry:
+
+| Library | Dark mode |
+| --- | --- |
+| Carbon Components Svelte | `all.css` + `theme="g100"` on `<html>` (its default is `white`) |
+| Flowbite Svelte | `class="dark"` on `<html>` |
+| M3 Svelte | nothing extra: its theme CSS uses `light-dark()` |
+| Skeleton | `data-mode="dark"` on `<html>` + the data-attribute custom variant |
+| SVAR Core | `<WillowDark>` instead of `<Willow>` (the preview reads `theme.current`) |
+| Sveltestrap | Bootstrap's `data-bs-theme="dark"` on `<html>` |
+
+The app picks the mode from `?theme=`, else from the embedding site's `dark` class, else the OS,
+and the site posts `{ type: 'ulp:theme', theme }` on toggles (see `previews/main.ts`).
+
 ## How they appear on the site
 
 `PreviewFrame.svelte` shows each preview as a card: the front embeds the preview page in an
@@ -69,5 +89,4 @@ Not covered yet:
 - **shadcn-svelte previews**: generate the default components with its CLI into a dedicated
   folder under `previews/src/shadcn-svelte/` and reuse the Tailwind setup above.
 - **Svelte UX 2.0**: add a `styles.css` and previews once 2.0 is stable.
-- **Dark mode toggle** for previews, where a library has a documented default dark theme.
 - **Screenshot tests** (Playwright) so preview regressions show up in PRs.

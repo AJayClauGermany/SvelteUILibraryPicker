@@ -4,7 +4,7 @@
   Docs: https://svelte.carbondesignsystem.com/components/Toggle
 -->
 <script lang="ts">
-	import 'carbon-components-svelte/css/white.css'
+	import 'carbon-components-svelte/css/all.css'
 	import { Toggle } from 'carbon-components-svelte'
 </script>
 

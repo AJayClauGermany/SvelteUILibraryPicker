@@ -35,6 +35,10 @@ Output: `previews/src/<library-id>/<component-id>.svelte`, plus the library as a
 3. Rules:
    - The file's source is shown on the site (the "Code" side of the preview card), so keep it
      readable and keep the header comment.
+   - Previews follow the site's light/dark mode. If the library documents a dark theme, add its
+     switch to `previews/theme.svelte.ts` (document-level attribute or class) with the docs
+     source in a comment; a library that themes through a wrapper component reads
+     `theme.current` in the preview instead (see `previews/src/svar-core/`).
    - Use the **default** theme or styles, exactly as the library's install guide sets them up.
    - Write a **minimal** example of your own. Don't copy the docs' examples.
    - **No styles of ours.** No `<style>` blocks, classes or wrappers that change the look.

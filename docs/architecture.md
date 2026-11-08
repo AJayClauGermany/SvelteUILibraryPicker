@@ -61,6 +61,8 @@ CSS and stop showing a library's real defaults. So previews are a tiny separate 
   mounts it at `/preview/`, so one `pnpm dev` serves both.
 - **Runtime:** `/preview/?library=x&component=y` lazily imports only that one preview module and
   its CSS. Each preview is shown in its own `<iframe>`, so libraries never share a document.
+- **Light/dark:** the frame follows the site (`previews/theme.svelte.ts` applies each library's
+  documented dark switch; `PreviewFrame` posts mode changes to the frame). See previews.md.
 
 ## SveltePress quirks to know
 

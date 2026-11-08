@@ -31,7 +31,14 @@ export function loadPreviewCode(library: string, component: string): Promise<Com
 	return load ? load().then(m => m.default) : Promise.reject(new Error(`No preview for ${library}/${component}`))
 }
 
-/** Path of a preview page, WITHOUT the base path; wrap it in `url()` from `#lib/url.ts`. */
-export function previewPath(library: string, component: string): string {
-	return `/preview/?library=${encodeURIComponent(library)}&component=${encodeURIComponent(component)}`
+export type PreviewTheme = 'light' | 'dark'
+
+/**
+ * Path of a preview page, WITHOUT the base path; wrap it in `url()` from `#lib/url.ts`.
+ * Without `theme` the preview follows the embedding site's mode (see previews/main.ts).
+ */
+export function previewPath(library: string, component: string, theme?: PreviewTheme): string {
+	const params = new URLSearchParams({ library, component })
+	if (theme) params.set('theme', theme)
+	return `/preview/?${params}`
 }
