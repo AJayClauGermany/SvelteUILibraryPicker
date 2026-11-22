@@ -17,6 +17,11 @@ project, not affiliated with any library listed.
   with a *Modal*.
 - **Compare:** pick libraries and see which components each provides, with docs links in every
   cell. Click a component to see live previews side by side.
+- **Props and porting:** shared props (a button's click handler, a dialog's open state...) lined
+  up under one name with each library's own spelling, plus a *Port between libraries* view that
+  shows what to rename, what moves to another part, and what has no equivalent.
+- **Tools:** focused packages (charts, toasts, maps, drag and drop, editors, Svelte 5 helpers) to
+  use next to or instead of a UI library.
 - **Live previews:** each preview renders in an isolated iframe with only that library's CSS,
   so you see its true default look.
 - **Licenses and AI policy:** recorded per library with sources, and our contribution rules
