@@ -130,12 +130,14 @@ widened: tools may map to components no tracked library provides (new ids `map`,
 
 ## Component props
 
-Added 2026-11-22: canonical props for button, input, checkbox, switch, select, dialog, tabs and
-tooltip (`src/lib/data/props.ts`), `api` on those components for every library, library-wide
-`conventions`, props tables on component pages and the `/port/` page. Next steps:
+Added 2026-11-22: canonical props for 28 components (`src/lib/data/props.ts`), `api` on those
+components for every library that lists them, library-wide `conventions`, props tables on component
+pages and the `/port/` page. Next steps:
 
-- More components: radio group, slider, popover, dropdown menu, accordion, toast, combobox, date
-  picker are shared widely enough.
+- Still without canonical props: card, table, list, breadcrumb, navigation menu, sidebar, menubar,
+  context menu, hover card, command palette, calendar, file upload, tags input, PIN input, rating,
+  color picker, tree view, carousel, stepper, skeleton. Card and table vary too much for a short list;
+  the overlay and form ones would follow the patterns already in `props.ts`.
 - Value mapping for choice props (e.g. a variant in one library to the closest one in another) is
   left out on purpose: it is a judgement call, not a fact. Revisit only with a clear rule.
 - `lastVerified` was bumped only where a whole entry was re-checked; some entries kept the older

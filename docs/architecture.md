@@ -41,8 +41,8 @@ general `utility` helpers may map to none.
 
 ## Props and porting
 
-`props.ts` defines a small shared vocabulary: for some components (button, input, checkbox,
-switch, select, dialog, tabs, tooltip) the props most libraries have in common, under one
+`props.ts` defines a small shared vocabulary: for 28 common components (button, form controls,
+overlays, tabs, accordion, feedback and display components) the props most libraries have in common, under one
 canonical name. A library component can carry an optional `api` (its shape, the parts you write,
 and how it spells each canonical prop, or `null` for no equivalent), and a library can record
 `conventions` (event style, binding, refs...). Component pages show a props table, and `/port/`
