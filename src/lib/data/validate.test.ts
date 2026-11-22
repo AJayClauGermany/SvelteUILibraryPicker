@@ -10,8 +10,9 @@ import { basename, join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { previews } from '../previews'
 import { componentIds, components } from './components'
-import { coveredComponentIds, libraries, tools } from './index'
-import { featureInfo } from './schema'
+import { libraries, tools } from './index'
+import { canonicalProps, conventionInfo, getCanonicalProp, hasCanonicalProps } from './props'
+import { apiStyleInfo, featureInfo } from './schema'
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
@@ -111,8 +112,41 @@ describe('libraries', () => {
 					expect(isHttpsUrl(c.docs), `${c.id} docs: ${c.docs}`).toBe(true)
 				}
 			})
+
+			it('maps component props to canonical props, with a source', () => {
+				for (const c of lib.components) {
+					if (!c.api) continue
+					expect(hasCanonicalProps(c.id), `${c.id}: no canonical props in props.ts, so drop "api" or add them`).toBe(true)
+					expect(c.api.style in apiStyleInfo, `${c.id}: unknown api.style "${c.api.style}"`).toBe(true)
+					expect(c.api.parts.length, `${c.id}: list the parts you write`).toBeGreaterThan(0)
+					expect(isHttpsUrl(c.api.source), `${c.id} api.source: ${c.api.source}`).toBe(true)
+					for (const [prop, m] of Object.entries(c.api.props)) {
+						expect(getCanonicalProp(c.id, prop), `${c.id}: unknown canonical prop "${prop}"`).toBeDefined()
+						if (m === null) continue
+						expect(m.name.trim(), `${c.id}.${prop}: empty name`).not.toBe('')
+						if (m.values) expect(m.values.length, `${c.id}.${prop}: empty values`).toBeGreaterThan(0)
+					}
+				}
+			})
+
+			it('backs each convention with a source', () => {
+				for (const [id, conv] of Object.entries(lib.conventions ?? {})) {
+					expect(id in conventionInfo, `unknown convention "${id}"`).toBe(true)
+					expect(conv!.value.trim(), `${id}: empty value`).not.toBe('')
+					expect(isHttpsUrl(conv!.source), `${id} source: ${conv!.source}`).toBe(true)
+				}
+			})
 		})
 	}
+})
+
+describe('canonical props', () => {
+	it('only cover known components, with camelCase prop ids', () => {
+		for (const [id, props] of Object.entries(canonicalProps)) {
+			expect(id in components, `unknown component "${id}"`).toBe(true)
+			for (const prop of Object.keys(props)) expect(prop).toMatch(/^[a-z][a-zA-Z]*$/)
+		}
+	})
 })
 
 describe('tools', () => {
@@ -156,14 +190,14 @@ describe('tools', () => {
 				if (tool.ai.llmsTxt) expect(isHttpsUrl(tool.ai.llmsTxt)).toBe(true)
 			})
 
-			// Grounding: tools only cover components that tracked UI libraries already provide.
-			it('maps to components that at least one tracked library provides', () => {
-				expect(tool.components.length, 'list at least one canonical component').toBeGreaterThan(0)
+			// Tools map to canonical components (a tracked library doesn't have to provide them).
+			// Only general helpers (`utility`) may map to none.
+			it('maps to canonical components', () => {
+				if (tool.kind !== 'utility')
+					expect(tool.components.length, 'list at least one canonical component').toBeGreaterThan(0)
 				expect(new Set(tool.components).size, 'duplicate component id').toBe(tool.components.length)
-				for (const id of tool.components) {
+				for (const id of tool.components)
 					expect(id in components, `unknown component id "${id}"`).toBe(true)
-					expect(coveredComponentIds, `no tracked library provides "${id}"`).toContain(id)
-				}
 			})
 
 			it('names tracked libraries in usedBy, each with a source', () => {

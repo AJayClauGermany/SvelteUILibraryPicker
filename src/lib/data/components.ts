@@ -66,6 +66,7 @@ export const components = {
 	'signature-pad': { name: 'Signature Pad', category: 'forms', description: 'Draw a signature with pointer or touch.' },
 	'angle-slider': { name: 'Angle Slider', category: 'forms', description: 'Pick an angle on a circular control.' },
 	'image-cropper': { name: 'Image Cropper', category: 'forms', description: 'Crop and resize an image.' },
+	'rich-text-editor': { name: 'Rich Text Editor', category: 'forms', description: 'Edits formatted text, HTML or Markdown.', aliases: ['WYSIWYG', 'Markdown Editor'] },
 
 	// Overlays
 	dialog: { name: 'Dialog', category: 'overlays', description: 'Modal window over the page.', aliases: ['Modal'] },
@@ -127,6 +128,7 @@ export const components = {
 	marquee: { name: 'Marquee', category: 'data-display', description: 'Content that scrolls continuously.' },
 	'qr-code': { name: 'QR Code', category: 'data-display', description: 'Renders a QR code from a value.' },
 	'virtual-list': { name: 'Virtual List', category: 'data-display', description: 'Renders only the visible rows of a long list.', aliases: ['Virtual Scroll', 'Infinite Scroll'] },
+	map: { name: 'Map', category: 'data-display', description: 'Interactive geographic map with layers and markers.' },
 	icon: { name: 'Icon', category: 'data-display', description: 'Renders an icon from a set or an SVG path.' },
 
 	// Date & Time
@@ -145,6 +147,7 @@ export const components = {
 	'visually-hidden': { name: 'Visually Hidden', category: 'utilities', description: 'Hidden visually, available to screen readers.' },
 	'focus-trap': { name: 'Focus Trap', category: 'utilities', description: 'Keep focus inside a region.' },
 	'theme-switcher': { name: 'Theme Switcher', category: 'utilities', description: 'Toggle light/dark or themes.', aliases: ['Dark Mode', 'Light Switch'] },
+	'drag-and-drop': { name: 'Drag and Drop', category: 'utilities', description: 'Reorder or move items by dragging them.', aliases: ['Sortable', 'Draggable', 'DnD'] },
 	clipboard: { name: 'Clipboard', category: 'utilities', description: 'Copy to clipboard helpers.' },
 	'locale-provider': { name: 'Locale Provider', category: 'utilities', description: 'Sets locale, direction or environment for descendant components.', aliases: ['Locale', 'Environment Provider', 'Settings'] },
 } as const satisfies Record<string, ComponentDefinition>
