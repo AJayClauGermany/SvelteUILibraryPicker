@@ -11,6 +11,7 @@
 	import { afterNavigate, replaceState } from '$app/navigation'
 	import { page } from '$app/state'
 	import DocsLink from '#lib/components/DocsLink.svelte'
+	import InlineCode from '#lib/components/InlineCode.svelte'
 	import PropCell from '#lib/components/PropCell.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
 	import {
@@ -155,8 +156,8 @@
 						{@const b = toLib.conventions?.[id]}
 						<tr>
 							<th scope="row" title={conventionInfo[id].description}>{conventionInfo[id].label}</th>
-							<td>{#if a}{a.value}{#if a.notes}<div class="ulp-muted small">{a.notes}</div>{/if} <a class="ulp-muted small" href={a.source} target="_blank" rel="noopener noreferrer">source</a>{:else}<span class="ulp-muted">?</span>{/if}</td>
-							<td>{#if b}{b.value}{#if b.notes}<div class="ulp-muted small">{b.notes}</div>{/if} <a class="ulp-muted small" href={b.source} target="_blank" rel="noopener noreferrer">source</a>{:else}<span class="ulp-muted">?</span>{/if}</td>
+							<td>{#if a}<InlineCode text={a.value} />{#if a.notes}<div class="ulp-muted small"><InlineCode text={a.notes} /></div>{/if} <a class="ulp-muted small" href={a.source} target="_blank" rel="noopener noreferrer">source</a>{:else}<span class="ulp-muted">?</span>{/if}</td>
+							<td>{#if b}<InlineCode text={b.value} />{#if b.notes}<div class="ulp-muted small"><InlineCode text={b.notes} /></div>{/if} <a class="ulp-muted small" href={b.source} target="_blank" rel="noopener noreferrer">source</a>{:else}<span class="ulp-muted">?</span>{/if}</td>
 						</tr>
 					{/each}
 				</tbody>

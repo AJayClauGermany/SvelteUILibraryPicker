@@ -1,6 +1,7 @@
 <script lang="ts">
 	/** One library's spelling of a canonical prop: name, where it goes, values, default. */
 	import type { PropMapping } from '#lib/data/index.ts'
+	import InlineCode from './InlineCode.svelte'
 
 	interface Props {
 		/** `undefined`: not checked; `null`: checked, no equivalent. */
@@ -21,7 +22,7 @@
 	{#if mapping.on && mapping.on !== mainPart}<div class="ulp-muted small">on <code>{mapping.on}</code></div>{/if}
 	{#if mapping.values}<div class="small">{#each mapping.values as v, i (v)}{#if i}, {/if}<code>{v}</code>{/each}</div>{/if}
 	{#if mapping.default}<div class="ulp-muted small">default <code>{mapping.default}</code></div>{/if}
-	{#if mapping.notes}<div class="ulp-muted small">{mapping.notes}</div>{/if}
+	{#if mapping.notes}<div class="ulp-muted small"><InlineCode text={mapping.notes} /></div>{/if}
 {/if}
 
 <style>

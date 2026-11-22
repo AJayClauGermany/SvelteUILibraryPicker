@@ -153,26 +153,38 @@ function sameValues(a?: string[], b?: string[]) {
 	return a.length === b.length && [...a].sort().join('|') === [...b].sort().join('|')
 }
 
-/** The last segment of a part name, so `Dialog.Root` and `Root` compare equal. */
-function partKey(on: string | undefined) {
-	return on?.split('.').pop()?.toLowerCase() ?? ''
+/**
+ * Where a prop goes, normalized for comparison: '' for the main part (no `on`, the first part,
+ * or any `Root`), otherwise the last segment of the part name, so `Tabs.List` and `TabsList`
+ * compare by `list`.
+ */
+function partKey(on: string | undefined, mainPart?: string) {
+	if (!on || on === mainPart) return ''
+	const last = on.split('.').pop()!.toLowerCase()
+	if (last === 'root') return ''
+	return last
 }
 
-export function portStatus(from: PropMapping | null | undefined, to: PropMapping | null | undefined): PortStatus {
+export function portStatus(
+	from: PropMapping | null | undefined,
+	to: PropMapping | null | undefined,
+	mainParts: { from?: string, to?: string } = {},
+): PortStatus {
 	if (from === undefined || to === undefined) return 'unknown'
 	if (from === null && to === null) return 'neither'
 	if (from === null) return 'gained'
 	if (to === null) return 'missing'
-	if (from.name !== to.name || partKey(from.on) !== partKey(to.on)) return 'renamed'
+	if (from.name !== to.name || partKey(from.on, mainParts.from) !== partKey(to.on, mainParts.to)) return 'renamed'
 	return sameValues(from.values, to.values) ? 'same' : 'values'
 }
 
 /** Prop-by-prop port of one component between two libraries (canonical prop order). */
 export function portRows(id: ComponentId, from: ComponentApi | undefined, to: ComponentApi | undefined): PortRow[] {
+	const mainParts = { from: from?.parts[0], to: to?.parts[0] }
 	return canonicalPropIds(id).map((prop) => {
 		const f = from?.props[prop]
 		const t = to?.props[prop]
-		return { prop, from: f, to: t, status: portStatus(f, t) }
+		return { prop, from: f, to: t, status: portStatus(f, t, mainParts) }
 	})
 }
 

@@ -5,6 +5,7 @@
 	// frontmatter; we wrap PageLayout ourselves to give it a dynamic title.
 	import AiPolicyBadge from '#lib/components/AiPolicyBadge.svelte'
 	import DocsLink from '#lib/components/DocsLink.svelte'
+	import InlineCode from '#lib/components/InlineCode.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
 	import SvelteSupport from '#lib/components/SvelteSupport.svelte'
 	import ToolingChips from '#lib/components/ToolingChips.svelte'
@@ -106,7 +107,7 @@
 					{@const c = lib.conventions![id]!}
 					<tr>
 						<th scope="row" title={conventionInfo[id].description}>{conventionInfo[id].label}</th>
-						<td>{c.value}{#if c.notes}<div class="ulp-muted">{c.notes}</div>{/if}</td>
+						<td><InlineCode text={c.value} />{#if c.notes}<div class="ulp-muted"><InlineCode text={c.notes} /></div>{/if}</td>
 						<td><a href={c.source} target="_blank" rel="noopener noreferrer">Source</a></td>
 					</tr>
 				{/each}
