@@ -29,10 +29,10 @@ export default defineLibrary({
 			parts: ['new Accordion()', 'accordion.root', 'accordion.getItem(item)', 'item.heading', 'item.trigger', 'item.content'],
 			source: 'https://github.com/melt-ui/next-gen/blob/melt@0.44.0/packages/melt/src/lib/builders/Accordion.svelte.ts',
 			props: {
-				value: { name: 'value', on: 'new Accordion()', notes: 'An id, or an array of ids when multiple. Also a settable getter on the instance.' },
+				value: { name: 'value', on: 'new Accordion()', notes: 'An id, or an iterable of ids when multiple (read back as a SvelteSet). Also a settable getter on the instance.' },
 				onValueChange: { name: 'onValueChange', on: 'new Accordion()' },
 				multiple: { name: 'multiple', on: 'new Accordion()', default: 'false' },
-				collapsible: null,
+				collapsible: { name: 'multiple', on: 'new Accordion()', default: 'false', notes: 'No flag; with multiple off, pressing the open item\'s trigger closes it again.' },
 				items: null,
 				disabled: { name: 'disabled', on: 'new Accordion()', default: 'false', notes: 'Disables every item; a single item takes `disabled` on the object passed to getItem().' },
 				title: { name: 'item.heading', notes: 'Attributes for your own heading element; you write the text. Level comes from `headingLevel` on the item.' },
@@ -180,7 +180,7 @@ export default defineLibrary({
 			parts: ['new Tabs()', 'tabs.triggerList', 'tabs.getTrigger(value)', 'tabs.getContent(value)'],
 			source: 'https://github.com/melt-ui/next-gen/blob/melt@0.44.0/packages/melt/src/lib/builders/Tabs.svelte.ts',
 			props: {
-				value: { name: 'value', on: 'new Tabs()', notes: 'Pass a getter (`() => x`) to control it from outside.' },
+				value: { name: 'value', on: 'new Tabs()', notes: 'Required option. Pass a getter (`() => x`) to control it from outside. Also a settable getter on the instance.' },
 				onValueChange: { name: 'onValueChange', on: 'new Tabs()' },
 				items: null,
 				orientation: { name: 'orientation', on: 'new Tabs()', values: ['horizontal', 'vertical'], default: 'horizontal' },

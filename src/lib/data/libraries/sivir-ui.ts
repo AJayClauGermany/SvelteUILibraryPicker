@@ -78,7 +78,7 @@ export default defineLibrary({
 				parts: ['Alert.Root', 'Alert.Title', 'Alert.Description'],
 				source: 'https://github.com/aidan-neel/sivir-ui/blob/v0.4.5/packages/sivir/src/components/alert/index.ts',
 				props: {
-					variant: { name: 'variant', values: ['info', 'error', 'success', 'warning'], default: 'info' },
+					variant: { name: 'variant', on: 'Alert.Root', values: ['info', 'error', 'success', 'warning'], default: 'info' },
 					color: null,
 					title: { name: 'Alert.Title', notes: 'A part, not a prop.' },
 					description: { name: 'Alert.Description', notes: 'A part, not a prop.' },
@@ -269,7 +269,7 @@ export default defineLibrary({
 			docs: `${d}/modal`,
 			api: {
 				style: 'compound',
-				parts: ['Modal.Root', 'Modal.Trigger', 'Modal.Content', 'Modal.Header', 'Modal.Title'],
+				parts: ['Modal.Root', 'Modal.Trigger', 'Modal.Content', 'Modal.Header', 'Modal.Title', 'Modal.Description'],
 				source: 'https://github.com/aidan-neel/sivir-ui/blob/v0.4.5/packages/sivir/src/components/modal/index.ts',
 				props: {
 					open: { name: 'open', on: 'Modal.Root', bindable: true, default: 'false' },

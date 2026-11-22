@@ -79,7 +79,7 @@ export default defineLibrary({
 				props: {
 					checked: { name: 'checked', bindable: true },
 					onCheckedChange: { name: 'onCheckedChange', notes: 'Receives a details object with `checked`.' },
-					indeterminate: { name: 'checked', notes: 'Pass `checked="indeterminate"`; no separate prop.' },
+					indeterminate: { name: 'checked', notes: 'Pass `checked="indeterminate"` on Checkbox.Root; a Checkbox.Indicator with the `indeterminate` flag shows the mixed icon.' },
 					disabled: { name: 'disabled' },
 					name: { name: 'name' },
 					value: { name: 'value', default: 'on' },
@@ -495,7 +495,7 @@ export default defineLibrary({
 					name: { name: 'name' },
 					value: { name: 'value', default: 'on' },
 					required: { name: 'required' },
-					label: { name: 'Switch.Label', notes: 'A part, not a prop.' },
+					label: { name: 'Switch.Label', notes: 'A part; the Root `label` prop is an accessibility string, not visible text.' },
 					size: null,
 				},
 			},

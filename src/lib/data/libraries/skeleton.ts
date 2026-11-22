@@ -159,7 +159,7 @@ export default defineLibrary({
 			notes: 'A CSS-only variant styling the native dialog element is also documented under Tailwind components (beta).',
 			api: {
 				style: 'compound',
-				parts: ['Dialog', 'Dialog.Trigger', 'Dialog.Backdrop', 'Dialog.Positioner', 'Dialog.Content', 'Dialog.Title'],
+				parts: ['Dialog', 'Dialog.Trigger', 'Dialog.Backdrop', 'Dialog.Positioner', 'Dialog.Content', 'Dialog.Title', 'Dialog.Description', 'Dialog.CloseTrigger'],
 				source: `${svelte}/dialog/anatomy/root.svelte`,
 				props: {
 					open: { name: 'open', notes: 'Not bindable; pair it with `onOpenChange`, or use `defaultOpen`.' },
@@ -260,7 +260,7 @@ export default defineLibrary({
 			docs: `${fc}/popover`,
 			api: {
 				style: 'compound',
-				parts: ['Popover', 'Popover.Trigger', 'Popover.Positioner', 'Popover.Content', 'Popover.Title', 'Popover.Description', 'Popover.CloseTrigger'],
+				parts: ['Popover', 'Popover.Trigger', 'Popover.Positioner', 'Popover.Content', 'Popover.Arrow', 'Popover.ArrowTip', 'Popover.Title', 'Popover.Description', 'Popover.CloseTrigger'],
 				source: `${svelte}/popover/anatomy/root.svelte`,
 				props: {
 					open: { name: 'open', notes: 'Not bindable; pair it with `onOpenChange`, or use `defaultOpen`.' },
@@ -400,7 +400,7 @@ export default defineLibrary({
 			docs: `${fc}/tooltip`,
 			api: {
 				style: 'compound',
-				parts: ['Tooltip', 'Tooltip.Trigger', 'Tooltip.Positioner', 'Tooltip.Content'],
+				parts: ['Tooltip', 'Tooltip.Trigger', 'Tooltip.Positioner', 'Tooltip.Content', 'Tooltip.Arrow', 'Tooltip.ArrowTip'],
 				source: `${svelte}/tooltip/anatomy/root.svelte`,
 				props: {
 					content: { name: 'Tooltip.Content', notes: 'A part, not a prop.' },
@@ -430,7 +430,7 @@ export default defineLibrary({
 			notes: 'CSS classes only. Interactive "Chips" are documented separately.',
 			api: {
 				style: 'css',
-				parts: ['<span class="badge">', '<span class="badge-icon">'],
+				parts: ['<span class="badge">', '<span class="badge-icon">', '<span class="badge-dot">'],
 				source: `${src}/packages/skeleton/src/utilities/badges.css`,
 				props: {
 					variant: { name: 'preset-*', values: ['preset-filled', 'preset-tonal', 'preset-outlined'], notes: 'Preset utility classes, not a prop.' },

@@ -67,7 +67,7 @@ export default defineLibrary({
 			docs: `${d}/action-sheet`,
 			notes: 'Action Sheet: a slide-up pane listing actions, the mobile stand-in for an action menu; it is not anchored to a trigger. Popover can also hold a menu list.',
 			api: {
-				style: 'props',
+				style: 'compound',
 				parts: ['Actions', 'ActionsGroup', 'ActionsButton'],
 				source: src('Actions'),
 				props: {
@@ -105,7 +105,7 @@ export default defineLibrary({
 					onchange: { name: 'onchange', on: 'ListInput', notes: 'onChange is accepted as an alias.' },
 					name: { name: 'name', on: 'ListInput' },
 					required: { name: 'required', on: 'ListInput' },
-					prefix: { name: 'media', on: 'ListInput', notes: 'Snippet or string shown in the list item media area before the field.' },
+					prefix: { name: 'media', on: 'ListInput', notes: 'Snippet shown in the list item media area before the field. The types also allow a string, but the source only renders it as a snippet.' },
 					suffix: null,
 					clearable: { name: 'clearButton', on: 'ListInput', default: 'false', notes: 'The icon only calls onClear (camelCase only); reset value yourself.' },
 				},

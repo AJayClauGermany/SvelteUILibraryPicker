@@ -53,7 +53,7 @@ export default defineLibrary({
 	components: [
 		{ id: 'button', name: 'Button', docs: `${d}/button`, api: {
 			style: 'props',
-			parts: ['Button', 'Label'],
+			parts: ['Button', 'Label', 'Icon'],
 			source: src('button/src/Button.svelte'),
 			props: {
 				onclick: { name: 'onclick' },
@@ -64,7 +64,7 @@ export default defineLibrary({
 				size: null,
 				color: { name: 'color', values: ['primary', 'secondary'], default: 'primary' },
 				loading: null,
-				icon: { name: 'Icon', notes: 'A part from @smui/common, placed inside the Button next to Label.' },
+				icon: { name: 'Icon', notes: 'A part re-exported by @smui/button (from @smui/common), placed inside the Button next to Label.' },
 				fullWidth: null,
 			},
 		} },
@@ -211,7 +211,7 @@ export default defineLibrary({
 				value: { name: 'value', bindable: true },
 				onValueChange: { name: 'onSMUIAutocompleteSelected', notes: 'Custom DOM event; detail is the option, and preventDefault() cancels the pick.' },
 				inputValue: { name: 'text', bindable: true },
-				onInputValueChange: null,
+				onInputValueChange: { name: 'textfield$input$oninput', notes: 'No callback of its own; textfield$ reaches the inner Textfield, which passes input$ on to the <input>. bind:text also tracks the typed text.' },
 				open: null,
 				items: { name: 'options', notes: 'An array, or a function returning a promise of one.' },
 				multiple: null,
@@ -250,7 +250,7 @@ export default defineLibrary({
 				description: { name: 'Content', notes: 'A part; point aria-describedby on Dialog at its id.' },
 				closeOnEscape: { name: 'escapeKeyAction', default: 'close', notes: 'An empty string turns it off.' },
 				closeOnOutsideClick: { name: 'scrimClickAction', default: 'close', notes: 'An empty string turns it off.' },
-				showCloseButton: null,
+				showCloseButton: { name: 'IconButton', on: 'Header', notes: 'No prop; an IconButton with action="close" in Header (or directly in a sheet Dialog) acts as the close button.' },
 				preventScroll: { name: 'mdc-dialog-scroll-lock', notes: 'No prop; this class is put on <body> while open and hides page overflow.' },
 				size: null,
 			},
@@ -265,7 +265,7 @@ export default defineLibrary({
 				onOpenChange: { name: 'onSMUIDrawerClosed', on: 'Drawer', notes: 'Custom DOM event; onSMUIDrawerOpened fires on open.' },
 				side: null,
 				title: { name: 'Title', notes: 'A part inside Header.' },
-				closeOnEscape: null,
+				closeOnEscape: { name: 'variant', on: 'Drawer', values: ['dismissible', 'modal'], notes: 'No toggle; dismissible and modal drawers always close on Escape pressed inside them.' },
 				closeOnOutsideClick: { name: 'Scrim', notes: 'A part placed right after a modal Drawer; clicking it closes the drawer.' },
 				size: null,
 			},
@@ -325,8 +325,8 @@ export default defineLibrary({
 			props: {
 				page: null,
 				onPageChange: null,
-				count: { name: 'total', on: 'Pagination', notes: 'A snippet for your own range and total text; paging state lives in your code.' },
-				perPage: { name: 'rowsPerPage', on: 'Pagination', notes: 'A snippet for your own rows-per-page control.' },
+				count: null,
+				perPage: null,
 				siblingCount: null,
 				showEdges: null,
 			},
@@ -405,7 +405,7 @@ export default defineLibrary({
 			props: {
 				size: null,
 				color: null,
-				label: null,
+				label: { name: 'aria-label', notes: 'No label prop; extra attributes land on the root role="progressbar" element.' },
 			},
 		} },
 		{ id: 'badge', name: 'Badge', docs: `${d}/badge`, notes: 'Package @smui-extra/badge. Chips (choice, filter, input) have their own page.', api: {

@@ -53,7 +53,7 @@ export default defineLibrary({
 		{ id: 'alert-dialog', name: 'Confirm Delete Dialog', docs: `${d}/confirm-delete-dialog`, notes: 'A delete confirmation opened with a function call, optionally asking the user to type a confirmation text.' },
 		{ id: 'dialog', name: 'Modal', docs: `${d}/modal`, notes: 'Renders a dialog on wide screens and a drawer on narrow ones.', api: {
 			style: 'compound',
-			parts: ['Modal.Root', 'Modal.Trigger', 'Modal.Content', 'Modal.Header', 'Modal.Title', 'Modal.Description', 'Modal.Footer'],
+			parts: ['Modal.Root', 'Modal.NestedRoot', 'Modal.Trigger', 'Modal.Content', 'Modal.Header', 'Modal.Title', 'Modal.Description', 'Modal.Footer'],
 			source: `${gh}/src/lib/components/ui/modal/modal.svelte`,
 			props: {
 				open: { name: 'open', on: 'Modal.Root', bindable: true, default: 'false' },
@@ -73,7 +73,7 @@ export default defineLibrary({
 		{ id: 'number-input', name: 'Number Field', docs: `${d}/number-field`, api: {
 			style: 'compound',
 			parts: ['NumberField.Root', 'NumberField.Group', 'NumberField.Decrement', 'NumberField.Input', 'NumberField.Increment'],
-			source: `${gh}/src/lib/components/ui/number-field/types.ts`,
+			source: `${gh}/src/lib/components/ui/number-field/number-field.svelte`,
 			props: {
 				value: { name: 'value', on: 'NumberField.Root', bindable: true, default: '0' },
 				onValueChange: null,

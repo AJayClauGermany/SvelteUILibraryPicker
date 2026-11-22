@@ -75,7 +75,7 @@ export default defineLibrary({
 			notes: 'Also MenuButton, MenuItem and ResponsiveMenu (switches to a bottom drawer on small screens).',
 			api: {
 				style: 'props',
-				parts: ['Menu', 'MenuItem'],
+				parts: ['Menu', 'MenuItem', 'MenuButton'],
 				source: src('Menu'),
 				props: {
 					open: { name: 'open', bindable: true, default: 'false', notes: 'Outside clicks and Escape only fire on:close, so reset open in that handler.' },
@@ -266,7 +266,7 @@ export default defineLibrary({
 			source: src('Drawer'),
 			props: {
 				open: { name: 'open', bindable: true, default: 'true', notes: 'Open by default, unlike Dialog; usually wrapped in an {#if} or bound.' },
-				onOpenChange: { name: 'on:change', notes: 'Detail has open; on:open and on:close also fire.' },
+				onOpenChange: { name: 'on:change', notes: 'Detail has open; on:open and on:close also fire. Dispatched reactively, so on:change also fires on first render.' },
 				side: { name: 'placement', values: ['top', 'bottom', 'left', 'right'], default: 'right' },
 				title: null,
 				closeOnEscape: { name: 'persistent', default: 'false', notes: 'Inverted: true blocks both Escape and backdrop clicks.' },
@@ -330,7 +330,7 @@ export default defineLibrary({
 				count: { name: 'total', on: 'paginationStore()', default: '0', notes: 'Item count; also settable with setTotal().' },
 				perPage: { name: 'perPage', on: 'paginationStore()', default: '25' },
 				siblingCount: null,
-				showEdges: null,
+				showEdges: { name: 'show', on: 'Pagination', notes: "No page-number links; add 'firstPage' and 'lastPage' to the show array (default ['prevPage', 'pagination', 'nextPage']) for jump-to-edge buttons." },
 			},
 		} },
 		{ id: 'navigation-menu', name: 'AppBar', docs: c('AppBar') },
@@ -343,7 +343,7 @@ export default defineLibrary({
 			source: src('ExpansionPanel'),
 			props: {
 				value: { name: 'open', notes: 'Per panel; panels open independently. For one-at-a-time, Collapse takes bind:group plus a value per item.' },
-				onValueChange: { name: 'on:change', notes: 'Per panel; detail has open and name.' },
+				onValueChange: { name: 'on:change', notes: 'Per panel; detail has open and name. Dispatched reactively, so it also fires on first render.' },
 				multiple: null,
 				collapsible: null,
 				items: null,

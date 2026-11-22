@@ -238,7 +238,7 @@ export default defineLibrary({
 			},
 		} },
 		{ id: 'alert-dialog', name: 'Modal', docs: c('messages'), notes: 'Confirm box with ok/cancel buttons; also raised through the showModal helper from Globals.' },
-		{ id: 'toast', name: 'showNotice (Globals)', docs: c('messages'), notes: 'Notices are raised through the showNotice helper from Globals.', api: {
+		{ id: 'toast', name: 'showNotice (Globals)', docs: c('messages'), notes: 'Notices are raised through the showNotice helper from Globals; each one always shows a close icon, with no option to hide it.', api: {
 			style: 'function',
 			parts: ['Globals', 'getContext(\'wx-helpers\').showNotice'],
 			source: comp('Globals'),
@@ -291,7 +291,7 @@ export default defineLibrary({
 			parts: ['Tooltip'],
 			source: comp('Tooltip'),
 			props: {
-				content: { name: 'data-tooltip-text', notes: 'Wraps an area; text comes from the hovered element\'s data-tooltip-text attribute (SVAR controls set it from their tooltip prop). content takes a component for custom markup.' },
+				content: { name: 'data-tooltip-text', on: 'hovered element inside Tooltip', notes: 'Tooltip wraps an area and reads this attribute from the hovered element (SVAR controls set it from their tooltip prop). Its own content prop takes a component for custom markup, and resolver can return the text.' },
 				placement: {
 					name: 'at',
 					values: ['point', 'bottom', 'top', 'left', 'right', 'center', 'bottom-right', 'bottom-left', 'bottom-start', 'bottom-center', 'bottom-end', 'top-right', 'top-left', 'top-start', 'top-center', 'top-end', 'left-start', 'left-center', 'left-end', 'right-start', 'right-center', 'right-end'],
@@ -326,7 +326,7 @@ export default defineLibrary({
 			source: comp('Pager'),
 			props: {
 				page: { name: 'value', bindable: true, default: '1', notes: 'Starts at 1.' },
-				onPageChange: { name: 'onchange', notes: 'Fires with { value, from, to }; also when the page size input changes.' },
+				onPageChange: { name: 'onchange', notes: 'Fires with { value, from, to } after a page change, deferred by a timeout. The page-size input fires it too, with value holding the new page size rather than the page.' },
 				count: { name: 'total', default: '0', notes: 'Total number of items, not pages.' },
 				perPage: { name: 'pageSize', bindable: true, default: '20', notes: 'Also editable by the user in a built-in input.' },
 				siblingCount: null,
@@ -358,7 +358,7 @@ export default defineLibrary({
 				minValue: null,
 				maxValue: null,
 				isDateDisabled: null,
-				locale: { name: 'Locale', notes: 'A wrapper component, not a prop; month names and the default date format come from it.' },
+				locale: { name: 'words', on: 'Locale', notes: 'Wrap the picker in Locale; its words (e.g. from @svar-ui/core-locales) give month names and the default dateFormat.' },
 				placeholder: { name: 'placeholder', default: '""' },
 				disabled: { name: 'disabled', default: 'false' },
 				format: { name: 'format', notes: 'A format string or a function of the Date; empty falls back to the locale dateFormat.' },

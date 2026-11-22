@@ -113,7 +113,7 @@ export default defineLibrary({
 				parts: ['Badge'],
 				source: 'https://github.com/themesberg/flowbite-svelte/blob/v1.33.1/src/lib/badge/Badge.svelte',
 				props: {
-					variant: null,
+					variant: { name: 'border', notes: 'Boolean flag that adds a border (and a transparent dark-mode background); there is no variant enum.' },
 					color: { name: 'color', values: ['primary', 'secondary', 'gray', 'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'fuchsia', 'purple', 'pink', 'rose'], default: 'primary' },
 					size: { name: 'large', default: 'false', notes: 'Boolean flag for the larger size; there is no size enum.' },
 					dismissible: { name: 'dismissable', default: 'false' },
@@ -219,12 +219,12 @@ export default defineLibrary({
 				source: 'https://github.com/themesberg/flowbite-svelte/blob/v1.33.1/src/lib/dropdown/Dropdown.svelte',
 				props: {
 					open: { name: 'isOpen', bindable: true, default: 'false' },
-					onOpenChange: { name: 'ontoggle', notes: 'Toggle event from the inner popover; `onclose` fires only on close.' },
+					onOpenChange: { name: 'ontoggle', notes: 'Toggle event from the inner popover, via restProps. Dropdown takes `onclose` but never forwards it, so it does not fire.' },
 					items: null,
 					onSelect: { name: 'onclick', on: 'DropdownItem', notes: 'Renders the item as a <button>; `href` renders a link instead.' },
 					placement: { name: 'placement', values: ['top', 'top-start', 'top-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end'], default: 'bottom' },
 					closeOnSelect: null,
-					disabled: null,
+					disabled: { name: 'disabled', on: 'DropdownItem', notes: 'Spread onto the native <button>, which is rendered only when `onclick` is set; no effect on links or plain items.' },
 				},
 			},
 		},

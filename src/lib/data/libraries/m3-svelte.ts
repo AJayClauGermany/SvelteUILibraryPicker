@@ -150,7 +150,7 @@ export default defineLibrary({
 				value: { name: 'value', bindable: true },
 				oninput: { name: 'oninput', notes: 'Passed through to the native <textarea>.' },
 				placeholder: { name: 'placeholder', notes: 'The component sets a blank placeholder for its floating label; one you pass replaces it.' },
-				rows: { name: 'rows', notes: 'Passed through to the native <textarea>.' },
+				rows: { name: 'rows', notes: 'Passed through to the native <textarea>, but the field grows to fit its content (min 5rem), so it does not set the visible height.' },
 				disabled: { name: 'disabled', default: 'false' },
 				readonly: { name: 'readonly', notes: 'Passed through to the native <textarea>.' },
 				invalid: { name: 'error', default: 'false' },
@@ -195,7 +195,7 @@ export default defineLibrary({
 			source: lib('forms/Switch'),
 			props: {
 				checked: { name: 'checked', bindable: true, default: 'false' },
-				onCheckedChange: { name: 'onchange', notes: nativeInput },
+				onCheckedChange: { name: 'onchange', notes: 'Passed through to the native <input>, but Enter, the arrow keys and handle drags set checked in code and do not fire it; prefer bind:checked.' },
 				disabled: { name: 'disabled', default: 'false' },
 				name: { name: 'name', notes: nativeInput },
 				required: { name: 'required', notes: nativeInput },

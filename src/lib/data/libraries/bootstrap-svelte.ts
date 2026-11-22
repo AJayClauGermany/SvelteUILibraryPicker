@@ -490,7 +490,7 @@ export default defineLibrary({
 					multiple: { name: 'isMultiple', on: 'Accordion.Root', default: 'false' },
 					collapsible: null,
 					items: null,
-					disabled: null,
+					disabled: { name: 'disabled', on: 'Accordion.Button', notes: 'No dedicated prop: the native attribute passes through to the header button, so that item cannot be toggled.' },
 					title: { name: 'Accordion.Button', notes: 'A part inside Accordion.Header holds the item heading.' },
 				},
 			},
