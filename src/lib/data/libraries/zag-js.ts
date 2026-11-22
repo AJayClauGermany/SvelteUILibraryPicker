@@ -5,6 +5,11 @@ import { defineLibrary } from '../schema'
 // Svelte-flavoured page is `/components/svelte/<slug>`. Utilities have no framework segment.
 const c = 'https://zagjs.com/components/svelte'
 const u = 'https://zagjs.com/utilities'
+// Source at the @zag-js/svelte@1.47.0 release commit (machine packages share the version).
+const src = 'https://github.com/chakra-ui/zag/blob/7a415c9d670fd1e3beb653bab242cda7ff9c7304'
+const m = `${src}/packages/machines`
+const snip = `${src}/website/data/snippets/svelte`
+const placements = ['top', 'top-start', 'top-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end']
 
 export default defineLibrary({
 	id: 'zag-js',
@@ -49,7 +54,26 @@ export default defineLibrary({
 		{ id: 'angle-slider', name: 'Angle Slider', docs: `${c}/angle-slider` },
 		{ id: 'avatar', name: 'Avatar', docs: `${c}/avatar` },
 		{ id: 'carousel', name: 'Carousel', docs: `${c}/carousel` },
-		{ id: 'checkbox', name: 'Checkbox', docs: `${c}/checkbox` },
+		{
+			id: 'checkbox',
+			name: 'Checkbox',
+			docs: `${c}/checkbox`,
+			api: {
+				style: 'machine',
+				parts: ['useMachine(checkbox.machine)', 'checkbox.connect', 'api.getRootProps', 'api.getControlProps', 'api.getLabelProps', 'api.getHiddenInputProps'],
+				source: `${m}/checkbox/src/checkbox.types.ts`,
+				props: {
+					checked: { name: 'checked', notes: 'Machine prop; control it with a getter plus `onCheckedChange`, or use `defaultChecked`.' },
+					onCheckedChange: { name: 'onCheckedChange', notes: 'Receives a details object with `checked`.' },
+					indeterminate: { name: 'checked', notes: 'Set `checked` (or `defaultChecked`) to `"indeterminate"`; no separate prop.' },
+					disabled: { name: 'disabled' },
+					name: { name: 'name' },
+					value: { name: 'value', default: 'on' },
+					required: { name: 'required' },
+					label: { name: 'api.getLabelProps', notes: 'Prop getter you spread on your own label element.' },
+				},
+			},
+		},
 		{ id: 'clipboard', name: 'Clipboard', docs: `${c}/clipboard` },
 		{ id: 'collapsible', name: 'Collapsible', docs: `${c}/collapsible` },
 		{ id: 'color-picker', name: 'Color Picker', docs: `${c}/color-picker` },
@@ -85,7 +109,28 @@ export default defineLibrary({
 			docs: `${c}/date-picker#rendering-the-calendar-inline`,
 			notes: 'Inline mode of the Date Picker; there is no separate calendar machine.',
 		},
-		{ id: 'dialog', name: 'Dialog', docs: `${c}/dialog` },
+		{
+			id: 'dialog',
+			name: 'Dialog',
+			docs: `${c}/dialog`,
+			api: {
+				style: 'machine',
+				parts: ['useMachine(dialog.machine)', 'dialog.connect', 'api.getTriggerProps', 'api.getBackdropProps', 'api.getPositionerProps', 'api.getContentProps', 'api.getTitleProps'],
+				source: `${m}/dialog/src/dialog.types.ts`,
+				props: {
+					open: { name: 'open', notes: 'Machine prop; control it with a getter plus `onOpenChange`, or use `defaultOpen`.' },
+					onOpenChange: { name: 'onOpenChange', notes: 'Receives a details object with `open`.' },
+					title: { name: 'api.getTitleProps', notes: 'Prop getter you spread on your own heading.' },
+					closeOnEscape: { name: 'closeOnEscape', default: 'true' },
+					closeOnOutsideClick: {
+						name: 'closeOnInteractOutside',
+						default: 'true',
+						notes: 'Defaults to false for non-modal dialogs and the alertdialog role.',
+					},
+					size: null,
+				},
+			},
+		},
 		{
 			id: 'alert-dialog',
 			name: 'Dialog (alertdialog role)',
@@ -132,6 +177,20 @@ export default defineLibrary({
 			name: 'Select',
 			docs: `${c}/select`,
 			notes: 'Single or multiple selection. A beta Cascade Select machine handles hierarchical options.',
+			api: {
+				style: 'machine',
+				parts: ['useMachine(select.machine)', 'select.connect', 'api.getRootProps', 'api.getLabelProps', 'api.getTriggerProps', 'api.getPositionerProps', 'api.getContentProps', 'api.getItemProps'],
+				source: `${m}/select/src/select.types.ts`,
+				props: {
+					value: { name: 'value', notes: 'An array of strings; control it with a getter plus `onValueChange`, or use `defaultValue`.' },
+					onValueChange: { name: 'onValueChange', notes: 'Receives a details object with `value` and `items`.' },
+					items: { name: 'collection', notes: 'Required; build it with `select.collection({ items })`, then render each item yourself.' },
+					multiple: { name: 'multiple' },
+					placeholder: null,
+					disabled: { name: 'disabled' },
+					name: { name: 'name' },
+				},
+			},
 		},
 		{ id: 'signature-pad', name: 'Signature Pad', docs: `${c}/signature-pad` },
 		{
@@ -142,8 +201,41 @@ export default defineLibrary({
 		},
 		{ id: 'resizable', name: 'Splitter', docs: `${c}/splitter` },
 		{ id: 'stepper', name: 'Steps', docs: `${c}/steps` },
-		{ id: 'switch', name: 'Switch', docs: `${c}/switch` },
-		{ id: 'tabs', name: 'Tabs', docs: `${c}/tabs` },
+		{
+			id: 'switch',
+			name: 'Switch',
+			docs: `${c}/switch`,
+			api: {
+				style: 'machine',
+				parts: ['useMachine(zagSwitch.machine)', 'zagSwitch.connect', 'api.getRootProps', 'api.getHiddenInputProps', 'api.getControlProps', 'api.getThumbProps', 'api.getLabelProps'],
+				source: `${m}/switch/src/switch.types.ts`,
+				props: {
+					checked: { name: 'checked', notes: 'Machine prop; control it with a getter plus `onCheckedChange`, or use `defaultChecked`.' },
+					onCheckedChange: { name: 'onCheckedChange', notes: 'Receives a details object with `checked`.' },
+					disabled: { name: 'disabled' },
+					name: { name: 'name' },
+					required: { name: 'required' },
+					label: { name: 'api.getLabelProps', notes: 'Prop getter for your own label element; the `label` machine prop is an accessible string only.' },
+				},
+			},
+		},
+		{
+			id: 'tabs',
+			name: 'Tabs',
+			docs: `${c}/tabs`,
+			api: {
+				style: 'machine',
+				parts: ['useMachine(tabs.machine)', 'tabs.connect', 'api.getRootProps', 'api.getListProps', 'api.getTriggerProps', 'api.getContentProps'],
+				source: `${m}/tabs/src/tabs.types.ts`,
+				props: {
+					value: { name: 'value', notes: 'Control it with a getter plus `onValueChange`, or use `defaultValue`.' },
+					onValueChange: { name: 'onValueChange', notes: 'Receives a details object with `value`.' },
+					items: null,
+					orientation: { name: 'orientation', values: ['horizontal', 'vertical'], default: 'horizontal' },
+					activationMode: { name: 'activationMode', values: ['manual', 'automatic'], default: 'automatic' },
+				},
+			},
+		},
 		{ id: 'tags-input', name: 'Tags Input', docs: `${c}/tags-input` },
 		{ id: 'timer', name: 'Timer', docs: `${c}/timer`, notes: 'Counts up or down to a target.' },
 		{ id: 'toast', name: 'Toast', docs: `${c}/toast` },
@@ -155,7 +247,28 @@ export default defineLibrary({
 			docs: `${c}/toggle-group`,
 			notes: 'Single-choice Segmented Control is a separate page (radio-group machine).',
 		},
-		{ id: 'tooltip', name: 'Tooltip', docs: `${c}/tooltip` },
+		{
+			id: 'tooltip',
+			name: 'Tooltip',
+			docs: `${c}/tooltip`,
+			api: {
+				style: 'machine',
+				parts: ['useMachine(tooltip.machine)', 'tooltip.connect', 'api.getTriggerProps', 'api.getPositionerProps', 'api.getContentProps'],
+				source: `${m}/tooltip/src/tooltip.types.ts`,
+				props: {
+					content: { name: 'api.getContentProps', notes: 'Prop getter; you render the content yourself, usually inside `{#if api.open}`.' },
+					placement: {
+						name: 'positioning.placement',
+						values: placements,
+						default: 'bottom',
+						notes: 'Passed inside the `positioning` machine prop.',
+					},
+					open: { name: 'open', notes: 'Control it with a getter plus `onOpenChange`, or use `defaultOpen`.' },
+					openDelay: { name: 'openDelay', default: '400' },
+					closeDelay: { name: 'closeDelay', default: '150' },
+				},
+			},
+		},
 		{ id: 'tour', name: 'Tour', docs: `${c}/tour` },
 		{ id: 'tree-view', name: 'Tree View', docs: `${c}/tree-view` },
 		{
@@ -178,7 +291,41 @@ export default defineLibrary({
 		],
 		llmsTxt: 'https://zagjs.com/llms.txt',
 	},
-	lastVerified: '2026-11-04',
+	conventions: {
+		'events': {
+			value: 'callback options passed to `useMachine`: `onOpenChange(details)`',
+			notes: 'DOM handlers come from the prop getters; `normalizeProps` lowercases them to Svelte names such as `onclick`.',
+			source: `${src}/packages/frameworks/svelte/src/normalize-props.ts`,
+		},
+		'binding': {
+			value: 'no `bind:`; pass a getter (`get open() { return open }`) plus a change callback',
+			notes: 'Or start uncontrolled with `defaultOpen` / `defaultValue`; read state from `api.open`, `api.value`...',
+			source: `${snip}/dialog/controlled.mdx`,
+		},
+		'ref': {
+			value: '`bind:this` on your own elements',
+			notes: 'You write every element yourself, so plain Svelte refs apply.',
+			source: `${snip}/dialog/usage.mdx`,
+		},
+		'class': {
+			value: 'set on your own elements; parts carry data-scope/data-part attributes',
+			notes: 'The Svelte `mergeProps` helper collects every `class` it is given.',
+			source: `${src}/packages/frameworks/svelte/src/merge-props.ts`,
+		},
+		'rest-props': {
+			value: 'not applicable: combine your attributes with prop getters via `mergeProps`',
+			source: `${src}/packages/frameworks/svelte/src/merge-props.ts`,
+		},
+		'render-delegation': {
+			value: 'spread `{...api.getTriggerProps()}` on any element you choose',
+			source: `${snip}/dialog/usage.mdx`,
+		},
+		'composition': {
+			value: 'state machine: `useMachine(x.machine)` + `x.connect(service, normalizeProps)`, then spread prop getters',
+			source: `${snip}/dialog/usage.mdx`,
+		},
+	},
+	lastVerified: '2026-11-22',
 	notes: [
 		'Each component is its own npm package (@zag-js/accordion, @zag-js/dialog, ...) installed next to @zag-js/svelte; the adapter exports useMachine, normalizeProps, mergeProps and a portal helper.',
 		'Headless: a machine returns state and prop getters, you render the elements and write every style (parts expose data-part attributes for CSS hooks).',

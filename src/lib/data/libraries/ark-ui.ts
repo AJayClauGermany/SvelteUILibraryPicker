@@ -3,6 +3,10 @@ import { defineLibrary } from '../schema'
 // Ark's own llms.txt uses the `/svelte/docs/<slug>` form for Svelte-specific links.
 const c = 'https://ark-ui.com/svelte/docs/components'
 const u = 'https://ark-ui.com/svelte/docs/utilities'
+// Source at the @ark-ui/svelte@5.25.1 release commit.
+const src = 'https://github.com/chakra-ui/ark/blob/9f342015959e69e4cd0c407f3d8fa2fe9e1f34aa'
+const types = `${src}/website/src/content/types/svelte`
+const comp = `${src}/packages/svelte/src/lib/components`
 
 export default defineLibrary({
 	id: 'ark-ui',
@@ -30,7 +34,26 @@ export default defineLibrary({
 		{ id: 'accordion', name: 'Accordion', docs: `${c}/accordion` },
 		{ id: 'avatar', name: 'Avatar', docs: `${c}/avatar` },
 		{ id: 'carousel', name: 'Carousel', docs: `${c}/carousel` },
-		{ id: 'checkbox', name: 'Checkbox', docs: `${c}/checkbox` },
+		{
+			id: 'checkbox',
+			name: 'Checkbox',
+			docs: `${c}/checkbox`,
+			api: {
+				style: 'compound',
+				parts: ['Checkbox.Root', 'Checkbox.Control', 'Checkbox.Indicator', 'Checkbox.Label', 'Checkbox.HiddenInput'],
+				source: `${types}/checkbox.types.json`,
+				props: {
+					checked: { name: 'checked', bindable: true },
+					onCheckedChange: { name: 'onCheckedChange', notes: 'Receives a details object with `checked`.' },
+					indeterminate: { name: 'checked', notes: 'Pass `checked="indeterminate"`; no separate prop.' },
+					disabled: { name: 'disabled' },
+					name: { name: 'name' },
+					value: { name: 'value', default: 'on' },
+					required: { name: 'required' },
+					label: { name: 'Checkbox.Label', notes: 'A part, not a prop.' },
+				},
+			},
+		},
 		{ id: 'clipboard', name: 'Clipboard', docs: `${c}/clipboard` },
 		{ id: 'collapsible', name: 'Collapsible', docs: `${c}/collapsible` },
 		{ id: 'color-picker', name: 'Color Picker', docs: `${c}/color-picker` },
@@ -61,7 +84,24 @@ export default defineLibrary({
 			docs: `${c}/date-picker#inline`,
 			notes: 'Inline rendering of the Date Picker; no separate calendar component.',
 		},
-		{ id: 'dialog', name: 'Dialog', docs: `${c}/dialog` },
+		{
+			id: 'dialog',
+			name: 'Dialog',
+			docs: `${c}/dialog`,
+			api: {
+				style: 'compound',
+				parts: ['Dialog.Root', 'Dialog.Trigger', 'Dialog.Backdrop', 'Dialog.Positioner', 'Dialog.Content', 'Dialog.Title'],
+				source: `${types}/dialog.types.json`,
+				props: {
+					open: { name: 'open', bindable: true },
+					onOpenChange: { name: 'onOpenChange', notes: 'Receives a details object with `open`.' },
+					title: { name: 'Dialog.Title', notes: 'A part, not a prop.' },
+					closeOnEscape: { name: 'closeOnEscape', default: 'true' },
+					closeOnOutsideClick: { name: 'closeOnInteractOutside', default: 'true' },
+					size: null,
+				},
+			},
+		},
 		{
 			id: 'alert-dialog',
 			name: 'Dialog (alert dialog)',
@@ -81,6 +121,23 @@ export default defineLibrary({
 			name: 'Field.Input',
 			docs: `${c}/field#input`,
 			notes: 'Provided as a part of Field, not a standalone component.',
+			api: {
+				style: 'compound',
+				parts: ['Field.Root', 'Field.Label', 'Field.Input', 'Field.HelperText', 'Field.ErrorText'],
+				source: `${comp}/field/field-input.svelte`,
+				props: {
+					value: { name: 'value', on: 'Field.Input', bindable: true },
+					oninput: { name: 'oninput', on: 'Field.Input', notes: 'Native event, merged with the internal handler.' },
+					type: { name: 'type', on: 'Field.Input', notes: 'Passed through to the native <input>.' },
+					placeholder: { name: 'placeholder', on: 'Field.Input', notes: 'Passed through to the native <input>.' },
+					disabled: { name: 'disabled', notes: 'Set on Field.Root; applied to the input.' },
+					readonly: { name: 'readOnly', notes: 'Set on Field.Root; applied to the input.' },
+					invalid: { name: 'invalid', notes: 'Set on Field.Root; shows Field.ErrorText.' },
+					label: { name: 'Field.Label', notes: 'A part, not a prop.' },
+					helperText: { name: 'Field.HelperText', notes: 'A part; Field.ErrorText is the error variant.' },
+					size: null,
+				},
+			},
 		},
 		{
 			id: 'textarea',
@@ -122,14 +179,65 @@ export default defineLibrary({
 		{ id: 'radio-group', name: 'Radio Group', docs: `${c}/radio-group` },
 		{ id: 'rating', name: 'Rating Group', docs: `${c}/rating-group` },
 		{ id: 'scroll-area', name: 'Scroll Area', docs: `${c}/scroll-area` },
-		{ id: 'select', name: 'Select', docs: `${c}/select` },
+		{
+			id: 'select',
+			name: 'Select',
+			docs: `${c}/select`,
+			api: {
+				style: 'compound',
+				parts: ['Select.Root', 'Select.Label', 'Select.Control', 'Select.Trigger', 'Select.ValueText', 'Select.Positioner', 'Select.Content', 'Select.Item', 'Select.HiddenSelect'],
+				source: `${types}/select.types.json`,
+				props: {
+					value: { name: 'value', bindable: true, notes: 'Always an array of strings, even for single selection.' },
+					onValueChange: { name: 'onValueChange', notes: 'Receives a details object with `value` and `items`.' },
+					items: { name: 'collection', notes: 'Required; build it with `createListCollection({ items })`, then still render `Select.Item` parts.' },
+					multiple: { name: 'multiple' },
+					placeholder: { name: 'placeholder', on: 'Select.ValueText' },
+					disabled: { name: 'disabled' },
+					name: { name: 'name', notes: 'Used by Select.HiddenSelect for form submission.' },
+				},
+			},
+		},
 		{ id: 'signature-pad', name: 'Signature Pad', docs: `${c}/signature-pad` },
 		{ id: 'slider', name: 'Slider', docs: `${c}/slider` },
 		{ id: 'angle-slider', name: 'Angle Slider', docs: `${c}/angle-slider` },
 		{ id: 'resizable', name: 'Splitter', docs: `${c}/splitter`, notes: 'Marked as preview in the docs.' },
 		{ id: 'stepper', name: 'Steps', docs: `${c}/steps` },
-		{ id: 'switch', name: 'Switch', docs: `${c}/switch` },
-		{ id: 'tabs', name: 'Tabs', docs: `${c}/tabs` },
+		{
+			id: 'switch',
+			name: 'Switch',
+			docs: `${c}/switch`,
+			api: {
+				style: 'compound',
+				parts: ['Switch.Root', 'Switch.Control', 'Switch.Thumb', 'Switch.Label', 'Switch.HiddenInput'],
+				source: `${types}/switch.types.json`,
+				props: {
+					checked: { name: 'checked', bindable: true },
+					onCheckedChange: { name: 'onCheckedChange', notes: 'Receives a details object with `checked`.' },
+					disabled: { name: 'disabled' },
+					name: { name: 'name' },
+					required: { name: 'required' },
+					label: { name: 'Switch.Label', notes: 'A part; the root `label` prop is an accessible string only.' },
+				},
+			},
+		},
+		{
+			id: 'tabs',
+			name: 'Tabs',
+			docs: `${c}/tabs`,
+			api: {
+				style: 'compound',
+				parts: ['Tabs.Root', 'Tabs.List', 'Tabs.Trigger', 'Tabs.Indicator', 'Tabs.Content'],
+				source: `${types}/tabs.types.json`,
+				props: {
+					value: { name: 'value', bindable: true },
+					onValueChange: { name: 'onValueChange', notes: 'Receives a details object with `value`.' },
+					items: null,
+					orientation: { name: 'orientation', values: ['horizontal', 'vertical'], default: 'horizontal' },
+					activationMode: { name: 'activationMode', values: ['manual', 'automatic'], default: 'automatic' },
+				},
+			},
+		},
 		{ id: 'tags-input', name: 'Tags Input', docs: `${c}/tags-input` },
 		{
 			id: 'timer',
@@ -151,7 +259,28 @@ export default defineLibrary({
 			docs: `${c}/toggle-group`,
 			notes: 'Segment Group is a separate single-choice segmented control.',
 		},
-		{ id: 'tooltip', name: 'Tooltip', docs: `${c}/tooltip` },
+		{
+			id: 'tooltip',
+			name: 'Tooltip',
+			docs: `${c}/tooltip`,
+			api: {
+				style: 'compound',
+				parts: ['Tooltip.Root', 'Tooltip.Trigger', 'Tooltip.Positioner', 'Tooltip.Content'],
+				source: `${types}/tooltip.types.json`,
+				props: {
+					content: { name: 'Tooltip.Content', notes: 'A part, not a prop.' },
+					placement: {
+						name: 'positioning.placement',
+						values: ['top', 'top-start', 'top-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end'],
+						default: 'bottom',
+						notes: 'Passed inside the `positioning` object, e.g. `positioning={{ placement: \'top\' }}`.',
+					},
+					open: { name: 'open', bindable: true },
+					openDelay: { name: 'openDelay', default: '400' },
+					closeDelay: { name: 'closeDelay', default: '150' },
+				},
+			},
+		},
 		{ id: 'tour', name: 'Tour', docs: `${c}/tour` },
 		{
 			id: 'tree-view',
@@ -180,7 +309,41 @@ export default defineLibrary({
 		],
 		llmsTxt: 'https://ark-ui.com/llms.txt',
 	},
-	lastVerified: '2026-11-04',
+	conventions: {
+		'events': {
+			value: 'callback props: `onOpenChange={(details) => ...}`; native events such as `onclick` on any part',
+			notes: 'State callbacks receive a details object.',
+			source: `${comp}/dialog/dialog-root.svelte`,
+		},
+		'binding': {
+			value: '`bind:open` / `bind:value` / `bind:checked` on the root part',
+			notes: 'Or uncontrolled with `defaultOpen` / `defaultValue` / `defaultChecked`.',
+			source: `${comp}/dialog/examples/controlled.svelte`,
+		},
+		'ref': {
+			value: '`bind:ref` on any part that renders an element',
+			source: `${src}/website/src/content/pages/guides/ref.mdx`,
+		},
+		'class': {
+			value: 'passed to the part\'s element, combined with Zag\'s `mergeProps`',
+			notes: 'No built-in classes; parts expose data-scope/data-part attributes for styling.',
+			source: `${src}/website/src/content/pages/guides/styling.mdx`,
+		},
+		'rest-props': {
+			value: 'forwarded to each part\'s element',
+			source: `${comp}/dialog/dialog-content.svelte`,
+		},
+		'render-delegation': {
+			value: '`asChild` snippet that receives a props function to spread',
+			source: `${src}/website/src/content/pages/guides/composition.mdx`,
+		},
+		'composition': {
+			value: 'compound parts (`Dialog.Root`, `Dialog.Trigger`, `Dialog.Content`...)',
+			notes: 'A `use*` hook plus `*.RootProvider` is the alternative when you need the API outside the tree.',
+			source: `${comp}/dialog/dialog.ts`,
+		},
+	},
+	lastVerified: '2026-11-22',
 	notes: [
 		'Headless: ships behaviour and accessibility only, so all styling is up to you.',
 		'The site chooses the framework with a selector stored in a cookie; /svelte/docs/... links (the form used in Ark\'s llms.txt) redirect to the shared /docs/... page, which may open on React until Svelte is selected.',

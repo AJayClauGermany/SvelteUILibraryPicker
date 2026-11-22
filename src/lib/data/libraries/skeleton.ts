@@ -3,6 +3,12 @@ import { defineLibrary } from '../schema'
 const fc = 'https://www.skeleton.dev/docs/svelte/framework-components'
 const tw = 'https://www.skeleton.dev/docs/svelte/tailwind-components'
 const design = 'https://www.skeleton.dev/docs/svelte/design'
+// Source at the @skeletonlabs/skeleton-svelte@5.0.1 release commit.
+const src = 'https://github.com/skeletonlabs/skeleton/blob/f80a3a1f59d4e3bff4291042523b3a38ac773333'
+const svelte = `${src}/packages/skeleton-svelte/src/components`
+const site = `${src}/sites/skeleton.dev/src`
+const sizes = ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl', '8xl', '9xl']
+const native = 'Native attribute on the element; no Skeleton-specific prop.'
 
 export default defineLibrary({
 	id: 'skeleton',
@@ -65,6 +71,19 @@ export default defineLibrary({
 			name: 'Dialog',
 			docs: `${fc}/dialog`,
 			notes: 'A CSS-only variant styling the native dialog element is also documented under Tailwind components (beta).',
+			api: {
+				style: 'compound',
+				parts: ['Dialog', 'Dialog.Trigger', 'Dialog.Backdrop', 'Dialog.Positioner', 'Dialog.Content', 'Dialog.Title'],
+				source: `${svelte}/dialog/anatomy/root.svelte`,
+				props: {
+					open: { name: 'open', notes: 'Not bindable; pair it with `onOpenChange`, or use `defaultOpen`.' },
+					onOpenChange: { name: 'onOpenChange', notes: 'Receives a details object with `open`.' },
+					title: { name: 'Dialog.Title', notes: 'A part, not a prop.' },
+					closeOnEscape: { name: 'closeOnEscape', default: 'true' },
+					closeOnOutsideClick: { name: 'closeOnInteractOutside', default: 'true' },
+					size: null,
+				},
+			},
 		},
 		{ id: 'file-upload', name: 'File Upload', docs: `${fc}/file-upload` },
 		{
@@ -133,11 +152,65 @@ export default defineLibrary({
 		},
 		{ id: 'slider', name: 'Slider', docs: `${fc}/slider` },
 		{ id: 'stepper', name: 'Steps', docs: `${fc}/steps` },
-		{ id: 'switch', name: 'Switch', docs: `${fc}/switch` },
-		{ id: 'tabs', name: 'Tabs', docs: `${fc}/tabs` },
+		{
+			id: 'switch',
+			name: 'Switch',
+			docs: `${fc}/switch`,
+			api: {
+				style: 'compound',
+				parts: ['Switch', 'Switch.Control', 'Switch.Thumb', 'Switch.Label', 'Switch.HiddenInput'],
+				source: `${svelte}/switch/anatomy/root.svelte`,
+				props: {
+					checked: { name: 'checked', notes: 'Not bindable; pair it with `onCheckedChange`, or use `defaultChecked`.' },
+					onCheckedChange: { name: 'onCheckedChange', notes: 'Receives a details object with `checked`.' },
+					disabled: { name: 'disabled' },
+					name: { name: 'name' },
+					required: { name: 'required' },
+					label: { name: 'Switch.Label', notes: 'A part; the root `label` prop is an accessible string only.' },
+				},
+			},
+		},
+		{
+			id: 'tabs',
+			name: 'Tabs',
+			docs: `${fc}/tabs`,
+			api: {
+				style: 'compound',
+				parts: ['Tabs', 'Tabs.List', 'Tabs.Trigger', 'Tabs.Indicator', 'Tabs.Content'],
+				source: `${svelte}/tabs/anatomy/root.svelte`,
+				props: {
+					value: { name: 'value', notes: 'Not bindable; pair it with `onValueChange`, or use `defaultValue`.' },
+					onValueChange: { name: 'onValueChange', notes: 'Receives a details object with `value`.' },
+					items: null,
+					orientation: { name: 'orientation', values: ['horizontal', 'vertical'], default: 'horizontal' },
+					activationMode: { name: 'activationMode', values: ['manual', 'automatic'], default: 'automatic' },
+				},
+			},
+		},
 		{ id: 'tags-input', name: 'Tags Input', docs: `${fc}/tags-input` },
 		{ id: 'toast', name: 'Toast', docs: `${fc}/toast` },
-		{ id: 'tooltip', name: 'Tooltip', docs: `${fc}/tooltip` },
+		{
+			id: 'tooltip',
+			name: 'Tooltip',
+			docs: `${fc}/tooltip`,
+			api: {
+				style: 'compound',
+				parts: ['Tooltip', 'Tooltip.Trigger', 'Tooltip.Positioner', 'Tooltip.Content'],
+				source: `${svelte}/tooltip/anatomy/root.svelte`,
+				props: {
+					content: { name: 'Tooltip.Content', notes: 'A part, not a prop.' },
+					placement: {
+						name: 'positioning.placement',
+						values: ['top', 'top-start', 'top-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end'],
+						default: 'bottom',
+						notes: 'Passed inside the `positioning` object, e.g. `positioning={{ placement: \'top\' }}`.',
+					},
+					open: { name: 'open', notes: 'Not bindable; pair it with `onOpenChange`, or use `defaultOpen`.' },
+					openDelay: { name: 'openDelay', default: '400' },
+					closeDelay: { name: 'closeDelay', default: '150' },
+				},
+			},
+		},
 		{ id: 'tree-view', name: 'Tree View', docs: `${fc}/tree-view` },
 
 		// Tailwind (CSS class) components
@@ -147,7 +220,31 @@ export default defineLibrary({
 			docs: `${tw}/badges`,
 			notes: 'CSS classes only. Interactive "Chips" are documented separately.',
 		},
-		{ id: 'button', name: 'Buttons', docs: `${tw}/buttons`, notes: 'CSS classes only.' },
+		{
+			id: 'button',
+			name: 'Buttons',
+			docs: `${tw}/buttons`,
+			notes: 'CSS classes only.',
+			api: {
+				style: 'css',
+				parts: ['<button class="btn">'],
+				source: `${src}/packages/skeleton/src/utilities/buttons.css`,
+				props: {
+					onclick: { name: 'onclick', notes: native },
+					disabled: { name: 'disabled', notes: native },
+					href: { name: 'href', notes: 'Put the `btn` classes on an <a> element.' },
+					type: { name: 'type', values: ['button', 'submit', 'reset'], notes: native },
+					variant: { name: 'preset-*', values: ['preset-filled', 'preset-tonal', 'preset-outlined'], notes: 'Preset utility classes, not a prop.' },
+					size: { name: 'btn-*', values: sizes.map(size => `btn-${size}`) },
+					color: {
+						name: 'preset-*-{color}',
+						values: ['brand', 'primary', 'secondary', 'tertiary', 'success', 'warning', 'error', 'surface'],
+						notes: 'Part of the preset class, e.g. `preset-filled-primary-500` or `preset-tonal-primary`.',
+					},
+					loading: null,
+				},
+			},
+		},
 		{ id: 'card', name: 'Cards', docs: `${tw}/cards`, notes: 'CSS classes only.' },
 		{
 			id: 'alert-dialog',
@@ -163,6 +260,23 @@ export default defineLibrary({
 			name: 'Forms and Inputs: Input',
 			docs: `${tw}/forms#input`,
 			notes: 'Tailwind classes for native input elements.',
+			api: {
+				style: 'css',
+				parts: ['<label class="label">', '<span class="label-text">', '<input class="input">'],
+				source: `${site}/content/docs/tailwind-components/forms.mdx`,
+				props: {
+					value: { name: 'value', bindable: true, notes: 'Native `bind:value` on the <input>.' },
+					oninput: { name: 'oninput', notes: native },
+					type: { name: 'type', notes: native },
+					placeholder: { name: 'placeholder', notes: native },
+					disabled: { name: 'disabled', notes: native },
+					readonly: { name: 'readonly', notes: native },
+					invalid: null,
+					label: { name: 'label-text', notes: 'Class on your own label text; wrap both in `<label class="label">`.' },
+					helperText: null,
+					size: { name: 'field-*', values: sizes.map(size => `field-${size}`) },
+				},
+			},
 		},
 		{
 			id: 'textarea',
@@ -175,12 +289,41 @@ export default defineLibrary({
 			name: 'Forms and Inputs: Select',
 			docs: `${tw}/forms#select`,
 			notes: 'Tailwind classes for the native select. See also Listbox and Combobox for component-based selection.',
+			api: {
+				style: 'css',
+				parts: ['<select class="select">', '<option>'],
+				source: `${site}/components/examples/tailwind-components/forms/select.astro`,
+				props: {
+					value: { name: 'value', bindable: true, notes: 'Native `bind:value` on the <select>.' },
+					onValueChange: { name: 'onchange', notes: native },
+					items: null,
+					multiple: { name: 'multiple', notes: native },
+					placeholder: { name: '<option disabled selected>', notes: 'No placeholder prop; the docs use a disabled first option.' },
+					disabled: { name: 'disabled', notes: native },
+					name: { name: 'name', notes: native },
+				},
+			},
 		},
 		{
 			id: 'checkbox',
 			name: 'Forms and Inputs: Checkboxes',
 			docs: `${tw}/forms#checkboxes`,
 			notes: 'Tailwind classes for native checkboxes; no checkbox component.',
+			api: {
+				style: 'css',
+				parts: ['<input class="checkbox" type="checkbox">'],
+				source: `${src}/packages/skeleton/src/utilities/form-radios-checks.css`,
+				props: {
+					checked: { name: 'checked', bindable: true, notes: 'Native `bind:checked`.' },
+					onCheckedChange: { name: 'onchange', notes: native },
+					indeterminate: { name: 'indeterminate', bindable: true, notes: 'Native DOM property; the `checkbox` class styles it.' },
+					disabled: { name: 'disabled', notes: native },
+					name: { name: 'name', notes: native },
+					value: { name: 'value', notes: native },
+					required: { name: 'required', notes: native },
+					label: null,
+				},
+			},
 		},
 		{
 			id: 'radio-group',
@@ -233,7 +376,40 @@ export default defineLibrary({
 		],
 		llmsTxt: 'https://www.skeleton.dev/llms.txt',
 	},
-	lastVerified: '2026-11-04',
+	conventions: {
+		'events': {
+			value: 'callback props from Zag: `onOpenChange={(details) => ...}`; native `onclick` etc. on parts',
+			notes: 'CSS-class components use plain native events.',
+			source: `${site}/components/examples/framework-components/tabs/svelte/controlled.svelte`,
+		},
+		'binding': {
+			value: 'no `bind:`; pass `open` / `value` / `checked` with the matching change callback',
+			notes: 'No component prop is declared `$bindable`.',
+			source: `${site}/components/examples/framework-components/switch/svelte/default.svelte`,
+		},
+		'ref': {
+			value: 'no `ref` prop; render your own element with the `element` snippet to get one',
+			source: `${svelte}/switch/anatomy/root.svelte`,
+		},
+		'class': {
+			value: 'passed to the part\'s element via Zag\'s `mergeProps`',
+			notes: 'Default styles target data-scope/data-part attributes; Dialog ships unstyled.',
+			source: `${site}/content/docs/get-started/fundamentals.mdx`,
+		},
+		'rest-props': {
+			value: 'forwarded to each part\'s element',
+			source: `${site}/content/docs/get-started/fundamentals.mdx`,
+		},
+		'render-delegation': {
+			value: '`element` snippet that receives `attributes` to spread',
+			source: `${site}/content/docs/get-started/fundamentals.mdx`,
+		},
+		'composition': {
+			value: 'compound parts on a root component (`<Dialog>`, `Dialog.Trigger`, `Dialog.Content`...); CSS classes for native form elements and buttons',
+			source: `${svelte}/dialog/modules/anatomy.ts`,
+		},
+	},
+	lastVerified: '2026-11-22',
 	notes: [
 		'Install both @skeletonlabs/skeleton (Tailwind theme and utilities) and @skeletonlabs/skeleton-svelte (components); the same docs also cover a React package.',
 		'Entries marked "CSS classes only" come from the Tailwind components section and are styles for native HTML elements rather than Svelte components.',
