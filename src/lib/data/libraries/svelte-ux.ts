@@ -1,6 +1,8 @@
 import { defineLibrary } from '../schema'
 
 const c = (name: string) => `https://svelte-ux.techniq.dev/docs/components/${name}`
+// Component source at the 1.0.11 release tag.
+const src = (name: string) => `https://github.com/techniq/svelte-ux/blob/svelte-ux@1.0.11/packages/svelte-ux/src/lib/components/${name}.svelte`
 
 export default defineLibrary({
 	id: 'svelte-ux',
@@ -47,7 +49,21 @@ export default defineLibrary({
 	],
 	features: ['typescript', 'semantic-colors', 'theming', 'dark-mode', 'forms'],
 	components: [
-		{ id: 'button', name: 'Button', docs: c('Button') },
+		{ id: 'button', name: 'Button', docs: c('Button'), api: {
+			style: 'props',
+			parts: ['Button'],
+			source: src('Button'),
+			props: {
+				onclick: { name: 'on:click' },
+				disabled: { name: 'disabled', default: 'false' },
+				href: { name: 'href', notes: 'Renders an <a> when set.' },
+				type: { name: 'type', values: ['button', 'submit', 'reset'], default: 'button' },
+				variant: { name: 'variant', values: ['default', 'outline', 'fill', 'fill-outline', 'fill-light', 'text', 'none'], default: 'default' },
+				size: { name: 'size', values: ['sm', 'md', 'lg'], default: 'md' },
+				color: { name: 'color', values: ['default', 'primary', 'secondary', 'accent', 'neutral', 'info', 'success', 'warning', 'danger'], default: 'default' },
+				loading: { name: 'loading', default: 'false' },
+			},
+		} },
 		{ id: 'button-group', name: 'ButtonGroup', docs: c('ButtonGroup') },
 		{ id: 'toggle-group', name: 'ToggleGroup', docs: c('ToggleGroup') },
 		{
@@ -56,22 +72,111 @@ export default defineLibrary({
 			docs: c('Menu'),
 			notes: 'Also MenuButton, MenuItem and ResponsiveMenu (switches to a bottom drawer on small screens).',
 		},
-		{ id: 'input', name: 'TextField', docs: c('TextField'), notes: 'Lower-level Input (with mask support) is documented separately.' },
+		{ id: 'input', name: 'TextField', docs: c('TextField'), notes: 'Lower-level Input (with mask support) is documented separately.', api: {
+			style: 'props',
+			parts: ['TextField'],
+			source: src('TextField'),
+			props: {
+				value: { name: 'value', bindable: true, default: "''" },
+				oninput: { name: 'on:change', notes: 'Component event fired on each edit (can be debounced with debounceChange); the native input event is not forwarded.' },
+				type: { name: 'type', values: ['text', 'password', 'integer', 'decimal', 'currency', 'percent', 'search', 'email'], default: 'text' },
+				placeholder: { name: 'placeholder' },
+				disabled: { name: 'disabled', default: 'false' },
+				readonly: null,
+				invalid: { name: 'error', notes: 'A string (or array) is shown as the message; true only marks the field.' },
+				label: { name: 'label' },
+				helperText: { name: 'hint' },
+				size: { name: 'dense', notes: 'A boolean compact mode, not a size scale.' },
+			},
+		} },
 		{ id: 'textarea', name: 'TextField', docs: c('TextField'), notes: 'Multi-line mode of TextField.' },
-		{ id: 'checkbox', name: 'Checkbox', docs: c('Checkbox') },
+		{ id: 'checkbox', name: 'Checkbox', docs: c('Checkbox'), api: {
+			style: 'props',
+			parts: ['Checkbox'],
+			source: src('Checkbox'),
+			props: {
+				checked: { name: 'checked', bindable: true, default: 'false' },
+				onCheckedChange: { name: 'on:change', notes: 'Native change event of the inner <input>, forwarded.' },
+				indeterminate: { name: 'indeterminate', default: 'false' },
+				disabled: { name: 'disabled', default: 'false' },
+				name: { name: 'name' },
+				value: { name: 'value' },
+				required: { name: 'required', default: 'false' },
+				label: { name: 'Checkbox', notes: 'Child content (default slot) becomes the label.' },
+			},
+		} },
 		{ id: 'radio-group', name: 'Radio', docs: c('Radio') },
-		{ id: 'switch', name: 'Switch', docs: c('Switch') },
-		{ id: 'select', name: 'MenuField', docs: c('MenuField'), notes: 'Non-searchable select; see SelectField for the searchable variant.' },
+		{ id: 'switch', name: 'Switch', docs: c('Switch'), api: {
+			style: 'props',
+			parts: ['Switch'],
+			source: src('Switch'),
+			props: {
+				checked: { name: 'checked', bindable: true, default: 'false' },
+				onCheckedChange: { name: 'on:change', notes: 'Native change event of the inner <input>, forwarded.' },
+				disabled: { name: 'disabled', default: 'false' },
+				name: { name: 'name' },
+				required: { name: 'required', default: 'false' },
+				label: null,
+			},
+		} },
+		{ id: 'select', name: 'MenuField', docs: c('MenuField'), notes: 'Non-searchable select; see SelectField for the searchable variant.', api: {
+			style: 'props',
+			parts: ['MenuField'],
+			source: src('MenuField'),
+			props: {
+				value: { name: 'value', bindable: true, default: 'null' },
+				onValueChange: { name: 'on:change', notes: 'Component event; detail has value and option.' },
+				items: { name: 'options', notes: 'Array of { label, value } objects.' },
+				multiple: null,
+				placeholder: null,
+				disabled: { name: 'disabled', notes: 'Forwarded to the wrapping Field.' },
+				name: null,
+			},
+		} },
 		{ id: 'combobox', name: 'SelectField', docs: c('SelectField'), notes: 'Searchable select with async options support.' },
 		{ id: 'slider', name: 'RangeSlider', docs: c('RangeSlider'), notes: 'RangeField is a stepped numeric alternative.' },
 		{ id: 'number-input', name: 'NumberStepper', docs: c('NumberStepper') },
 		{ id: 'tags-input', name: 'MultiSelectField', docs: c('MultiSelectField'), notes: 'Also MultiSelect and MultiSelectMenu.' },
 		{ id: 'form', name: 'Form', docs: c('Form'), notes: 'Field wraps inputs with label, error and icon slots.' },
-		{ id: 'dialog', name: 'Dialog', docs: c('Dialog') },
+		{ id: 'dialog', name: 'Dialog', docs: c('Dialog'), api: {
+			style: 'props',
+			parts: ['Dialog'],
+			source: src('Dialog'),
+			props: {
+				open: { name: 'open', bindable: true, default: 'false' },
+				onOpenChange: { name: 'on:close', notes: 'on:open fires when it opens.' },
+				title: { name: 'slot="title"' },
+				closeOnEscape: { name: 'persistent', default: 'false', notes: 'Inverted: true blocks both Escape and backdrop clicks.' },
+				closeOnOutsideClick: { name: 'persistent', default: 'false', notes: 'Inverted: true blocks both Escape and backdrop clicks.' },
+				size: null,
+			},
+		} },
 		{ id: 'drawer', name: 'Drawer', docs: c('Drawer') },
 		{ id: 'popover', name: 'Popover', docs: c('Popover') },
-		{ id: 'tooltip', name: 'Tooltip', docs: c('Tooltip') },
-		{ id: 'tabs', name: 'Tabs', docs: c('Tabs') },
+		{ id: 'tooltip', name: 'Tooltip', docs: c('Tooltip'), api: {
+			style: 'props',
+			parts: ['Tooltip'],
+			source: src('Tooltip'),
+			props: {
+				content: { name: 'title', notes: 'Or slot="title" for markup.' },
+				placement: { name: 'placement', values: ['top', 'top-start', 'top-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end'], default: 'bottom', notes: 'Floating UI placement.' },
+				open: { name: 'open', bindable: true, default: 'false' },
+				openDelay: { name: 'delay', default: '500' },
+				closeDelay: null,
+			},
+		} },
+		{ id: 'tabs', name: 'Tabs', docs: c('Tabs'), api: {
+			style: 'props',
+			parts: ['Tabs', 'Tab'],
+			source: src('Tabs'),
+			props: {
+				value: { name: 'value', on: 'Tabs', bindable: true },
+				onValueChange: null,
+				items: { name: 'options', on: 'Tabs', notes: 'Array of { label, value }; Tab children are the alternative.' },
+				orientation: { name: 'placement', on: 'Tabs', values: ['top', 'bottom', 'left', 'right'], default: 'top' },
+				activationMode: null,
+			},
+		} },
 		{ id: 'breadcrumb', name: 'Breadcrumb', docs: c('Breadcrumb') },
 		{ id: 'pagination', name: 'Pagination', docs: c('Pagination'), notes: 'Paginate provides the headless paging logic.' },
 		{ id: 'navigation-menu', name: 'AppBar', docs: c('AppBar') },
@@ -110,6 +215,28 @@ export default defineLibrary({
 		summary:
 			'No AGENTS.md, CLAUDE.md, llms.txt, editor AI rules, contributing guide or other AI-related statement was found in the repository, and the LICENSE is the standard MIT text.',
 		sources: ['https://github.com/techniq/svelte-ux', 'https://github.com/techniq/svelte-ux/blob/main/LICENSE'],
+	},
+	conventions: {
+		'events': {
+			value: 'Svelte 4 component events: `on:click`, `on:change`',
+			source: src('Dialog'),
+		},
+		'binding': {
+			value: '`bind:value` / `bind:open` / `bind:checked` on exported props',
+			source: src('Dialog'),
+		},
+		'class': {
+			value: 'merged with tailwind-merge (`cls`); a `classes` object targets inner parts',
+			source: src('Button'),
+		},
+		'rest-props': {
+			value: 'varies: Button forwards them to its <button>/<a>, TextField does not',
+			source: src('Button'),
+		},
+		'composition': {
+			value: 'single components with props and named slots (`slot="title"`, `slot="actions"`)',
+			source: src('Dialog'),
+		},
 	},
 	lastVerified: '2026-11-04',
 	notes: [
