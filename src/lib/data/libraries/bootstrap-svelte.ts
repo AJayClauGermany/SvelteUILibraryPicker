@@ -6,6 +6,9 @@ import { defineLibrary } from '../schema'
 const site = 'https://bootstrap-svelte.vercel.app'
 const c = (slug: string) => `${site}/components/${slug}`
 const controls = (anchor?: string) => `${site}/form/form-controls${anchor ? `#${anchor}` : ''}`
+// Props were read from the component source at the v2.2.1 tag.
+const src = (path: string) => `https://github.com/WinkIntel/bootstrap-svelte/blob/v2.2.1/src/lib/${path}`
+const native = 'Passed through to the native element via rest props.'
 
 export default defineLibrary({
 	id: 'bootstrap-svelte',
@@ -46,7 +49,30 @@ export default defineLibrary({
 	],
 	features: ['typescript', 'ssr', 'accessibility', 'semantic-colors', 'theming', 'dark-mode', 'forms', 'runes'],
 	components: [
-		{ id: 'button', name: 'Button', docs: c('button') },
+		{
+			id: 'button',
+			name: 'Button',
+			docs: c('button'),
+			api: {
+				style: 'props',
+				parts: ['Button'],
+				source: src('Button/button.svelte'),
+				props: {
+					onclick: { name: 'onclick', notes: 'Skipped while disabled.' },
+					disabled: { name: 'disabled', default: 'false' },
+					href: { name: 'href', notes: 'Renders an <a> instead of a <button>.' },
+					type: { name: 'type', values: ['button', 'submit', 'reset'], default: 'button' },
+					variant: { name: 'colorVariant', notes: 'Outline and link styles are colorVariant values (outline-primary... and link).' },
+					size: { name: 'size', values: ['sm', 'lg'] },
+					color: {
+						name: 'colorVariant',
+						values: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link', 'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-light', 'outline-dark'],
+						notes: 'No default: without it only the base btn class is set.',
+					},
+					loading: null,
+				},
+			},
+		},
 		{ id: 'button-group', name: 'ButtonGroup', docs: c('button-group'), notes: 'ButtonToolbar groups several button groups.' },
 		{
 			id: 'toggle',
@@ -67,12 +93,85 @@ export default defineLibrary({
 			name: 'Form.TextInput',
 			docs: controls('text-input'),
 			notes: 'One typed component per native input type: Email, Telephone, Url, Hidden, Month, Week and DatetimeLocal inputs are documented on the same page.',
+			api: {
+				style: 'compound',
+				parts: ['Form.InputLabel', 'Form.TextInput', 'Form.HelperText'],
+				source: src('Form/form-text-input.svelte'),
+				props: {
+					value: { name: 'value', bindable: true },
+					oninput: { name: 'oninput', notes: native },
+					type: { name: 'Form.EmailInput, Form.PasswordInput...', notes: 'No type prop: pick the component for the input type.' },
+					placeholder: { name: 'placeholder', notes: native },
+					disabled: { name: 'disabled', notes: native },
+					readonly: { name: 'readonly', notes: native },
+					invalid: { name: 'isInvalid', notes: 'Adds is-invalid and aria-invalid; isValid is the success state.' },
+					label: { name: 'Form.InputLabel', notes: 'A separate part, not a prop.' },
+					helperText: { name: 'Form.HelperText', notes: 'A separate part; Form.Feedback shows validation messages.' },
+					size: { name: 'sizing', values: ['sm', 'lg'] },
+				},
+			},
 		},
 		{ id: 'textarea', name: 'Form.TextArea', docs: controls('text-area') },
-		{ id: 'checkbox', name: 'Form.CheckInput', docs: controls('checkbox-input'), notes: 'Wrapped in Form.Check with Form.CheckLabel.' },
+		{
+			id: 'checkbox',
+			name: 'Form.CheckInput',
+			docs: controls('checkbox-input'),
+			notes: 'Wrapped in Form.Check with Form.CheckLabel.',
+			api: {
+				style: 'compound',
+				parts: ['Form.Check', 'Form.CheckInput', 'Form.CheckLabel'],
+				source: src('Form/form-check-input.svelte'),
+				props: {
+					checked: { name: 'checked', on: 'Form.CheckInput', bindable: true, default: 'false' },
+					onCheckedChange: { name: 'onchange', on: 'Form.CheckInput', notes: 'Native change event.' },
+					indeterminate: { name: 'isIndeterminate', on: 'Form.CheckInput' },
+					disabled: { name: 'disabled', on: 'Form.CheckInput', notes: native },
+					name: { name: 'name', on: 'Form.CheckInput', notes: native },
+					value: { name: 'value', on: 'Form.CheckInput', notes: 'Also the entry added to a bind:group array.' },
+					required: { name: 'required', on: 'Form.CheckInput', notes: native },
+					label: { name: 'Form.CheckLabel', notes: 'A separate part, not a prop.' },
+				},
+			},
+		},
 		{ id: 'radio-group', name: 'Form.RadioInput', docs: controls('radio-input'), notes: 'Native radios grouped with bind:group; Form.RadioLabel for labels.' },
-		{ id: 'switch', name: 'Form.SwitchInput', docs: controls('switch-input') },
-		{ id: 'select', name: 'Form.Select', docs: controls('select'), notes: 'Native select element.' },
+		{
+			id: 'switch',
+			name: 'Form.SwitchInput',
+			docs: controls('switch-input'),
+			api: {
+				style: 'compound',
+				parts: ['Form.Check', 'Form.SwitchInput', 'Form.SwitchLabel'],
+				source: src('Form/form-switch-input.svelte'),
+				props: {
+					checked: { name: 'checked', on: 'Form.SwitchInput', bindable: true },
+					onCheckedChange: { name: 'onchange', on: 'Form.SwitchInput', notes: native },
+					disabled: { name: 'disabled', on: 'Form.SwitchInput', notes: native },
+					name: { name: 'name', on: 'Form.SwitchInput', notes: native },
+					required: { name: 'required', on: 'Form.SwitchInput', notes: native },
+					label: { name: 'Form.SwitchLabel', notes: 'A separate part; the docs wrap both in Form.Check isSwitch.' },
+				},
+			},
+		},
+		{
+			id: 'select',
+			name: 'Form.Select',
+			docs: controls('select'),
+			notes: 'Native select element.',
+			api: {
+				style: 'props',
+				parts: ['Form.Select'],
+				source: src('Form/form-select.svelte'),
+				props: {
+					value: { name: 'value', bindable: true, notes: 'An array when multiple is set.' },
+					onValueChange: { name: 'onchange', notes: native },
+					items: null,
+					multiple: { name: 'multiple' },
+					placeholder: null,
+					disabled: { name: 'disabled', notes: native },
+					name: { name: 'name', notes: native },
+				},
+			},
+		},
 		{ id: 'slider', name: 'Form.RangeInput', docs: controls('range-input'), notes: 'Native range input.' },
 		{ id: 'number-input', name: 'Form.NumberInput', docs: controls('number-input'), notes: 'Native number input, no custom stepper buttons.' },
 		{ id: 'file-upload', name: 'Form.FileInput', docs: controls('file-input'), notes: 'Native file input; Form.ImageInput is a file input limited to images.' },
@@ -93,11 +192,61 @@ export default defineLibrary({
 			docs: `${site}/form/form-validation`,
 			notes: 'Form.Root plus Form.Feedback and Form.HelperText; Form Input Group and Form Layout have their own pages.',
 		},
-		{ id: 'dialog', name: 'Modal', docs: c('modal') },
+		{
+			id: 'dialog',
+			name: 'Modal',
+			docs: c('modal'),
+			api: {
+				style: 'compound',
+				parts: ['Modal.Root', 'Modal.Dialog', 'Modal.Content', 'Modal.Header', 'Modal.Title', 'Modal.Body', 'Modal.Footer'],
+				source: src('Modal/modal.svelte'),
+				props: {
+					open: { name: 'isShown', on: 'Modal.Root', default: 'false', notes: 'Not bindable: set it back to false in onHide.' },
+					onOpenChange: { name: 'onHide', on: 'Modal.Root', notes: 'Also onShow, onShown and onHidden for the other lifecycle steps.' },
+					title: { name: 'Modal.Title', notes: 'A part; level sets the heading level.' },
+					closeOnEscape: { name: 'isKeyboardDismissible', on: 'Modal.Root', default: 'true' },
+					closeOnOutsideClick: { name: 'useBackdrop', on: 'Modal.Root', values: ['true', 'false', 'static'], default: 'true', notes: '"static" keeps the backdrop but ignores clicks on it.' },
+					size: { name: 'size', on: 'Modal.Dialog', values: ['sm', 'lg', 'xl'] },
+				},
+			},
+		},
 		{ id: 'drawer', name: 'Offcanvas', docs: c('offcanvas') },
 		{ id: 'popover', name: 'Popover', docs: c('popover') },
-		{ id: 'tooltip', name: 'Tooltip', docs: c('tooltip') },
-		{ id: 'tabs', name: 'Tab', docs: c('tab'), notes: 'Tab.Root with Tab.NavLink, Tab.Content and Tab.Pane, using Nav for the strip.' },
+		{
+			id: 'tooltip',
+			name: 'Tooltip',
+			docs: c('tooltip'),
+			api: {
+				style: 'compound',
+				parts: ['Tooltip.Root', 'Tooltip.Inner'],
+				source: src('Tooltip/tooltip.svelte'),
+				props: {
+					content: { name: 'Tooltip.Inner', notes: 'A part; referenceElementId on Tooltip.Root names the trigger element.' },
+					placement: { name: 'placement', on: 'Tooltip.Root', values: ['auto', 'top', 'bottom', 'left', 'right'] },
+					open: { name: 'isShown', on: 'Tooltip.Root', default: 'false', notes: 'Not declared bindable; trigger sets how it opens (click, hover, focus or manual).' },
+					openDelay: null,
+					closeDelay: null,
+				},
+			},
+		},
+		{
+			id: 'tabs',
+			name: 'Tab',
+			docs: c('tab'),
+			notes: 'Tab.Root with Tab.NavLink, Tab.Content and Tab.Pane, using Nav for the strip.',
+			api: {
+				style: 'compound',
+				parts: ['Tab.Root', 'Nav.Root', 'Nav.Item', 'Tab.NavLink', 'Tab.Content', 'Tab.Pane'],
+				source: src('Tab/types.ts'),
+				props: {
+					value: { name: 'isActive', on: 'Tab.NavLink', notes: 'Set on the starting link and its Tab.Pane; links point to panes with targetPaneId.' },
+					onValueChange: { name: 'onShow', on: 'Tab.Pane', notes: 'Pane lifecycle callback; Tab.NavLink also takes onclick.' },
+					items: null,
+					orientation: { name: 'verticalBreakpoint', on: 'Nav.Root', values: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'], notes: 'Stacks the nav vertically from that breakpoint; "xs" means always.' },
+					activationMode: null,
+				},
+			},
+		},
 		{ id: 'breadcrumb', name: 'Breadcrumb', docs: c('breadcrumb') },
 		{ id: 'pagination', name: 'Pagination', docs: c('pagination') },
 		{ id: 'navigation-menu', name: 'Navbar', docs: c('navbar'), notes: 'Nav (own page) covers plain link lists, tabs and pills.' },
@@ -132,7 +281,38 @@ export default defineLibrary({
 		],
 		llmsTxt: 'https://bootstrap-svelte.vercel.app/llms.txt',
 	},
-	lastVerified: '2026-11-04',
+	conventions: {
+		'events': {
+			value: 'callback props: `onclick={fn}`',
+			notes: 'Overlays add Bootstrap-style lifecycle callbacks: onShow, onShown, onHide, onHidden.',
+			source: src('Button/button.svelte'),
+		},
+		'binding': {
+			value: '`bind:value` / `bind:checked` on form controls; overlays use `isShown` plus `onHide`',
+			source: src('Modal/modal.svelte'),
+		},
+		'ref': {
+			value: '`bind:elementRef`',
+			source: src('common/types.ts'),
+		},
+		'class': {
+			value: 'joined with the Bootstrap classes, duplicate tokens dropped (uniqueClsx)',
+			source: src('common/css.ts'),
+		},
+		'rest-props': {
+			value: 'forwarded to the rendered element (`...restOfProps`)',
+			source: src('Form/form-text-input.svelte'),
+		},
+		'render-delegation': {
+			value: '`elementType` prop on some parts (e.g. `Nav.Root`); Button switches to `<a>` with `href`',
+			source: src('Nav/types.ts'),
+		},
+		'composition': {
+			value: 'compound namespaces (`Modal.Root`, `Modal.Dialog`, `Tab.Pane`...)',
+			source: src('Modal/composition.ts'),
+		},
+	},
+	lastVerified: '2026-11-22',
 	notes: [
 		'Sveltestrap (also listed here) is the other Bootstrap 5 option; the docs include a comparison guide. The short version: this library is Svelte 5-only with runes and TypeScript, Sveltestrap also supports Svelte 4 with a classic flat API.',
 		"Form controls are thin, typed wrappers around native inputs (one component per input type), so date, time and color pickers are the browser's own.",

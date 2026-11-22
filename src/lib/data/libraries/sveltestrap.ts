@@ -3,6 +3,9 @@ import { defineLibrary } from '../schema'
 // Docs are a Storybook build (sveltestrap.js.org). Page ids come from each MDX file's
 // <Meta title="..."> in the repo, sanitized the Storybook way (lowercase, "/" -> "-").
 const c = (storyId: string) => `https://sveltestrap.js.org/?path=/docs/${storyId}--docs`
+// Props were read from the component source at the v7.1.0 tag.
+const src = (path: string) => `https://github.com/sveltestrap/sveltestrap/blob/v7.1.0/src/${path}`
+const colors = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark']
 
 export default defineLibrary({
 	id: 'sveltestrap',
@@ -42,7 +45,26 @@ export default defineLibrary({
 	],
 	features: ['typescript', 'semantic-colors', 'theming', 'dark-mode', 'forms'],
 	components: [
-		{ id: 'button', name: 'Button', docs: c('components-button') },
+		{
+			id: 'button',
+			name: 'Button',
+			docs: c('components-button'),
+			api: {
+				style: 'props',
+				parts: ['Button'],
+				source: src('Button/Button.svelte'),
+				props: {
+					onclick: { name: 'on:click', notes: 'Svelte 4 event forwarded from the native element.' },
+					disabled: { name: 'disabled', default: 'false' },
+					href: { name: 'href', notes: 'Renders an <a> instead of a <button>.' },
+					type: { name: 'type', notes: 'Passed through to the native <button> via rest props.' },
+					variant: { name: 'outline', default: 'false', notes: 'Boolean flag; color="link" gives the link style.' },
+					size: { name: 'size', values: ['sm', 'lg'] },
+					color: { name: 'color', values: [...colors, 'link'], default: 'secondary' },
+					loading: null,
+				},
+			},
+		},
 		{ id: 'button-group', name: 'ButtonGroup', docs: c('components-buttongroup'), notes: 'ButtonToolbar groups several button groups.' },
 		{ id: 'dropdown-menu', name: 'Dropdown', docs: c('components-dropdown'), notes: 'Built from DropdownToggle, DropdownMenu and DropdownItem.' },
 		{
@@ -50,21 +72,149 @@ export default defineLibrary({
 			name: 'Input',
 			docs: c('form-input'),
 			notes: 'One Input component renders many native types (text, email, number, date/time, color, range, file, select, checkbox, radio, switch, textarea).',
+			api: {
+				style: 'props',
+				parts: ['Input'],
+				source: src('Input/Input.svelte'),
+				props: {
+					value: { name: 'value', bindable: true },
+					oninput: { name: 'on:input', notes: 'Svelte 4 event forwarded from the native element.' },
+					type: {
+						name: 'type',
+						values: ['text', 'email', 'password', 'url', 'search', 'tel', 'number', 'range', 'date', 'datetime-local', 'month', 'week', 'time', 'color', 'file', 'textarea', 'select', 'checkbox', 'radio', 'switch', 'button', 'submit', 'reset'],
+						default: 'text',
+					},
+					placeholder: { name: 'placeholder' },
+					disabled: { name: 'disabled' },
+					readonly: { name: 'readonly' },
+					invalid: { name: 'invalid', default: 'false', notes: 'Adds is-invalid; valid adds is-valid.' },
+					label: null,
+					helperText: { name: 'feedback', notes: 'A string or array of strings shown as FormFeedback below the field. FormText is a separate component.' },
+					size: { name: 'bsSize', values: ['sm', 'lg'], notes: 'size is the native attribute; a non-numeric size is moved to bsSize with a console warning.' },
+				},
+			},
 		},
 		{ id: 'textarea', name: 'Input', docs: c('form-input'), notes: 'type="textarea".' },
-		{ id: 'checkbox', name: 'Input', docs: c('form-input'), notes: 'type="checkbox".' },
+		{
+			id: 'checkbox',
+			name: 'Input',
+			docs: c('form-input'),
+			notes: 'type="checkbox".',
+			api: {
+				style: 'props',
+				parts: ['Input'],
+				source: src('FormCheck/FormCheck.svelte'),
+				props: {
+					checked: { name: 'checked', bindable: true, default: 'false' },
+					onCheckedChange: { name: 'on:change', notes: 'Svelte 4 event forwarded from the native <input>.' },
+					indeterminate: null,
+					disabled: { name: 'disabled' },
+					name: { name: 'name' },
+					value: { name: 'value', bindable: true },
+					required: { name: 'required', notes: 'Passed through to the native <input> via rest props (Input hands them to FormCheck).' },
+					label: { name: 'label', notes: 'A string prop; FormCheck used directly also takes slot="label".' },
+				},
+			},
+		},
 		{ id: 'radio-group', name: 'Input', docs: c('form-input'), notes: 'type="radio" with a group binding.' },
-		{ id: 'switch', name: 'Input', docs: c('form-input'), notes: 'type="switch".' },
-		{ id: 'select', name: 'Input', docs: c('form-input'), notes: 'type="select" (native select).' },
+		{
+			id: 'switch',
+			name: 'Input',
+			docs: c('form-input'),
+			notes: 'type="switch".',
+			api: {
+				style: 'props',
+				parts: ['Input'],
+				source: src('FormCheck/FormCheck.svelte'),
+				props: {
+					checked: { name: 'checked', bindable: true, default: 'false' },
+					onCheckedChange: { name: 'on:change', notes: 'Svelte 4 event forwarded from the native <input>.' },
+					disabled: { name: 'disabled' },
+					name: { name: 'name' },
+					required: { name: 'required', notes: 'Passed through to the native <input> via rest props (Input hands them to FormCheck).' },
+					label: { name: 'label', notes: 'A string prop; FormCheck used directly also takes slot="label".' },
+				},
+			},
+		},
+		{
+			id: 'select',
+			name: 'Input',
+			docs: c('form-input'),
+			notes: 'type="select" (native select).',
+			api: {
+				style: 'props',
+				parts: ['Input'],
+				source: src('Input/Input.svelte'),
+				props: {
+					value: { name: 'value', bindable: true },
+					onValueChange: { name: 'on:change', notes: 'Svelte 4 event forwarded from the native <select>.' },
+					items: null,
+					multiple: { name: 'multiple', notes: 'Declared, but in 7.1.0 the select branch only renders when multiple is not set.' },
+					placeholder: null,
+					disabled: { name: 'disabled' },
+					name: { name: 'name' },
+				},
+			},
+		},
 		{ id: 'slider', name: 'Input', docs: c('form-input'), notes: 'type="range" (native range input).' },
 		{ id: 'file-upload', name: 'Input', docs: c('form-input'), notes: 'type="file" (native file input).' },
 		{ id: 'form', name: 'FormGroup', docs: c('form-formgroup'), notes: 'Validation, FormFeedback and InputGroup are documented separately.' },
 		{ id: 'label', name: 'Label', docs: c('form-input'), notes: 'No page of its own; it appears in the Input and FormGroup examples, and FormGroup also takes a label prop.' },
-		{ id: 'dialog', name: 'Modal', docs: c('components-modal') },
+		{
+			id: 'dialog',
+			name: 'Modal',
+			docs: c('components-modal'),
+			api: {
+				style: 'props',
+				parts: ['Modal', 'ModalHeader', 'ModalBody', 'ModalFooter'],
+				source: src('Modal/Modal.svelte'),
+				props: {
+					open: { name: 'isOpen', default: 'false', notes: 'Usually paired with a toggle callback that flips your own state.' },
+					onOpenChange: { name: 'toggle', notes: 'Called when Escape or a backdrop click asks to close. on:open and on:close events fire after the transitions.' },
+					title: { name: 'header', notes: 'A string prop; or use a ModalHeader child.' },
+					closeOnEscape: { name: 'keyboard', default: 'true', notes: 'Only acts when toggle is set and backdrop is true.' },
+					closeOnOutsideClick: { name: 'backdrop', values: ['true', 'false', 'static'], default: 'true', notes: '"static" keeps the backdrop but ignores clicks on it.' },
+					size: { name: 'size', values: ['sm', 'lg', 'xl'], notes: 'Values from the docs examples; typed as a free string.' },
+				},
+			},
+		},
 		{ id: 'drawer', name: 'Offcanvas', docs: c('components-offcanvas') },
 		{ id: 'popover', name: 'Popover', docs: c('components-popovers') },
-		{ id: 'tooltip', name: 'Tooltip', docs: c('components-tooltip') },
-		{ id: 'tabs', name: 'TabContent', docs: c('components-tabs'), notes: 'Uses TabContent with TabPane.' },
+		{
+			id: 'tooltip',
+			name: 'Tooltip',
+			docs: c('components-tooltip'),
+			api: {
+				style: 'props',
+				parts: ['Tooltip'],
+				source: src('Tooltip/Tooltip.svelte'),
+				props: {
+					content: { name: 'content', notes: 'A string; the default slot is used when it is empty. target names the trigger element.' },
+					placement: { name: 'placement', values: ['top', 'bottom', 'left', 'right'], default: 'top' },
+					open: { name: 'isOpen', bindable: true, default: 'false' },
+					openDelay: { name: 'delay', default: '0' },
+					closeDelay: null,
+				},
+			},
+		},
+		{
+			id: 'tabs',
+			name: 'TabContent',
+			docs: c('components-tabs'),
+			notes: 'Uses TabContent with TabPane.',
+			api: {
+				style: 'compound',
+				parts: ['TabContent', 'TabPane'],
+				source: src('TabContent/TabContent.svelte'),
+				props: {
+					value: { name: 'active', on: 'TabPane', notes: 'Boolean on the pane to show first; each pane has a tabId and a tab label (prop or slot="tab").' },
+					onValueChange: { name: 'on:tab', on: 'TabContent', notes: 'Svelte 4 event; detail is the tabId.' },
+					items: null,
+					orientation: { name: 'vertical', on: 'TabContent', notes: 'Boolean flag; pills switches to pill styling.' },
+					activationMode: null,
+				},
+			},
+		},
 		{ id: 'breadcrumb', name: 'Breadcrumb', docs: c('components-breadcrumbs') },
 		{ id: 'pagination', name: 'Pagination', docs: c('components-pagination') },
 		{ id: 'navigation-menu', name: 'Navbar', docs: c('components-navbar'), notes: 'Nav covers simpler link lists and pills.' },
@@ -93,7 +243,42 @@ export default defineLibrary({
 			'https://github.com/sveltestrap/sveltestrap/blob/main/LICENSE',
 		],
 	},
-	lastVerified: '2026-11-04',
+	conventions: {
+		'events': {
+			value: 'Svelte 4 component events: `on:click={fn}`',
+			notes: 'Native events are forwarded and a few components dispatch their own (Modal on:open/on:close, TabContent on:tab). Modal closing goes through a toggle callback prop.',
+			source: src('Button/Button.svelte'),
+		},
+		'binding': {
+			value: '`bind:value` / `bind:checked` / `bind:isOpen` on plain `export let` props',
+			notes: 'Modal is usually driven by isOpen plus a toggle callback instead.',
+			source: src('Input/Input.svelte'),
+		},
+		'ref': {
+			value: '`bind:inner`',
+			notes: 'Button and Input expose their native element through the inner prop.',
+			source: src('Button/Button.svelte'),
+		},
+		'class': {
+			value: 'joined with the Bootstrap classes (classnames helper, no merging)',
+			notes: 'Some components add extra class props, e.g. Modal wrapClassName, modalClassName and contentClassName.',
+			source: src('Button/Button.svelte'),
+		},
+		'rest-props': {
+			value: '`$$restProps` spread on the main element',
+			notes: 'For Modal that is the outer wrapper div.',
+			source: src('Modal/Modal.svelte'),
+		},
+		'render-delegation': {
+			value: 'none; `href` turns Button into an `<a>`',
+			source: src('Button/Button.svelte'),
+		},
+		'composition': {
+			value: 'flat components with props, plus child components (`Modal` + `ModalBody`, `TabContent` + `TabPane`)',
+			source: src('TabContent/TabContent.svelte'),
+		},
+	},
+	lastVerified: '2026-11-22',
 	notes: [
 		'Components use Svelte 4 syntax (export let, slots); Svelte 5 works through the peer range but the API is not rune-based.',
 		'Latest release 7.1.0 dates from February 2025. For Svelte 3, the original sveltestrap package is the one to use.',

@@ -3,6 +3,8 @@ import { defineLibrary } from '../schema'
 // Docs site source lives in a separate repo (konstaui/konstaui.com, Next.js static export):
 // `src/pages/svelte/<name>.mdx` becomes https://konstaui.com/svelte/<name>.
 const d = 'https://konstaui.com/svelte'
+// Props were read from the Svelte component source at the v5.5.0 tag.
+const src = (name: string) => `https://github.com/konstaui/konsta/blob/v5.5.0/src/svelte/components/${name}.svelte`
 
 export default defineLibrary({
 	id: 'konsta',
@@ -35,7 +37,27 @@ export default defineLibrary({
 	],
 	features: ['typescript', 'theming', 'dark-mode', 'runes'],
 	components: [
-		{ id: 'button', name: 'Button', docs: `${d}/button`, notes: 'Renders an anchor instead of a button when href or component="a" is set.' },
+		{
+			id: 'button',
+			name: 'Button',
+			docs: `${d}/button`,
+			notes: 'Renders an anchor instead of a button when href or component="a" is set.',
+			api: {
+				style: 'props',
+				parts: ['Button'],
+				source: src('Button'),
+				props: {
+					onclick: { name: 'onclick', notes: 'onClick is accepted as an alias.' },
+					disabled: { name: 'disabled', default: 'false' },
+					href: { name: 'href', notes: 'Renders an <a> instead of a <button>.' },
+					type: { name: 'type', notes: 'Passed through to the native <button> via rest props.' },
+					variant: { name: 'outline / clear / tonal', notes: 'Separate boolean props (also rounded and raised), each with Ios and Material variants such as outlineIos.' },
+					size: { name: 'small / large', notes: 'Boolean props, each with Ios and Material variants.' },
+					color: { name: 'colors', notes: 'An object of Tailwind class strings per state, not a named palette; brand colors come from a k-color-brand-<name> class.' },
+					loading: null,
+				},
+			},
+		},
 		{ id: 'toggle-group', name: 'Segmented', docs: `${d}/segmented`, notes: 'Segmented control built from Segmented and SegmentedButton.' },
 		{
 			id: 'dropdown-menu',
@@ -49,16 +71,106 @@ export default defineLibrary({
 			name: 'ListInput',
 			docs: `${d}/list-input`,
 			notes: 'A list item wrapping a native input; the type prop covers text, email, number, date and other native types, plus textarea and select.',
+			api: {
+				style: 'props',
+				parts: ['List', 'ListInput'],
+				source: src('ListInput'),
+				props: {
+					value: { name: 'value', on: 'ListInput', bindable: true },
+					oninput: { name: 'oninput', on: 'ListInput', notes: 'onInput is accepted as an alias.' },
+					type: { name: 'type', on: 'ListInput', default: 'text', notes: 'Any native input type, plus textarea and select.' },
+					placeholder: { name: 'placeholder', on: 'ListInput' },
+					disabled: { name: 'disabled', on: 'ListInput' },
+					readonly: { name: 'readonly', on: 'ListInput' },
+					invalid: { name: 'error', on: 'ListInput', notes: 'true for the error state, or a string/snippet to show as the message.' },
+					label: { name: 'label', on: 'ListInput', notes: 'String or snippet; floatingLabel makes it float.' },
+					helperText: { name: 'info', on: 'ListInput', notes: 'String or snippet; hidden while error is set.' },
+					size: null,
+				},
+			},
 		},
 		{ id: 'textarea', name: 'ListInput', docs: `${d}/list-input`, notes: 'type="textarea".' },
-		{ id: 'select', name: 'ListInput', docs: `${d}/list-input`, notes: 'type="select" (native select).' },
-		{ id: 'checkbox', name: 'Checkbox', docs: `${d}/checkbox` },
+		{
+			id: 'select',
+			name: 'ListInput',
+			docs: `${d}/list-input`,
+			notes: 'type="select" (native select).',
+			api: {
+				style: 'props',
+				parts: ['List', 'ListInput'],
+				source: src('ListInput'),
+				props: {
+					value: { name: 'value', on: 'ListInput', bindable: true, notes: 'Updated from the native value on input, so only the first choice with multiple.' },
+					onValueChange: { name: 'onchange', on: 'ListInput', notes: 'onChange is accepted as an alias.' },
+					items: null,
+					multiple: { name: 'multiple', on: 'ListInput', notes: 'Set on the native <select>.' },
+					placeholder: { name: 'placeholder', on: 'ListInput', notes: 'Set as an attribute on the native <select>, which does not display it.' },
+					disabled: { name: 'disabled', on: 'ListInput' },
+					name: { name: 'name', on: 'ListInput' },
+				},
+			},
+		},
+		{
+			id: 'checkbox',
+			name: 'Checkbox',
+			docs: `${d}/checkbox`,
+			api: {
+				style: 'props',
+				parts: ['Checkbox'],
+				source: src('Checkbox'),
+				props: {
+					checked: { name: 'checked', bindable: true, default: 'false' },
+					onCheckedChange: { name: 'onchange', notes: 'onChange is accepted as an alias.' },
+					indeterminate: { name: 'indeterminate', default: 'false' },
+					disabled: { name: 'disabled', default: 'false' },
+					name: { name: 'name' },
+					value: { name: 'value' },
+					required: null,
+					label: { name: 'children', notes: 'Content placed inside renders within the wrapping <label>.' },
+				},
+			},
+		},
 		{ id: 'radio-group', name: 'Radio', docs: `${d}/radio`, notes: 'Single Radio component; group it yourself.' },
-		{ id: 'switch', name: 'Toggle', docs: `${d}/toggle` },
+		{
+			id: 'switch',
+			name: 'Toggle',
+			docs: `${d}/toggle`,
+			api: {
+				style: 'props',
+				parts: ['Toggle'],
+				source: src('Toggle'),
+				props: {
+					checked: { name: 'checked', bindable: true, default: 'false' },
+					onCheckedChange: { name: 'onchange', notes: 'onChange is accepted as an alias.' },
+					disabled: { name: 'disabled', default: 'false' },
+					name: { name: 'name' },
+					required: null,
+					label: { name: 'children', notes: 'Content placed inside renders within the wrapping <label>.' },
+				},
+			},
+		},
 		{ id: 'slider', name: 'Range', docs: `${d}/range`, notes: 'Range slider.' },
 		{ id: 'number-input', name: 'Stepper', docs: `${d}/stepper`, notes: 'Plus/minus stepper with an optional editable value.' },
 		{ id: 'search', name: 'Searchbar', docs: `${d}/searchbar` },
-		{ id: 'dialog', name: 'Popup', docs: `${d}/popup`, notes: 'Popup is a full-screen (or large) modal for arbitrary content; Sheet is a bottom sheet modal.' },
+		{
+			id: 'dialog',
+			name: 'Popup',
+			docs: `${d}/popup`,
+			notes: 'Popup is a full-screen (or large) modal for arbitrary content; Sheet is a bottom sheet modal.',
+			api: {
+				style: 'props',
+				parts: ['Popup'],
+				source: src('Popup'),
+				props: {
+					open: { name: 'opened', default: 'false', notes: 'Not bindable; you control it.' },
+					onOpenChange: null,
+					title: null,
+					closeOnEscape: null,
+					closeOnOutsideClick: { name: 'onBackdropClick', notes: 'No automatic close: set opened to false in this callback. backdrop={false} removes the backdrop.' },
+					size: null,
+				},
+			},
+		},
 		{ id: 'alert-dialog', name: 'Dialog', docs: `${d}/dialog`, notes: 'Small modal with title, text and DialogButton actions, for alerts and confirmations.' },
 		{ id: 'drawer', name: 'Panel', docs: `${d}/panel`, notes: 'Side panel sliding in from the left or right. Sheet is the bottom-sheet counterpart.' },
 		{ id: 'popover', name: 'Popover', docs: `${d}/popover` },
@@ -97,7 +209,36 @@ export default defineLibrary({
 			'https://github.com/konstaui/konstaui.com',
 		],
 	},
-	lastVerified: '2026-11-04',
+	conventions: {
+		'events': {
+			value: 'callback props: `onclick={fn}`',
+			notes: 'Most components also accept a camelCase alias (onClick, onChange, onInput).',
+			source: src('Button'),
+		},
+		'binding': {
+			value: '`bind:checked` / `bind:value`; overlays use an `opened` prop you set yourself',
+			source: src('Checkbox'),
+		},
+		'class': {
+			value: 'merged with tailwind-merge',
+			notes: 'A colors prop takes per-state Tailwind classes; ios and material force one theme.',
+			source: 'https://github.com/konstaui/konsta/blob/v5.5.0/src/shared/cls.js',
+		},
+		'rest-props': {
+			value: 'forwarded to the root element',
+			notes: 'For Checkbox and Toggle that is the wrapping <label>, not the <input>.',
+			source: src('Checkbox'),
+		},
+		'render-delegation': {
+			value: '`component` prop, e.g. `component="a"`',
+			source: src('Button'),
+		},
+		'composition': {
+			value: 'single components with props, nested inside list or bar containers (`List` + `ListInput`, `Segmented` + `SegmentedButton`)',
+			source: src('ListInput'),
+		},
+	},
+	lastVerified: '2026-11-22',
 	notes: [
 		'The npm package declares no svelte peer dependency. Svelte 5 support comes from the repo: devDependency svelte ^5.37.1 in package.json and the 5.0.0 CHANGELOG entry saying all Svelte components moved to the runes API (snippets instead of slots).',
 		'One package for three frameworks; Svelte components are imported from konsta/svelte and the theme CSS from konsta/svelte/theme.css.',
