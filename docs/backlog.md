@@ -71,14 +71,16 @@ Sivir UI and Lily. Still open:
 in `packages` (e.g. `shadcn-svelte`, `jsrepo`), the registry's own release or repo version in
 `version`, `styling: ['copy-paste', 'tailwind']`, and say in `notes` that it is installed from a
 shadcn-svelte (or jsrepo) registry, the same way entries already note that a library needs Tailwind
-or Bootstrap CSS. Candidates:
+or Bootstrap CSS. All four candidates (coss ui for Svelte, shadcn-svelte-extras, RetroUI Svelte,
+neobrutalism-svelte) were added on 2026-11-22 this way. Follow-ups from that pass:
 
-| Library | Repo | Docs | Notes |
-| --- | --- | --- | --- |
-| coss ui for Svelte | github.com/cossui-svelte/cossui-svelte | cossui-svelte.com | 69 components, MIT, llms.txt and agent skills; npm `cossui-svelte` is a placeholder |
-| shadcn-svelte-extras | github.com/ieedan/shadcn-svelte-extras | shadcn-svelte-extras.com | 33 components plus hooks and actions, MIT, llms.txt |
-| RetroUI Svelte | github.com/Mhamad6000/retroui-svelte | retroui-svelte.netlify.app | 40 components, MIT, last commit 2026-06 |
-| neobrutalism-svelte | github.com/olegpolin/neobrutalism-svelte | neobrutalism-svelte.flenze.com | 35 components, MIT |
+- RetroUI Svelte's registry also ships Chart, Data Table, Scroll Area and Sidebar, but they have no
+  docs pages yet, so they aren't mapped. Its `package.json` says 0.8.0 while the latest tag is 0.9.3
+  (recorded).
+- neobrutalism-svelte has no tags or releases; the private `package.json` version (0.0.1) is recorded.
+- coss ui for Svelte has a `split-pane` component with no docs page yet; map it to `resizable` when
+  one appears.
+- shadcn-svelte-extras' `llms.txt` links to an older URL layout.
 
 **Wait for a stable release or public docs:**
 
@@ -108,15 +110,42 @@ instead.
 
 ## Tools
 
-The Tools section (`src/lib/data/tools/`, added 2026-11-06) starts with packages for components
-that tracked libraries already provide. Next steps:
+The Tools section (`src/lib/data/tools/`, added 2026-11-06). On 2026-11-22 the grounding rule was
+widened: tools may map to components no tracked library provides (new ids `map`, `drag-and-drop`,
+`rich-text-editor`), and general `utility` helpers (runed, svelte-toolbelt) may map to none. Next steps:
 
-- More tools for covered components, e.g. other chart libraries (Flowbite Svelte's chart plugin,
-  Chart.js/ECharts wrappers), `focus-trap`, `@iconify/svelte`,
-  `runed` and `svelte-toolbelt` (Svelte 5 helpers several libraries build on).
-- Widen the grounding rule to components no tracked library has yet (drag and drop, rich-text
-  editors, maps, 3D with Threlte, Kanban) once there's a plan for how they appear on the site.
+- Component ids for 3D scenes and animation/motion, then `@threlte/core` (threlte.xyz, MIT,
+  Svelte >= 5) and a Svelte 5 motion library.
+- Second options where one was picked: `svelte-maplibre` (map), `svelte-echarts` (chart; README-only
+  docs), `svelte-tiptap` (Svelte bindings for Tiptap), `svelte-multiselect` (tags input / select).
+- A Shiki-based code-block package with real docs (Lily's Code Block and Skeleton's Shiki guide use Shiki).
+- Licenses without an SPDX id: `svelte-select` is recorded as `LicenseRef-svelte-select` (the text
+  reads like the Copyfree Open Innovation License, unconfirmed). Decide how the site shows these.
+- Re-check: Neodrag when 3.0 is stable; the iconify.design docs URL and any llms.txt there (blocked
+  here); that `https://svhe.onrender.com/llms.txt` is served; whether `kamranahmedse/driver.js`
+  redirects to `nilbuild/driver.js`.
+- `@zerodevx/svelte-toast` has had no release since 2024-09 and runs in legacy mode on Svelte 5;
+  drop it if it stays idle.
 - Previews for tools: the preview registry is library-only today.
+
+## Component props
+
+Added 2026-11-22: canonical props for button, input, checkbox, switch, select, dialog, tabs and
+tooltip (`src/lib/data/props.ts`), `api` on those components for every library, library-wide
+`conventions`, props tables on component pages and the `/port/` page. Next steps:
+
+- More components: radio group, slider, popover, dropdown menu, accordion, toast, combobox, date
+  picker are shared widely enough.
+- Value mapping for choice props (e.g. a variant in one library to the closest one in another) is
+  left out on purpose: it is a judgement call, not a fact. Revisit only with a clear rule.
+- `lastVerified` was bumped only where a whole entry was re-checked; some entries kept the older
+  date because only props were checked.
+- Possible upstream bugs noticed while reading source (worth an issue upstream, not data here):
+  Sveltestrap 7.1.0 `Input type="select"` renders nothing with `multiple`; Bootstrap Svelte's
+  Tooltip doc comment says `placement` defaults to `'right'` but the source sets no default.
+- New component ids suggested by the new libraries: `emoji-picker`, `phone-input` (also Flowbite),
+  `chat`/composer, `window`, `input-group` (now in several libraries), `segmented-control`,
+  `places-autocomplete`.
 
 ## Previews
 
@@ -131,8 +160,8 @@ Coverage is tracked in [previews.md](previews.md#current-coverage). Open items:
   there (or the library ships none), components hover as `any`. Options: per-library
   `compilerOptions`/`paths` for twoslash, or hand-written `customTypes` for libraries without
   TypeScript. Diagnostics are off (`noErrors`) for the same reason.
-- **Compare component props across libraries** (content, not design; later): a props table per
-  component id, sourced from each library's docs or `.d.ts`. Would pair well with the hovers above.
+- **Props in type hovers**: the props tables (see [Component props](#component-props)) could link
+  to, or be checked against, the twoslash hovers above.
 - **Screenshot tests** (Playwright) are deferred on purpose. The open question is how useful they
   are when run deterministically in CI: fonts, third-party CDN assets and animation timing make
   pixel comparisons flaky, and a tolerant comparison may miss real regressions. For now previews
