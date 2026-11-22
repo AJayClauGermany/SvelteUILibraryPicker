@@ -212,11 +212,17 @@ export default defineLibrary({
 	conventions: {
 		'events': {
 			value: 'callback props: `onclick={fn}`',
-			notes: 'Most components also accept a camelCase alias (onClick, onChange, onInput).',
+			notes: 'Components with DOM-style events take both spellings (onclick / onClick, onchange / onChange, oninput / onInput). Overlay backdrop callbacks are camelCase only: onBackdropClick.',
 			source: src('Button'),
 		},
 		'binding': {
 			value: '`bind:checked` / `bind:value`; overlays use an `opened` prop you set yourself',
+			notes: 'Bindable: checked on Checkbox and Toggle, value on ListInput, Range, Searchbar and Messagebar. Radio checked is not bindable.',
+			source: src('Checkbox'),
+		},
+		'ref': {
+			value: '`bind:this` on the component, then read its exported `el`',
+			notes: 'Most components export el (the root element). Button, Fab, Popup, Preloader and ActionsButton do not.',
 			source: src('Checkbox'),
 		},
 		'class': {

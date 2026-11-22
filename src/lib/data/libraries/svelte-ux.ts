@@ -102,7 +102,7 @@ export default defineLibrary({
 				name: { name: 'name' },
 				value: { name: 'value' },
 				required: { name: 'required', default: 'false' },
-				label: { name: 'Checkbox', notes: 'Child content (default slot) becomes the label.' },
+				label: { name: 'default slot', notes: 'When filled, rendered in a second <label> tied to the input.' },
 			},
 		} },
 		{ id: 'radio-group', name: 'Radio', docs: c('Radio') },
@@ -125,10 +125,10 @@ export default defineLibrary({
 			source: src('MenuField'),
 			props: {
 				value: { name: 'value', bindable: true, default: 'null' },
-				onValueChange: { name: 'on:change', notes: 'Component event; detail has value and option.' },
+				onValueChange: { name: 'on:change', notes: 'Component event; detail has value and option. Dispatched reactively, so it also fires on first render and on outside changes to value or options.' },
 				items: { name: 'options', notes: 'Array of { label, value } objects.' },
 				multiple: null,
-				placeholder: null,
+				placeholder: { name: 'slot="selection"', notes: 'No prop; shows "No selection" when empty, and this slot replaces that display.' },
 				disabled: { name: 'disabled', notes: 'Forwarded to the wrapping Field.' },
 				name: null,
 			},
@@ -172,7 +172,7 @@ export default defineLibrary({
 			props: {
 				value: { name: 'value', on: 'Tabs', bindable: true },
 				onValueChange: null,
-				items: { name: 'options', on: 'Tabs', notes: 'Array of { label, value }; Tab children are the alternative.' },
+				items: { name: 'options', on: 'Tabs', notes: 'Array of { label, value }. bind:value only drives tabs built from options; with Tab children you set selected and handle on:click on each Tab.' },
 				orientation: { name: 'placement', on: 'Tabs', values: ['top', 'bottom', 'left', 'right'], default: 'top' },
 				activationMode: null,
 			},
@@ -225,12 +225,20 @@ export default defineLibrary({
 			value: '`bind:value` / `bind:open` / `bind:checked` on exported props',
 			source: src('Dialog'),
 		},
+		'ref': {
+			value: 'no generic ref prop: wrap in your own element and `bind:this` it; a few expose specific ones (`bind:inputEl` on TextField)',
+			source: src('TextField'),
+		},
 		'class': {
 			value: 'merged with tailwind-merge (`cls`); a `classes` object targets inner parts',
 			source: src('Button'),
 		},
 		'rest-props': {
 			value: 'varies: Button forwards them to its <button>/<a>, TextField does not',
+			source: src('Button'),
+		},
+		'render-delegation': {
+			value: 'none; Button renders an <a> instead of a <button> when `href` is set',
 			source: src('Button'),
 		},
 		'composition': {

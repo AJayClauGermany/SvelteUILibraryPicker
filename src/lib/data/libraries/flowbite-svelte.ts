@@ -135,7 +135,7 @@ export default defineLibrary({
 				props: {
 					open: { name: 'open', bindable: true, default: 'false' },
 					onOpenChange: { name: 'ontoggle', notes: 'Native <dialog> toggle event, forwarded through the inner Dialog component.' },
-					title: { name: 'title', notes: 'A string rendered as the heading; the `header` snippet replaces it.' },
+					title: { name: 'title', notes: 'A string rendered as an <h3> heading. It takes precedence over the `header` snippet, which renders only when `title` is unset.' },
 					closeOnEscape: { name: 'permanent', default: 'false', notes: 'Inverted: `permanent` blocks Escape, outside clicks and the close button together.' },
 					closeOnOutsideClick: { name: 'outsideclose', default: 'true', notes: 'Forwarded to the inner Dialog component.' },
 					size: { name: 'size', values: ['none', 'xs', 'sm', 'md', 'lg', 'xl'], default: 'md' },
@@ -389,7 +389,7 @@ export default defineLibrary({
 	},
 	conventions: {
 		'events': { value: 'callback props: `onclick={fn}`, mostly native events passed through', source: 'https://github.com/themesberg/flowbite-svelte/blob/v1.33.1/src/lib/buttons/Button.svelte' },
-		'binding': { value: '`bind:value` / `bind:checked` / `bind:open`; Tabs use `bind:selected`, Tooltip `bind:isOpen`', source: 'https://github.com/themesberg/flowbite-svelte/blob/v1.33.1/src/lib/types.ts' },
+		'binding': { value: '`bind:value` / `bind:checked` / `bind:open`; Tabs use `bind:selected`, Tooltip `bind:isOpen`', source: 'https://github.com/themesberg/flowbite-svelte/blob/v1.33.1/src/lib/modal/Modal.svelte' },
 		'ref': { value: '`bind:elementRef` on some form controls (Input, Select, Textarea...)', notes: 'Not available on every component, e.g. Button.', source: 'https://github.com/themesberg/flowbite-svelte/blob/v1.33.1/src/lib/forms/input-field/Input.svelte' },
 		'class': { value: 'merged with tailwind-variants (tailwind-merge); `classes={{...}}` targets inner parts', source: 'https://github.com/themesberg/flowbite-svelte/blob/v1.33.1/src/lib/modal/Modal.svelte' },
 		'rest-props': { value: 'forwarded to the main native element (<button>, <input>, <select>, <dialog>)', notes: 'Toggle and Checkbox forward them to the <input>, not the wrapping label.', source: 'https://github.com/themesberg/flowbite-svelte/blob/v1.33.1/src/lib/forms/toggle/Toggle.svelte' },

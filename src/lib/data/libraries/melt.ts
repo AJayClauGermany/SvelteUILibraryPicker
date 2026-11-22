@@ -37,7 +37,7 @@ export default defineLibrary({
 				onOpenChange: { name: 'onOpenChange', on: 'new Dialog()' },
 				title: null,
 				closeOnEscape: { name: 'closeOnEscape', on: 'new Dialog()', default: 'true' },
-				closeOnOutsideClick: { name: 'closeOnOutsideClick', on: 'new Dialog()', default: 'true', notes: 'Also accepts a function that decides per clicked element.' },
+				closeOnOutsideClick: { name: 'closeOnOutsideClick', on: 'new Dialog()', default: 'true', notes: 'A boolean, or a getter (`() => x`) for a reactive value.' },
 				size: null,
 			},
 		} },

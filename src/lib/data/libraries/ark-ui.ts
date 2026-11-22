@@ -217,7 +217,7 @@ export default defineLibrary({
 					disabled: { name: 'disabled' },
 					name: { name: 'name' },
 					required: { name: 'required' },
-					label: { name: 'Switch.Label', notes: 'A part; the root `label` prop is an accessible string only.' },
+					label: { name: 'Switch.Label', notes: 'A part, not a prop.' },
 				},
 			},
 		},

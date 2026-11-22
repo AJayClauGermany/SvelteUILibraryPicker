@@ -63,7 +63,7 @@ export default defineLibrary({
 				disabled: { name: 'disabled', default: 'false' },
 				readonly: { name: 'readonly', default: 'false' },
 				invalid: { name: 'error', default: 'false' },
-				label: { name: 'Field', notes: 'No label prop; wrap the control in a Field with label.' },
+				label: { name: 'label', on: 'Field', notes: 'No label prop on Text; wrap it in a Field, which links its label to the input.' },
 				helperText: null,
 				size: null,
 			},
@@ -95,7 +95,7 @@ export default defineLibrary({
 				disabled: { name: 'disabled', default: 'false' },
 				name: null,
 				required: null,
-				label: { name: 'Field', notes: 'No label prop; wrap it in a Field with label (type="switch").' },
+				label: { name: 'label', on: 'Field', notes: 'No label prop on Switch; wrap it in a Field (type="switch" aligns it in a left-label layout).' },
 			},
 		} },
 		{ id: 'select', name: 'RichSelect', docs: c('richselect'), notes: 'Select is the native-select variant.', api: {
@@ -186,6 +186,7 @@ export default defineLibrary({
 	conventions: {
 		events: { value: 'callback props: `onchange={({ value }) => ...}`', notes: 'Change callbacks get an object, not a DOM event; Button onclick gets the MouseEvent.', source: types },
 		binding: { value: '`bind:value` (also for Checkbox and Switch)', source: types },
+		ref: { value: 'none; components do not expose their DOM element', notes: 'No ref prop or bindable element; Text keeps its input in a private variable.', source: comp('Text') },
 		class: { value: '`css` prop appended to the root element\'s classes', notes: 'There is no class prop.', source: types },
 		'rest-props': { value: 'not forwarded; only declared props are accepted', source: comp('Button') },
 		composition: { value: 'single components with props; options passed as data', source: types },

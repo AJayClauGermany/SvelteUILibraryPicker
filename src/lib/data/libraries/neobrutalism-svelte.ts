@@ -138,6 +138,7 @@ export default defineLibrary({
 			id: 'select',
 			name: 'Select',
 			docs: `${d}/select`,
+			notes: 'No Select.Value part or placeholder prop; write the placeholder text inside Select.Trigger yourself.',
 			api: {
 				style: 'compound',
 				parts: ['Select.Root', 'Select.Trigger', 'Select.Content', 'Select.Item'],

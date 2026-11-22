@@ -133,7 +133,7 @@ export default defineLibrary({
 				parts: ['Select.Root', 'Select.Trigger', 'Select.Value', 'Select.Content', 'Select.Item'],
 				source: 'https://github.com/kampsy/ui/blob/v2.10.0/src/lib/select/root.svelte',
 				props: {
-					value: { name: 'value', on: 'Select.Root', bindable: true, default: "''" },
+					value: { name: 'value', on: 'Select.Root', bindable: true, default: "''", notes: 'Output only: the root copies the picked item into value but never reads it, so a value you pass in is not preselected.' },
 					onValueChange: null,
 					items: null,
 					multiple: null,
@@ -232,7 +232,7 @@ export default defineLibrary({
 		'ref': { value: '`bind:buttonElement` on Button, `bind:inputElement` on Input', source: 'https://github.com/kampsy/ui/blob/v2.10.0/src/lib/input/types.ts' },
 		'class': { value: 'appended after the library classes (no tailwind-merge)', source: 'https://github.com/kampsy/ui/blob/v2.10.0/src/lib/checkbox/checkbox.svelte' },
 		'rest-props': { value: 'forwarded to the native <button>/<input> on Button, Input and Checkbox', notes: 'Toggle, Tabs and Tooltip take no extra attributes.', source: 'https://github.com/kampsy/ui/blob/v2.10.0/src/lib/input/input.svelte' },
-		'composition': { value: 'single components with props for most controls; compound namespaces for Modal and Select (`Modal.Root`, `Select.Trigger`...)', source: 'https://github.com/kampsy/ui/blob/v2.10.0/src/lib/index.ts' },
+		'composition': { value: 'single components with props for most controls; compound namespaces for Modal, Select, Menu, Collapse, Switch, Table, Choicebox, SplitButton, Kbd and EmptyState (`Modal.Root`, `Select.Trigger`...)', source: 'https://github.com/kampsy/ui/blob/v2.10.0/src/lib/index.ts' },
 	},
 	lastVerified: '2026-11-22',
 	notes: [

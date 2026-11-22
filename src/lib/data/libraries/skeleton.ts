@@ -392,13 +392,13 @@ export default defineLibrary({
 			source: `${svelte}/switch/anatomy/root.svelte`,
 		},
 		'class': {
-			value: 'passed to the part\'s element via Zag\'s `mergeProps`',
-			notes: 'Default styles target data-scope/data-part attributes; Dialog ships unstyled.',
+			value: 'merged into the part\'s element via Zag\'s `mergeProps`; element-less roots (`Dialog`, `Popover`, `Tooltip`, `Menu`, `FloatingPanel`) have no element to style',
+			notes: 'Default styles target data-scope/data-part attributes; Dialog, Popover and Tooltip ship unstyled.',
 			source: `${site}/content/docs/get-started/fundamentals.mdx`,
 		},
 		'rest-props': {
-			value: 'forwarded to each part\'s element',
-			source: `${site}/content/docs/get-started/fundamentals.mdx`,
+			value: 'forwarded to the element of each part that renders one; the `Dialog`, `Popover`, `Tooltip`, `Menu` and `FloatingPanel` roots render none and pass nothing on',
+			source: `${svelte}/dialog/anatomy/root.svelte`,
 		},
 		'render-delegation': {
 			value: '`element` snippet that receives `attributes` to spread',

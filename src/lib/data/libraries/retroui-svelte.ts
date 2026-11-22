@@ -177,7 +177,7 @@ export default defineLibrary({
 				content: { name: 'Tooltip.Content', notes: 'A part, not a prop.' },
 				placement: { name: 'side', on: 'Tooltip.Content', values: ['top', 'right', 'bottom', 'left'], default: 'top' },
 				open: { name: 'open', on: 'Tooltip.Root', bindable: true, default: 'false' },
-				openDelay: { name: 'delayDuration', on: 'Tooltip.Root', default: '700', notes: 'Also settable for all tooltips on Tooltip.Provider.' },
+				openDelay: { name: 'delayDuration', on: 'Tooltip.Root', default: '700', notes: 'Root has no default of its own; it falls back to Tooltip.Provider, which defaults to 700 for all its tooltips.' },
 				closeDelay: null,
 			},
 		} },

@@ -228,7 +228,8 @@ export default defineLibrary({
 			source: src('textfield/src/Textfield.svelte'),
 		},
 		'render-delegation': {
-			value: '`tag` or `component` prop',
+			value: '`tag` or `component` prop on some components (Button and other SmuiElement-based ones)',
+			notes: 'Not universal: Textfield, Checkbox, Switch, Select, Dialog, TabBar and Tooltip have neither prop.',
 			source: src('button/src/Button.svelte'),
 		},
 		'composition': {

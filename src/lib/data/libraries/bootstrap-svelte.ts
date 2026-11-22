@@ -63,7 +63,7 @@ export default defineLibrary({
 					href: { name: 'href', notes: 'Renders an <a> instead of a <button>.' },
 					type: { name: 'type', values: ['button', 'submit', 'reset'], default: 'button' },
 					variant: { name: 'colorVariant', notes: 'Outline and link styles are colorVariant values (outline-primary... and link).' },
-					size: { name: 'size', values: ['sm', 'lg'] },
+					size: { name: 'size', values: ['sm', 'lg', ''], notes: 'Empty or unset means the default size.' },
 					color: {
 						name: 'colorVariant',
 						values: ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link', 'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-light', 'outline-dark'],
@@ -100,7 +100,7 @@ export default defineLibrary({
 				props: {
 					value: { name: 'value', bindable: true },
 					oninput: { name: 'oninput', notes: native },
-					type: { name: 'Form.EmailInput, Form.PasswordInput...', notes: 'No type prop: pick the component for the input type.' },
+					type: { name: 'Form.EmailInput, Form.PasswordInput...', notes: 'Pick the component for the input type; each accepts type only as its own fixed value (e.g. "text" on Form.TextInput).' },
 					placeholder: { name: 'placeholder', notes: native },
 					disabled: { name: 'disabled', notes: native },
 					readonly: { name: 'readonly', notes: native },
@@ -205,7 +205,7 @@ export default defineLibrary({
 					onOpenChange: { name: 'onHide', on: 'Modal.Root', notes: 'Also onShow, onShown and onHidden for the other lifecycle steps.' },
 					title: { name: 'Modal.Title', notes: 'A part; level sets the heading level.' },
 					closeOnEscape: { name: 'isKeyboardDismissible', on: 'Modal.Root', default: 'true' },
-					closeOnOutsideClick: { name: 'useBackdrop', on: 'Modal.Root', values: ['true', 'false', 'static'], default: 'true', notes: '"static" keeps the backdrop but ignores clicks on it.' },
+					closeOnOutsideClick: { name: 'useBackdrop', on: 'Modal.Root', values: ['true', 'false', 'static'], default: 'true', notes: 'Only "static" stops outside clicks from closing it; false removes the backdrop, but a click outside the dialog still closes it.' },
 					size: { name: 'size', on: 'Modal.Dialog', values: ['sm', 'lg', 'xl'] },
 				},
 			},
@@ -222,7 +222,7 @@ export default defineLibrary({
 				source: src('Tooltip/tooltip.svelte'),
 				props: {
 					content: { name: 'Tooltip.Inner', notes: 'A part; referenceElementId on Tooltip.Root names the trigger element.' },
-					placement: { name: 'placement', on: 'Tooltip.Root', values: ['auto', 'top', 'bottom', 'left', 'right'] },
+					placement: { name: 'placement', on: 'Tooltip.Root', values: ['auto', 'top', 'bottom', 'left', 'right'], default: 'top' },
 					open: { name: 'isShown', on: 'Tooltip.Root', default: 'false', notes: 'Not declared bindable; trigger sets how it opens (click, hover, focus or manual).' },
 					openDelay: null,
 					closeDelay: null,

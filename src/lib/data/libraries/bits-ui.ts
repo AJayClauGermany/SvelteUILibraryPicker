@@ -66,7 +66,7 @@ export default defineLibrary({
 				indeterminate: { name: 'indeterminate', bindable: true, default: 'false', notes: 'Has its own onIndeterminateChange callback.' },
 				disabled: { name: 'disabled', default: 'false' },
 				name: { name: 'name', notes: 'Renders a hidden input for form submission when set.' },
-				value: { name: 'value' },
+				value: { name: 'value', default: "'on'" },
 				required: { name: 'required', default: 'false' },
 				label: null,
 			},

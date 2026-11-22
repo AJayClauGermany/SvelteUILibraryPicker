@@ -172,7 +172,7 @@ export default defineLibrary({
 			source: lib('containers/Dialog'),
 			props: {
 				open: { name: 'open', bindable: true },
-				onOpenChange: null,
+				onOpenChange: { name: 'onclose', notes: 'Native <dialog> event passed through; fires on close only. Passing your own ontoggle replaces the handler that keeps bind:open in sync.' },
 				title: { name: 'headline', notes: 'Required.' },
 				closeOnEscape: { name: 'closedby', values: ['any', 'closerequest', 'none'], default: 'any', notes: 'Native <dialog> attribute; "none" blocks Escape too.' },
 				closeOnOutsideClick: { name: 'closedby', values: ['any', 'closerequest', 'none'], default: 'any', notes: 'Native <dialog> attribute; only "any" closes on a backdrop click.' },
@@ -219,6 +219,11 @@ export default defineLibrary({
 	conventions: {
 		events: { value: 'native event attributes (`onclick`, `onchange`) passed through to the element', source: lib('forms/Switch') },
 		binding: { value: '`bind:` on props (`bind:value`, `bind:checked`, `bind:open`, `bind:tab`)', source: demos },
+		class: {
+			value: 'no class prop; `class` travels with the rest props to the native element',
+			notes: 'On Button the spread comes after the built-in class attribute, so your class replaces it; on TextField, Switch and Select it lands on the inner <input>/<select>, not the wrapper.',
+			source: lib('buttons/Button'),
+		},
 		'rest-props': {
 			value: 'forwarded to the native element',
 			notes: 'For example the <button>/<a> of Button, the <input> of TextField and Switch, the <select> of Select and the <dialog> of Dialog.',

@@ -131,7 +131,7 @@ export default defineLibrary({
 				onValueChange: { name: 'on:update', notes: 'Svelte 4 event; e.detail is the selected value.' },
 				items: null,
 				multiple: null,
-				placeholder: null,
+				placeholder: { name: 'SelectItem disabled hidden', on: 'SelectItem', notes: 'No prop. Put a first SelectItem with disabled and hidden, and point selected at its value.' },
 				disabled: { name: 'disabled', default: 'false' },
 				name: { name: 'name' },
 			},
