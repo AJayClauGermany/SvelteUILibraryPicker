@@ -27,6 +27,11 @@ export default defineTool({
 	],
 	usedBy: [
 		{
+			library: 'retroui-svelte',
+			how: 'Its Calendar registry item depends on it, for the date components.',
+			source: 'https://github.com/Mhamad6000/retroui-svelte/blob/main/registry.json',
+		},
+		{
 			library: 'bits-ui',
 			how: 'Peer dependency; the calendar, date field, date picker and time field components take and return its date objects.',
 			source: 'https://github.com/huntabyte/bits-ui/blob/main/packages/bits-ui/package.json',

@@ -24,6 +24,16 @@ export default defineTool({
 	components: ['toast'],
 	usedBy: [
 		{
+			library: 'neobrutalism-svelte',
+			how: 'Its Sonner component wraps svelte-sonner.',
+			source: 'https://github.com/olegpolin/neobrutalism-svelte/blob/main/src/lib/registry/ui/sonner/sonner.svelte',
+		},
+		{
+			library: 'retroui-svelte',
+			how: 'Its Sonner component wraps svelte-sonner.',
+			source: 'https://github.com/Mhamad6000/retroui-svelte/blob/main/registry.json',
+		},
+		{
 			library: 'shadcn-svelte',
 			how: 'Its Sonner component is a styled wrapper around svelte-sonner, which the CLI installs.',
 			source: 'https://github.com/huntabyte/shadcn-svelte/blob/main/docs/static/registry/sonner.json',
