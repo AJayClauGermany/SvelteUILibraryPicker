@@ -1,6 +1,10 @@
 import { defineLibrary } from '../schema'
 
 const c = (name: string) => `https://svelte.carbondesignsystem.com/components/${name}`
+// Props were read from the v0.113.1 tag: component source plus the docs pages kept in the repo.
+const gh = 'https://github.com/carbon-design-system/carbon-components-svelte/blob/v0.113.1'
+const srcFile = (path: string) => `${gh}/src/${path}.svelte`
+const docsPage = (name: string) => `${gh}/docs/src/pages/components/${name}.svx`
 
 export default defineLibrary({
 	id: 'carbon-components-svelte',
@@ -51,18 +55,87 @@ export default defineLibrary({
 		'design-system',
 	],
 	components: [
-		{ id: 'button', name: 'Button', docs: c('Button') },
+		{ id: 'button', name: 'Button', docs: c('Button'), api: {
+			style: 'props',
+			parts: ['Button'],
+			source: srcFile('Button/Button'),
+			props: {
+				onclick: { name: 'on:click', notes: 'Svelte 4 event forwarded from the native element.' },
+				disabled: { name: 'disabled', default: 'false' },
+				href: { name: 'href', notes: 'Renders an <a> instead of a <button>.' },
+				type: { name: 'type', default: 'button' },
+				variant: { name: 'kind', values: ['primary', 'secondary', 'tertiary', 'ghost', 'danger', 'danger-tertiary', 'danger-ghost'], default: 'primary' },
+				size: { name: 'size', values: ['default', 'field', 'small', 'lg', 'xl'], default: 'default' },
+				color: null,
+				loading: { name: 'loading', default: 'false', notes: 'Shows a spinner in place of the icon; the button stays focusable.' },
+			},
+		} },
 		{ id: 'button-group', name: 'ButtonSet', docs: c('ButtonSet'), notes: 'ActionSet is a related footer action group.' },
 		{ id: 'toggle-group', name: 'ToggleButtonGroup', docs: c('ToggleButtonGroup'), notes: 'ContentSwitcher is a segmented view switcher.' },
 		{ id: 'dropdown-menu', name: 'MenuButton', docs: c('MenuButton'), notes: 'Also OverflowMenu and the anchor-only Menu.' },
 		{ id: 'context-menu', name: 'ContextMenu', docs: c('ContextMenu') },
 		{ id: 'split-button', name: 'ComboButton', docs: c('ComboButton') },
-		{ id: 'input', name: 'TextInput', docs: c('TextInput'), notes: 'CopyInput is a read-only input with a copy button.' },
+		{ id: 'input', name: 'TextInput', docs: c('TextInput'), notes: 'CopyInput is a read-only input with a copy button.', api: {
+			style: 'props',
+			parts: ['TextInput'],
+			source: srcFile('TextInput/TextInput'),
+			props: {
+				value: { name: 'value', bindable: true, default: '""', notes: 'Becomes null when type="number" and the field is empty.' },
+				oninput: { name: 'on:input', notes: 'Svelte 4 event; e.detail is the new value.' },
+				type: { name: 'type', notes: 'Passed through to the native <input>.' },
+				placeholder: { name: 'placeholder', default: '""' },
+				disabled: { name: 'disabled', default: 'false' },
+				readonly: { name: 'readonly', default: 'false' },
+				invalid: { name: 'invalid', default: 'false', notes: 'Message goes in invalidText; warn/warnText is a separate warning state.' },
+				label: { name: 'labelText', default: '""', notes: 'Or the labelChildren slot.' },
+				helperText: { name: 'helperText', default: '""' },
+				size: { name: 'size', values: ['xs', 'sm', 'xl'] },
+			},
+		} },
 		{ id: 'textarea', name: 'TextArea', docs: c('TextArea') },
-		{ id: 'checkbox', name: 'Checkbox', docs: c('Checkbox') },
+		{ id: 'checkbox', name: 'Checkbox', docs: c('Checkbox'), api: {
+			style: 'props',
+			parts: ['Checkbox'],
+			source: srcFile('Checkbox/Checkbox'),
+			props: {
+				checked: { name: 'checked', bindable: true, default: 'false', notes: 'Use bind:group instead for a set of checkboxes.' },
+				onCheckedChange: { name: 'on:check', notes: 'Svelte 4 event; e.detail is the new checked state.' },
+				indeterminate: { name: 'indeterminate', default: 'false' },
+				disabled: { name: 'disabled', default: 'false' },
+				name: { name: 'name', default: '""' },
+				value: { name: 'value', default: '""', notes: 'Submitted as "on" when empty.' },
+				required: { name: 'required', default: 'false' },
+				label: { name: 'labelText', default: '""', notes: 'Or the labelChildren slot.' },
+			},
+		} },
 		{ id: 'radio-group', name: 'RadioButton', docs: c('RadioButton'), notes: 'RadioTile offers tile-style choices.' },
-		{ id: 'switch', name: 'Toggle', docs: c('Toggle') },
-		{ id: 'select', name: 'Select', docs: c('Select'), notes: 'Dropdown is the custom-styled single select.' },
+		{ id: 'switch', name: 'Toggle', docs: c('Toggle'), api: {
+			style: 'props',
+			parts: ['Toggle'],
+			source: srcFile('Toggle/Toggle'),
+			props: {
+				checked: { name: 'toggled', bindable: true, default: 'false' },
+				onCheckedChange: { name: 'on:toggle', notes: 'Svelte 4 event; e.detail is { toggled }.' },
+				disabled: { name: 'disabled', default: 'false' },
+				name: { name: 'name' },
+				required: null,
+				label: { name: 'labelText', default: '""', notes: 'labelA / labelB set the off and on state text.' },
+			},
+		} },
+		{ id: 'select', name: 'Select', docs: c('Select'), notes: 'Dropdown is the custom-styled single select.', api: {
+			style: 'compound',
+			parts: ['Select', 'SelectItem'],
+			source: srcFile('Select/Select'),
+			props: {
+				value: { name: 'selected', bindable: true, notes: 'Falls back to the first SelectItem value when unset.' },
+				onValueChange: { name: 'on:update', notes: 'Svelte 4 event; e.detail is the selected value.' },
+				items: null,
+				multiple: null,
+				placeholder: null,
+				disabled: { name: 'disabled', default: 'false' },
+				name: { name: 'name' },
+			},
+		} },
 		{ id: 'combobox', name: 'ComboBox', docs: c('ComboBox') },
 		{ id: 'slider', name: 'Slider', docs: c('Slider') },
 		{ id: 'number-input', name: 'NumberInput', docs: c('NumberInput') },
@@ -77,7 +150,19 @@ export default defineLibrary({
 		{ id: 'form', name: 'Form', docs: c('Form'), notes: 'FluidForm is the fluid-style variant.' },
 		{ id: 'search', name: 'Search', docs: c('Search'), notes: 'SearchMenu adds typeahead suggestions.' },
 		{ id: 'password-input', name: 'PasswordInput', docs: c('PasswordInput') },
-		{ id: 'dialog', name: 'Modal', docs: c('Modal'), notes: 'Also ComposedModal and a lightweight native Dialog.' },
+		{ id: 'dialog', name: 'Modal', docs: c('Modal'), notes: 'Also ComposedModal and a lightweight native Dialog.', api: {
+			style: 'props',
+			parts: ['Modal'],
+			source: srcFile('Modal/Modal'),
+			props: {
+				open: { name: 'open', bindable: true, default: 'false' },
+				onOpenChange: { name: 'on:close', notes: 'Svelte 4 events: on:open when it opens; on:close is cancelable and e.detail.trigger says why it closes.' },
+				title: { name: 'modalHeading', notes: 'Or the heading slot.' },
+				closeOnEscape: { name: 'on:close', notes: 'No flag; call e.preventDefault() when e.detail.trigger is "escape-key".' },
+				closeOnOutsideClick: { name: 'preventCloseOnClickOutside', default: 'false', notes: 'Inverted: true keeps it open.' },
+				size: { name: 'size', values: ['xs', 'sm', 'lg'] },
+			},
+		} },
 		{
 			id: 'alert-dialog',
 			name: 'Modal',
@@ -85,8 +170,30 @@ export default defineLibrary({
 			notes: 'Alert mode and the danger variant of Modal. A dedicated ConfirmModal is on master but not in 0.113.1.',
 		},
 		{ id: 'popover', name: 'Popover', docs: c('Popover'), notes: 'Toggletip is a click-toggled popover.' },
-		{ id: 'tooltip', name: 'Tooltip', docs: c('Tooltip'), notes: 'Also TooltipDefinition and TooltipIcon.' },
-		{ id: 'tabs', name: 'Tabs', docs: c('Tabs') },
+		{ id: 'tooltip', name: 'Tooltip', docs: c('Tooltip'), notes: 'Also TooltipDefinition and TooltipIcon.', api: {
+			style: 'props',
+			parts: ['Tooltip'],
+			source: srcFile('Tooltip/Tooltip'),
+			props: {
+				content: { name: 'default slot', notes: 'The tooltip body; the trigger is an icon button, or triggerText / slot="triggerText".' },
+				placement: { name: 'direction', values: ['top', 'right', 'bottom', 'left'], default: 'bottom', notes: 'align (start, center, end) sets the alignment.' },
+				open: { name: 'open', bindable: true, default: 'false' },
+				openDelay: { name: 'enterDelayMs', default: '100' },
+				closeDelay: { name: 'leaveDelayMs', default: '300' },
+			},
+		} },
+		{ id: 'tabs', name: 'Tabs', docs: c('Tabs'), api: {
+			style: 'compound',
+			parts: ['Tabs', 'Tab', 'slot="content"', 'TabContent'],
+			source: srcFile('Tabs/Tabs'),
+			props: {
+				value: { name: 'selected', bindable: true, default: '0', notes: 'Index of the active tab; selectedId selects by Tab id instead.' },
+				onValueChange: { name: 'on:change', notes: 'Svelte 4 event; e.detail is the new index.' },
+				items: null,
+				orientation: { name: 'TabsVertical', notes: 'A separate component for a vertical tab list.' },
+				activationMode: { name: 'activation', values: ['automatic', 'manual'], default: 'automatic' },
+			},
+		} },
 		{ id: 'breadcrumb', name: 'Breadcrumb', docs: c('Breadcrumb') },
 		{ id: 'pagination', name: 'Pagination', docs: c('Pagination'), notes: 'PaginationNav is a page-number variant.' },
 		{ id: 'navigation-menu', name: 'UIShell', docs: c('UIShell'), notes: 'Header, header actions and nav menus are part of UIShell.' },
@@ -146,7 +253,36 @@ export default defineLibrary({
 		],
 		llmsTxt: 'https://svelte.carbondesignsystem.com/llms.txt',
 	},
-	lastVerified: '2026-11-04',
+	conventions: {
+		events: {
+			value: 'Svelte 4 component events: `on:click`, `on:change`',
+			notes: 'Custom events carry their data in `e.detail` (e.g. `on:check`, `on:toggle`).',
+			source: docsPage('Checkbox'),
+		},
+		binding: {
+			value: '`bind:` on props (`bind:open`, `bind:checked`, `bind:toggled`, `bind:selected`)',
+			source: docsPage('Toggle'),
+		},
+		ref: { value: '`bind:ref`', notes: 'Some components expose extra refs, e.g. Tooltip `refTooltip`.', source: srcFile('Tooltip/Tooltip') },
+		class: {
+			value: '`class` goes through rest props and is combined with the `bx--` classes',
+			source: srcFile('Button/Button'),
+		},
+		'rest-props': {
+			value: '`$$restProps` forwarded to one element per component',
+			notes: 'Which element varies: the native <input> for TextInput, the <select> for Select, the wrapper <div> for Checkbox and Toggle.',
+			source: srcFile('TextInput/TextInput'),
+		},
+		'render-delegation': {
+			value: 'Button `as` + `let:props` spread on your own element',
+			source: docsPage('Button'),
+		},
+		composition: {
+			value: 'mostly single components with props and slots; some sets of parts (`Tabs` + `Tab` + `TabContent`)',
+			source: docsPage('Tabs'),
+		},
+	},
+	lastVerified: '2026-11-22',
 	notes: [
 		'The package declares no svelte peerDependency; Svelte 3/4/5 support comes from its Svelte 5 test suite plus Svelte 3 and 4 compatibility suites.',
 		'Components are written in legacy (non-runes) syntax, and the contributing guide asks contributors not to add runes.',

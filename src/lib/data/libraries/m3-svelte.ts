@@ -11,6 +11,11 @@ const c = (anchor: string) => `${home}#${anchor}-demo`
 // source files in the repo instead.
 const src = 'https://github.com/KTibow/m3-svelte/blob/main'
 const quickStart = `${src}/src/routes/docs/quick-start/+page.svelte`
+// The repo has no release tags; props were read at the "patch release" commit that set 7.2.1.
+const v721 = 'https://github.com/KTibow/m3-svelte/blob/0bcfefa36d61234e761886b48215355573bb050e'
+const lib = (path: string) => `${v721}/src/lib/${path}.svelte`
+const demos = `${v721}/src/demos.md`
+const nativeInput = 'Passed through to the native <input>.'
 
 export default defineLibrary({
 	id: 'm3-svelte',
@@ -80,21 +85,113 @@ export default defineLibrary({
 	],
 	features: ['typescript', 'semantic-colors', 'theming', 'dark-mode', 'design-system'],
 	components: [
-		{ id: 'button', name: 'Button', docs: c('button') },
+		{ id: 'button', name: 'Button', docs: c('button'), api: {
+			style: 'props',
+			parts: ['Button'],
+			source: lib('buttons/Button'),
+			props: {
+				onclick: { name: 'onclick', notes: 'Passed through to the native <button>.' },
+				disabled: { name: 'disabled', notes: 'Passed through to the native <button>.' },
+				href: { name: 'href', notes: 'Renders an <a> instead of a <button>.' },
+				type: { name: 'type', notes: 'Defaults to "button" when onclick is set, otherwise "submit".' },
+				variant: { name: 'variant', values: ['elevated', 'filled', 'tonal', 'outlined', 'text'], default: 'filled' },
+				size: { name: 'size', values: ['xs', 's', 'm', 'l', 'xl'], default: 's' },
+				color: null,
+				loading: null,
+			},
+		} },
 		{ id: 'button-group', name: 'ConnectedButtons', docs: c('connected-buttons'), notes: 'Can also act as a single/multi-select segmented control.' },
 		{ id: 'floating-action-button', name: 'FAB', docs: c('fab') },
 		{ id: 'split-button', name: 'SplitButton', docs: c('split-button'), notes: 'Main action plus a Menu of alternatives; elevated, filled, tonal and outlined variants.' },
 		{ id: 'dropdown-menu', name: 'Menu', docs: c('menu'), notes: 'Docs flag it as not yet updated to M3 Expressive.' },
-		{ id: 'input', name: 'TextField', docs: c('text-field'), notes: 'Filled and outlined (TextFieldOutlined) variants.' },
+		{ id: 'input', name: 'TextField', docs: c('text-field'), notes: 'Filled and outlined (TextFieldOutlined) variants.', api: {
+			style: 'props',
+			parts: ['TextField'],
+			source: lib('forms/TextField'),
+			props: {
+				value: { name: 'value', bindable: true },
+				oninput: { name: 'oninput', notes: nativeInput },
+				type: { name: 'type', notes: nativeInput },
+				placeholder: { name: 'placeholder', notes: 'The component sets a blank placeholder for its floating label; one you pass replaces it.' },
+				disabled: { name: 'disabled', default: 'false' },
+				readonly: { name: 'readonly', notes: nativeInput },
+				invalid: { name: 'error', default: 'false' },
+				label: { name: 'label', notes: 'Required.' },
+				helperText: null,
+				size: null,
+			},
+		} },
 		{ id: 'textarea', name: 'TextFieldMultiline', docs: c('text-field') },
-		{ id: 'checkbox', name: 'Checkbox', docs: c('checkbox') },
+		{ id: 'checkbox', name: 'Checkbox', docs: c('checkbox'), api: {
+			style: 'props',
+			parts: ['label', 'Checkbox', 'input type="checkbox"'],
+			source: lib('forms/Checkbox'),
+			props: {
+				checked: { name: 'checked', on: 'input type="checkbox"', bindable: true, notes: 'Checkbox only styles a native checkbox you pass as its child.' },
+				onCheckedChange: { name: 'onchange', on: 'input type="checkbox"', notes: 'Native event on your own input.' },
+				indeterminate: null,
+				disabled: { name: 'disabled', on: 'input type="checkbox"' },
+				name: { name: 'name', on: 'input type="checkbox"' },
+				value: { name: 'value', on: 'input type="checkbox"' },
+				required: { name: 'required', on: 'input type="checkbox"' },
+				label: null,
+			},
+		} },
 		{ id: 'radio-group', name: 'RadioAnim1', docs: c('radio'), notes: 'Three animation variants: RadioAnim1, RadioAnim2, RadioAnim3.' },
-		{ id: 'switch', name: 'Switch', docs: c('switch') },
-		{ id: 'select', name: 'Select', docs: c('select'), notes: 'SelectOutlined is the outlined variant.' },
+		{ id: 'switch', name: 'Switch', docs: c('switch'), api: {
+			style: 'props',
+			parts: ['label', 'Switch'],
+			source: lib('forms/Switch'),
+			props: {
+				checked: { name: 'checked', bindable: true, default: 'false' },
+				onCheckedChange: { name: 'onchange', notes: nativeInput },
+				disabled: { name: 'disabled', default: 'false' },
+				name: { name: 'name', notes: nativeInput },
+				required: { name: 'required', notes: nativeInput },
+				label: null,
+			},
+		} },
+		{ id: 'select', name: 'Select', docs: c('select'), notes: 'SelectOutlined is the outlined variant.', api: {
+			style: 'props',
+			parts: ['Select'],
+			source: lib('forms/Select'),
+			props: {
+				value: { name: 'value', bindable: true },
+				onValueChange: { name: 'onchange', notes: 'Passed through to the native <select>.' },
+				items: { name: 'options', notes: 'Objects with text and value, plus an optional icon.' },
+				multiple: null,
+				placeholder: null,
+				disabled: { name: 'disabled', notes: 'Passed through to the native <select>.' },
+				name: { name: 'name', notes: 'Passed through to the native <select>.' },
+			},
+		} },
 		{ id: 'slider', name: 'Slider', docs: c('slider') },
-		{ id: 'dialog', name: 'Dialog', docs: c('dialog') },
+		{ id: 'dialog', name: 'Dialog', docs: c('dialog'), api: {
+			style: 'props',
+			parts: ['Dialog'],
+			source: lib('containers/Dialog'),
+			props: {
+				open: { name: 'open', bindable: true },
+				onOpenChange: null,
+				title: { name: 'headline', notes: 'Required.' },
+				closeOnEscape: { name: 'closedby', values: ['any', 'closerequest', 'none'], default: 'any', notes: 'Native <dialog> attribute; "none" blocks Escape too.' },
+				closeOnOutsideClick: { name: 'closedby', values: ['any', 'closerequest', 'none'], default: 'any', notes: 'Native <dialog> attribute; only "any" closes on a backdrop click.' },
+				size: null,
+			},
+		} },
 		{ id: 'drawer', name: 'BottomSheet', docs: home, notes: 'Bottom edge only. Its demo card has no anchor, so the link goes to the docs home page.' },
-		{ id: 'tabs', name: 'Tabs', docs: c('tabs'), notes: 'VariableTabs sizes tabs to their content.' },
+		{ id: 'tabs', name: 'Tabs', docs: c('tabs'), notes: 'VariableTabs sizes tabs to their content.', api: {
+			style: 'props',
+			parts: ['Tabs'],
+			source: lib('nav/Tabs'),
+			props: {
+				value: { name: 'tab', bindable: true, notes: 'The value of the active item; render the panels yourself.' },
+				onValueChange: { name: 'onchange', notes: 'Passed through to each native radio <input>.' },
+				items: { name: 'items', notes: 'Objects with name and value, plus an optional icon.' },
+				orientation: null,
+				activationMode: null,
+			},
+		} },
 		{ id: 'navigation-menu', name: 'NavCMLX', docs: c('nav-for-c/m/l/x'), notes: 'Adaptive navigation that changes form by window size class.' },
 		{ id: 'sidebar', name: 'NavigationRail', docs: c('navigation-rail') },
 		{ id: 'card', name: 'Card', docs: c('card') },
@@ -119,7 +216,25 @@ export default defineLibrary({
 		],
 		llmsTxt: 'https://kendell.dev/m3-svelte/llms.txt',
 	},
-	lastVerified: '2026-11-04',
+	conventions: {
+		events: { value: 'native event attributes (`onclick`, `onchange`) passed through to the element', source: lib('forms/Switch') },
+		binding: { value: '`bind:` on props (`bind:value`, `bind:checked`, `bind:open`, `bind:tab`)', source: demos },
+		'rest-props': {
+			value: 'forwarded to the native element',
+			notes: 'For example the <button>/<a> of Button, the <input> of TextField and Switch, the <select> of Select and the <dialog> of Dialog.',
+			source: lib('forms/TextField'),
+		},
+		'render-delegation': {
+			value: 'Button renders `<a>` with `href`, `<label>` with `label`, `<summary>` with `summary`',
+			source: lib('buttons/Button'),
+		},
+		composition: {
+			value: 'single components with props and snippets; form controls wrap native inputs',
+			notes: 'Checkbox and Switch must sit inside your own <label>; Checkbox takes the native checkbox as its child.',
+			source: demos,
+		},
+	},
+	lastVerified: '2026-11-22',
 	notes: [
 		'Docs have no per-component pages; component links point to the demo cards on the docs home page.',
 		'Also ships Material motion helpers (UI transitions, easings), a state-layer CSS class and shape paths, which have no comparison category.',
