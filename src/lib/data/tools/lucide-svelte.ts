@@ -23,6 +23,11 @@ export default defineTool({
 	components: ['icon'],
 	usedBy: [
 		{
+			library: 'cossui-svelte',
+			how: 'Components import icons from @lucide/svelte (e.g. the dialog close button).',
+			source: 'https://github.com/cossui-svelte/cossui-svelte/blob/v1.2.0/src/lib/components/ui/dialog/dialog-content.svelte',
+		},
+		{
 			library: 'neobrutalism-svelte',
 			how: 'Its components import icons from @lucide/svelte (e.g. the checkbox marks).',
 			source: 'https://github.com/olegpolin/neobrutalism-svelte/blob/main/src/lib/registry/ui/checkbox/checkbox.svelte',

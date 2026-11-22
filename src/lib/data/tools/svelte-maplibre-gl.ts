@@ -21,7 +21,13 @@ export default defineTool({
 	},
 	version: '2.2.1',
 	components: ['map'],
-	usedBy: [],
+	usedBy: [
+		{
+			library: 'cossui-svelte',
+			how: 'Its Map component uses maplibre-gl directly, not svelte-maplibre-gl.',
+			source: 'https://github.com/cossui-svelte/cossui-svelte/blob/v1.2.0/static/r/map.json',
+		},
+	],
 	ai: {
 		status: 'no-statement',
 		summary:

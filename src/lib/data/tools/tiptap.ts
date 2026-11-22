@@ -18,6 +18,11 @@ export default defineTool({
 	components: ['rich-text-editor'],
 	usedBy: [
 		{
+			library: 'cossui-svelte',
+			how: 'Its Rich Editor is built on Tiptap.',
+			source: 'https://github.com/cossui-svelte/cossui-svelte/blob/v1.2.0/static/r/rich-editor.json',
+		},
+		{
 			library: 'flowbite-svelte',
 			how: 'Its docs present a WYSIWYG editor from the separate @flowbite-svelte-plugins/texteditor package, which is built on @tiptap/core and Tiptap extensions.',
 			source: 'https://github.com/themesberg/flowbite-svelte/blob/main/src/routes/docs/plugins/wysiwyg.md',

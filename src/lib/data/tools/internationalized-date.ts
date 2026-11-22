@@ -27,6 +27,11 @@ export default defineTool({
 	],
 	usedBy: [
 		{
+			library: 'cossui-svelte',
+			how: 'The registry adds it with the Calendar component.',
+			source: 'https://github.com/cossui-svelte/cossui-svelte/blob/v1.2.0/static/r/calendar.json',
+		},
+		{
 			library: 'retroui-svelte',
 			how: 'Its Calendar registry item depends on it, for the date components.',
 			source: 'https://github.com/Mhamad6000/retroui-svelte/blob/main/registry.json',
