@@ -3,8 +3,9 @@
 	import PageMeta from '#lib/components/PageMeta.svelte'
 	import DocsLink from '#lib/components/DocsLink.svelte'
 	import PreviewFrame from '#lib/components/PreviewFrame.svelte'
+	import PropCell from '#lib/components/PropCell.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
-	import { categories, components, findComponent, libraries, librariesWith, toolKindInfo, toolsFor } from '#lib/data/index.ts'
+	import { apiStyleInfo, canonicalPropIds, categories, components, findComponent, getCanonicalProp, libraries, librariesWith, librariesWithApi, propKindInfo, toolKindInfo, toolsFor } from '#lib/data/index.ts'
 
 	const { data } = $props()
 	const def = $derived(components[data.id])
@@ -13,9 +14,13 @@
 	const providers = $derived(librariesWith(data.id))
 	const missing = $derived(libraries.filter(l => !providers.includes(l)))
 	const relatedTools = $derived(toolsFor(data.id))
+	const propIds = $derived(canonicalPropIds(data.id))
+	const withApi = $derived(librariesWithApi(data.id))
+	const withoutApi = $derived(providers.filter(l => !withApi.includes(l)))
 	/** "On this page" entries; keep in step with the headings below. */
 	const anchors = $derived([
 		{ title: `Provided by ${providers.length} of ${libraries.length} libraries`, slugId: 'libraries', depth: 2 },
+		...(propIds.length && providers.length ? [{ title: 'Props across libraries', slugId: 'props', depth: 2 }] : []),
 		...(providers.length ? [{ title: 'Default styles, side by side', slugId: 'previews', depth: 2 }] : []),
 		...(relatedTools.length ? [{ title: 'Related tools', slugId: 'tools', depth: 2 }] : []),
 		...(missing.length ? [{ title: 'Not listed for', slugId: 'not-provided', depth: 2 }] : []),
@@ -50,6 +55,51 @@
 			</tbody>
 		</table>
 	</div>
+
+	{#if propIds.length}
+		<h2 id="props">Props across libraries</h2>
+		<p class="ulp-muted">
+			The props most libraries share, under one name each, and how every library spells them.
+			Use it to see what to rename when you move code between libraries, or open
+			<a href={url(`/port/?component=${data.id}`)}>Port between libraries</a> for a two-library view.
+			<strong>—</strong> means no equivalent; <strong>?</strong> means not recorded yet. Always check the
+			library's own API reference before you rely on a value.
+		</p>
+		{#if withApi.length}
+			<div class="ulp-table-wrap">
+				<table class="ulp-table props">
+					<thead>
+						<tr>
+							<th>Library</th>
+							<th>Shape</th>
+							{#each propIds as p (p)}
+								{@const def = getCanonicalProp(data.id, p)!}
+								<th title={`${propKindInfo[def.kind].label}: ${def.description}`}><code>{p}</code><div class="ulp-muted kind">{propKindInfo[def.kind].label}</div></th>
+							{/each}
+						</tr>
+					</thead>
+					<tbody>
+						{#each withApi as lib (lib.id)}
+							{@const api = findComponent(lib, data.id)!.api!}
+							<tr>
+								<th scope="row"><a href={url(`/libraries/${lib.id}/`)}>{lib.name}</a><div><a class="ulp-muted small" href={api.source} target="_blank" rel="noopener noreferrer">API source</a></div></th>
+								<td>
+									<span class="ulp-chip" title={apiStyleInfo[api.style].description}>{apiStyleInfo[api.style].label}</span>
+									<div class="small">{#each api.parts as part, i (part)}{#if i}, {/if}<code>{part}</code>{/each}</div>
+								</td>
+								{#each propIds as p (p)}
+									<td><PropCell mapping={api.props[p]} mainPart={api.parts[0]} /></td>
+								{/each}
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</div>
+		{/if}
+		{#if withoutApi.length}
+			<p class="ulp-muted">Props not recorded yet for {withoutApi.map(l => l.name).join(', ')}.</p>
+		{/if}
+	{/if}
 
 	<h2 id="previews">Default styles, side by side</h2>
 	<p class="ulp-muted">
@@ -91,6 +141,17 @@
 {/if}
 
 <style>
+	.props th[scope='row'] {
+		white-space: nowrap;
+	}
+	.props td {
+		min-width: 7rem;
+	}
+	.kind,
+	.small {
+		font-size: 0.75rem;
+		font-weight: normal;
+	}
 	.previews {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

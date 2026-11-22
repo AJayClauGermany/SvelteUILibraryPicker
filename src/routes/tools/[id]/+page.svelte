@@ -19,7 +19,7 @@
 	const anchors = $derived([
 		{ title: 'At a glance', slugId: 'at-a-glance', depth: 2 },
 		...(tool.notes?.length ? [{ title: 'Notes', slugId: 'notes', depth: 2 }] : []),
-		{ title: 'Related components', slugId: 'components', depth: 2 },
+		...(tool.components.length ? [{ title: 'Related components', slugId: 'components', depth: 2 }] : []),
 		{ title: 'Used by tracked libraries', slugId: 'used-by', depth: 2 },
 		...(alternatives.length ? [{ title: 'Other tools for the same components', slugId: 'alternatives', depth: 2 }] : []),
 	])
@@ -75,6 +75,7 @@
 	<ul>{#each tool.notes as n (n)}<li>{n}</li>{/each}</ul>
 {/if}
 
+{#if tool.components.length}
 <h2 id="components">Related components</h2>
 <p class="ulp-muted">What this tool provides or helps build, and how many tracked UI libraries ship their own version.</p>
 <div class="ulp-table-wrap">
@@ -90,6 +91,7 @@
 		</tbody>
 	</table>
 </div>
+{/if}
 
 <h2 id="used-by">Used by tracked libraries</h2>
 {#if tool.usedBy.length}

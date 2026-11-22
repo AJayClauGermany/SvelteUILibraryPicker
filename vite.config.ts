@@ -73,6 +73,7 @@ const browseSidebar = [
 			{ title: 'All libraries', to: '/libraries/' },
 			{ title: 'Components', to: '/components/' },
 			{ title: 'Compare', to: '/compare/' },
+			{ title: 'Port between libraries', to: '/port/' },
 			{ title: 'Tools', to: '/tools/' },
 		],
 	},
@@ -108,6 +109,7 @@ export default defineConfig({
 					{ title: 'Libraries', to: '/libraries/' },
 					{ title: 'Components', to: '/components/' },
 					{ title: 'Compare', to: '/compare/' },
+					{ title: 'Port', to: '/port/' },
 					{ title: 'Guide', to: '/guide/about/' },
 					{ title: 'Tools', to: '/tools/' },
 				],
@@ -115,6 +117,7 @@ export default defineConfig({
 					'/libraries/': browseSidebar,
 					'/components/': browseSidebar,
 					'/compare/': browseSidebar,
+					'/port/': browseSidebar,
 					'/tools/': toolsSidebar,
 					'/guide/': [
 						{
