@@ -176,8 +176,9 @@ export interface LicenseInfo {
  * - `builder`  — a function or class that returns attributes you spread on your own markup.
  * - `machine`  — a framework-agnostic state machine you connect and spread (Zag-style).
  * - `css`      — CSS classes on native elements; no component to import.
+ * - `function` — a function you call (e.g. `toast.success('Saved')`), usually with a host component.
  */
-export type ApiStyle = 'props' | 'compound' | 'builder' | 'machine' | 'css'
+export type ApiStyle = 'props' | 'compound' | 'builder' | 'machine' | 'css' | 'function'
 
 export const apiStyleInfo: Record<ApiStyle, { label: string, description: string }> = {
 	props: { label: 'Single component', description: 'One component configured with props.' },
@@ -185,6 +186,7 @@ export const apiStyleInfo: Record<ApiStyle, { label: string, description: string
 	builder: { label: 'Builder', description: 'A function or class that returns attributes you spread on your own markup.' },
 	machine: { label: 'State machine', description: 'A framework-agnostic machine you connect, then spread its props on your markup.' },
 	css: { label: 'CSS classes', description: 'Classes on native elements; nothing to import.' },
+	function: { label: 'Function call', description: 'A function you call, usually with a host component placed once in your layout.' },
 }
 
 /**

@@ -31,10 +31,10 @@ describe('portRows', () => {
 			{ style: 'props', parts: ['Modal'], source: 'https://example.com', props: { open: { name: 'open', on: 'Modal' }, size: { name: 'size' } } },
 			{ style: 'compound', parts: ['Dialog.Root'], source: 'https://example.com', props: { open: { name: 'open', on: 'Dialog.Root' }, size: null } },
 		)
-		expect(rows.map(r => r.prop)).toEqual(['open', 'onOpenChange', 'title', 'closeOnEscape', 'closeOnOutsideClick', 'size'])
+		expect(rows.map(r => r.prop)).toEqual(['open', 'onOpenChange', 'title', 'description', 'closeOnEscape', 'closeOnOutsideClick', 'showCloseButton', 'preventScroll', 'size'])
 		const sum = summarizePort(rows)
 		expect(sum.same).toBe(1)
 		expect(sum.missing).toBe(1)
-		expect(sum.unknown).toBe(4)
+		expect(sum.unknown).toBe(7)
 	})
 })

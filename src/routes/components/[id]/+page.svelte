@@ -143,6 +143,10 @@
 <style>
 	.props th[scope='row'] {
 		white-space: nowrap;
+		position: sticky;
+		left: 0;
+		z-index: 1;
+		background: var(--ulp-surface-2);
 	}
 	.props td {
 		min-width: 7rem;
