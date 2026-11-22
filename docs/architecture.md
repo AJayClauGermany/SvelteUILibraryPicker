@@ -7,6 +7,7 @@ src/
     data/
       schema.ts              Library type and field rules
       components.ts          canonical component taxonomy
+      props.ts               canonical props per component, library-wide API conventions
       libraries/<id>.ts      one file per library (eagerly globbed)
       tools/<id>.ts          one file per tool: single-purpose packages and building blocks
       index.ts               queries: libraries, getLibrary, librariesWith, ...
@@ -18,6 +19,7 @@ src/
     libraries/[id]/          library detail pages
     components/[id]/         one component across all libraries, with previews
     compare/                 matrix plus side-by-side previews (state in the URL query)
+    port/                    prop-by-prop view of moving code between two libraries (URL query)
     tools/[id]/              tool pages (linked from component and library pages)
     guide/                   about, licenses and AI policy, contributing
 previews/
@@ -33,8 +35,19 @@ Library files are plain TypeScript modules. `src/lib/data/index.ts` loads them w
 there at build time and are prerendered (`adapter-static`, `trailingSlash: 'always'`).
 
 Tools in `src/lib/data/tools/` load the same way (`tools`, `toolsFor(componentId)`,
-`toolsUsedBy(libraryId)`). Every tool must map to a component that a tracked library provides,
-which keeps the section grounded in what the site compares.
+`toolsUsedBy(libraryId)`). Tools map to canonical components; since 2026-11-22 those don't have to
+be provided by a tracked library (a tool can fill a gap, such as maps or drag and drop), and
+general `utility` helpers may map to none.
+
+## Props and porting
+
+`props.ts` defines a small shared vocabulary: for 28 common components (button, form controls,
+overlays, tabs, accordion, feedback and display components) the props most libraries have in common, under one
+canonical name. A library component can carry an optional `api` (its shape, the parts you write,
+and how it spells each canonical prop, or `null` for no equivalent), and a library can record
+`conventions` (event style, binding, refs...). Component pages show a props table, and `/port/`
+compares two libraries prop by prop (`portRows`/`portStatus` in `index.ts`). See
+[the props playbook](playbooks/add-props.md).
 
 `vite.config.ts` also reads the library and tool files (a simple regex on `name:`) to build the sidebar.
 

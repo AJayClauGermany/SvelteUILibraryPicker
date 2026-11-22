@@ -12,6 +12,7 @@
  *  - Respect each library's license and any stated boundaries around AI/agents.
  */
 import type { ComponentId } from './components'
+import type { ConventionId } from './props'
 
 /** Major Svelte versions a library can declare support for. */
 export type SvelteMajor = 3 | 4 | 5
@@ -167,6 +168,69 @@ export interface LicenseInfo {
 	notes?: string
 }
 
+/**
+ * How a component is assembled, which decides how much code moves when you port it.
+ *
+ * - `props`    — one component configured with props (`<Modal title="..." bind:open>`).
+ * - `compound` — several parts you nest (`<Dialog.Root><Dialog.Trigger/><Dialog.Content/>`).
+ * - `builder`  — a function or class that returns attributes you spread on your own markup.
+ * - `machine`  — a framework-agnostic state machine you connect and spread (Zag-style).
+ * - `css`      — CSS classes on native elements; no component to import.
+ * - `function` — a function you call (e.g. `toast.success('Saved')`), usually with a host component.
+ */
+export type ApiStyle = 'props' | 'compound' | 'builder' | 'machine' | 'css' | 'function'
+
+export const apiStyleInfo: Record<ApiStyle, { label: string, description: string }> = {
+	props: { label: 'Single component', description: 'One component configured with props.' },
+	compound: { label: 'Compound parts', description: 'Several parts you nest, e.g. Root, Trigger and Content.' },
+	builder: { label: 'Builder', description: 'A function or class that returns attributes you spread on your own markup.' },
+	machine: { label: 'State machine', description: 'A framework-agnostic machine you connect, then spread its props on your markup.' },
+	css: { label: 'CSS classes', description: 'Classes on native elements; nothing to import.' },
+	function: { label: 'Function call', description: 'A function you call, usually with a host component placed once in your layout.' },
+}
+
+/**
+ * How a library spells one canonical prop (see `props.ts`). Record names VERBATIM from the
+ * library's docs or type definitions.
+ */
+export interface PropMapping {
+	/**
+	 * The library's own name: a prop (`disabled`), a Svelte 4 event (`on:click`), a builder
+	 * option (`onOpenChange`), a slot (`slot="title"`) or a part (`Dialog.Title`).
+	 */
+	name: string
+	/** Where it goes when that isn't the main component, e.g. `Tabs.Root`, `createDialog()`. */
+	on?: string
+	/** Allowed values for `enum` props, verbatim (e.g. `['sm', 'md', 'lg']`). */
+	values?: string[]
+	/** Default value, verbatim, when the docs or types state one. */
+	default?: string
+	/** `true` if it supports `bind:` (Svelte), so the port view can say so. */
+	bindable?: boolean
+	/** Short note in your own words (e.g. "takes a snippet", "fires with the new value"). */
+	notes?: string
+}
+
+/** A component's API shape and its canonical prop mappings. */
+export interface ComponentApi {
+	style: ApiStyle
+	/**
+	 * Names you write, in nesting order for compound components, verbatim
+	 * (e.g. `['Dialog.Root', 'Dialog.Trigger', 'Dialog.Content', 'Dialog.Title']`, `['Modal']`,
+	 * `['createDialog']`).
+	 */
+	parts: string[]
+	/**
+	 * Canonical prop id (from `canonicalProps[component]`) to how this library spells it.
+	 * `null` means you checked and there is no equivalent. Leave a prop out if you didn't check.
+	 */
+	props: Record<string, PropMapping | null>
+	/** REQUIRED: where you read the API (docs API reference, or the `.d.ts`/source on GitHub). */
+	source: string
+	/** Version the props were read from, if it differs from the library's `version`. */
+	version?: string
+}
+
 export interface LibraryComponent {
 	/** Canonical id from `components.ts` — this is what makes cross-library comparison work. */
 	id: ComponentId
@@ -176,6 +240,20 @@ export interface LibraryComponent {
 	docs: string
 	/** Optional short note in your own words (e.g. "builder only", "experimental"). */
 	notes?: string
+	/**
+	 * Optional: the component's API shape and how it spells the shared props in `props.ts`.
+	 * Only for components that have canonical props there.
+	 */
+	api?: ComponentApi
+}
+
+/** How a library handles one library-wide convention (see `conventionInfo` in `props.ts`). */
+export interface Convention {
+	/** Short answer, ideally with a code-ish example, e.g. "callback props: `onclick={fn}`". */
+	value: string
+	notes?: string
+	/** REQUIRED: where you verified it. */
+	source: string
 }
 
 export interface Library {
@@ -210,6 +288,11 @@ export interface Library {
 	features: FeatureTag[]
 	components: LibraryComponent[]
 	ai: AiPolicy
+	/**
+	 * Optional: library-wide habits (event style, binding, refs...) that matter when porting
+	 * code to or from this library. See `conventionInfo` in `props.ts`.
+	 */
+	conventions?: Partial<Record<ConventionId, Convention>>
 	/** ISO date (YYYY-MM-DD) the entry was last checked against the source. */
 	lastVerified: string
 	/** Optional extra caveats shown on the library page. */
@@ -281,8 +364,9 @@ export interface Tool {
 	/** Version of the primary package these facts were verified against. */
 	version: string
 	/**
-	 * Canonical components this tool provides or helps build. Each one must be provided by
-	 * at least one tracked library, so every tool stays grounded in what the site compares.
+	 * Canonical components this tool provides or helps build. They don't have to be provided
+	 * by a tracked library: a tool can fill a gap no library covers (maps, drag and drop...).
+	 * Only `utility` tools may leave this empty (general helpers such as runes utilities).
 	 */
 	components: ComponentId[]
 	/** Tracked libraries that build on or document this tool. `[]` if none. */

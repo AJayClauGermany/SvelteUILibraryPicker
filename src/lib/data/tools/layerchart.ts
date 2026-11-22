@@ -22,6 +22,11 @@ export default defineTool({
 	components: ['chart'],
 	usedBy: [
 		{
+			library: 'cossui-svelte',
+			how: 'Its Chart component is built on it.',
+			source: 'https://github.com/cossui-svelte/cossui-svelte/blob/v1.2.0/static/r/chart.json',
+		},
+		{
 			library: 'shadcn-svelte',
 			how: 'Its Chart component is a themed container and tooltip used together with LayerChart components; the registry lists layerchart as a dependency.',
 			source: 'https://github.com/huntabyte/shadcn-svelte/blob/main/docs/static/registry/chart.json',

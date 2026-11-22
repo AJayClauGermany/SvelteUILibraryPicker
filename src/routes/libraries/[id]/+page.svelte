@@ -5,10 +5,11 @@
 	// frontmatter; we wrap PageLayout ourselves to give it a dynamic title.
 	import AiPolicyBadge from '#lib/components/AiPolicyBadge.svelte'
 	import DocsLink from '#lib/components/DocsLink.svelte'
+	import InlineCode from '#lib/components/InlineCode.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
 	import SvelteSupport from '#lib/components/SvelteSupport.svelte'
 	import ToolingChips from '#lib/components/ToolingChips.svelte'
-	import { componentsByCategory, components, dependencyKindLabels, featureInfo, toolsUsedBy } from '#lib/data/index.ts'
+	import { componentsByCategory, components, conventionIds, conventionInfo, dependencyKindLabels, featureInfo, toolsUsedBy } from '#lib/data/index.ts'
 	import { hasPreview, previewPath } from '#lib/previews.ts'
 
 	const { data } = $props()
@@ -18,11 +19,13 @@
 	const groups = $derived(componentsByCategory(lib.components.map(c => c.id)))
 	const byId = $derived(new Map(lib.components.map(c => [c.id, c])))
 	const builtOn = $derived(toolsUsedBy(lib.id))
+	const conventions = $derived(conventionIds.filter(id => lib.conventions?.[id]))
 	/** "On this page" entries; keep in step with the headings below. */
 	const anchors = $derived([
 		{ title: 'At a glance', slugId: 'at-a-glance', depth: 2 },
 		{ title: 'Dependencies you install', slugId: 'dependencies', depth: 2 },
 		...(lib.notes?.length ? [{ title: 'Notes', slugId: 'notes', depth: 2 }] : []),
+		...(conventions.length ? [{ title: 'API conventions', slugId: 'conventions', depth: 2 }] : []),
 		{ title: `Components (${lib.components.length})`, slugId: 'components', depth: 2 },
 		...groups.map(g => ({ title: g.label, slugId: `cat-${g.category}`, depth: 3 })),
 		...(builtOn.length ? [{ title: 'Tools it builds on', slugId: 'tools', depth: 2 }] : []),
@@ -94,6 +97,25 @@
 	<ul>{#each lib.notes as n (n)}<li>{n}</li>{/each}</ul>
 {/if}
 
+{#if conventions.length}
+	<h2 id="conventions">API conventions</h2>
+	<p class="ulp-muted">How this library handles events, state, refs and markup across its components. Useful when you <a href={url(`/port/?from=${lib.id}`)}>port code</a> to or from it.</p>
+	<div class="ulp-table-wrap">
+		<table class="ulp-table">
+			<tbody>
+				{#each conventions as id (id)}
+					{@const c = lib.conventions![id]!}
+					<tr>
+						<th scope="row" title={conventionInfo[id].description}>{conventionInfo[id].label}</th>
+						<td><InlineCode text={c.value} />{#if c.notes}<div class="ulp-muted"><InlineCode text={c.notes} /></div>{/if}</td>
+						<td><a href={c.source} target="_blank" rel="noopener noreferrer">Source</a></td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+{/if}
+
 <h2 id="components">Components ({lib.components.length})</h2>
 <p class="ulp-muted">Names are the library's own; every link goes to its official docs page.</p>
 {#each groups as group (group.category)}
@@ -107,7 +129,7 @@
 					<tr>
 						<td>{c.name}{#if c.notes}<div class="ulp-muted">{c.notes}</div>{/if}</td>
 						<td><a href={url(`/components/${id}/`)}>{components[id].name}</a></td>
-						<td><DocsLink href={c.docs}>docs</DocsLink></td>
+						<td><DocsLink href={c.docs}>docs</DocsLink>{#if c.api} <a class="ulp-muted" href={url(`/components/${id}/#props`)}>props</a>{/if}</td>
 						<td>{#if hasPreview(lib.id, id)}<a href={url(previewPath(lib.id, id))} target="_blank" rel="noopener">live</a>{:else}<span class="ulp-muted">—</span>{/if}</td>
 					</tr>
 				{/each}

@@ -1,7 +1,9 @@
 import type { CategoryId, ComponentId } from './components'
-import type { DependencyKind, FeatureTag, Library, LibraryComponent, ProjectDependency, Tool, ToolKind } from './schema'
+import type { ConventionId, PropComponentId } from './props'
+import type { ApiStyle, ComponentApi, DependencyKind, FeatureTag, Library, LibraryComponent, ProjectDependency, PropMapping, Tool, ToolKind } from './schema'
 import { categories, componentIds, components } from './components'
-import { dependencyKindLabels, featureInfo, toolKindInfo, toolingKinds } from './schema'
+import { canonicalPropIds, canonicalProps, conventionIds, conventionInfo, getCanonicalProp, hasCanonicalProps, propComponentIds, propKindInfo } from './props'
+import { apiStyleInfo, dependencyKindLabels, featureInfo, toolKindInfo, toolingKinds } from './schema'
 
 const modules = import.meta.glob<{ default: Library }>('./libraries/*.ts', { eager: true })
 
@@ -93,5 +95,111 @@ export function toolsUsedBy(libraryId: string): Tool[] {
 	return tools.filter(t => t.usedBy.some(u => u.library === libraryId))
 }
 
-export { categories, componentIds, components, dependencyKindLabels, featureInfo, toolKindInfo, toolingKinds }
-export type { CategoryId, ComponentId, DependencyKind, FeatureTag, Library, LibraryComponent, ProjectDependency, Tool, ToolKind }
+/** Canonical components that a library or a tool provides. */
+export const coveredOrToolComponentIds: ComponentId[] = componentIds.filter(id =>
+	librariesWith(id).length > 0 || toolsFor(id).length > 0,
+)
+
+/* ------------------------------------------------------------------------------------------
+ * Props and porting
+ * ---------------------------------------------------------------------------------------- */
+
+/** A library component's API data, if someone recorded it. */
+export function apiFor(library: Library, id: ComponentId): ComponentApi | undefined {
+	return findComponent(library, id)?.api
+}
+
+/** Libraries that have API data for a component. */
+export function librariesWithApi(id: ComponentId): Library[] {
+	return libraries.filter(l => apiFor(l, id))
+}
+
+/** Libraries that record at least one component API or convention. */
+export const librariesWithPortData: Library[] = libraries.filter(l =>
+	l.components.some(c => c.api) || Object.keys(l.conventions ?? {}).length > 0,
+)
+
+/**
+ * How one canonical prop moves from one library to another.
+ * - `same`: same name and place (and same values for choices).
+ * - `values`: same name, but the allowed values differ.
+ * - `renamed`: exists in both, under a different name or on a different part.
+ * - `missing`: the source has it, the target has no equivalent.
+ * - `gained`: only the target has it.
+ * - `unknown`: one side wasn't checked.
+ * - `neither`: checked on both sides, neither has it.
+ */
+export type PortStatus = 'same' | 'values' | 'renamed' | 'missing' | 'gained' | 'unknown' | 'neither'
+
+export const portStatusInfo: Record<PortStatus, { label: string, description: string }> = {
+	same: { label: 'Same', description: 'Same name in the same place.' },
+	values: { label: 'Different values', description: 'Same name, but the allowed values differ.' },
+	renamed: { label: 'Renamed or moved', description: 'Exists in both, under a different name or on a different part.' },
+	missing: { label: 'No equivalent', description: 'The target library has no equivalent; drop it or build it yourself.' },
+	gained: { label: 'Only in target', description: 'Only the target library has it.' },
+	unknown: { label: 'Not checked', description: 'Not recorded for one of the libraries yet.' },
+	neither: { label: 'Neither', description: 'Neither library has it.' },
+}
+
+export interface PortRow {
+	prop: string
+	from: PropMapping | null | undefined
+	to: PropMapping | null | undefined
+	status: PortStatus
+}
+
+function sameValues(a?: string[], b?: string[]) {
+	if (!a || !b) return true
+	return a.length === b.length && [...a].sort().join('|') === [...b].sort().join('|')
+}
+
+/**
+ * Where a prop goes, normalized for comparison: '' for the main part (no `on`, the first part,
+ * or any `Root`), otherwise the last segment of the part name, so `Tabs.List` and `TabsList`
+ * compare by `list`.
+ */
+function partKey(on: string | undefined, mainPart?: string) {
+	if (!on || on === mainPart) return ''
+	const last = on.split('.').pop()!.toLowerCase()
+	if (last === 'root') return ''
+	return last
+}
+
+export function portStatus(
+	from: PropMapping | null | undefined,
+	to: PropMapping | null | undefined,
+	mainParts: { from?: string, to?: string } = {},
+): PortStatus {
+	if (from === undefined || to === undefined) return 'unknown'
+	if (from === null && to === null) return 'neither'
+	if (from === null) return 'gained'
+	if (to === null) return 'missing'
+	if (from.name !== to.name || partKey(from.on, mainParts.from) !== partKey(to.on, mainParts.to)) return 'renamed'
+	return sameValues(from.values, to.values) ? 'same' : 'values'
+}
+
+/** Prop-by-prop port of one component between two libraries (canonical prop order). */
+export function portRows(id: ComponentId, from: ComponentApi | undefined, to: ComponentApi | undefined): PortRow[] {
+	const mainParts = { from: from?.parts[0], to: to?.parts[0] }
+	return canonicalPropIds(id).map((prop) => {
+		const f = from?.props[prop]
+		const t = to?.props[prop]
+		return { prop, from: f, to: t, status: portStatus(f, t, mainParts) }
+	})
+}
+
+export type PortSummary = Record<PortStatus, number>
+
+export function summarizePort(rows: PortRow[]): PortSummary {
+	const sum = Object.fromEntries(Object.keys(portStatusInfo).map(k => [k, 0])) as PortSummary
+	for (const r of rows) sum[r.status]++
+	return sum
+}
+
+/** Short text for a mapping, e.g. "`open` on Dialog.Root (bindable)". */
+export function describeMapping(m: PropMapping): string {
+	return [m.name, m.on ? `on ${m.on}` : '', m.bindable ? '(bindable)' : ''].filter(Boolean).join(' ')
+}
+
+export { apiStyleInfo, canonicalPropIds, canonicalProps, categories, componentIds, components, conventionIds, conventionInfo, dependencyKindLabels, featureInfo, getCanonicalProp, hasCanonicalProps, propComponentIds, propKindInfo, toolKindInfo, toolingKinds }
+export type { ApiStyle, CategoryId, ComponentApi, ComponentId, ConventionId, DependencyKind, FeatureTag, Library, LibraryComponent, ProjectDependency, PropComponentId, PropMapping, Tool, ToolKind }

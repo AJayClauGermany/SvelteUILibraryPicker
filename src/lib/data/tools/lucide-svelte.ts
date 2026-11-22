@@ -23,6 +23,21 @@ export default defineTool({
 	components: ['icon'],
 	usedBy: [
 		{
+			library: 'cossui-svelte',
+			how: 'Components import icons from @lucide/svelte (e.g. the dialog close button).',
+			source: 'https://github.com/cossui-svelte/cossui-svelte/blob/v1.2.0/src/lib/components/ui/dialog/dialog-content.svelte',
+		},
+		{
+			library: 'neobrutalism-svelte',
+			how: 'Its components import icons from @lucide/svelte (e.g. the checkbox marks).',
+			source: 'https://github.com/olegpolin/neobrutalism-svelte/blob/main/src/lib/registry/ui/checkbox/checkbox.svelte',
+		},
+		{
+			library: 'retroui-svelte',
+			how: 'Its registry init item installs @lucide/svelte, and many components use its icons.',
+			source: 'https://github.com/Mhamad6000/retroui-svelte/blob/main/registry.json',
+		},
+		{
 			library: 'shadcn-svelte',
 			how: 'Default icon library: the CLI installs @lucide/svelte on init and the copied components import from it.',
 			source: 'https://github.com/huntabyte/shadcn-svelte/blob/main/docs/static/registry/init.json',

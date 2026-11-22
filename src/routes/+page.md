@@ -17,6 +17,8 @@ features:
     description: See which Svelte majors each library supports, whether it's built for runes, and the exact peer range we checked.
   - title: Components, mapped
     description: Every library's components mapped onto one shared list, so a Dialog in one lines up with a Modal in another.
+  - title: Props, lined up
+    description: Shared props under one name with each library's spelling, and a Port view that shows what changes when you move code between libraries.
   - title: Default styles, side by side
     description: Live previews render each library in an isolated frame with its own default styling.
   - title: Always links back

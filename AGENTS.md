@@ -57,6 +57,7 @@ Node >= 22, pnpm 10.
 | --- | --- |
 | `src/lib/data/schema.ts` | Types and rules for library entries (read this first) |
 | `src/lib/data/components.ts` | Canonical component taxonomy (ids, categories, aliases) |
+| `src/lib/data/props.ts` | Canonical props per component and library-wide API conventions (props tables, `/port/`) |
 | `src/lib/data/libraries/<id>.ts` | One file per library (`export default defineLibrary({...})`) |
 | `src/lib/data/tools/<id>.ts` | One file per tool: single-purpose packages and building blocks (`defineTool({...})`) |
 | `src/lib/data/validate.test.ts` | The data rules `pnpm validate` enforces |
@@ -91,6 +92,7 @@ Step-by-step procedures (plain Markdown, usable by any agent):
 - [Add or update a library](docs/playbooks/add-library.md)
 - [Add a live preview](docs/playbooks/add-preview.md)
 - [Add or update a tool](docs/playbooks/add-tool.md)
+- [Add component props and conventions](docs/playbooks/add-props.md)
 
 ## Pull requests
 

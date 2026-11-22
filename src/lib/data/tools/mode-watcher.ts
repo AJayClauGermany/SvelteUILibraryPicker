@@ -23,6 +23,21 @@ export default defineTool({
 	components: ['theme-switcher'],
 	usedBy: [
 		{
+			library: 'neobrutalism-svelte',
+			how: 'Its Sonner component reads the current mode from mode-watcher.',
+			source: 'https://github.com/olegpolin/neobrutalism-svelte/blob/main/src/lib/registry/ui/sonner/sonner.svelte',
+		},
+		{
+			library: 'retroui-svelte',
+			how: 'Its Sonner component reads the current mode from mode-watcher.',
+			source: 'https://github.com/Mhamad6000/retroui-svelte/blob/main/registry.json',
+		},
+		{
+			library: 'shadcn-svelte-extras',
+			how: 'Its Light Switch and Theme Selector components are built on mode-watcher.',
+			source: 'https://github.com/ieedan/shadcn-svelte-extras/blob/main/content/components/light-switch.md',
+		},
+		{
 			library: 'shadcn-svelte',
 			how: 'Its dark mode guide sets up mode-watcher, and the Sonner component reads the current mode from it.',
 			source: 'https://github.com/huntabyte/shadcn-svelte/blob/main/docs/content/dark-mode/svelte.md',

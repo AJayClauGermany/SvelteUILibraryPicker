@@ -23,6 +23,11 @@ export default defineTool({
 	components: ['drawer'],
 	usedBy: [
 		{
+			library: 'shadcn-svelte-extras',
+			how: 'Its Modal renders a vaul-svelte drawer instead of a dialog on narrow screens.',
+			source: 'https://github.com/ieedan/shadcn-svelte-extras/blob/main/src/lib/components/ui/modal/modal.svelte',
+		},
+		{
 			library: 'shadcn-svelte',
 			how: 'Its Drawer component wraps the vaul-svelte primitives (installs the next pre-release).',
 			source: 'https://github.com/huntabyte/shadcn-svelte/blob/main/docs/static/registry/drawer.json',
