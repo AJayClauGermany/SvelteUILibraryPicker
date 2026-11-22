@@ -1,0 +1,122 @@
+import { defineLibrary } from '../schema'
+
+const d = 'https://www.shadcn-svelte-extras.com/docs/components'
+const gh = 'https://github.com/ieedan/shadcn-svelte-extras/blob/main'
+
+export default defineLibrary({
+	id: 'shadcn-svelte-extras',
+	name: 'shadcn-svelte-extras',
+	description:
+		'A registry of extra components, hooks and actions in shadcn-svelte style, copied into your project with the jsrepo or shadcn-svelte CLI.',
+	docs: 'https://www.shadcn-svelte-extras.com/docs',
+	repository: 'https://github.com/ieedan/shadcn-svelte-extras',
+	packages: ['jsrepo', 'shadcn-svelte'],
+	license: {
+		spdx: 'MIT',
+		url: `${gh}/LICENSE`,
+	},
+	svelte: {
+		supported: [5],
+		runes: true,
+	},
+	version: '7.4.0',
+	styling: ['copy-paste', 'tailwind'],
+	dependencies: [
+		{ package: 'tailwindcss', kind: 'tailwind', range: '^4.2.2', required: true, notes: 'Setup assumes a project already initialized with the shadcn-svelte CLI, which uses Tailwind v4; the range is what the registry itself is built with.', source: `${gh}/content/installation.md` },
+		{ package: 'vaul-svelte', kind: 'peer', range: '1.0.0-next.7', required: false, notes: 'Only for Modal, which switches to a drawer on narrow screens.', source: `${gh}/src/lib/components/ui/modal/modal.svelte` },
+		{ package: 'mode-watcher', kind: 'peer', range: '^1.1.0', required: false, notes: 'Only for Light Switch and Theme Selector.', source: `${gh}/content/components/light-switch.md` },
+		{ package: 'bits-ui', kind: 'peer', required: false, notes: 'Headless layer behind Modal, Underline Tabs and other components; added by the CLI with the components that use it.', source: `${gh}/package.json` },
+	],
+	features: ['typescript', 'runes', 'dark-mode', 'forms'],
+	components: [
+		{ id: 'button', name: 'Button', docs: `${d}/button`, notes: 'Extends the shadcn-svelte Button with a loading state. Copy Button, GitHub Button and Split Button are separate entries.', api: {
+			style: 'props',
+			parts: ['Button'],
+			source: `${gh}/src/lib/components/button.svelte`,
+			props: {
+				onclick: { name: 'onclick' },
+				disabled: { name: 'disabled' },
+				href: { name: 'href', notes: 'Renders an <a> instead of a <button>.' },
+				type: { name: 'type', default: 'button', notes: 'Passed through to the native <button>.' },
+				variant: { name: 'variant', values: ['default', 'outline', 'secondary', 'ghost', 'destructive', 'link'], default: 'default' },
+				size: { name: 'size', values: ['default', 'xs', 'sm', 'lg', 'icon', 'icon-xs', 'icon-sm', 'icon-lg'], default: 'default' },
+				color: null,
+				loading: { name: 'loading', default: 'false', notes: 'Shows a spinner and disables the button; `onClickPromise` does the same until its promise settles.' },
+			},
+		} },
+		{ id: 'split-button', name: 'Split Button', docs: `${d}/split-button` },
+		{ id: 'clipboard', name: 'Copy Button', docs: `${d}/copy-button`, notes: 'A UseClipboard hook is also available.' },
+		{ id: 'code-block', name: 'Code', docs: `${d}/code`, notes: 'Related display components: Snippet, PM Command (package manager commands) and Terminal.' },
+		{ id: 'color-picker', name: 'Color Picker', docs: `${d}/color-picker` },
+		{ id: 'alert-dialog', name: 'Confirm Delete Dialog', docs: `${d}/confirm-delete-dialog`, notes: 'A delete confirmation opened with a function call, optionally asking the user to type a confirmation text.' },
+		{ id: 'dialog', name: 'Modal', docs: `${d}/modal`, notes: 'Renders a dialog on wide screens and a drawer on narrow ones.', api: {
+			style: 'compound',
+			parts: ['Modal.Root', 'Modal.Trigger', 'Modal.Content', 'Modal.Header', 'Modal.Title', 'Modal.Description', 'Modal.Footer'],
+			source: `${gh}/src/lib/components/ui/modal/modal.svelte`,
+			props: {
+				open: { name: 'open', on: 'Modal.Root', bindable: true, default: 'false' },
+				onOpenChange: { name: 'onOpenChange', on: 'Modal.Root', notes: 'Bits UI Dialog prop, forwarded through rest props.' },
+				title: { name: 'Modal.Title', notes: 'A part, not a prop.' },
+				closeOnEscape: { name: 'escapeKeydownBehavior', on: 'Modal.Content', values: ['close', 'defer-otherwise-close', 'defer-otherwise-ignore', 'ignore'], default: 'close', notes: 'Bits UI Dialog.Content prop, forwarded through rest props; on narrow screens the props go to the drawer instead.' },
+				closeOnOutsideClick: { name: 'interactOutsideBehavior', on: 'Modal.Content', values: ['close', 'defer-otherwise-close', 'defer-otherwise-ignore', 'ignore'], default: 'close', notes: 'Bits UI Dialog.Content prop, forwarded through rest props.' },
+				size: null,
+			},
+		} },
+		{ id: 'tags-input', name: 'Tags Input', docs: `${d}/tags-input` },
+		{ id: 'file-upload', name: 'File Drop Zone', docs: `${d}/file-drop-zone` },
+		{ id: 'image-cropper', name: 'Image Cropper', docs: `${d}/image-cropper` },
+		{ id: 'number-input', name: 'Number Field', docs: `${d}/number-field` },
+		{ id: 'password-input', name: 'Password', docs: `${d}/password` },
+		{ id: 'rating', name: 'Star Rating', docs: `${d}/star-rating` },
+		{ id: 'editable', name: 'Rename', docs: `${d}/rename`, notes: 'Inline editing of a name, with save, cancel and edit controls or a content-editable mode.' },
+		{ id: 'link', name: 'Link', docs: `${d}/link` },
+		{ id: 'stepper', name: 'Stepper', docs: `${d}/stepper` },
+		{ id: 'table-of-contents', name: 'Table of Contents', docs: `${d}/toc`, notes: 'A UseToc hook is also available.' },
+		{ id: 'tabs', name: 'Underline Tabs', docs: `${d}/underline-tabs`, notes: 'Horizontal tabs with an animated underline.', api: {
+			style: 'compound',
+			parts: ['UnderlineTabs.Root', 'UnderlineTabs.List', 'UnderlineTabs.Trigger', 'UnderlineTabs.Content'],
+			source: `${gh}/src/lib/components/ui/underline-tabs/underline-tabs.svelte`,
+			props: {
+				value: { name: 'value', on: 'UnderlineTabs.Root', bindable: true, default: '\'\'' },
+				onValueChange: { name: 'onValueChange', on: 'UnderlineTabs.Root', notes: 'Bits UI Tabs prop, forwarded through rest props.' },
+				items: null,
+				orientation: null,
+				activationMode: { name: 'activationMode', on: 'UnderlineTabs.Root', values: ['automatic', 'manual'], default: 'automatic', notes: 'Bits UI Tabs prop, forwarded through rest props.' },
+			},
+		} },
+		{ id: 'meter', name: 'Meter', docs: `${d}/meter` },
+		{ id: 'tree-view', name: 'Tree View', docs: `${d}/tree-view` },
+		{ id: 'theme-switcher', name: 'Light Switch', docs: `${d}/light-switch`, notes: 'A Theme Selector component for picking between themes is also available.' },
+	],
+	ai: {
+		status: 'welcomes',
+		summary:
+			'The docs have an Agents page: every docs page has a Markdown version for agents, and it points to the jsrepo MCP server for searching the registry. The site serves an llms.txt and the repo ships a Cursor rules file.',
+		sources: [
+			'https://www.shadcn-svelte-extras.com/docs/agents',
+			`${gh}/content/agents.md`,
+			`${gh}/static/llms.txt`,
+			`${gh}/rules/shadcn-svelte-extras.mdc`,
+		],
+		llmsTxt: 'https://www.shadcn-svelte-extras.com/llms.txt',
+	},
+	conventions: {
+		'events': { value: 'callback props: `onclick={fn}`', source: `${gh}/src/lib/components/button.svelte` },
+		'binding': { value: '`bind:open` / `bind:value` on the root part', source: `${gh}/src/lib/components/ui/modal/modal.svelte` },
+		'ref': { value: '`bind:ref`', source: `${gh}/src/lib/components/ui/underline-tabs/underline-tabs.svelte` },
+		'class': { value: 'merged with tailwind-merge (`cn`)', source: `${gh}/src/lib/utils.ts` },
+		'rest-props': { value: 'forwarded to the underlying element or Bits UI part', source: `${gh}/src/lib/components/ui/button/button.svelte` },
+		'render-delegation': { value: 'Bits UI `child` snippet on Bits-based parts; Button renders `<a>` when given `href`', notes: 'Parts forward rest props to Bits UI components, so `child` reaches them.', source: `${gh}/src/lib/components/ui/modal/modal-trigger.svelte` },
+		'composition': { value: 'compound parts (`Modal.Root`, `Modal.Content`...) plus single components', source: `${gh}/content/components/modal.md` },
+	},
+	lastVerified: '2026-11-22',
+	notes: [
+		'Installed from a jsrepo registry (`@ieedan/shadcn-svelte-extras`, the docs recommend this) or as shadcn-svelte registry items by URL; there is no npm package. Both routes assume a project already set up with shadcn-svelte.',
+		'`version` is the registry release (repo tag v7.4.0); `packages` lists the two CLIs that can install it.',
+		'Builds on shadcn-svelte: it pulls in shadcn-svelte components (button, dialog, drawer, tabs, tooltip...) as needed, but it has no Input, Checkbox, Switch, Select or Tooltip of its own.',
+		'Components without a canonical id yet: Chat, Emoji Picker, Field Set, GitHub Button, IPv4 Address Input, Language Switcher, NLP Date Input, Phone Input and Window.',
+		'Modal uses vaul-svelte for its drawer view, and Light Switch and Theme Selector need mode-watcher (its ModeWatcher in your root layout).',
+		'Also ships hooks (UseClipboard, UseMedia, UsePromise, UseFrecency...) and Svelte actions (Active, Shortcut, Typewriter).',
+		'The llms.txt on the site appears out of date: it links to an older URL layout. Each docs page also has a Markdown version at its URL plus `.md`.',
+	],
+})
