@@ -5,19 +5,29 @@ styling**, side by side, with a docs link for each.
 
 ## What "default" means
 
-- **Styled libraries** (Carbon, Sveltestrap, M3, …): load the library's default theme exactly as
+- **Styled libraries** (Carbon, Sveltestrap, Bootstrap Svelte, M3, …): load the library's default theme exactly as
   its install guide says, and add nothing.
-- **Headless libraries** (Bits UI, Melt, Ark UI): they ship no styles, so the preview is
+- **Headless libraries** (Bits UI, Melt, Ark UI, Zag): they ship no styles, so the preview is
   intentionally unstyled. That *is* their default, and the compare page says so.
-- **Tailwind libraries** (Skeleton, Flowbite Svelte): Tailwind v4 runs inside the preview app
+- **Tailwind libraries** (Skeleton, Flowbite Svelte, Kampsy UI, Konsta UI, Sivir UI): Tailwind v4 runs inside the preview app
   only. Each library has its own `previews/src/<lib>/styles.css` that imports Tailwind with
   `source(none)`, the library's documented default theme, and `@source` limited to that
   library's folder and package, so themes and utilities never mix between libraries.
 - **M3 Svelte** compiles its component styles through the `vite-plugin-functions-mixins` plugin
   from its quick start, registered in `previews/vite.config.ts`; `previews/src/m3-svelte/styles.css`
   holds the quick start's base styles and the theme page's default colour snippet.
-- **Copy-paste libraries** (shadcn-svelte): the "default" is the generated component with its
-  default theme. Not supported yet, because it needs generated files per component.
+- **Copy-paste libraries** (shadcn-svelte, shadcn-svelte-extras, coss ui, neobrutalism-svelte,
+  RetroUI, Lily): the "default" is the generated component with its default theme. Each library's
+  own CLI (`shadcn-svelte add`, `jsrepo`, `lily-svelte add`) was run in a scratch SvelteKit project
+  with its default style/base colour, and the output was copied into `previews/src/<lib>/`:
+  component source under `ui/` (or `components/ui/` for extras), helpers in `hooks/` and
+  `utils.ts`, and the generated global CSS as `styles.css` (with `source(none)` and `@source '.'`
+  added). Previews only glob top-level files, so these subfolders are never treated as previews.
+  The generated code is kept as is apart from mechanical changes: `$lib/...` imports rewritten to
+  relative paths (the preview app has no `$lib`), RetroUI's calendar type import path fixed, and one snippet parameter type
+  added in coss ui's color picker so `pnpm check` passes. coss ui's rich editor and map were left
+  out because they need ~30 extra packages (Tiptap, Mermaid, MapLibre). To refresh one of these
+  folders, re-run the library's CLI the same way and re-apply those changes.
 
 ## Light and dark
 
@@ -34,7 +44,9 @@ form controls; that is all a headless library has), and styled libraries additio
 | M3 Svelte | nothing extra: its theme CSS uses `light-dark()` |
 | Skeleton | `data-mode="dark"` on `<html>` + the data-attribute custom variant |
 | SVAR Core | `<WillowDark>` instead of `<Willow>` (the preview reads `theme.current`) |
-| Sveltestrap | Bootstrap's `data-bs-theme="dark"` on `<html>` |
+| Sveltestrap, Bootstrap Svelte | Bootstrap's `data-bs-theme="dark"` on `<html>` |
+| Kampsy UI, Konsta UI, Sivir UI | `class="dark"` on `<html>` (each theme file's dark variant) |
+| shadcn-svelte and the copy-paste registries | `class="dark"` on `<html>` (what mode-watcher sets) with the generated `.dark` variables |
 
 The app picks the mode from `?theme=`, else from the embedding site's `dark` class, else the OS,
 and the site posts `{ type: 'ulp:theme', theme }` on toggles (see `previews/main.ts`).
@@ -82,11 +94,9 @@ Not covered yet:
 
 - **Svelte UX** 1.x requires Tailwind 3 (its theme is a Tailwind 3 plugin), so it cannot run in
   the Tailwind 4 pipeline. Revisit when Svelte UX 2.0 (Svelte 5 + Tailwind 4) leaves prerelease.
-- **shadcn-svelte** is copy-paste; see above.
+- **Svelte Material UI**: its `ai.status` is `restricted`, so it gets facts and links only.
 
 ## Roadmap
 
-- **shadcn-svelte previews**: generate the default components with its CLI into a dedicated
-  folder under `previews/src/shadcn-svelte/` and reuse the Tailwind setup above.
 - **Svelte UX 2.0**: add a `styles.css` and previews once 2.0 is stable.
 - **Screenshot tests** (Playwright) so preview regressions show up in PRs.

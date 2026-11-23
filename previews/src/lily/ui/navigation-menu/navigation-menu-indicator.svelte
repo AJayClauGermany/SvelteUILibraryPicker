@@ -1,0 +1,26 @@
+<script lang="ts">
+	import { NavigationMenu as NavigationMenuPrimitive } from 'bits-ui';
+	import { cn } from '../../utils.js';
+
+	let {
+		ref = $bindable(null),
+		class: className,
+		...restProps
+	}: NavigationMenuPrimitive.IndicatorProps = $props();
+</script>
+
+<NavigationMenuPrimitive.Indicator
+	bind:ref
+	data-slot="navigation-menu-indicator"
+	class={cn(
+		'top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden data-[state=hidden]:animate-out data-[state=hidden]:fade-out-0 data-[state=visible]:animate-in data-[state=visible]:fade-in-0',
+		className
+	)}
+	{...restProps}
+>
+	<div
+		class={cn(
+			'relative top-[60%] size-2 rotate-45 rounded-tl-sm bg-(--bg-elevated) shadow-sm'
+		)}
+	></div>
+</NavigationMenuPrimitive.Indicator>

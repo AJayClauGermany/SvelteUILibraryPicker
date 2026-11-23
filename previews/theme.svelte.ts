@@ -29,6 +29,28 @@ const switches: Record<string, (dark: boolean) => void> = {
 	// Bootstrap 5.3 colour modes (`[data-bs-theme=dark]` in bootstrap.css); Sveltestrap's own
 	// useColorMode() helper writes the same attribute.
 	'sveltestrap': dark => document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light'),
+	// Bootstrap Svelte: same Bootstrap 5.3 colour modes (docs "Theming": https://bootstrap-svelte.vercel.app/theming).
+	'bootstrap-svelte': dark => document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light'),
+	// Kampsy UI: kampsy-ui/theme.css declares `@variant dark (&:where(.dark, .dark *))`, so `class="dark"`
+	// on <html> selects its dark tokens (https://ui.kampsy.xyz/installation).
+	'kampsy-ui': dark => document.documentElement.classList.toggle('dark', dark),
+	// Konsta UI: its theme declares `@custom-variant dark (&:where(.dark, .dark *))`; the library's own
+	// kitchen-sink toggles `class="dark"` on <html> (https://konstaui.com/svelte/konsta-provider, prop "dark").
+	'konsta': dark => document.documentElement.classList.toggle('dark', dark),
+	// Sivir UI docs "Theming": dark mode applies when <html> has the `.dark` class (https://sivir.dev/docs/theming).
+	'sivir-ui': dark => document.documentElement.classList.toggle('dark', dark),
+	// shadcn-svelte and the registries built on it use the class strategy: `.dark` on <html> (which
+	// mode-watcher sets in an app) plus `@custom-variant dark (&:is(.dark *))` and the `.dark { ... }`
+	// variables in each library's generated ./src/<lib>/styles.css.
+	// Docs: https://shadcn-svelte.com/docs/dark-mode/svelte (lily: https://lily-svelte.levish.workers.dev/docs/dark-mode;
+	// coss ui: https://cossui-svelte.com/docs/styling; RetroUI: https://retroui-svelte.netlify.app/docs/getting-started;
+	// neobrutalism-svelte's dark mode page links to shadcn-svelte's).
+	'shadcn-svelte': dark => document.documentElement.classList.toggle('dark', dark),
+	'shadcn-svelte-extras': dark => document.documentElement.classList.toggle('dark', dark),
+	'cossui-svelte': dark => document.documentElement.classList.toggle('dark', dark),
+	'neobrutalism-svelte': dark => document.documentElement.classList.toggle('dark', dark),
+	'retroui-svelte': dark => document.documentElement.classList.toggle('dark', dark),
+	'lily': dark => document.documentElement.classList.toggle('dark', dark),
 	// M3 Svelte needs nothing extra: its theme CSS is `color-scheme: light dark` with light-dark()
 	// colours, so the baseline color-scheme switch above selects the dark palette.
 	// SVAR Core themes through wrapper components (<Willow> / <WillowDark>), so each SVAR preview

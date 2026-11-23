@@ -1,0 +1,18 @@
+<script lang="ts">
+  import { Avatar as AvatarPrimitive } from '@shardsui/svelte/avatar';
+  import type { ComponentProps } from 'svelte';
+  import { cn } from '../../utils.js';
+
+  let {
+    ref = $bindable(null),
+    class: className,
+    ...restProps
+  }: ComponentProps<typeof AvatarPrimitive.Image> = $props();
+</script>
+
+<AvatarPrimitive.Image
+  bind:ref
+  class={cn('size-full rounded-[inherit] object-cover', className)}
+  data-slot="avatar-image"
+  {...restProps}
+/>

@@ -1,0 +1,155 @@
+<script lang="ts" module>
+	export type TocItem = { title: string; url: string; items?: TocItem[] };
+</script>
+
+<script lang="ts">
+	import { cn } from '../../utils.js';
+
+	let {
+		toc,
+		title = 'On this page',
+		numbered = false,
+		offset = 100,
+		root = undefined,
+		class: className
+	}: {
+		toc: TocItem[];
+		title?: string;
+		/** Prefix each item with a 1.1-style outline number. */
+		numbered?: boolean;
+		/** Distance from the top (px) that counts as "current". */
+		offset?: number;
+		/** Scroll container to spy on. Defaults to the window. */
+		root?: HTMLElement;
+		class?: string;
+	} = $props();
+
+	function flatten(items: TocItem[], depth = 0): { title: string; url: string; depth: number }[] {
+		return items.flatMap((item) => [
+			{ title: item.title, url: item.url, depth },
+			...(item.items ? flatten(item.items, depth + 1) : [])
+		]);
+	}
+
+	const flat = $derived(flatten(toc));
+	let navEl: HTMLElement | undefined = $state();
+	let activeId = $state<string>('');
+
+	const activeIdx = $derived(
+		activeId ? flat.findIndex((i) => i.url.replace(/^#/, '') === activeId) : -1
+	);
+
+	// Outline numbering (1, 1.1, 1.1.1 …) derived from heading depth.
+	const numbering = $derived.by(() => {
+		if (!numbered || !flat.length) return [] as string[];
+		const minDepth = Math.min(...flat.map((h) => h.depth));
+		const counters: Record<number, number> = {};
+		return flat.map((h) => {
+			counters[h.depth] = (counters[h.depth] ?? 0) + 1;
+			for (const d of Object.keys(counters)
+				.map(Number)
+				.filter((d) => d > h.depth))
+				counters[d] = 0;
+			const parts: number[] = [];
+			for (let d = minDepth; d <= h.depth; d++) parts.push(counters[d] ?? 0);
+			return parts.join('.');
+		});
+	});
+
+	// Proximity focus: scale the label without changing the link's layout height.
+	const spring = 'cubic-bezier(0.34,1.56,0.64,1)';
+	function scale(i: number): number {
+		if (activeIdx < 0) return 1;
+		const d = Math.abs(i - activeIdx);
+		return d === 0 ? 1.08 : d === 1 ? 1 : d === 2 ? 0.96 : 0.92;
+	}
+	function opacity(i: number): number {
+		if (activeIdx < 0) return 0.38;
+		const d = Math.abs(i - activeIdx);
+		return d === 0 ? 1 : d === 1 ? 0.48 : d === 2 ? 0.3 : 0.2;
+	}
+
+	function update() {
+		const scrollTop = root ? root.scrollTop : window.scrollY;
+		const containerTop = root ? root.getBoundingClientRect().top : 0;
+		const viewport = root ? root.clientHeight : window.innerHeight;
+		const scrollHeight = root ? root.scrollHeight : document.documentElement.scrollHeight;
+
+		// A heading only becomes current once it can be scrolled to within `offset` of the
+		// top — which the ones in the last screenful never can, so the highlight used to
+		// stall on an earlier heading. In that final stretch the line sweeps down to the
+		// bottom of the viewport instead, picking the trailing headings up on the way.
+		const tail = Math.max(0, viewport - offset);
+		const maxScroll = Math.max(0, scrollHeight - viewport);
+		const sweep = Math.min(tail, Math.max(0, scrollTop - (maxScroll - tail)));
+		const y = scrollTop + offset + sweep;
+
+		let active = '';
+		for (const item of flat) {
+			const el = document.getElementById(item.url.replace(/^#/, ''));
+			if (!el) continue;
+			const top = root
+				? el.getBoundingClientRect().top - containerTop + scrollTop
+				: el.getBoundingClientRect().top + window.scrollY;
+			if (top <= y) active = el.id;
+		}
+		// Above the first heading nothing has passed the line, but that section is what you
+		// are reading — keep the first item current rather than dropping the highlight.
+		activeId = active || flat[0]?.url.replace(/^#/, '') || '';
+	}
+
+	$effect(() => {
+		const target: HTMLElement | Window = root ?? window;
+		update();
+		target.addEventListener('scroll', update, { passive: true });
+		// the sweep depends on viewport height, so a resize changes the answer
+		window.addEventListener('resize', update, { passive: true });
+		return () => {
+			target.removeEventListener('scroll', update);
+			window.removeEventListener('resize', update);
+		};
+	});
+
+	// Keep the active item scrolled into view within the TOC.
+	$effect(() => {
+		if (activeIdx >= 0 && navEl) {
+			navEl
+				.querySelectorAll('a')
+				[activeIdx]?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+		}
+	});
+</script>
+
+{#if flat.length}
+	<div data-slot="toc" class={cn('flex flex-col', className)}>
+		{#if title}
+			<p class={cn('pb-2 text-xs font-medium tracking-[-0.3px] text-(--text)/40')}>
+				{title}
+			</p>
+		{/if}
+		<nav
+			bind:this={navEl}
+			class={cn('no-scrollbar flex max-h-[60vh] flex-col overflow-y-auto')}
+		>
+			{#each flat as item, i (item.url)}
+				<a
+					href={item.url}
+					style:padding-inline-start={`${item.depth * 0.75}rem`}
+					class={cn('block py-[3px] text-[12.5px] leading-[1.5] tracking-[-0.3px]')}
+				>
+					<span
+						style="transform:scale({scale(i)});opacity:{opacity(i)};font-weight:{activeIdx === i
+							? 500
+							: 400};color:var(--text);transition:transform 0.3s {spring},opacity 0.2s ease;"
+						class={cn(
+							'block w-[92.5%] origin-left will-change-[transform,opacity] motion-reduce:transition-none'
+						)}
+					>
+						{#if numbered}<span class={cn('me-1.5 opacity-40')}>{numbering[i]}</span
+							>{/if}{item.title}
+					</span>
+				</a>
+			{/each}
+		</nav>
+	</div>
+{/if}

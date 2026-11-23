@@ -1,0 +1,15 @@
+/*
+  Sivir UI's package-mode setup, as its Installation guide describes: one import of the
+  library's token sheet ui.css, which itself imports Tailwind (so Tailwind is not imported
+  again here), the Inter / JetBrains Mono fonts and the default "sivir" theme tokens.
+  Nothing of ours is added.
+
+  `source(none)` on the import turns off Tailwind's automatic class scanning of the whole
+  preview app; ui.css keeps its own @source for the package, and the line below adds this
+  folder, so no other library's utilities end up here.
+  Dark mode: ui.css's `.dark` class variant, which previews/theme.svelte.ts puts on <html>.
+  Docs: https://sivir.dev/docs/installation
+*/
+@import '@sivir-ui/svelte/ui.css' source(none);
+
+@source '.';

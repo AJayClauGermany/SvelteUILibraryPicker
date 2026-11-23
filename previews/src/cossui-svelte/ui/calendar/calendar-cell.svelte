@@ -1,0 +1,20 @@
+<script lang="ts">
+  import { cn } from '../../utils.js';
+  import * as CalendarPrimitive from './internal';
+
+  let {
+    ref = $bindable(null),
+    class: className,
+    ...restProps
+  }: CalendarPrimitive.CellProps = $props();
+</script>
+
+<CalendarPrimitive.Cell
+  bind:ref
+  class={cn(
+    'relative size-(--cell-size) p-0 text-center text-sm focus-within:z-20 [&:first-child[data-selected]_[data-cossui-day]]:rounded-s-(--cell-radius) [&:last-child[data-selected]_[data-cossui-day]]:rounded-e-(--cell-radius)',
+
+    className
+  )}
+  {...restProps}
+/>
