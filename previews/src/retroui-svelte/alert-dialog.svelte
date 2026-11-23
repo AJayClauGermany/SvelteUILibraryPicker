@@ -11,7 +11,7 @@
 
 <AlertDialog.Root>
 	<AlertDialog.Trigger class={buttonVariants({ variant: 'outline' })}>Delete project</AlertDialog.Trigger>
-	<AlertDialog.Content>
+	<AlertDialog.Content class="max-w-md">
 		<AlertDialog.Header>
 			<AlertDialog.Title>Delete this project?</AlertDialog.Title>
 			<AlertDialog.Description>

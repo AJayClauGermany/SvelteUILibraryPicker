@@ -11,17 +11,14 @@
 
 	$effect(() => {
 		if (!active || !region) return
-		return trapFocus(region, {
-			initialFocus: '#trap-name',
-			onDeactivate: () => (active = false),
-		})
+		return trapFocus(region, { initialFocus: '#trap-name' })
 	})
 </script>
 
 <button onclick={() => (active = true)} disabled={active}>Trap focus</button>
 
 <div bind:this={region}>
-	<p>{active ? 'Tab stays inside this box. Press Escape or Release to leave.' : 'Focus is free.'}</p>
+	<p>{active ? 'Tab stays inside this box until you press Release.' : 'Focus is free.'}</p>
 	<input id="trap-name" placeholder="Name" />
 	<input placeholder="Email" />
 	<button onclick={() => (active = false)}>Release</button>

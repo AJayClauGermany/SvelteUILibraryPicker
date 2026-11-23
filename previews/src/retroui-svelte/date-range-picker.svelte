@@ -24,6 +24,6 @@
 <Popover.Root>
 	<Popover.Trigger class={buttonVariants({ variant: 'outline' })}>{format(value)}</Popover.Trigger>
 	<Popover.Content class="w-auto p-0" align="start">
-		<RangeCalendar bind:value numberOfMonths={2} />
+		<RangeCalendar bind:value />
 	</Popover.Content>
 </Popover.Root>

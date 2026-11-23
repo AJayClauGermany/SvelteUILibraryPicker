@@ -12,4 +12,6 @@
 	let value = $state({ start, end: start.add({ days: 4 }) })
 </script>
 
-<RangeCalendar bind:value />
+<div class="flex">
+	<RangeCalendar bind:value />
+</div>

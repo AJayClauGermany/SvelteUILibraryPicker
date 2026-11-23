@@ -8,7 +8,7 @@
 	import { Textarea } from './ui/textarea/index.js'
 </script>
 
-<div class="grid max-w-sm gap-4">
+<div class="grid w-full gap-2">
 	<Textarea placeholder="Write a short note" />
 	<Textarea placeholder="Disabled" disabled />
 </div>

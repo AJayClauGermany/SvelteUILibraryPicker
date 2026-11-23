@@ -6,11 +6,9 @@
 <script lang="ts">
 	import './styles.css'
 	import { Input } from './ui/input/index.ts'
-
-	let name = $state('')
 </script>
 
-<Input placeholder="Your name" bind:value={name} />
+<Input placeholder="Your name" />
 <Input size="sm" placeholder="Small" />
 <Input size="lg" placeholder="Large" />
 <Input placeholder="Disabled" disabled />

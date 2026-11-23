@@ -10,15 +10,15 @@
 </script>
 
 <Dialog.Root>
-	<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>Rename file</Dialog.Trigger>
+	<Dialog.Trigger class={buttonVariants({ variant: 'outline' })}>Publish changes</Dialog.Trigger>
 	<Dialog.Content>
 		<Dialog.Header>
-			<Dialog.Title>Rename file</Dialog.Title>
-			<Dialog.Description>The new name will show up for everyone who has access.</Dialog.Description>
+			<Dialog.Title>Publish changes</Dialog.Title>
+			<Dialog.Description>Your edits will be visible to everyone with access.</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Footer>
 			<Dialog.Close class={buttonVariants({ variant: 'outline' })}>Cancel</Dialog.Close>
-			<Button>Save</Button>
+			<Button>Publish</Button>
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

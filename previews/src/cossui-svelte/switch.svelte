@@ -7,19 +7,19 @@
 	import './styles.css'
 	import { Label } from './ui/label/index.ts'
 	import { Switch } from './ui/switch/index.ts'
-
-	let checked = $state(true)
 </script>
 
-<Label>
-	<Switch bind:checked />
-	Wi-Fi
-</Label>
-<Label>
-	<Switch />
-	Bluetooth
-</Label>
-<Label>
-	<Switch disabled />
-	Airplane mode (unavailable)
-</Label>
+<div class="flex flex-col gap-3">
+	<Label>
+		<Switch checked />
+		Wi-Fi
+	</Label>
+	<Label>
+		<Switch />
+		Bluetooth
+	</Label>
+	<Label>
+		<Switch disabled />
+		Airplane mode (unavailable)
+	</Label>
+</div>

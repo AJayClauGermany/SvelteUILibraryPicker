@@ -1,6 +1,7 @@
 <!--
   shadcn-svelte is copy-paste: ./ui holds the components its CLI generates with the default
   preset, and ./styles.css the theme it writes. Unchanged apart from relative import paths.
+  The preview frame is narrower than its mobile breakpoint, so the sidebar is shown non-collapsible.
   Docs: https://shadcn-svelte.com/docs/components/sidebar
 -->
 <script lang="ts">
@@ -18,7 +19,7 @@
 </script>
 
 <Sidebar.Provider>
-	<Sidebar.Root>
+	<Sidebar.Root collapsible="none">
 		<Sidebar.Content>
 			<Sidebar.Group>
 				<Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
@@ -37,7 +38,4 @@
 			</Sidebar.Group>
 		</Sidebar.Content>
 	</Sidebar.Root>
-	<main>
-		<Sidebar.Trigger />
-	</main>
 </Sidebar.Provider>

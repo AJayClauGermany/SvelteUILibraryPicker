@@ -8,7 +8,11 @@
 	import { normalizeProps, useMachine } from '@zag-js/svelte'
 
 	const id = $props.id()
-	const service = useMachine(tagsInput.machine, { id, defaultValue: ['svelte', 'design'] })
+	const service = useMachine(tagsInput.machine, {
+		id,
+		defaultValue: ['svelte', 'design'],
+		placeholder: 'Add a topic',
+	})
 	const api = $derived(tagsInput.connect(service, normalizeProps))
 </script>
 
@@ -24,7 +28,7 @@
 				<input {...api.getItemInputProps({ index, value })} />
 			</span>
 		{/each}
-		<input placeholder="Add a topic" {...api.getInputProps()} />
+		<input {...api.getInputProps()} />
 	</div>
 	<input {...api.getHiddenInputProps()} />
 </div>

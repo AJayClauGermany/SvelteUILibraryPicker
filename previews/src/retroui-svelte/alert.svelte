@@ -18,11 +18,9 @@
 		<Alert.Description>The same alert with the solid variant.</Alert.Description>
 	</Alert.Root>
 	<Alert.Root status="success">
-		<Alert.Title>Saved</Alert.Title>
-		<Alert.Description>Your changes have been stored.</Alert.Description>
+		<Alert.Title>Your changes have been saved</Alert.Title>
 	</Alert.Root>
 	<Alert.Root status="error">
-		<Alert.Title>Upload failed</Alert.Title>
-		<Alert.Description>The file is larger than 10 MB.</Alert.Description>
+		<Alert.Title>The upload failed</Alert.Title>
 	</Alert.Root>
 </div>

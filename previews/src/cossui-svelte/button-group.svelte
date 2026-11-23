@@ -18,7 +18,7 @@
 	<Button variant="outline">Right</Button>
 </Group>
 
-<Group>
+<Group aria-label="Website">
 	<GroupText>https://</GroupText>
 	<GroupSeparator />
 	<Input placeholder="example.com" />

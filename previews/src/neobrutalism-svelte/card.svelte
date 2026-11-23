@@ -9,7 +9,7 @@
 	import { Button } from './ui/button/index.ts'
 </script>
 
-<Card.Root>
+<Card.Root class="w-full max-w-sm">
 	<Card.Header>
 		<Card.Title>Weekly report</Card.Title>
 		<Card.Description>Summary for the last seven days</Card.Description>
