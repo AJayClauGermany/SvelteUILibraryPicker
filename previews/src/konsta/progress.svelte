@@ -7,14 +7,14 @@
 	import './styles.css'
 	import { App, Block, Button, Progressbar } from 'konsta/svelte'
 
-	let progress = $state(0.3)
+	let percent = $state(30)
 </script>
 
 <App>
 	<Block>
-		<Progressbar {progress} />
+		<Progressbar progress={percent / 100} />
 	</Block>
 	<Block>
-		<Button inline onclick={() => (progress = progress >= 1 ? 0 : progress + 0.1)}>Advance</Button>
+		<Button inline onclick={() => (percent = percent >= 100 ? 0 : percent + 10)}>Advance</Button>
 	</Block>
 </App>

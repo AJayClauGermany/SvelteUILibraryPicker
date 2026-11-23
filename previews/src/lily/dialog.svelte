@@ -12,13 +12,13 @@
 <Dialog.Root>
 	<Dialog.Trigger>
 		{#snippet child({ props })}
-			<Button {...props}>Rename board</Button>
+			<Button {...props}>Archive board</Button>
 		{/snippet}
 	</Dialog.Trigger>
 	<Dialog.Content>
 		<Dialog.Header>
-			<Dialog.Title>Rename board</Dialog.Title>
-			<Dialog.Description>The new name is shown to everyone on the team.</Dialog.Description>
+			<Dialog.Title>Archive this board?</Dialog.Title>
+			<Dialog.Description>Members lose access until you restore it from settings.</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Footer>
 			<Dialog.Close>
@@ -26,7 +26,7 @@
 					<Button variant="ghost" {...props}>Cancel</Button>
 				{/snippet}
 			</Dialog.Close>
-			<Button>Save</Button>
+			<Button>Archive</Button>
 		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

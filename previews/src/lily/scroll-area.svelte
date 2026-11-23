@@ -10,8 +10,8 @@
 	const chapters = Array.from({ length: 20 }, (_, i) => `Chapter ${i + 1}`)
 </script>
 
-<ScrollArea class="h-56 w-64 rounded-3xl bg-(--text)/4 p-4">
-	<div class="flex flex-col gap-2 text-sm">
+<ScrollArea class="h-56 w-64 rounded-3xl bg-(--bg-elevated)">
+	<div class="flex flex-col gap-2 p-4 text-sm">
 		{#each chapters as chapter (chapter)}
 			<div>{chapter}</div>
 		{/each}

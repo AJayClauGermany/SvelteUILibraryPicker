@@ -11,7 +11,7 @@
 	let open = $state(true)
 </script>
 
-<Collapsible.Root bind:open class="flex w-full max-w-sm flex-col gap-2">
+<Collapsible.Root bind:open class="flex w-full max-w-sm flex-col items-start gap-2">
 	<Collapsible.Trigger>
 		{#snippet child({ props })}
 			<Button variant="soft" {...props}>{open ? 'Hide' : 'Show'} release notes</Button>
