@@ -22,9 +22,11 @@
 	<div {...api.getLabelProps()}>Size</div>
 	{#each sizes as size (size.value)}
 		<label {...api.getItemProps({ value: size.value })}>
+			<span {...api.getItemControlProps({ value: size.value })}>
+				{api.getItemState({ value: size.value }).checked ? '●' : '○'}
+			</span>
 			<span {...api.getItemTextProps({ value: size.value })}>{size.label}</span>
 			<input {...api.getItemHiddenInputProps({ value: size.value })} />
-			<div {...api.getItemControlProps({ value: size.value })}></div>
 		</label>
 	{/each}
 </div>
