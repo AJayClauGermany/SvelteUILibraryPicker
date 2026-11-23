@@ -1,0 +1,43 @@
+<!--
+  neobrutalism-svelte is a shadcn-svelte registry: ./ui holds the components as its CLI generates
+  them, and ./styles.css the theme from its installation guide.
+  Docs: https://neobrutalism-svelte.flenze.com/docs/components/sidebar
+-->
+<script lang="ts">
+	import './styles.css'
+	import HouseIcon from '@lucide/svelte/icons/house'
+	import FolderIcon from '@lucide/svelte/icons/folder'
+	import SettingsIcon from '@lucide/svelte/icons/settings'
+	import * as Sidebar from './ui/sidebar/index.ts'
+
+	const items = [
+		{ title: 'Home', icon: HouseIcon },
+		{ title: 'Projects', icon: FolderIcon },
+		{ title: 'Settings', icon: SettingsIcon }
+	]
+</script>
+
+<Sidebar.Provider>
+	<Sidebar.Root>
+		<Sidebar.Content>
+			<Sidebar.Group>
+				<Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
+				<Sidebar.GroupContent>
+					<Sidebar.Menu>
+						{#each items as item (item.title)}
+							<Sidebar.MenuItem>
+								<Sidebar.MenuButton isActive={item.title === 'Home'}>
+									<item.icon />
+									<span>{item.title}</span>
+								</Sidebar.MenuButton>
+							</Sidebar.MenuItem>
+						{/each}
+					</Sidebar.Menu>
+				</Sidebar.GroupContent>
+			</Sidebar.Group>
+		</Sidebar.Content>
+	</Sidebar.Root>
+	<main>
+		<Sidebar.Trigger />
+	</main>
+</Sidebar.Provider>

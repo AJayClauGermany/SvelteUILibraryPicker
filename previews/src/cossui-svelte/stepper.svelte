@@ -15,41 +15,27 @@
 		StepperTrigger,
 	} from './ui/stepper/index.ts'
 
-	const steps = ['Cart', 'Shipping', 'Payment']
+	const steps = [
+		{ title: 'Cart', description: 'Check your items' },
+		{ title: 'Shipping', description: 'Where it goes' },
+		{ title: 'Payment', description: 'Card or invoice' },
+	]
 	let step = $state(2)
 </script>
 
 <Stepper bind:step>
-	{#each steps as title, i (title)}
+	{#each steps as { title, description }, i (title)}
 		<StepperItem step={i + 1} class="flex-1">
 			<StepperTrigger>
 				<StepperIndicator />
-				<StepperTitle>{title}</StepperTitle>
+				<div class="flex flex-col items-start">
+					<StepperTitle>{title}</StepperTitle>
+					<StepperDescription>{description}</StepperDescription>
+				</div>
 			</StepperTrigger>
 			{#if i < steps.length - 1}
 				<StepperSeparator />
 			{/if}
 		</StepperItem>
 	{/each}
-</Stepper>
-<Stepper step={2} orientation="vertical">
-	<StepperItem>
-		<StepperTrigger>
-			<StepperIndicator />
-			<div class="flex flex-col items-start">
-				<StepperTitle>Sign up</StepperTitle>
-				<StepperDescription>Pick a username</StepperDescription>
-			</div>
-		</StepperTrigger>
-		<StepperSeparator />
-	</StepperItem>
-	<StepperItem loading>
-		<StepperTrigger>
-			<StepperIndicator />
-			<div class="flex flex-col items-start">
-				<StepperTitle>Verify email</StepperTitle>
-				<StepperDescription>Waiting for the link</StepperDescription>
-			</div>
-		</StepperTrigger>
-	</StepperItem>
 </Stepper>
