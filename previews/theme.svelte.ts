@@ -57,8 +57,18 @@ const switches: Record<string, (dark: boolean) => void> = {
 	// reads `theme.current` itself.
 }
 
+/**
+ * Folders that stay `color-scheme: light` even in dark mode, because the package documents no dark
+ * mode and paints fixed light surfaces whose text would inherit the browser's dark (light-coloured)
+ * text: the result would be unreadable, which is not the package's default either.
+ */
+const lightOnly = new Set([
+	// svelte-select: the list background is `var(--list-background, #fff)` while item text inherits.
+	'svelte-select',
+])
+
 export function applyTheme(library: string, next: PreviewTheme) {
 	theme.current = next
-	document.documentElement.style.colorScheme = next
+	document.documentElement.style.colorScheme = lightOnly.has(library) ? 'light' : next
 	switches[library]?.(next === 'dark')
 }
