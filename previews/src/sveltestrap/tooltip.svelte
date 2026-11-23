@@ -10,4 +10,4 @@
 
 <Button id="tooltip-target" color="secondary">Hover me</Button>
 
-<Tooltip target="tooltip-target" placement="bottom">Saves a copy to your drafts</Tooltip>
+<Tooltip target="tooltip-target" placement="bottom" isOpen>Saves a copy to your drafts</Tooltip>

@@ -11,7 +11,7 @@
 	const pages = [1, 2, 3, 4, 5]
 </script>
 
-<Pagination ariaLabel="Results pages">
+<Pagination arialabel="Results pages">
 	<PaginationItem disabled={page === 1}>
 		<PaginationLink previous href="#" onclick={() => (page = Math.max(1, page - 1))} />
 	</PaginationItem>

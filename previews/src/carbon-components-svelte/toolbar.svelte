@@ -19,11 +19,11 @@
 	const headers = [
 		{ key: 'name', value: 'Name' },
 		{ key: 'status', value: 'Status' },
-	]
+	] as const
 	const rows = [
 		{ id: 'a', name: 'Server 1', status: 'Active' },
 		{ id: 'b', name: 'Server 2', status: 'Stopped' },
-	]
+	] as const
 </script>
 
 <DataTable {headers} {rows}>

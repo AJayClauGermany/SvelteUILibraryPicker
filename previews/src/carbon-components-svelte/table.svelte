@@ -12,13 +12,13 @@
 		{ key: 'name', value: 'Name' },
 		{ key: 'role', value: 'Role' },
 		{ key: 'status', value: 'Status' },
-	]
+	] as const
 
 	const rows = [
 		{ id: 'a', name: 'Ada', role: 'Engineer', status: 'Active' },
 		{ id: 'b', name: 'Grace', role: 'Admiral', status: 'Away' },
 		{ id: 'c', name: 'Alan', role: 'Researcher', status: 'Active' },
-	]
+	] as const
 </script>
 
 <DataTable sortable title="Team" description="People with access to this project." {headers} {rows} />

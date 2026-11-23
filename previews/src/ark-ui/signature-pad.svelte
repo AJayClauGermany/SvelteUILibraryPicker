@@ -15,5 +15,4 @@
 		<SignaturePad.ClearTrigger>Clear</SignaturePad.ClearTrigger>
 		<SignaturePad.Guide />
 	</SignaturePad.Control>
-	<SignaturePad.HiddenInput />
 </SignaturePad.Root>

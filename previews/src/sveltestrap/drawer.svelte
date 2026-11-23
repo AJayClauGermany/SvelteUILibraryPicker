@@ -7,7 +7,7 @@
 	import 'bootstrap/dist/css/bootstrap.min.css'
 	import { Button, Offcanvas } from '@sveltestrap/sveltestrap'
 
-	let open = $state(false)
+	let open = $state(true)
 	const toggle = () => (open = !open)
 </script>
 

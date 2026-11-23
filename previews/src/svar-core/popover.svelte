@@ -17,7 +17,7 @@
 
 <Theme>
 	<div bind:this={anchor}>
-		<Button type="primary" onclick={() => (open = !open)}>Volume</Button>
+		<Button type="primary" onclick={() => (open = true)}>Volume</Button>
 	</div>
 	<p>The popup opens below the button; click outside it to close.</p>
 

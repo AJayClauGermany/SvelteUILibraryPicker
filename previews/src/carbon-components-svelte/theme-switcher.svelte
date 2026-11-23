@@ -9,7 +9,7 @@
 	import { Theme } from 'carbon-components-svelte'
 	import { theme } from '../../theme.svelte.ts'
 
-	let current = $state(theme.current === 'dark' ? 'g100' : 'white')
+	let current = $state<'white' | 'g100'>(theme.current === 'dark' ? 'g100' : 'white')
 </script>
 
 <Theme bind:theme={current} render="toggle" />

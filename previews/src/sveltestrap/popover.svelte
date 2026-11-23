@@ -10,6 +10,6 @@
 
 <Button id="popover-target" color="secondary">Show details</Button>
 
-<Popover target="popover-target" placement="bottom" title="Details">
+<Popover target="popover-target" placement="bottom" title="Details" isOpen>
 	Popovers can hold a title and a short body.
 </Popover>

@@ -9,13 +9,13 @@
 
 	document.documentElement.dataset.theme = 'cerberus'
 
-	interface Node {
+	interface FileNode {
 		id: string
 		name: string
-		children?: Node[]
+		children?: FileNode[]
 	}
 
-	const collection = createTreeViewCollection<Node>({
+	const collection = createTreeViewCollection<FileNode>({
 		nodeToValue: (node) => node.id,
 		nodeToString: (node) => node.name,
 		rootNode: {
@@ -45,7 +45,7 @@
 	</TreeView.Tree>
 </TreeView>
 
-{#snippet treeNode(node: Node, indexPath: number[])}
+{#snippet treeNode(node: FileNode, indexPath: number[])}
 	<TreeView.NodeProvider value={{ node, indexPath }}>
 		{#if node.children}
 			<TreeView.Branch>

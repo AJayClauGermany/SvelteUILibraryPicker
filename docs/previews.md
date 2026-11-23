@@ -62,21 +62,21 @@ add anything you wouldn't want shown.
 
 ## Current coverage
 
-| Library | Previews |
-| --- | --- |
-| Ark UI | accordion, checkbox, dialog, switch, tabs |
-| Bits UI | accordion, button, checkbox, dialog, switch, tabs |
-| Carbon Components Svelte | accordion, alert, badge, button, checkbox, dialog, switch, tabs |
-| Flowbite Svelte | accordion, alert, badge, button, checkbox, dialog, switch, tabs |
-| M3 Svelte | badge, button, checkbox, dialog, switch, tabs |
-| Melt UI (next-gen) | accordion, dialog, tabs |
-| Skeleton | accordion, badge, button, checkbox, dialog, switch, tabs |
-| SVAR Core | button, checkbox, dialog, switch, tabs |
-| Sveltestrap | accordion, alert, badge, button, checkbox, dialog, switch, tabs |
+| Library | Count | Previews |
+| --- | --- | --- |
+| Ark UI | 57 | accordion, alert-dialog, angle-slider, avatar, calendar, carousel, checkbox, clipboard, collapsible, color-picker, combobox, context-menu, date-field, date-picker, date-range-field, date-range-picker, dialog, drawer, dropdown-menu, editable, file-upload, floating-panel, focus-trap, form, hover-card, image-cropper, input, list, marquee, navigation-menu, number-input, pagination, password-input, pin-input, popover, progress, radio-group, rating, resizable, scroll-area, select, signature-pad, slider, stepper, switch, table-of-contents, tabs, tags-input, textarea, time-picker, timer, toast, toggle, toggle-group, tooltip, tour, tree-view |
+| Bits UI | 41 | accordion, alert-dialog, aspect-ratio, avatar, button, calendar, checkbox, collapsible, combobox, command-palette, context-menu, date-field, date-picker, date-range-field, date-range-picker, dialog, dropdown-menu, hover-card, label, menubar, meter, navigation-menu, pagination, pin-input, popover, progress, radio-group, range-calendar, rating, scroll-area, select, separator, slider, switch, tabs, time-picker, time-range-field, toggle, toggle-group, toolbar, tooltip |
+| Carbon Components Svelte | 62 | accordion, alert, alert-dialog, aspect-ratio, avatar, badge, breadcrumb, button, button-group, card, carousel, checkbox, clipboard, code-block, collapsible, combobox, context-menu, date-picker, date-range-picker, dialog, dropdown-menu, file-upload, form, grid, image, input, link, list, meter, navigation-menu, number-input, pagination, password-input, pin-input, popover, progress, radio-group, search, select, separator, sidebar, skeleton, slider, spinner, split-button, stack, stepper, switch, table, tabs, tags-input, textarea, theme-switcher, time-picker, timer, toast, toggle-group, toolbar, tooltip, tree-view, typography, virtual-list |
+| Flowbite Svelte | 62 | accordion, alert, avatar, badge, bottom-navigation, breadcrumb, button, button-group, calendar, card, carousel, checkbox, clipboard, combobox, command-palette, date-picker, date-range-picker, dialog, drawer, dropdown-menu, file-upload, floating-action-button, footer, form, image, input, kbd, label, link, list, navigation-menu, number-input, pagination, popover, progress, radio-group, rating, resizable, search, select, separator, sidebar, skeleton, slider, spinner, stepper, switch, table, table-of-contents, tabs, tags-input, textarea, theme-switcher, time-picker, timeline, toast, toggle-group, toolbar, tooltip, tour, typography, virtual-list |
+| M3 Svelte | 27 | badge, button, button-group, card, checkbox, date-picker, dialog, drawer, dropdown-menu, floating-action-button, icon, input, list, navigation-menu, progress, radio-group, select, separator, sidebar, slider, spinner, split-button, switch, tabs, textarea, time-picker, toast |
+| Melt UI (next-gen) | 17 | accordion, avatar, collapsible, combobox, dialog, file-upload, pin-input, popover, progress, radio-group, select, slider, tabs, toast, toggle, tooltip, tree-view |
+| Skeleton | 46 | accordion, alert-dialog, avatar, badge, bottom-navigation, button, card, carousel, checkbox, collapsible, color-picker, combobox, date-picker, dialog, dropdown-menu, file-upload, floating-panel, form, input, label, list, marquee, meter, navigation-menu, pagination, popover, progress, qr-code, radio-group, rating, select, separator, sidebar, skeleton, slider, stepper, switch, table, tabs, tags-input, textarea, toast, toggle-group, tooltip, tree-view, typography |
+| SVAR Core | 31 | alert-dialog, avatar, button, calendar, checkbox, color-picker, combobox, date-picker, date-range-picker, dialog, drawer, form, icon, input, locale-provider, number-input, pagination, popover, radio-group, range-calendar, select, slider, switch, tabs, tags-input, textarea, time-picker, toast, toggle, toggle-group, tooltip |
+| Sveltestrap | 35 | accordion, alert, badge, breadcrumb, button, button-group, card, carousel, checkbox, collapsible, dialog, drawer, dropdown-menu, file-upload, form, grid, image, input, label, list, navigation-menu, pagination, popover, progress, radio-group, select, slider, spinner, switch, table, tabs, textarea, theme-switcher, toast, tooltip |
 
-Everything else falls back to a "See it in the official docs" card. The target set for every
-library is button, switch, checkbox, accordion, tabs, dialog, badge and alert, where the library
-has them; headless libraries have no button, badge or alert.
+Everything else falls back to a "See it in the official docs" card. The goal is a preview for
+every visual component a library lists. Purely non-visual utilities (portals, locale/config
+providers) are left out on purpose.
 
 Not covered yet:
 
