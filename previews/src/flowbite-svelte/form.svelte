@@ -18,6 +18,8 @@
 		<Input id="username" color="red" value="ab" />
 		<Helper class="mt-2" color="red">Use at least three characters.</Helper>
 	</div>
-	<Checkbox class="mb-4">Remember me</Checkbox>
+	<div class="mb-4">
+		<Checkbox>Remember me</Checkbox>
+	</div>
 	<Button type="submit">Sign in</Button>
 </form>

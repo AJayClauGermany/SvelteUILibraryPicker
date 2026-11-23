@@ -14,7 +14,7 @@
 		)
 
 	const withImage = new Avatar({ src: photo })
-	const broken = new Avatar({ src: 'missing.png' })
+	const noPhoto = new Avatar()
 </script>
 
 <div>
@@ -22,6 +22,6 @@
 	<span {...withImage.fallback}>AL</span>
 </div>
 <div>
-	<img {...broken.image} alt="Grace Hopper" />
-	<span {...broken.fallback}>GH</span>
+	<img {...noPhoto.image} alt="Grace Hopper" />
+	<span {...noPhoto.fallback}>GH</span>
 </div>

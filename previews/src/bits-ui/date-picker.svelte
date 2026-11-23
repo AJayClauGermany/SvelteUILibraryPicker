@@ -30,8 +30,8 @@
 						<DatePicker.Grid>
 							<DatePicker.GridHead>
 								<DatePicker.GridRow>
-									{#each weekdays as day (day)}
-										<DatePicker.HeadCell>{day.slice(0, 2)}</DatePicker.HeadCell>
+									{#each weekdays as day, i (i)}
+										<DatePicker.HeadCell>{day}</DatePicker.HeadCell>
 									{/each}
 								</DatePicker.GridRow>
 							</DatePicker.GridHead>

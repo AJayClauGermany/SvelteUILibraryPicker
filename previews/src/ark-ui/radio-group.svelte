@@ -1,6 +1,7 @@
 <!--
   Ark UI is headless: it ships behaviour and accessibility, no styles.
   This preview is intentionally unstyled — that IS its default look.
+  Without styles the radio controls have no shape; click a label to select it.
   Docs: https://ark-ui.com/svelte/docs/components/radio-group
 -->
 <script lang="ts">

@@ -11,7 +11,7 @@
 	let selected: (string | number)[] = $state(['day'])
 </script>
 
-<ToggleButtonGroup labelText="View" bind:selected>
+<ToggleButtonGroup labelText="View" selectionMode="single" bind:selected>
 	<ToggleButton value="day">Day</ToggleButton>
 	<ToggleButton value="week">Week</ToggleButton>
 	<ToggleButton value="month">Month</ToggleButton>

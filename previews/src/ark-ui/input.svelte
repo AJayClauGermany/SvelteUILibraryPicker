@@ -11,7 +11,7 @@
 
 <Field.Root>
 	<Field.Label>Username</Field.Label>
-	<Field.Input placeholder="e.g. jdoe" bind:value />
+	<Field.Input placeholder="e.g. jdoe" maxlength={20} bind:value />
 	<Field.HelperText>{value.length} / 20 characters</Field.HelperText>
 </Field.Root>
 

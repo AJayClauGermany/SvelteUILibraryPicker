@@ -9,7 +9,7 @@
 </script>
 
 <Menu.Root>
-	<Menu.ContextTrigger>Right-click anywhere in this text</Menu.ContextTrigger>
+	<Menu.ContextTrigger>Right-click here</Menu.ContextTrigger>
 	<Portal>
 		<Menu.Positioner>
 			<Menu.Content>

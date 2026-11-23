@@ -1,6 +1,6 @@
 <!--
   Flowbite Svelte styles its components with Tailwind; ./styles.css loads its default setup.
-  The heading and text use the Tailwind classes from the Flowbite Svelte card docs.
+  The padding, heading and text use the Tailwind classes from the Flowbite Svelte card docs.
   Docs: https://flowbite-svelte.com/docs/components/card
 -->
 <script lang="ts">

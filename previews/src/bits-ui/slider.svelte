@@ -1,6 +1,7 @@
 <!--
   Bits UI is headless: it ships behaviour and accessibility, no styles.
   This preview is intentionally unstyled — that IS its default look.
+  Without styles the track has no size, so a text dot stands in as the thumb.
   Docs: https://bits-ui.com/docs/components/slider
 -->
 <script lang="ts">

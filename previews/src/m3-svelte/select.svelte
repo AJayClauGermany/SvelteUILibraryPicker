@@ -17,5 +17,6 @@
 </script>
 
 <Select label="Fruit" {options} bind:value={fruit} />
+<p>Picked: {fruit}</p>
 <SelectOutlined label="Another fruit" {options} bind:value={other} />
-<p>Picked: {fruit}, {other}</p>
+<p>Picked: {other}</p>

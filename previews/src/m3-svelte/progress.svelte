@@ -15,4 +15,4 @@
 <p>Wavy</p>
 <WavyLinearProgress {percent} aria-label="Wavy progress" />
 <p>Set progress: {percent}%</p>
-<Slider bind:value={percent} min={0} max={100} />
+<Slider bind:value={percent} min={0} max={100} aria-label="Progress" />

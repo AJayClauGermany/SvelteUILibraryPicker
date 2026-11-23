@@ -7,7 +7,7 @@
 <script lang="ts">
 	import { ScrollArea } from '@ark-ui/svelte/scroll-area'
 
-	const lines = Array.from({ length: 20 }, (_, i) => `Line ${i + 1}`)
+	const lines = Array.from({ length: 10 }, (_, i) => `Line ${i + 1}`)
 </script>
 
 <ScrollArea.Root>
