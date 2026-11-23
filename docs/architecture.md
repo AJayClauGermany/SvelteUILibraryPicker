@@ -62,6 +62,13 @@ diagnostics. Preview cards reuse the same pipeline: the `previewCode()` plugin a
 highlighter's output (it is Svelte markup, with `<CopyCode />` and twoslash `<Floating>` snippets,
 so it has to be compiled rather than injected as HTML). `src/lib/previews.ts` globs those modules.
 
+Twoslash type-checks each preview (about half a second each), so `previewCode()` caches the
+highlighted HTML in `node_modules/.cache/svp-code/`. Entries are keyed by the preview's source,
+the lockfile, `patches/` and the highlighter options, so they can't go stale. During `vite build`
+it highlights cache misses in worker threads (`scripts/preview-code-worker.js`). CI and the deploy
+workflow keep the cache between runs with `actions/cache`, so a build only re-highlights the
+previews that changed. Delete the folder to force a full re-highlight.
+
 ## Why previews are a separate app
 
 SveltePress wraps the root layout in its `GlobalLayout`, which imports the theme CSS (UnoCSS

@@ -19,6 +19,15 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - name: Restore highlighted preview code
+        # Cache of the twoslash-highlighted preview sources (see previewCode() in vite.config.ts).
+        # Entries are keyed by content, so restoring an older cache is safe; only changed
+        # previews are highlighted again, and the build removes entries it didn't use.
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/svp-code
+          key: svp-code-${{ hashFiles('pnpm-lock.yaml', 'patches/**') }}-${{ hashFiles('previews/src/**') }}
+          restore-keys: svp-code-${{ hashFiles('pnpm-lock.yaml', 'patches/**') }}-
       - name: Validate data (docs links, licenses, AI policy)
         run: pnpm validate
       - name: Type check
