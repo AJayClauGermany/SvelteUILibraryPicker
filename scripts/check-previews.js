@@ -10,7 +10,7 @@
  *
  * It starts the preview app's own Vite dev server (previews/vite.config.ts) on a free port,
  * so it needs no running `pnpm dev`. Exit code 1 when any preview fails. Network requests to
- * other hosts are blocked, so a preview that depends on a CDN or remote API shows up here.
+ * other hosts are blocked (see allowedHosts), so a preview that depends on a CDN or remote API shows up here.
  * Set CHECK_CACHE=<name> to give parallel runs their own Vite dep cache.
  * Not a screenshot diff: see docs/backlog.md ("Screenshot tests") for why.
  */
@@ -51,8 +51,13 @@ await server.listen()
 const base = server.resolvedUrls.local[0]
 const browser = await chromium.launch()
 const page = await browser.newPage({ viewport: { width: 480, height: 400 } })
-// Block third-party hosts: previews must be self-contained.
-await page.route(url => new URL(url).hostname !== 'localhost', route => route.abort())
+// Block third-party hosts: previews must be self-contained, except for what a library's own
+// default theme loads (keep this list short and say which library needs each host).
+const allowedHosts = new Set([
+	'localhost',
+	'cdn.svar.dev', // SVAR Willow themes load their fonts and icon font from here by default
+])
+await page.route(url => !allowedHosts.has(new URL(url).hostname), route => route.abort())
 
 let failed = 0
 for (const t of targets) {

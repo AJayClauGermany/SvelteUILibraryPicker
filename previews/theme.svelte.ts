@@ -65,6 +65,9 @@ const switches: Record<string, (dark: boolean) => void> = {
 const lightOnly = new Set([
 	// svelte-select: the list background is `var(--list-background, #fff)` while item text inherits.
 	'svelte-select',
+	// carta-md: default.css ships `*-dark` variables, but switching to them is CSS the app writes
+	// itself (docs "Editing Styles"), which would be styling of ours.
+	'carta-md',
 ])
 
 export function applyTheme(library: string, next: PreviewTheme) {
