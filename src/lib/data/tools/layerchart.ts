@@ -15,10 +15,10 @@ export default defineTool({
 	},
 	svelte: {
 		supported: [5],
-		peerRange: '^5.0.0',
+		peerRange: '^5.57.0',
 		runes: true,
 	},
-	version: '2.9.2',
+	version: '2.11.0',
 	components: ['chart'],
 	usedBy: [
 		{
@@ -52,7 +52,7 @@ export default defineTool({
 		],
 		llmsTxt: 'https://layerchart.com/llms.txt',
 	},
-	lastVerified: '2026-11-06',
+	lastVerified: '2026-11-23',
 	notes: [
 		'Default colours come from CSS currentColor and a few CSS variables (e.g. --color-primary), so charts can be styled with plain CSS or utility classes.',
 		'The 2.x line is Svelte 5 only; the last 1.x release (1.0.13) declares a peer range of ^3.56.0 || ^4.0.0 || ^5.0.0.',

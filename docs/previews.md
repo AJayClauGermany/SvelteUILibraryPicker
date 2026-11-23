@@ -51,6 +51,23 @@ form controls; that is all a headless library has), and styled libraries additio
 The app picks the mode from `?theme=`, else from the embedding site's `dark` class, else the OS,
 and the site posts `{ type: 'ulp:theme', theme }` on toggles (see `previews/main.ts`).
 
+## Tools
+
+Tools (`src/lib/data/tools/`) get previews the same way, in `previews/src/<tool-id>/`. The "default" is
+whatever the package ships: styled components (svelte-sonner, svelte-select, Carbon Charts, SVAR
+DataGrid…) load their own CSS or theme, and headless ones (TanStack Table, Tiptap, Floating UI…)
+look unstyled on purpose. Tool previews appear on the tool's page and under "Related tools" on the
+component page. Library and tool ids must never collide, since both key the folder (`pnpm validate`
+checks it).
+
+## Helper scripts
+
+- `node scripts/preview-coverage.js [--missing|--json]`: components each library and tool lists, and
+  which still lack a preview (blocked entries are marked).
+- `node scripts/check-previews.js [<id>|<id>/<component>]... [--dark] [--shots <dir>]`: opens previews
+  in headless Chromium (Playwright from the global install) against the preview app's own Vite
+  server, with other hosts blocked, and fails on console errors, exceptions or empty renders.
+
 ## How they appear on the site
 
 `PreviewFrame.svelte` shows each preview as a card: the front embeds the preview page in an

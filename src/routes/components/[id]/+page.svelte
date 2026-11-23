@@ -5,6 +5,7 @@
 	import PreviewFrame from '#lib/components/PreviewFrame.svelte'
 	import PropCell from '#lib/components/PropCell.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
+	import { hasPreview } from '#lib/previews.ts'
 	import { apiStyleInfo, canonicalPropIds, categories, components, findComponent, getCanonicalProp, libraries, librariesWith, librariesWithApi, propKindInfo, toolKindInfo, toolsFor } from '#lib/data/index.ts'
 
 	const { data } = $props()
@@ -14,6 +15,7 @@
 	const providers = $derived(librariesWith(data.id))
 	const missing = $derived(libraries.filter(l => !providers.includes(l)))
 	const relatedTools = $derived(toolsFor(data.id))
+	const previewedTools = $derived(relatedTools.filter(t => hasPreview(t.id, data.id)))
 	const propIds = $derived(canonicalPropIds(data.id))
 	const withApi = $derived(librariesWithApi(data.id))
 	const withoutApi = $derived(providers.filter(l => !withApi.includes(l)))
@@ -133,6 +135,14 @@
 			</tbody>
 		</table>
 	</div>
+	{#if previewedTools.length}
+		<p class="ulp-muted">Live previews of these tools, each with its own default look (headless tools look unstyled on purpose).</p>
+		<div class="previews">
+			{#each previewedTools as t (t.id)}
+				<PreviewFrame library={t.id} libraryName={t.name} component={data.id} componentName={def.name} docs={t.docs} />
+			{/each}
+		</div>
+	{/if}
 {/if}
 
 {#if missing.length}
