@@ -1,0 +1,15 @@
+/*
+  Konsta UI's default setup, as its Svelte install guide describes: Tailwind, then the Konsta
+  theme file. The theme file brings its own `@source` lines for the konsta package and the
+  class-based `dark` variant, so only this folder is added here. Nothing of ours is added.
+
+  The guide's optional Roboto font step (Google Fonts, for the Material theme) is skipped, so
+  the theme's own `--font-material` fallback stack applies.
+  Dark mode: the theme's `dark` variant follows `class="dark"` on <html>, as the library's
+  kitchen-sink does; previews/theme.svelte.ts sets it.
+  Docs: https://konstaui.com/svelte/installation
+*/
+@import 'tailwindcss' source(none);
+@import 'konsta/svelte/theme.css';
+
+@source '.';

@@ -1,0 +1,18 @@
+<script lang="ts">
+  import { Dialog as DialogPrimitive } from '@shardsui/svelte/dialog';
+  import type { ComponentProps } from 'svelte';
+  import { cn } from '../../utils.js';
+
+  let {
+    ref = $bindable(null),
+    class: className,
+    ...restProps
+  }: ComponentProps<typeof DialogPrimitive.Title> = $props();
+</script>
+
+<DialogPrimitive.Title
+  bind:ref
+  data-slot="dialog-title"
+  class={cn('font-bold font-heading text-xl leading-none', className)}
+  {...restProps}
+/>

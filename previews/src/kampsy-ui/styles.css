@@ -1,0 +1,16 @@
+/*
+  Kampsy UI's default setup, as its installation guide's "Configuration" step describes: the
+  Tailwind import, the library's theme.css (its kui-* colour tokens and the `.dark` class
+  variant) and an @source line for the package's dist folder. Nothing of ours is added.
+
+  `source(none)` turns off automatic class scanning; the two @source lines limit it to this
+  folder and the kampsy-ui package, so no other library's utilities end up here.
+  Dark mode: theme.css declares `@variant dark (&:where(.dark, .dark *))`, so `class="dark"`
+  on <html> (set by previews/theme.svelte.ts) switches the components to their dark tokens.
+  Docs: https://ui.kampsy.xyz/installation
+*/
+@import 'tailwindcss' source(none);
+@import 'kampsy-ui/theme.css';
+
+@source '.';
+@source '../../../node_modules/kampsy-ui/dist';
