@@ -11,6 +11,6 @@
 </script>
 
 <div class="flex items-center gap-2">
-	<Toggle bind:pressed={italic} aria-label="Italic">Italic</Toggle>
-	<Toggle variant="outline" aria-label="Underline">Underline</Toggle>
+	<Toggle bind:pressed={italic}>Italic</Toggle>
+	<Toggle variant="outline">Underline</Toggle>
 </div>

@@ -10,6 +10,4 @@
 	let volume = $state(40)
 </script>
 
-<div class="w-full max-w-sm">
-	<Slider type="single" bind:value={volume} max={100} step={1} />
-</div>
+<Slider type="single" bind:value={volume} max={100} step={1} />

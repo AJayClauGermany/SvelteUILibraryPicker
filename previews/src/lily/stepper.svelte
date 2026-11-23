@@ -7,24 +7,29 @@
 	import './styles.css'
 	import * as Stepper from './ui/stepper/index.js'
 
-	let step = $state(2)
-	const steps = ['Cart', 'Shipping', 'Payment']
+	let current = $state(2)
+	const stages = [
+		{ label: 'Upload', hint: 'Pick a file' },
+		{ label: 'Review', hint: 'Check details' },
+		{ label: 'Publish', hint: 'Go live' },
+	]
 </script>
 
-<Stepper.Root bind:step>
+<Stepper.Root bind:step={current}>
 	<Stepper.Nav>
-		{#each steps as title, i (title)}
+		{#each stages as stage, n (stage.label)}
 			<Stepper.Item>
 				<Stepper.Trigger>
-					<Stepper.Indicator>{i + 1}</Stepper.Indicator>
-					<Stepper.Title>{title}</Stepper.Title>
+					<Stepper.Indicator>{n + 1}</Stepper.Indicator>
+					<Stepper.Title>{stage.label}</Stepper.Title>
+					<Stepper.Description>{stage.hint}</Stepper.Description>
 				</Stepper.Trigger>
 				<Stepper.Separator />
 			</Stepper.Item>
 		{/each}
 	</Stepper.Nav>
 	<div class="mt-8 flex justify-between">
-		<Stepper.Previous size="sm">Back</Stepper.Previous>
-		<Stepper.Next size="sm">Next</Stepper.Next>
+		<Stepper.Previous>Previous</Stepper.Previous>
+		<Stepper.Next>Continue</Stepper.Next>
 	</div>
 </Stepper.Root>

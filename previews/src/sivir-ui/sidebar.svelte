@@ -10,7 +10,7 @@
 	let open = $state(true)
 </script>
 
-<Sidebar.Root bind:open variant="inset" class="h-svh">
+<Sidebar.Root bind:open variant="inset" class="h-96 rounded-[var(--radius-xl)] border border-border">
 	<Sidebar.Panel>
 		<Sidebar.Header>Acme</Sidebar.Header>
 		<Sidebar.Content>
@@ -36,6 +36,9 @@
 		<Sidebar.Footer>Settings</Sidebar.Footer>
 	</Sidebar.Panel>
 	<Sidebar.Inset>
-		<header><Sidebar.Trigger /></header>
+		<header class="flex h-12 shrink-0 items-center gap-2 border-b border-border px-3">
+			<Sidebar.Trigger />
+			<span>Inbox</span>
+		</header>
 	</Sidebar.Inset>
 </Sidebar.Root>

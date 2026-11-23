@@ -9,7 +9,7 @@
 </script>
 
 <HoverCard.Root>
-	<HoverCard.Trigger>Hover over me</HoverCard.Trigger>
+	<HoverCard.Trigger href="#release-notes">Release notes</HoverCard.Trigger>
 	<HoverCard.Content>
 		<HoverCard.Title>Release notes</HoverCard.Title>
 		<HoverCard.Description>Version 2 adds keyboard shortcuts and a compact layout.</HoverCard.Description>
