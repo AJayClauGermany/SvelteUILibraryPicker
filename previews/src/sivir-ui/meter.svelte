@@ -8,6 +8,8 @@
 	import * as Gauge from '@sivir-ui/svelte/components/gauge'
 </script>
 
-<Gauge.Root value={24} size="sm" label="Disk used" />
-<Gauge.Root value={58} label="Memory used" />
-<Gauge.Root value={87} max={100} size="lg" tone="warning" label="Storage quota" />
+<div class="flex items-center gap-6">
+	<Gauge.Root value={24} size="sm" label="Disk used" />
+	<Gauge.Root value={58} label="Memory used" />
+	<Gauge.Root value={87} max={100} size="lg" tone="warning" label="Storage quota" />
+</div>

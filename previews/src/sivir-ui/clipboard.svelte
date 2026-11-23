@@ -8,6 +8,8 @@
 	import { CopyButton } from '@sivir-ui/svelte/components/copy-button'
 </script>
 
-<CopyButton text="pnpm add @sivir-ui/svelte" />
-<CopyButton text="pnpm add @sivir-ui/svelte" variant="outline" />
-<CopyButton text="pnpm add @sivir-ui/svelte" size="md">Copy command</CopyButton>
+<div class="flex items-center gap-3">
+	<CopyButton text="pnpm add @sivir-ui/svelte" />
+	<CopyButton text="pnpm add @sivir-ui/svelte" variant="outline" />
+	<CopyButton text="pnpm add @sivir-ui/svelte" size="md">Copy command</CopyButton>
+</div>
