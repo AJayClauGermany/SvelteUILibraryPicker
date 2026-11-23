@@ -7,7 +7,9 @@
 	import { Progress } from 'kampsy-ui'
 </script>
 
-<Progress value={60} />
-<Progress type="success" value={100} />
-<Progress type="warning" value={35} />
-<Progress type="error" value={10} />
+<div class="space-y-6">
+	<Progress value={60} />
+	<Progress type="success" value={100} />
+	<Progress type="warning" value={35} />
+	<Progress type="error" value={10} />
+</div>
