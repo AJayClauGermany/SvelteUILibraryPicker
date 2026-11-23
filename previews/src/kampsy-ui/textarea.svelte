@@ -10,4 +10,4 @@
 </script>
 
 <Textarea bind:value={message} label="Message" placeholder="Write a few words..." />
-<Textarea error="Please enter a message." />
+<Textarea label="Feedback" error="Please enter a message." />

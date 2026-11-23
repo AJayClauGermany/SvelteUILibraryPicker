@@ -12,5 +12,5 @@
 <Badge>Default</Badge>
 <Badge colorVariant="text-bg-success">Paid</Badge>
 <Badge colorVariant="text-bg-warning">Pending</Badge>
-<Badge colorVariant="bg-danger-subtle">Overdue</Badge>
+<Badge colorVariant="text-bg-danger">Overdue</Badge>
 <Badge colorVariant="text-bg-secondary" isPill={true}>12</Badge>
