@@ -19,6 +19,9 @@ importers:
       '@floating-ui/dom':
         specifier: ^1.8.0
         version: 1.8.0
+      '@internationalized/date':
+        specifier: 3.12.4
+        version: 3.12.4
       '@skeletonlabs/skeleton':
         specifier: 5.0.1
         version: 5.0.1(tailwindcss@4.3.4)

@@ -21,6 +21,7 @@
   "devDependencies": {
     "@ark-ui/svelte": "5.25.1",
     "@floating-ui/dom": "^1.8.0",
+    "@internationalized/date": "3.12.4",
     "@skeletonlabs/skeleton": "5.0.1",
     "@skeletonlabs/skeleton-svelte": "5.0.1",
     "@svar-ui/svelte-core": "2.6.1",
