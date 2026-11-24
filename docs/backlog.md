@@ -30,14 +30,12 @@ URLs; most of these are already mentioned in `notes` of a nearby entry).
 | `masonry` | layout | Flowbite Svelte (Virtual Masonry) |
 | `video` | data-display | Flowbite Svelte (Video) |
 | `device-mockup` | data-display | Flowbite Svelte (Device Mockups) |
-| `phone-input` | forms | Flowbite Svelte (Phone Input) |
 | `floating-label` | forms | Flowbite Svelte (Floating Label) — currently a note under `input` |
 | `input-group` | forms | Sveltestrap (InputGroup), shadcn-svelte (Input Group), Carbon (InputGroup, master only) |
 | `close-button` | actions | Flowbite Svelte (Close Button) |
 | `rich-text-editor` | forms | Flowbite Svelte (WYSIWYG plugin) |
 | `fullscreen` | utilities | SVAR Core (Fullscreen) |
-| `hotkeys` | utilities | Ark UI (Hotkeys, preview) |
-| `presence` / `transition` | utilities | Ark UI (Presence), Sveltestrap (Fade), M3 Svelte (UI transitions) |
+| `presence` | utilities | Ark UI and Zag.js (Presence: delays unmount for exit animations). Sveltestrap Fade and M3 Svelte UI transitions are now mapped to `animation` |
 | `highlight` | data-display | Ark UI (Highlight) |
 | `format` helpers | utilities | Ark UI (Format Byte / Number / Time / Relative Time) |
 | `download-trigger` | utilities | Ark UI |
@@ -45,7 +43,6 @@ URLs; most of these are already mentioned in `notes` of a nearby entry).
 | `json-tree-view` | data-display | Ark UI (preview) — currently a note under `tree-view` |
 | `toggletip` | overlays | Carbon (Toggletip) |
 | `overlay` | overlays | Svelte UX (Overlay) |
-| `animated-value` | data-display | Svelte UX (ScrollingValue, SpringValue, TweenedValue) |
 | `effects` | utilities | Svelte UX (Shine, Tilt, Gooey) |
 | `storage` | utilities | Carbon (LocalStorage, SessionStorage) |
 | `spatial-menu` | navigation | Melt (WIP, no usage docs yet) |
@@ -114,8 +111,26 @@ The Tools section (`src/lib/data/tools/`, added 2026-11-06). On 2026-11-22 the g
 widened: tools may map to components no tracked library provides (new ids `map`, `drag-and-drop`,
 `rich-text-editor`), and general `utility` helpers (runed, svelte-toolbelt) may map to none. Next steps:
 
-- Component ids for 3D scenes and animation/motion, then `@threlte/core` (threlte.xyz, MIT,
-  Svelte >= 5) and a Svelte 5 motion library.
+- 2026-11-24: 15 more gap ids (`code-editor`, `phone-input`, `emoji-picker`, `lightbox`, `confetti`,
+  `node-editor`, `scene-3d`, `animated-value`, `markdown`, `event-calendar`, `gantt`, `i18n`, `hotkeys`,
+  `gestures`, `animation`) and 20 tools for them or as second options (Svelte Flow, Threlte, Event
+  Calendar, SVAR Gantt, emoji-picker-element, svelte-codemirror-editor, svelte-tel-input, NumberFlow,
+  svelte-confetti, svelte-gestures, Paraglide JS, svelte-i18n, AutoAnimate, svelte-exmarkdown,
+  PhotoSwipe, @svelte-put/shortcut, svelte-awesome-color-picker, svelte-range-slider-pips,
+  phosphor-svelte, svelte-tiptap). Libraries that document these components were mapped too.
+  Follow-ups from that pass:
+  - Previews for the new tools (none yet). `@svelte-put/shortcut` is `restricted` (its docs site
+    blocks AI agents), so no preview for it.
+  - A Svelte 5 motion library (spring/layout animations beyond `svelte/motion`) is still open.
+  - Second options considered: `bigger-picture` (lightbox; README withdrew Svelte usage pending
+    Svelte 5 checks), `@humanspeak/svelte-markdown` (markdown; more recent releases than
+    svelte-exmarkdown, worth adding as a second option), `canvas-confetti` (framework-agnostic).
+  - Quiet packages to re-check: svelte-i18n (last release 2024-10), PhotoSwipe (last release 2024-05,
+    v6 in development), svelte-codemirror-editor (last release 2025-10).
+  - Several entries link the repo README as docs because there is no docs site (Event Calendar,
+    svelte-gestures, svelte-tiptap, svelte-codemirror-editor, emoji-picker-element, phosphor-svelte).
+  - github.com pages returned 403 through the research sandbox's proxy, so github.com blob URLs were
+    checked through clones and raw.githubusercontent.com instead.
 - Second options where one was picked: `svelte-tiptap` (Svelte bindings for Tiptap). Added 2026-11-23:
   `svelte-maplibre` (map) and `svelte-echarts` (chart; README-only docs, echarts peer still ^5 while
   ECharts is on 6.x, no release since 2025-04; drop it if it stays idle).
@@ -157,8 +172,7 @@ pages and the `/port/` page. Next steps:
 - Possible upstream bugs noticed while reading source (worth an issue upstream, not data here):
   Sveltestrap 7.1.0 `Input type="select"` renders nothing with `multiple`; Bootstrap Svelte's
   Tooltip doc comment says `placement` defaults to `'right'` but the source sets no default.
-- New component ids suggested by the new libraries: `emoji-picker`, `phone-input` (also Flowbite),
-  `chat`/composer, `window`, `input-group` (now in several libraries), `segmented-control`,
+- New component ids suggested by the new libraries: `chat`/composer, `window`, `input-group` (now in several libraries), `segmented-control`,
   `places-autocomplete`.
 
 ## Previews
