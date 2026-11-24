@@ -55,12 +55,13 @@ async function npmFacts(pkg) {
 		const { stdout } = await run('npm', ['view', pkg, 'time', 'deprecated', 'dist-tags', '--json'], { maxBuffer: 64 << 20 })
 		const data = JSON.parse(stdout)
 		const latest = data['dist-tags']?.latest
-		// Newest publish of any version, ignoring automated builds; on a same-day tie prefer `latest`.
+		// Newest publish of any version, ignoring automated builds; on a same-day tie prefer `latest`,
+		// otherwise the later timestamp.
 		const times = Object.entries(data.time ?? {})
 			.filter(([v]) => v !== 'created' && v !== 'modified' && !automatedBuild.test(v))
-			.map(([v, t]) => [v, t.slice(0, 10)])
-		times.sort((a, b) => b[1].localeCompare(a[1]) || (b[0] === latest) - (a[0] === latest))
-		const [newestVersion, newestDate] = times[0] ?? []
+		times.sort((a, b) => b[1].slice(0, 10).localeCompare(a[1].slice(0, 10)) || (b[0] === latest) - (a[0] === latest) || b[1].localeCompare(a[1]))
+		const [newestVersion, newestTime] = times[0] ?? []
+		const newestDate = newestTime?.slice(0, 10)
 		return {
 			newest: newestVersion ? { version: newestVersion, date: newestDate } : undefined,
 			latest: latest ? { version: latest, date: data.time?.[latest]?.slice(0, 10) } : undefined,

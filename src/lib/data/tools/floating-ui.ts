@@ -47,6 +47,16 @@ export default defineTool({
 			how: 'The @zag-js/popper utility, which the overlay machines (popover, tooltip, menu, select...) depend on, wraps it.',
 			source: 'https://github.com/chakra-ui/zag/blob/main/packages/utilities/popper/package.json',
 		},
+		{
+			library: 'yesvelte',
+			how: 'Runtime dependency; a shared popup helper positions Popover, Tooltip, DropdownMenu, Autocomplete and the navbar and sidebar submenus.',
+			source: 'https://github.com/yesvelte/yesvelte/blob/dev/package.json',
+		},
+		{
+			library: 'agnosui',
+			how: 'Peer of @agnos-ui/core and part of the manual install command; it backs the Floating UI service for building your own floating elements.',
+			source: 'https://www.agnosui.dev/latest/docs/svelte/getting-started/installation',
+		},
 	],
 	ai: {
 		status: 'no-statement',

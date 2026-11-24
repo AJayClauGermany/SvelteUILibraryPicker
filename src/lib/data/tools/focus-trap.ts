@@ -22,6 +22,11 @@ export default defineTool({
 			how: 'Runtime dependency; the Popover builder traps focus in its content with it.',
 			source: 'https://github.com/melt-ui/next-gen/blob/main/packages/melt/package.json',
 		},
+		{
+			library: 'yesvelte',
+			how: 'Runtime dependency, loaded on demand by Modal and Offcanvas to keep focus inside them.',
+			source: 'https://github.com/yesvelte/yesvelte/blob/dev/package.json',
+		},
 	],
 	ai: {
 		status: 'welcomes',

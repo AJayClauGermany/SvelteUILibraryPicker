@@ -27,6 +27,11 @@ export default defineTool({
 			how: 'Its docs present a WYSIWYG editor from the separate @flowbite-svelte-plugins/texteditor package, which is built on @tiptap/core and Tiptap extensions.',
 			source: 'https://github.com/themesberg/flowbite-svelte/blob/main/src/routes/docs/plugins/wysiwyg.md',
 		},
+		{
+			library: 'nick-mazuk-ui-svelte',
+			how: 'Runtime dependency on an early @tiptap/core 2 beta; its RichTextInput is built on it.',
+			source: 'https://github.com/Nick-Mazuk/ui-svelte/blob/main/package.json',
+		},
 	],
 	ai: {
 		status: 'welcomes',
