@@ -19,7 +19,7 @@ export default defineTool({
 		peerRange: '^5',
 		runes: true,
 	},
-	version: '1.69.0',
+	version: '1.77.0',
 	components: ['icon'],
 	usedBy: [
 		{
@@ -64,7 +64,7 @@ export default defineTool({
 			'https://github.com/lucide-icons/lucide/blob/main/CONTRIBUTING.md',
 		],
 	},
-	lastVerified: '2026-11-06',
+	lastVerified: '2026-11-23',
 	notes: [
 		'@lucide/svelte is for Svelte 5 only. The docs point Svelte 3/4 projects to the older lucide-svelte package (1.0.1, peer `^3 || ^4 || ^5.0.0-next.42`), which is marked deprecated on npm in favour of @lucide/svelte.',
 		'Lucide v1 dropped brand logos (GitHub, Figma, Slack and others); the docs suggest Simple Icons for those.',

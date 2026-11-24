@@ -267,7 +267,12 @@ const themeOptions: ThemeOptions = {
 	// Type hovers (twoslash) on `ts` and `svelte` code blocks, including preview cards.
 	// `noErrors`: twoslash type-checks snippets in its own TS setup, where some library
 	// types don't resolve as they do in the real build; we want hovers, not diagnostics.
-	highlighter: { twoslash: { handbookOptions: { noErrors: true } } },
+	// `languages`: SveltePress' defaults plus `json`, which some libraries use in the JSDoc that
+	// twoslash renders inside type hovers (e.g. MapLibre GL).
+	highlighter: {
+		languages: ['svelte', 'sh', 'js', 'html', 'ts', 'md', 'css', 'scss', 'json'],
+		twoslash: { handbookOptions: { noErrors: true } },
+	},
 	github: REPO,
 	editLink: `${REPO}/edit/main/src/routes/:route`,
 	logo: '/logo.svg',

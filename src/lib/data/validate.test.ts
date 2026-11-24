@@ -234,20 +234,30 @@ describe('previews', () => {
 		expect(Array.isArray(previews)).toBe(true)
 	})
 
+	// Preview folders are keyed by entry id, so a tool and a library must never share one.
+	it('library and tool ids never collide', () => {
+		const toolIds = new Set(tools.map(t => t.id))
+		for (const lib of libraries)
+			expect(toolIds.has(lib.id), `"${lib.id}" is both a library and a tool`).toBe(false)
+	})
+
 	for (const p of previews) {
 		it(`${p.library}/${p.component}`, () => {
+			// A preview folder belongs to a library or a tool (previews/src/<id>/).
 			const lib = libraries.find(l => l.id === p.library)
-			expect(lib, `no library "${p.library}"`).toBeDefined()
-			expect(
-				lib!.components.some(c => c.id === p.component),
-				`"${p.library}" has no "${p.component}" component entry`,
-			).toBe(true)
+			const tool = tools.find(t => t.id === p.library)
+			const owner = lib ?? tool
+			expect(owner, `no library or tool "${p.library}"`).toBeDefined()
+			const listed = lib
+				? lib.components.some(c => c.id === p.component)
+				: (tool!.components as string[]).includes(p.component)
+			expect(listed, `"${p.library}" has no "${p.component}" component entry`).toBe(true)
 			// Respect library boundaries: no previews for libraries that restrict AI use
 			// or whose stance nobody has checked yet. See CONTRIBUTING.md#ai-policy.
 			expect(
 				['welcomes', 'no-statement'],
-				`previews are not allowed while ai.status is "${lib!.ai.status}"`,
-			).toContain(lib!.ai.status)
+				`previews are not allowed while ai.status is "${owner!.ai.status}"`,
+			).toContain(owner!.ai.status)
 		})
 	}
 })

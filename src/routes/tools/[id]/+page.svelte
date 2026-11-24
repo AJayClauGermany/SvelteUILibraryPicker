@@ -3,9 +3,11 @@
 	import PageMeta from '#lib/components/PageMeta.svelte'
 	import AiPolicyBadge from '#lib/components/AiPolicyBadge.svelte'
 	import DocsLink from '#lib/components/DocsLink.svelte'
+	import PreviewFrame from '#lib/components/PreviewFrame.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
 	import SvelteSupport from '#lib/components/SvelteSupport.svelte'
 	import { components, getLibrary, librariesWith, libraries, toolKindInfo, toolsFor } from '#lib/data/index.ts'
+	import { hasPreview } from '#lib/previews.ts'
 
 	const { data } = $props()
 	const tool = $derived(data.tool)
@@ -15,10 +17,13 @@
 	const alternatives = $derived(
 		[...new Set(tool.components.flatMap(id => toolsFor(id)))].filter(t => t.id !== tool.id),
 	)
+	/** Components of this tool that have a live preview (previews/src/<tool-id>/<component>.svelte). */
+	const previewed = $derived(tool.components.filter(id => hasPreview(tool.id, id)))
 	/** "On this page" entries; keep in step with the headings below. */
 	const anchors = $derived([
 		{ title: 'At a glance', slugId: 'at-a-glance', depth: 2 },
 		...(tool.notes?.length ? [{ title: 'Notes', slugId: 'notes', depth: 2 }] : []),
+		...(previewed.length ? [{ title: 'Live preview', slugId: 'preview', depth: 2 }] : []),
 		...(tool.components.length ? [{ title: 'Related components', slugId: 'components', depth: 2 }] : []),
 		{ title: 'Used by tracked libraries', slugId: 'used-by', depth: 2 },
 		...(alternatives.length ? [{ title: 'Other tools for the same components', slugId: 'alternatives', depth: 2 }] : []),
@@ -73,6 +78,19 @@
 {#if tool.notes?.length}
 	<h2 id="notes">Notes</h2>
 	<ul>{#each tool.notes as n (n)}<li>{n}</li>{/each}</ul>
+{/if}
+
+{#if previewed.length}
+	<h2 id="preview">Live preview</h2>
+	<p class="ulp-muted">
+		A minimal example with the tool's own default look, rendered in an isolated frame. Tools that
+		ship no styles look unstyled on purpose. For real usage and options, follow the docs link.
+	</p>
+	<div class="previews">
+		{#each previewed as id (id)}
+			<PreviewFrame library={tool.id} libraryName={tool.name} component={id} componentName={components[id].name} docs={tool.docs} />
+		{/each}
+	</div>
 {/if}
 
 {#if tool.components.length}
@@ -130,6 +148,11 @@
 		gap: 1.25rem;
 		align-items: center;
 		flex-wrap: wrap;
+	}
+	.previews {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 1rem;
 	}
 	th[scope='row'] {
 		width: 10rem;

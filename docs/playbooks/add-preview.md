@@ -10,6 +10,8 @@ Output: `previews/src/<library-id>/<component-id>.svelte`, plus the library as a
 ## Preconditions (all required)
 
 1. The library has an entry in `src/lib/data/libraries/` whose `components` includes `<component-id>`.
+   Tools work the same way: a tool in `src/lib/data/tools/` gets `previews/src/<tool-id>/<component-id>.svelte`
+   for a component in its `components` list, and the header's `Docs:` line points at the tool's docs.
 2. Its `ai.status` is `welcomes` or `no-statement`. **Stop here** if it is `restricted` or
    `unreviewed`: those libraries get facts and links only (humans can discuss exceptions in an issue).
 3. Its license allows normal use as an npm dependency. All current entries do.
@@ -50,6 +52,10 @@ Output: `previews/src/<library-id>/<component-id>.svelte`, plus the library as a
      library's install guide requires (e.g. `flowbite`, `@tailwindcss/forms`) as a devDependency.
    - Libraries that need a Vite plugin (e.g. M3 Svelte) register it in `previews/vite.config.ts`
      only, never in the site's root config.
-4. Check it: `pnpm dev`, then open `/preview/?library=<id>&component=<id>` and the component's
-   page at `/components/<id>/`.
+4. Check it: `node scripts/check-previews.js <id>` opens every preview of that library or tool in
+   headless Chromium and fails on console errors, exceptions, empty renders and requests to other
+   hosts. Add `--dark` for dark mode and `--shots <dir>` to save PNGs you can look at. To see it in
+   the site, `pnpm dev`, then open `/preview/?library=<id>&component=<id>` and the component's page
+   at `/components/<id>/` (tools: `/tools/<id>/`).
+   To find what is still missing, run `node scripts/preview-coverage.js --missing`.
 5. `pnpm verify`

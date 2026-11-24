@@ -23,7 +23,9 @@ export default defineConfig({
 	plugins: [tailwindcss(), svelte(), functionsMixins({ deps: ['m3-svelte'] })],
 	cacheDir: fileURLToPath(new URL('../node_modules/.vite-previews', import.meta.url)),
 	// Pre-bundle every preview's deps up front so the first load in dev doesn't 504.
-	optimizeDeps: { entries: ['main.ts', 'src/**/*.svelte'] },
+	// svelte-maplibre-gl/vite imports MapLibre's worker with `?worker&url`, which pre-bundling
+	// cannot load, so the package is served as is.
+	optimizeDeps: { entries: ['main.ts', 'src/**/*.svelte'], exclude: ['svelte-maplibre-gl'] },
 	build: {
 		outDir: fileURLToPath(new URL('../dist/preview', import.meta.url)),
 		emptyOutDir: true,

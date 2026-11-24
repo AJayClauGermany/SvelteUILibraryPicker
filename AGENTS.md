@@ -47,6 +47,8 @@ pnpm validate   # data rules (vitest), fast; run after any data change
 pnpm check      # svelte-check / TypeScript
 pnpm build      # static site -> dist/ (site, then preview app into dist/preview)
 pnpm verify     # validate + check + build; run before opening a PR
+node scripts/preview-coverage.js --missing   # which listed components still lack a preview
+node scripts/check-previews.js <id>          # render-check previews in headless Chromium
 ```
 
 Node >= 22, pnpm 10.
@@ -61,7 +63,8 @@ Node >= 22, pnpm 10.
 | `src/lib/data/libraries/<id>.ts` | One file per library (`export default defineLibrary({...})`) |
 | `src/lib/data/tools/<id>.ts` | One file per tool: single-purpose packages and building blocks (`defineTool({...})`) |
 | `src/lib/data/validate.test.ts` | The data rules `pnpm validate` enforces |
-| `previews/src/<library>/<component>.svelte` | Live previews (default styling only) |
+| `previews/src/<library-or-tool>/<component>.svelte` | Live previews (default styling only) |
+| `scripts/` | Helper scripts for contributors and agents (preview coverage, preview render check) |
 | `previews/` | Standalone Vite app that renders previews in isolation at `/preview/` |
 | `src/routes/` | Site pages (SveltePress: `.md` or `.svelte`) |
 | `docs/` | Architecture, previews guide, backlog of known gaps |

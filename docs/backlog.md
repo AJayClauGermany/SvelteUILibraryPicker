@@ -116,9 +116,17 @@ widened: tools may map to components no tracked library provides (new ids `map`,
 
 - Component ids for 3D scenes and animation/motion, then `@threlte/core` (threlte.xyz, MIT,
   Svelte >= 5) and a Svelte 5 motion library.
-- Second options where one was picked: `svelte-maplibre` (map), `svelte-echarts` (chart; README-only
-  docs), `svelte-tiptap` (Svelte bindings for Tiptap), `svelte-multiselect` (tags input / select).
+- Second options where one was picked: `svelte-tiptap` (Svelte bindings for Tiptap). Added 2026-11-23:
+  `svelte-maplibre` (map) and `svelte-echarts` (chart; README-only docs, echarts peer still ^5 while
+  ECharts is on 6.x, no release since 2025-04; drop it if it stays idle).
+- `svelte-multiselect` was skipped (2026-11-23): its repo was renamed to `janosh/svelte-widgets` and the
+  package restarted as `svelte-widgets` (1.x, MultiSelect is one of 30+ components). The old
+  `janosh.github.io/svelte-multiselect` docs URL now returns 404 and npm `svelte-multiselect` stopped at
+  11.8.0 (2026-07). `svelte-widgets` (svelte-widgets.janosh.dev, MIT, Svelte ^5.48.0) is broad enough to
+  be reviewed as a library rather than a tool.
 - A Shiki-based code-block package with real docs (Lily's Code Block and Skeleton's Shiki guide use Shiki).
+  None found on 2026-11-23: `svelte-shiki` is from 2020, and `@shikijs/magic-move` is an animation
+  package, not a code block.
 - Licenses without an SPDX id: `svelte-select` is recorded as `LicenseRef-svelte-select` (the text
   reads like the Copyfree Open Innovation License, unconfirmed). Decide how the site shows these.
 - Re-check: Neodrag when 3.0 is stable; the iconify.design docs URL and any llms.txt there (blocked
@@ -126,7 +134,11 @@ widened: tools may map to components no tracked library provides (new ids `map`,
   redirects to `nilbuild/driver.js`.
 - `@zerodevx/svelte-toast` has had no release since 2024-09 and runs in legacy mode on Svelte 5;
   drop it if it stays idle.
-- Previews for tools: the preview registry is library-only today.
+- Previews for tools were added on 2026-11-23 (see [previews.md](previews.md#tools)). Left out: mode-watcher
+  (it would fight the preview app's own theme switch), Formsnap and
+  Superforms (need a SvelteKit form action), vaul-svelte (the installed Svelte 5 prerelease differs from the
+  recorded 0.3.2), and the non-visual helpers. Floating UI only has tooltip and popover; it also lists
+  dropdown menu, hover card, select, combobox, context menu and menubar.
 
 ## Component props
 
