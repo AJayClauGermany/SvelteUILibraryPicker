@@ -57,6 +57,12 @@ export default defineTool({
 			'https://github.com/svecosystem/mode-watcher/blob/main/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.1.0', date: '2025-06-28' },
+		lastCommit: '2025-08-05',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/mode-watcher', 'https://github.com/svecosystem/mode-watcher'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'It manages mode state and the <html> class; it ships no toggle button, so you render your own control (e.g. calling toggleMode).',

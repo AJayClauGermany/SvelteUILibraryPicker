@@ -31,6 +31,12 @@ export default defineTool({
 		],
 		llmsTxt: 'https://svhe.onrender.com/llms.txt',
 	},
+	maintenance: {
+		lastRelease: { version: '7.27.0', date: '2026-11-22' },
+		lastCommit: '2026-11-22',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-highlight', 'https://github.com/metonym/svelte-highlight'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'The published package declares no `svelte` peer dependency. Its components use the classic (non-runes) component syntax, and the repo keeps example apps for both Svelte 5 and Svelte 4 (examples/vite@svelte-4).',

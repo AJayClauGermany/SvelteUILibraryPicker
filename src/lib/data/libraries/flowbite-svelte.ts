@@ -731,6 +731,12 @@ export default defineLibrary({
 		'render-delegation': { value: '`tag` prop on Button; `href` switches it to <a>', source: 'https://github.com/themesberg/flowbite-svelte/blob/v1.33.1/src/lib/buttons/Button.svelte' },
 		'composition': { value: 'mostly single components with snippet props (`header`, `footer`); a few pairs such as `Tabs` + `TabItem`', source: 'https://github.com/themesberg/flowbite-svelte/blob/v1.33.1/src/lib/types.ts' },
 	},
+	maintenance: {
+		lastRelease: { version: '1.33.1', date: '2026-04-07' },
+		lastCommit: '2026-06-27',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/flowbite-svelte', 'https://github.com/themesberg/flowbite-svelte'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Role colors are limited to primary and secondary (set through Tailwind theme variables); status colors are picked by Tailwind palette name, e.g. red or green.',

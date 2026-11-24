@@ -6,6 +6,7 @@
 	import AiPolicyBadge from '#lib/components/AiPolicyBadge.svelte'
 	import DocsLink from '#lib/components/DocsLink.svelte'
 	import InlineCode from '#lib/components/InlineCode.svelte'
+	import MaintenanceDetails from '#lib/components/MaintenanceDetails.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
 	import SvelteSupport from '#lib/components/SvelteSupport.svelte'
 	import ToolingChips from '#lib/components/ToolingChips.svelte'
@@ -51,6 +52,7 @@
 		<tbody>
 			<tr><th scope="row">Svelte support</th><td><SvelteSupport svelte={lib.svelte} />{#if lib.svelte.peerRange}<div class="ulp-muted">peer range <code>svelte {lib.svelte.peerRange}</code></div>{/if}</td></tr>
 			<tr><th scope="row">Version checked</th><td><code>{lib.packages[0]}@{lib.version}</code></td></tr>
+			<tr><th scope="row">Maintenance</th><td><MaintenanceDetails entry={lib} /></td></tr>
 			<tr><th scope="row">Install</th><td>{#each lib.packages as p (p)}<code>{p}</code> {/each}</td></tr>
 			<tr><th scope="row">Styling</th><td>{lib.styling.join(', ')}</td></tr>
 			<tr><th scope="row">Build tooling</th><td><ToolingChips library={lib} showOptional emptyText="None beyond Svelte" /> <a href="#dependencies" class="ulp-muted">details</a></td></tr>

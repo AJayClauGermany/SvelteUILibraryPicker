@@ -8,6 +8,11 @@
 	--ulp-ok: #15803d;
 	--ulp-warn: #b45309;
 	--ulp-bad: #b91c1c;
+	/* Maintenance badge: green, yellow, orange, red. */
+	--ulp-status-active: #15803d;
+	--ulp-status-quiet: #a16207;
+	--ulp-status-legacy: #c2410c;
+	--ulp-status-deprecated: #b91c1c;
 	--ulp-radius: 10px;
 }
 
@@ -33,6 +38,10 @@ html[data-theme='dark'] {
 	--ulp-ok: #4ade80;
 	--ulp-warn: #fbbf24;
 	--ulp-bad: #f87171;
+	--ulp-status-active: #4ade80;
+	--ulp-status-quiet: #facc15;
+	--ulp-status-legacy: #fb923c;
+	--ulp-status-deprecated: #f87171;
 }
 
 .ulp-chip {

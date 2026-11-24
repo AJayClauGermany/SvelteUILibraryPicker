@@ -9,12 +9,13 @@
 	import { url } from '#lib/url.ts'
 	import ToolCard from '#lib/components/ToolCard.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
-	import type { ComponentId, ToolKind } from '#lib/data/index.ts'
-	import { componentsByCategory, components, toolKindInfo, tools } from '#lib/data/index.ts'
+	import type { ComponentId, MaintenanceStatus, ToolKind } from '#lib/data/index.ts'
+	import { componentsByCategory, components, maintenanceInfo, maintenanceStatus, maintenanceStatuses, toolKindInfo, tools } from '#lib/data/index.ts'
 
 	let query = $state('')
 	let kind = $state<'' | ToolKind>('')
 	let component = $state<'' | ComponentId>('')
+	let maintenance = $state<'' | MaintenanceStatus>('')
 
 	const kinds = Object.keys(toolKindInfo) as ToolKind[]
 	const componentGroups = componentsByCategory([...new Set(tools.flatMap(t => t.components))])
@@ -25,6 +26,7 @@
 			if (q && !`${t.name} ${t.description} ${t.packages.join(' ')}`.toLowerCase().includes(q)) return false
 			if (kind && t.kind !== kind) return false
 			if (component && !t.components.includes(component)) return false
+			if (maintenance && maintenanceStatus(t) !== maintenance) return false
 			return true
 		}),
 	)
@@ -69,6 +71,12 @@
 					{#each g.ids as id (id)}<option value={id}>{components[id].name}</option>{/each}
 				</optgroup>
 			{/each}
+		</select>
+	</label>
+	<label>Maintenance
+		<select bind:value={maintenance}>
+			<option value="">Any</option>
+			{#each maintenanceStatuses as s (s)}<option value={s} title={maintenanceInfo[s].description}>{maintenanceInfo[s].label}</option>{/each}
 		</select>
 	</label>
 </div>

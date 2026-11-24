@@ -42,6 +42,12 @@ export default defineTool({
 			'https://github.com/huntabyte/vaul-svelte/tree/next',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.0.0-next.7', date: '2025-03-24' },
+		lastCommit: '2024-10-08',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/vaul-svelte', 'https://github.com/huntabyte/vaul-svelte'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'Version 0.3.2 (the npm latest tag) uses Svelte 4 component syntax and builds on Bits UI 0.x. The Svelte 5 rewrite is published only as a pre-release (1.0.0-next.7 under the next tag, svelte peer ^5.0.0, runes), developed on the next branch.',

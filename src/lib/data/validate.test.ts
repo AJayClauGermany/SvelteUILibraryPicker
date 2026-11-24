@@ -10,8 +10,9 @@ import { basename, join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { previews } from '../previews'
 import { componentIds, components } from './components'
-import { libraries, tools } from './index'
+import { libraries, maintenanceStatus, tools } from './index'
 import { canonicalProps, conventionInfo, getCanonicalProp, hasCanonicalProps } from './props'
+import type { Library, Tool } from './schema'
 import { apiStyleInfo, featureInfo } from './schema'
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
@@ -26,6 +27,32 @@ function isHttpsUrl(value: string | undefined) {
 	catch {
 		return false
 	}
+}
+
+/** Shared rules for the `maintenance` field of libraries and tools. */
+function checkMaintenance(entry: Library | Tool) {
+	const m = entry.maintenance
+	expect(m, 'add a maintenance field (node scripts/maintenance-facts.js <id>)').toBeDefined()
+	if (!m) return
+	expect(m.checked).toMatch(ISO_DATE)
+	expect(m.checked <= today, 'maintenance.checked is in the future').toBe(true)
+	expect(m.lastRelease || m.lastCommit, 'record lastRelease, lastCommit or both').toBeTruthy()
+	if (m.lastRelease) {
+		expect(m.lastRelease.version.trim()).not.toBe('')
+		expect(m.lastRelease.date).toMatch(ISO_DATE)
+		expect(m.lastRelease.date <= m.checked, 'lastRelease is after the check date').toBe(true)
+	}
+	if (m.lastCommit) {
+		expect(m.lastCommit).toMatch(ISO_DATE)
+		expect(m.lastCommit <= m.checked, 'lastCommit is after the check date').toBe(true)
+	}
+	if (m.deprecated) {
+		expect(m.deprecated.summary.trim(), 'describe the deprecation in your own words').not.toBe('')
+		expect(isHttpsUrl(m.deprecated.source), `deprecated.source: ${m.deprecated.source}`).toBe(true)
+	}
+	expect(m.sources.length, 'add at least one source URL').toBeGreaterThan(0)
+	for (const src of m.sources) expect(isHttpsUrl(src), `maintenance source: ${src}`).toBe(true)
+	expect(maintenanceStatus(entry)).toBeDefined()
 }
 
 describe('component taxonomy', () => {
@@ -68,6 +95,8 @@ describe('libraries', () => {
 			it('declares Svelte support', () => {
 				expect(lib.svelte.supported.length).toBeGreaterThan(0)
 			})
+
+			it('records maintenance facts', () => checkMaintenance(lib))
 
 			it('has a valid lastVerified date', () => {
 				expect(lib.lastVerified).toMatch(ISO_DATE)
@@ -176,6 +205,8 @@ describe('tools', () => {
 				expect(isHttpsUrl(tool.license.url), `license.url: ${tool.license.url}`).toBe(true)
 				expect(tool.license.spdx.trim()).not.toBe('')
 			})
+
+			it('records maintenance facts', () => checkMaintenance(tool))
 
 			it('has a valid lastVerified date', () => {
 				expect(tool.lastVerified).toMatch(ISO_DATE)

@@ -31,6 +31,12 @@ export default defineTool({
 			'https://github.com/vkurko/calendar/blob/master/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '5.21.2', date: '2026-11-23' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@event-calendar/core', 'https://github.com/vkurko/calendar'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Svelte is a regular dependency, not a peer: Svelte apps import the Calendar component (resolved through the package’s svelte export condition), while other apps call createCalendar() or use the separate @event-calendar/build browser bundle.',

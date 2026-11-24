@@ -459,6 +459,12 @@ export default defineLibrary({
 		'rest-props': { value: 'forwarded to the native <button>/<input> on Button, Input and Checkbox', notes: 'Toggle, Tabs and Tooltip take no extra attributes.', source: 'https://github.com/kampsy/ui/blob/v2.10.0/src/lib/input/input.svelte' },
 		'composition': { value: 'single components with props for most controls; compound namespaces for Modal, Select, Menu, Collapse, Switch, Table, Choicebox, SplitButton, Kbd and EmptyState (`Modal.Root`, `Select.Trigger`...)', source: 'https://github.com/kampsy/ui/blob/v2.10.0/src/lib/index.ts' },
 	},
+	maintenance: {
+		lastRelease: { version: '2.10.0', date: '2026-09-28' },
+		lastCommit: '2026-09-28',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/kampsy-ui', 'https://github.com/kampsy/ui'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Setup: import kampsy-ui/theme.css after Tailwind in your CSS and add an @source entry for the package dist folder so its classes are generated.',

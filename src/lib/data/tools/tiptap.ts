@@ -27,6 +27,11 @@ export default defineTool({
 			how: 'Its docs present a WYSIWYG editor from the separate @flowbite-svelte-plugins/texteditor package, which is built on @tiptap/core and Tiptap extensions.',
 			source: 'https://github.com/themesberg/flowbite-svelte/blob/main/src/routes/docs/plugins/wysiwyg.md',
 		},
+		{
+			library: 'nick-mazuk-ui-svelte',
+			how: 'Runtime dependency on an early @tiptap/core 2 beta; its RichTextInput is built on it.',
+			source: 'https://github.com/Nick-Mazuk/ui-svelte/blob/main/package.json',
+		},
 	],
 	ai: {
 		status: 'welcomes',
@@ -41,6 +46,12 @@ export default defineTool({
 		upstreamContributing:
 			'Disclose any AI-tool use in the pull request description, and tick the PR template box confirming you reviewed and take responsibility for the changes. PRs must link to an issue assigned to you.',
 		llmsTxt: 'https://tiptap.dev/docs/llms.txt',
+	},
+	maintenance: {
+		lastRelease: { version: '3.35.0', date: '2026-11-20' },
+		lastCommit: '2026-11-22',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@tiptap/core', 'https://github.com/ueberdosis/tiptap'],
 	},
 	lastVerified: '2026-11-22',
 	notes: [

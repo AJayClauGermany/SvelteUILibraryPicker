@@ -48,6 +48,12 @@ export default defineTool({
 			'https://github.com/huntabyte/svelte-toolbelt/blob/main/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '0.13.0', date: '2026-11-05' },
+		lastCommit: '2026-11-05',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-toolbelt', 'https://github.com/huntabyte/svelte-toolbelt'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'The README describes it as the author’s personal toolkit and points to Runed for a broader, more fully featured set of utilities.',

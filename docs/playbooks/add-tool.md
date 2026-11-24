@@ -42,7 +42,7 @@ the docs source.
 ## 3. Write the file
 
 Copy an existing tool (e.g. `layerchart.ts`) and follow the `Tool` type in `src/lib/data/schema.ts`.
-Description: one sentence, own words, neutral. Set `lastVerified` to today.
+Description: one sentence, own words, neutral. Set `lastVerified` to today, and fill `maintenance` from `node scripts/maintenance-facts.js <id>` (same rules as in [add-library.md](add-library.md)).
 
 ## 4. Verify
 

@@ -36,6 +36,12 @@ export default defineTool({
 			'https://github.com/carbon-design-system/carbon-charts/blob/main/LICENSE.md',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.27.26', date: '2026-11-05' },
+		lastCommit: '2026-11-05',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@carbon/charts-svelte', 'https://github.com/carbon-design-system/carbon-charts'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'Version is the npm `latest` tag (published February 2025), whose components use `export let`. The `next` tag (1.27.27 at the time of checking, built from the main branch) is rewritten with runes and needs Svelte 5 (peer ^5.20.2; its README says 5.33+).',

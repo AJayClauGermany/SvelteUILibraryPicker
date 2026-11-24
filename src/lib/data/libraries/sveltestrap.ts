@@ -561,6 +561,12 @@ export default defineLibrary({
 			source: src('TabContent/TabContent.svelte'),
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '7.1.0', date: '2025-02-04' },
+		lastCommit: '2026-01-28',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@sveltestrap/sveltestrap', 'https://github.com/sveltestrap/sveltestrap'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Components use Svelte 4 syntax (export let, slots); Svelte 5 works through the peer range but the API is not rune-based.',

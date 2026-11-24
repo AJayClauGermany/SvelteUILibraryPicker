@@ -38,6 +38,12 @@ export default defineTool({
 			'https://github.com/ciscoheat/superforms-web',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '3.1.0', date: '2026-10-29' },
+		lastCommit: '2026-10-29',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/sveltekit-superforms', 'https://github.com/ciscoheat/sveltekit-superforms'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'SvelteKit-specific: @sveltejs/kit (^2.12.0 || ^3.0.0) is a peer dependency, and the server side relies on SvelteKit load functions and form actions. A client-only SPA mode exists, but it still runs inside SvelteKit.',

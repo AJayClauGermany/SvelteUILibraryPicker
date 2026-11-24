@@ -495,6 +495,12 @@ export default defineLibrary({
 			source: src('Dialog'),
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '1.0.11', date: '2026-08-20' },
+		lastCommit: '2026-08-20',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-ux', 'https://github.com/techniq/svelte-ux'],
+	},
 	lastVerified: '2026-11-04',
 	notes: [
 		'The Svelte CLI (sv) now sets up Tailwind 4, which 1.x cannot use, so the docs send new projects to the official Tailwind v3 SvelteKit guide instead.',

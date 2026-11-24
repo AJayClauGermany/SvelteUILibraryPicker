@@ -42,6 +42,11 @@ export default defineTool({
 			how: 'Many copy-paste registry components (Stepper, Password, Number Field, Image Cropper, Emoji Picker and others) import its helpers, so adding them adds runed to your project.',
 			source: 'https://github.com/ieedan/shadcn-svelte-extras/tree/main/src/lib/components/ui/stepper',
 		},
+		{
+			library: 'origin-ui-svelte',
+			how: 'The base Timeline component uses it.',
+			source: 'https://github.com/max-got/originui-svelte/blob/main/src/lib/components/ui/timeline/timeline-context.svelte.ts',
+		},
 	],
 	ai: {
 		status: 'no-statement',
@@ -52,6 +57,12 @@ export default defineTool({
 			'https://github.com/svecosystem/runed/blob/main/CONTRIBUTING.md',
 			'https://github.com/svecosystem/runed/blob/main/LICENSE',
 		],
+	},
+	maintenance: {
+		lastRelease: { version: '0.38.0', date: '2026-10-23' },
+		lastCommit: '2026-10-22',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/runed', 'https://github.com/svecosystem/runed'],
 	},
 	lastVerified: '2026-11-22',
 	notes: [

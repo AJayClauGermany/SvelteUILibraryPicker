@@ -4,6 +4,7 @@
 	import { components, getLibrary, toolKindInfo } from '#lib/data/index.ts'
 	import AiPolicyBadge from './AiPolicyBadge.svelte'
 	import DocsLink from './DocsLink.svelte'
+	import MaintenanceBadge from './MaintenanceBadge.svelte'
 
 	const { tool }: { tool: Tool } = $props()
 </script>
@@ -15,6 +16,7 @@
 	</header>
 	<p class="desc">{tool.description}</p>
 	<div class="tags">
+		<MaintenanceBadge entry={tool} />
 		<span class="ulp-chip kind" title={toolKindInfo[tool.kind].description}>{toolKindInfo[tool.kind].label}</span>
 		{#each tool.components as id (id)}<a class="ulp-chip" href={url(`/components/${id}/`)}>{components[id].name}</a>{/each}
 		{#if !tool.svelte}<span class="ulp-chip" title="Not tied to a UI framework">framework-agnostic</span>{/if}

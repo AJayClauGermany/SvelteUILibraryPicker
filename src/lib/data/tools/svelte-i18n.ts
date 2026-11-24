@@ -32,6 +32,12 @@ export default defineTool({
 			'https://github.com/kaisermann/svelte-i18n/blob/main/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '4.0.1', date: '2024-10-21' },
+		lastCommit: '2024-10-21',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-i18n', 'https://github.com/kaisermann/svelte-i18n'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'It is built on Svelte stores (you read translations with $_ or $format), not runes. Svelte 5 support came in 4.0.1, which only widened the peer range; the package itself was not rewritten for runes.',

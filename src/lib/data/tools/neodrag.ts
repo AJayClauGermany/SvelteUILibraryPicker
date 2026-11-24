@@ -30,6 +30,12 @@ export default defineTool({
 			'https://github.com/PuruVJ/neodrag/tree/main/docs',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '3.0.0-next.11', date: '2026-08-10' },
+		lastCommit: '2025-06-26',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@neodrag/svelte', 'https://github.com/PuruVJ/neodrag'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Moves single elements around freely; it does not manage list order or drop zones. For sortable lists and boards, see svelte-dnd-action.',

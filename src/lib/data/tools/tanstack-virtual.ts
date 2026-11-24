@@ -36,6 +36,12 @@ export default defineTool({
 			'https://github.com/TanStack/virtual/blob/main/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '3.13.54', date: '2026-11-22' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@tanstack/svelte-virtual', 'https://github.com/TanStack/virtual'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'The peer range accepts Svelte 5, but the adapter is built on Svelte stores (createVirtualizer returns a readable store you read with `$`), not runes. The package itself is developed and tested against Svelte 4, and the official Svelte examples use Svelte 4.',

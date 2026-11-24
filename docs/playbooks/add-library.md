@@ -11,6 +11,8 @@ Works for any agent or human. Output: one file, `src/lib/data/libraries/<id>.ts`
 
 - It's a Svelte UI component library (or builder/primitive set) with public docs.
 - It isn't already listed (`ls src/lib/data/libraries`).
+- Old, idle, Svelte 3/4-only or archived libraries are welcome: the maintenance badge tells readers
+  where they stand. A missing LICENSE file or missing public docs still rules a library out.
 
 ## 2. Gather facts from primary sources
 
@@ -25,6 +27,7 @@ Works for any agent or human. Output: one file, `src/lib/data/libraries/<id>.ts`
 | `dependencies` | `npm view <pkg>@<version> peerDependencies peerDependenciesMeta --json`, plus the install / getting-started and theming docs (Tailwind, UnoCSS, Sass, PostCSS, CSS framework, Vite plugins) |
 | `features` | The docs and source, against the definitions in `featureInfo` in `schema.ts` (e.g. `semantic-colors` needs role-based color props the theme maps; `accessibility` needs per-component keyboard/ARIA docs) |
 | `ai` | Look for `llms.txt`, MCP servers, `AGENTS.md`/`CLAUDE.md`, CONTRIBUTING sections on AI, and LICENSE terms |
+| `maintenance` | `node scripts/maintenance-facts.js <id>` (npm release dates and `deprecated`, last commit, archived flag), plus the README and docs for an explicit deprecation notice |
 
 If the docs site is unreachable: `git clone --depth 1 <repo>` into a temp dir and read the docs source.
 **Never guess a URL.**
@@ -47,6 +50,10 @@ Copy an existing entry (e.g. `bits-ui.ts`) and follow `src/lib/data/schema.ts`:
   - `no-statement`: you checked and found nothing.
   - `restricted`: they limit AI use of their project. Describe exactly what's limited.
   - Rules that only cover contributing to *their* repo go in `ai.upstreamContributing`.
+- `maintenance`: `lastRelease` (newest npm version and date; for a registry, its newest tag),
+  `lastCommit`, `archived: true` if the repo is archived, `checked` (today) and `sources`. Add
+  `deprecated` only when the maintainers explicitly deprecated it or said it is unmaintained,
+  never because it has been quiet. Keep these dates out of `notes`; the badge shows them.
 - `lastVerified`: today's date (YYYY-MM-DD).
 
 ## 4. Verify

@@ -92,15 +92,48 @@ neobrutalism-svelte) were added on 2026-11-22 this way. Follow-ups from that pas
 | Svelte Polaris | `svelte-polaris` 0.0.7 | 0.0.x and idle |
 | lomer-ui | `lomer-ui` 0.0.22 | 0.0.x; describes itself as not a component library |
 | mielui | `@mielui/svelte` 0.4.0 | found via npm, not researched yet |
-| svelte-headlessui (CaptainCodeman) | `svelte-headlessui` 0.0.46 | 0.0.x, idle since 2025-01 |
 
-**Probably not, unless something changes:** apple-svelte (idle, no LICENSE file), Origin UI Svelte
-(idle since 2025-06), Tark UI (no LICENSE file), SvelteUI (Svelte 3/4 only), Atom Forge UI
-(custom non-SPDX "Patron License"), Material Svelte by flenze (repo not found).
+**Probably not, unless something changes:** apple-svelte (no LICENSE file), Tark UI (no LICENSE
+file), Atom Forge UI (custom non-SPDX "Patron License"), Material Svelte by flenze (repo not found).
 
-**Skipped on purpose:** archived or Svelte 3/4-only kits (svelte-5-ui-lib, STWUI, Attractions,
-rgossiaux svelte-headlessui, Smelte, fluent-svelte, svelte-atoms, Grail UI, radix-svelte, the
-legacy `@melt-ui/svelte`), non-Svelte libraries (AgnosticUI, FlyonUI, daisyUI), single-purpose
+**Older, idle and archived libraries (decision 2026-11-24).** These used to be skipped. They are
+now listed for reference and migration planning, each with a maintenance badge (Active, Quiet,
+Legacy, Deprecated; see the guide's "Maintenance status" section). Being old, idle, Svelte 3/4-only
+or archived is no longer a reason to leave a library out; a missing LICENSE file or missing public
+docs still is. Added on 2026-11-24: Ato UI, ikun-ui, Attractions, Smelte, SvelteUI, STWUI, Fluent
+Svelte, rgossiaux svelte-headlessui, svelte-headlessui (CaptainCodeman), svelte-atoms, Grail UI,
+Radix Svelte, svelte-5-ui-lib, Melt UI (legacy `@melt-ui/svelte`) and Origin UI Svelte. What their
+code shows about migrating between majors is in [legacy-libraries.md](legacy-libraries.md).
+Follow-ups:
+
+- No previews for any of them yet. Most need Svelte 3/4 or an old toolchain (Tailwind 2, UnoCSS
+  0.57, svelte-preprocess 4), and several import `svelte/internal`, so they won't run in the
+  Svelte 5 preview app. The ones that should (svelte-5-ui-lib, Origin UI Svelte, and maybe the
+  store-based Melt UI legacy builders) are candidates.
+- STWUI's README says it is no longer actively developed but still accepts issues and PRs. That
+  isn't an explicit deprecation, so its badge is Legacy (Svelte 4 only), not Deprecated.
+- A second batch, found in the same discovery pass, was added later on 2026-11-24: Svelte
+  Materialify, Svelma, Kahi UI, svelte-chota, YeSvelte, svelte-mui, Vitamin Svelte, proi-ui,
+  svelte-spectre, Spaper, STDF, MDB Svelte, Sveltin Essentials, AgnosUI, PerfectThings UI,
+  Framework7 Svelte, ui-svelte (Nick Mazuk) and Figma Plugin DS Svelte. Points to re-check:
+  - Kahi UI is Deprecated because its README calls it unsupported and on indefinite hiatus, and
+    tells users to look for alternatives. npm has no deprecation flag and the repo is not
+    archived, so revisit this if the notice changes.
+  - Vitamin Svelte's upstream says this version takes bug fixes only while a new Vitamin is built.
+    That is a freeze, not a deprecation, so the badge is Legacy (Svelte 3 only).
+  - YeSvelte records the `next` dist-tag (0.2.1-next.4, Svelte 5), which its docs install;
+    `latest` still points at a Svelte 3 prerelease.
+  - svelte-mui and Vitamin Svelte docs are client-rendered (any path returns 200), and ui-svelte's
+    are a Storybook, so their component links were checked against the route lists in source,
+    not by HTTP status. Figma Plugin DS Svelte links to README headings.
+  - No previews yet. STDF, Framework7 Svelte and PerfectThings UI are Svelte 5 and `welcomes`;
+    Spaper, AgnosUI and YeSvelte are Svelte 5 and `no-statement`. Those are the candidates.
+
+  Not addable as they stand: Ionic Svelte (no LICENSE file at the repo root), Svelteit (alpha only),
+  Material Svelte `material-svelte` (docs site down), svelte-fui (alpha, no docs site), daisy-svelte
+  (docs site gone).
+
+**Skipped on purpose:** non-Svelte libraries (AgnosticUI, FlyonUI, daisyUI), single-purpose
 components (Formsnap, svelte-sonner, PaneForge, vaul-svelte, select-kit, data grids) and chart/3D
 libraries (LayerChart, Threlte). Single-purpose packages now live in the [Tools](#tools) section
 instead.

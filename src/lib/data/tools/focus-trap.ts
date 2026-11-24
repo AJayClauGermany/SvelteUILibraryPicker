@@ -22,6 +22,11 @@ export default defineTool({
 			how: 'Runtime dependency; the Popover builder traps focus in its content with it.',
 			source: 'https://github.com/melt-ui/next-gen/blob/main/packages/melt/package.json',
 		},
+		{
+			library: 'yesvelte',
+			how: 'Runtime dependency, loaded on demand by Modal and Offcanvas to keep focus inside them.',
+			source: 'https://github.com/yesvelte/yesvelte/blob/dev/package.json',
+		},
 	],
 	ai: {
 		status: 'welcomes',
@@ -32,6 +37,12 @@ export default defineTool({
 			'https://github.com/focus-trap/focus-trap/blob/master/CONTRIBUTING.md',
 			'https://github.com/focus-trap/focus-trap/blob/master/LICENSE',
 		],
+	},
+	maintenance: {
+		lastRelease: { version: '8.2.6', date: '2026-11-22' },
+		lastCommit: '2026-11-22',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/focus-trap', 'https://github.com/focus-trap/focus-trap'],
 	},
 	lastVerified: '2026-11-22',
 	notes: [

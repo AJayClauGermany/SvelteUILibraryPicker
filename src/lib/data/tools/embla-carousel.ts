@@ -35,6 +35,12 @@ export default defineTool({
 			'https://github.com/davidjerleke/embla-carousel/blob/master/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '9.0.0-rc04', date: '2026-10-08' },
+		lastCommit: '2026-10-12',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/embla-carousel-svelte', 'https://github.com/davidjerleke/embla-carousel'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'The Svelte package is a `use:` action you put on the viewport element, not a component; runes do not apply to it.',

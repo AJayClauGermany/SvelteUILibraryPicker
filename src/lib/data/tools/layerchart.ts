@@ -52,6 +52,12 @@ export default defineTool({
 		],
 		llmsTxt: 'https://layerchart.com/llms.txt',
 	},
+	maintenance: {
+		lastRelease: { version: '2.11.0', date: '2026-11-17' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/layerchart', 'https://github.com/techniq/layerchart'],
+	},
 	lastVerified: '2026-11-23',
 	notes: [
 		'Default colours come from CSS currentColor and a few CSS variables (e.g. --color-primary), so charts can be styled with plain CSS or utility classes.',

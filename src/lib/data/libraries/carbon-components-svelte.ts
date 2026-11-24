@@ -538,6 +538,12 @@ export default defineLibrary({
 			source: docsPage('Tabs'),
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '0.114.6', date: '2026-11-23' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/carbon-components-svelte', 'https://github.com/carbon-design-system/carbon-components-svelte'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'The package declares no svelte peerDependency; Svelte 3/4/5 support comes from its Svelte 5 test suite plus Svelte 3 and 4 compatibility suites.',

@@ -1,0 +1,121 @@
+import { defineLibrary } from '../schema'
+
+// Docs are a static site built from a separate repo (framework7io/framework7-website, Pug sources
+// under src/pug/svelte). Svelte pages are /svelte/<slug>.html, as linked from the docs sidebar.
+// Every page below was fetched live on 2026-11-24 (200), and a made-up slug returns 404. Several
+// pages document a core (non-Svelte) Framework7 component used from Svelte; notes say which.
+const site = 'https://framework7.io/svelte'
+const c = (slug: string, anchor?: string) => `${site}/${slug}.html${anchor ? `#${anchor}` : ''}`
+const repo = 'https://github.com/framework7io/framework7'
+const core = 'No Svelte component of its own: the page shows the core Framework7 API used from a Svelte page.'
+
+export default defineLibrary({
+	id: 'framework7-svelte',
+	name: 'Framework7 Svelte',
+	description:
+		'Svelte bindings for Framework7, a mobile app framework with iOS and Material Design themes, its own router and a large set of app-style components.',
+	docs: `${site}/`,
+	repository: repo,
+	packages: ['framework7-svelte'],
+	license: {
+		spdx: 'MIT',
+		url: `${repo}/blob/master/LICENSE`,
+		notes: 'The Svelte package lives in the Framework7 monorepo (src/svelte); the docs site is a separate repository (framework7io/framework7-website).',
+	},
+	svelte: {
+		supported: [5],
+		runes: true,
+	},
+	version: '9.3.0',
+	styling: ['css'],
+	dependencies: [
+		{
+			package: 'framework7',
+			kind: 'css-framework',
+			required: true,
+			notes: `Not a declared dependency or peer, but the install steps have you install Framework7 itself first. The Initialize App page (${c('init-app')}) then loads its CSS bundle (framework7-bundle.min.css) and registers the plugin with Framework7.use(Framework7Svelte) on the core imported from framework7/lite-bundle; the kitchen sink in the repo imports framework7/lite/bundle and framework7/css/bundle instead. Both packages are released with the same version numbers.`,
+			source: c('installation', 'manual-installation'),
+		},
+	],
+	features: ['typescript', 'theming', 'dark-mode', 'rtl', 'forms', 'charts', 'icons', 'design-system', 'runes', 'cli'],
+	components: [
+		{ id: 'accordion', name: 'AccordionItem', docs: c('accordion'), notes: 'Accordion lists are a List with accordionList and ListItem accordionItem.' },
+		{ id: 'dropdown-menu', name: 'Actions', docs: c('action-sheet'), notes: 'Action Sheet: a pane of grouped action buttons that slides up from the bottom; it can also open as a popover on wide screens. Popover can also hold a menu list.' },
+		{ id: 'chart', name: 'AreaChart', docs: c('area-chart'), notes: `SVG area and line charts with tooltips and legend. PieChart is separate: ${c('pie-chart')}` },
+		{ id: 'combobox', name: 'Autocomplete', docs: c('autocomplete'), notes: `${core} Dropdown and standalone (page or popup) modes.` },
+		{ id: 'badge', name: 'Badge', docs: c('badge'), notes: `Chip (${c('chips')}) is a separate small label with optional media and a delete button.` },
+		{ id: 'breadcrumb', name: 'Breadcrumbs', docs: c('breadcrumbs') },
+		{ id: 'button', name: 'Button', docs: c('button'), notes: 'Fill, tonal, outline, round, raised and size props, most with iOS-only and Material-only variants; can show a preloader.' },
+		{ id: 'calendar', name: 'Calendar', docs: c('calendar'), notes: `${core} Inline or as an overlay.` },
+		{ id: 'date-picker', name: 'ListInput type="datepicker"', docs: c('calendar'), notes: 'A ListInput that opens the core Calendar on focus; calendarParams can add a time picker.' },
+		{ id: 'date-range-picker', name: 'ListInput type="datepicker"', docs: c('calendar'), notes: 'The same input with the rangePicker calendar parameter.' },
+		{ id: 'card', name: 'Card', docs: c('cards'), notes: 'Has an expandable mode that grows the card to full screen.' },
+		{ id: 'checkbox', name: 'Checkbox', docs: c('checkbox'), notes: `Checkbox lists use ListItem checkbox: ${c('checkbox', 'checkboxes-list')}` },
+		{ id: 'color-picker', name: 'ColorPicker', docs: c('color-picker'), notes: `${core} Also available as ListInput type="colorpicker".` },
+		{ id: 'list', name: 'List / ListItem', docs: c('list-view'), notes: `Many patterns are List variants with their own pages: List Item (${c('list-item')}), List Button, List Index, Contacts List, Menu List, Swipeout and Sortable.` },
+		{ id: 'table', name: 'Data Table', docs: c('data-table'), notes: `${core} Markup with data-table classes, optionally inside a Card; sortable columns are a core feature.` },
+		{ id: 'alert-dialog', name: 'f7.dialog', docs: c('dialog'), notes: `${core} Alert, confirm, prompt and login dialogs created by function calls.` },
+		{ id: 'dialog', name: 'Popup', docs: c('popup'), notes: 'Modal window over the app, full screen on phones; can be swiped to close.' },
+		{ id: 'floating-action-button', name: 'Fab', docs: c('floating-action-button'), notes: 'FabButtons adds speed-dial actions; can morph into another element.' },
+		{ id: 'form', name: 'ListInput', docs: c('inputs', 'input-properties'), notes: `Built-in validation (validate, pattern, error message props) on inputs. Form Storage (${c('form')}) saves and restores form data through the core API.` },
+		{ id: 'meter', name: 'Gauge', docs: c('gauge'), notes: 'Circular or semicircular SVG gauge.' },
+		{ id: 'grid', name: 'Grid', docs: c('grid'), notes: `${core} Grid classes on plain elements.` },
+		{ id: 'icon', name: 'Icon', docs: c('icon'), notes: 'Takes Framework7 Icons and Material Icons names per theme, or a custom icon class; the icon fonts themselves are separate.' },
+		{ id: 'input', name: 'ListInput', docs: c('inputs'), notes: 'Inputs are built as list items with a label; Input is the bare version. Has clear button and floating label options.' },
+		{ id: 'textarea', name: 'ListInput type="textarea"', docs: c('inputs', 'input-properties'), notes: 'A type of ListInput, with a resizable option.' },
+		{ id: 'link', name: 'Link', docs: c('link'), notes: 'Also drives routing, tab switching and opening panels or popups.' },
+		{ id: 'navigation-menu', name: 'Navbar', docs: c('navbar'), notes: `Top app bar with title, back link and large-title modes. Subnavbar adds a second row: ${c('subnavbar')}` },
+		{ id: 'drawer', name: 'Panel', docs: c('panel'), notes: `Left or right side panel with cover, reveal or push effects. Sheet Modal (${c('sheet-modal')}) is the bottom sheet, with swipe steps.` },
+		{ id: 'sidebar', name: 'Panel', docs: c('panel', 'panel-properties'), notes: 'visibleBreakpoint keeps a panel always visible above a set app width, so it works as a sidebar on wide screens.' },
+		{ id: 'lightbox', name: 'PhotoBrowser', docs: c('photo-browser'), notes: 'Zoom, pan and swipe between photos; opens as a page, popup or standalone.' },
+		{ id: 'popover', name: 'Popover', docs: c('popover') },
+		{ id: 'spinner', name: 'Preloader', docs: c('preloader') },
+		{ id: 'progress', name: 'Progressbar', docs: c('progressbar'), notes: 'Determinate and infinite.' },
+		{ id: 'radio-group', name: 'Radio', docs: c('radio'), notes: `Radio lists use ListItem radio: ${c('radio', 'radios-list')}` },
+		{ id: 'slider', name: 'Range', docs: c('range-slider'), notes: 'Dual-knob range, vertical, labels and scale options.' },
+		{ id: 'search', name: 'Searchbar', docs: c('searchbar'), notes: 'Can search a list in place, or open an expandable searchbar inside the navbar.' },
+		{ id: 'skeleton', name: 'Skeleton', docs: c('skeleton'), notes: 'Built on the Skeleton Elements library, which Framework7 bundles.' },
+		{ id: 'select', name: 'Smart Select', docs: c('smart-select'), notes: 'A ListItem with smartSelect that wraps a native select and opens the choices in a page, popup, sheet or popover; supports multiple and search.' },
+		{ id: 'drag-and-drop', name: 'Sortable list', docs: c('sortable'), notes: 'Reordering list items by drag handle, through List sortable props; not a separate component.' },
+		{ id: 'number-input', name: 'Stepper', docs: c('stepper'), notes: 'Plus/minus value control, with autorepeat and manual input options. Not a steps/wizard component.' },
+		{ id: 'carousel', name: 'Swiper Element', docs: c('swiper'), notes: 'No Svelte component: the page uses Swiper Element (the swiper-container web component), which ships inside Framework7 so needs no separate install. The Svelte Swiper components were dropped in favour of it.' },
+		{ id: 'tabs', name: 'Tabs', docs: c('tabs'), notes: 'Static, animated, swipeable and routable tabs; tab links usually sit in a Toolbar or Segmented.' },
+		{ id: 'rich-text-editor', name: 'TextEditor', docs: c('text-editor'), notes: 'Toolbar can be fixed, popover-style or keyboard-attached; also available as ListInput type="texteditor".' },
+		{ id: 'timeline', name: 'Timeline', docs: c('timeline'), notes: `${core} Vertical layout only in v9.` },
+		{ id: 'toast', name: 'f7.toast', docs: c('toast'), notes: `${core} Notification (${c('notification')}) is a richer, swipeable notice with title and icon, also core only.` },
+		{ id: 'button-group', name: 'Segmented', docs: c('segmented'), notes: 'A wrapper that joins Buttons into one strip, with raised, round and strong styles.' },
+		{ id: 'toggle-group', name: 'Segmented', docs: c('segmented'), notes: 'A wrapper for Buttons; the active one is marked with the active prop. Often used as tab links.' },
+		{ id: 'switch', name: 'Toggle', docs: c('toggle') },
+		{ id: 'toolbar', name: 'Toolbar', docs: c('toolbar-tabbar'), notes: 'Bar at the top or bottom of a page holding links.' },
+		{ id: 'bottom-navigation', name: 'Toolbar tabbar', docs: c('toolbar-tabbar'), notes: 'The tabbar prop turns a Toolbar into a tab bar, with icons and scrollable options.' },
+		{ id: 'tooltip', name: 'f7.tooltip', docs: c('tooltip'), notes: `${core} Several components (Button, Link, Icon and others) also take a tooltip prop.` },
+		{ id: 'tree-view', name: 'Treeview', docs: c('treeview'), notes: 'Selectable and checkbox items, with lazy loading of children.' },
+		{ id: 'virtual-list', name: 'Virtual List', docs: c('virtual-list'), notes: 'A List with virtualList props backed by the core Virtual List; not a separate component.' },
+	],
+	ai: {
+		status: 'welcomes',
+		summary: 'Framework7 runs a public MCP server (JSON-RPC endpoint at framework7.io/mcp) so AI assistants can query the API docs, CSS variables and demo source for Core, Vue, React and Svelte. No llms.txt was found (404 on the site root and /svelte/), the repo has no AGENTS.md or CLAUDE.md, CONTRIBUTING says nothing about AI tools, and the MIT LICENSE adds no AI terms.',
+		sources: [
+			'https://framework7.io/mcp/',
+			`${repo}/blob/master/.github/CONTRIBUTING.md`,
+			`${repo}/blob/master/LICENSE`,
+		],
+	},
+	maintenance: {
+		lastRelease: { version: '9.3.0', date: '2026-10-30' },
+		lastCommit: '2026-10-30',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/framework7-svelte', repo],
+	},
+	lastVerified: '2026-11-24',
+	notes: [
+		'Svelte 5 only for the current release. framework7-svelte declares no svelte peer or dependency; the v9 install page says Framework7 Svelte was updated to the Svelte 5 API with runes and asks for Svelte 5, and the 9.0.0 changelog says the same. The component source uses $props() and $state, with snippets instead of slots.',
+		'The earlier 8.x line used the pre-runes Svelte API (8.3.0 reworked its types for Svelte 4); its docs stay online at https://v8.framework7.io/svelte/',
+		'It is more of an app framework than a component kit: you mount an App and Views, and pages are switched by the Framework7 router, which the Svelte package wires to Svelte components. Many components assume that app structure.',
+		'Several docs pages (Autocomplete, Calendar, Color Picker, Data Table, Dialog, Grid, Notification, Picker, Timeline, Toast, Tooltip) have no Svelte component: they show the core API or CSS classes (for example f7.dialog.alert) used from a Svelte page. The Swiper page likewise uses the Swiper Element web component.',
+		'Styling comes from the Framework7 CSS bundle, with iOS and Material Design themes picked automatically per platform or forced in the app parameters. Colors are set with color props or color-theme classes, and the docs cover a dark mode class and an RTL stylesheet in the core docs: https://framework7.io/docs/rtl-layout.html',
+		'The Initialize App page still shows the Svelte 4 new App({ target }) call; the kitchen sink in the repo mounts with mount() from svelte.',
+		'Framework7 CLI can scaffold a Framework7-Svelte project; the install page recommends it over manual setup.',
+		'Documented components with no canonical id here: App, View, Page, Block, Login Screen, Messages, Messagebar, Picker, Pull To Refresh, Infinite Scroll, Swipeout, List Index, Subnavbar and Chip.',
+	],
+})

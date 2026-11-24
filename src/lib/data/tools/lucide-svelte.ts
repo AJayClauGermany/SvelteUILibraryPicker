@@ -52,6 +52,11 @@ export default defineTool({
 			how: 'Depends on @lucide/svelte for its icons.',
 			source: 'https://github.com/aidan-neel/sivir-ui/blob/main/packages/sivir/package.json',
 		},
+		{
+			library: 'origin-ui-svelte',
+			how: 'Most examples import its icons.',
+			source: 'https://github.com/max-got/originui-svelte/blob/main/src/lib/constants.ts',
+		},
 	],
 	ai: {
 		status: 'welcomes',
@@ -63,6 +68,12 @@ export default defineTool({
 			'https://github.com/lucide-icons/lucide/blob/main/.github/copilot-instructions.md',
 			'https://github.com/lucide-icons/lucide/blob/main/CONTRIBUTING.md',
 		],
+	},
+	maintenance: {
+		lastRelease: { version: '1.78.0', date: '2026-11-23' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@lucide/svelte', 'https://github.com/lucide-icons/lucide'],
 	},
 	lastVerified: '2026-11-23',
 	notes: [

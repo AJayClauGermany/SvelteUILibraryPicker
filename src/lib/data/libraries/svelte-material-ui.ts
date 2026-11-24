@@ -467,6 +467,12 @@ export default defineLibrary({
 			source: src('dialog/src/index.ts'),
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '9.0.6', date: '2026-10-14' },
+		lastCommit: '2026-10-15',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@smui/button', 'https://github.com/hperrin/svelte-material-ui'],
+	},
 	lastVerified: '2026-11-04',
 	notes: [
 		'Every component is its own package (@smui/<name>, or @smui-extra/<name> for accordion, autocomplete, badge, bottom-app-bar and chip-input); install only the ones you use plus smui-theme.',

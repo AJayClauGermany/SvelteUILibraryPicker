@@ -30,6 +30,12 @@ export default defineTool({
 			'https://github.com/nolanlawson/emoji-picker-element/blob/master/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.29.1', date: '2026-03-01' },
+		lastCommit: '2026-03-04',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/emoji-picker-element', 'https://github.com/nolanlawson/emoji-picker-element'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Framework-agnostic web component with no dependencies or peer dependencies, so no Svelte support data is recorded. It was built with Svelte 3/4 until v1.21.0 replaced Svelte with vanilla JS; the old emoji-picker-element/svelte import is deprecated.',

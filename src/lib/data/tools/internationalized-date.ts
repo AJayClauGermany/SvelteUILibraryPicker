@@ -66,6 +66,16 @@ export default defineTool({
 			how: 'Its copied date components import it directly, on top of Bits UI.',
 			source: 'https://github.com/levish0/lily-svelte/blob/main/docs/src/lib/registry/ui/date-picker/date-picker.svelte',
 		},
+		{
+			library: 'melt-ui',
+			how: 'The date and calendar builders work with its date objects; the Dates guide has you install it.',
+			source: 'https://melt-ui.com/docs/dates',
+		},
+		{
+			library: 'origin-ui-svelte',
+			how: 'The date and time input examples import it, next to Bits UI.',
+			source: 'https://github.com/max-got/originui-svelte/blob/main/src/lib/constants.ts',
+		},
 	],
 	ai: {
 		status: 'welcomes',
@@ -80,6 +90,12 @@ export default defineTool({
 		upstreamContributing:
 			'AI-assisted PRs are accepted, but you remain the author and must be able to explain every change. Point the assistant at AGENTS.md, describe the problem and intent separately from the fix, say what you tested, and be able to explain what changed between review rounds.',
 		llmsTxt: 'https://react-aria.adobe.com/llms.txt',
+	},
+	maintenance: {
+		lastRelease: { version: '3.12.4', date: '2026-09-01' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@internationalized/date', 'https://github.com/adobe/react-spectrum'],
 	},
 	lastVerified: '2026-11-06',
 	notes: [

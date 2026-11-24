@@ -249,6 +249,12 @@ export default defineLibrary({
 		'render-delegation': { value: 'spread builder attributes onto any element: `<button {...dialog.trigger}>`', source: 'https://github.com/melt-ui/next-gen/blob/melt@0.44.0/docs/src/content/docs/guides/how-to-use.md' },
 		'composition': { value: 'builder classes from `melt/builders` (`new Dialog()`); some also ship as components in `melt/components`', source: 'https://github.com/melt-ui/next-gen/blob/melt@0.44.0/docs/src/content/docs/guides/how-to-use.md' },
 	},
+	maintenance: {
+		lastRelease: { version: '0.44.0', date: '2026-01-04' },
+		lastCommit: '2026-11-10',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/melt', 'https://github.com/melt-ui/next-gen'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Still 0.x; this is the successor to @melt-ui/svelte (the Svelte 3/4-era store-based library), published under the npm name "melt".',

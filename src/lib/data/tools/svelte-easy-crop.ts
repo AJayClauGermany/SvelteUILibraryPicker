@@ -26,6 +26,12 @@ export default defineTool({
 		summary: 'No llms.txt, MCP server, AGENTS.md, CONTRIBUTING guide or AI statement was found in the repository.',
 		sources: ['https://github.com/ValentinH/svelte-easy-crop'],
 	},
+	maintenance: {
+		lastRelease: { version: '5.0.1', date: '2026-03-23' },
+		lastCommit: '2026-06-14',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-easy-crop', 'https://github.com/ValentinH/svelte-easy-crop'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'It only computes the crop area; producing the cropped image (for example with a canvas) is up to you.',

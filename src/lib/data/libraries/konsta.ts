@@ -466,6 +466,12 @@ export default defineLibrary({
 			source: src('ListInput'),
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '5.5.0', date: '2026-09-28' },
+		lastCommit: '2026-10-15',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/konsta', 'https://github.com/konstaui/konsta'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'The npm package declares no svelte peer dependency. Svelte 5 support comes from the repo: devDependency svelte ^5.37.1 in package.json and the 5.0.0 CHANGELOG entry saying all Svelte components moved to the runes API (snippets instead of slots).',

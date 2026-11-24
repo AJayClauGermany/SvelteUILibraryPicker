@@ -38,6 +38,12 @@ export default defineTool({
 			'https://github.com/svar-widgets/gantt/blob/main/license.txt',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '2.8.3', date: '2026-11-08' },
+		lastCommit: '2026-11-08',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@svar-ui/svelte-gantt', 'https://github.com/svar-widgets/gantt'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Open-core: the MIT package covers the timeline, grid, editor and dependencies; auto-scheduling, constraints, critical path, resources, baselines, undo/redo and export are PRO-only (paid, per-developer licences). The two editions use package names that differ by only a few characters, so check which one you install.',

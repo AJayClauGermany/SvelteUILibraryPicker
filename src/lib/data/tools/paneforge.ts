@@ -37,6 +37,12 @@ export default defineTool({
 			'https://github.com/svecosystem/paneforge/tree/main/docs',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.0.2', date: '2025-08-02' },
+		lastCommit: '2025-08-01',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/paneforge', 'https://github.com/svecosystem/paneforge'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'Unstyled apart from the CSS needed to lay out the panes; each part takes a class prop for your own styles.',

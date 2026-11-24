@@ -3,6 +3,7 @@
 	import type { Library } from '#lib/data/schema.ts'
 	import AiPolicyBadge from './AiPolicyBadge.svelte'
 	import DocsLink from './DocsLink.svelte'
+	import MaintenanceBadge from './MaintenanceBadge.svelte'
 	import SvelteSupport from './SvelteSupport.svelte'
 	import ToolingChips from './ToolingChips.svelte'
 
@@ -17,6 +18,7 @@
 	<p class="desc">{library.description}</p>
 	<SvelteSupport svelte={library.svelte} />
 	<div class="tags">
+		<MaintenanceBadge entry={library} />
 		{#each library.styling.filter(s => s !== 'tailwind') as s (s)}<span class="ulp-chip">{s}</span>{/each}
 		<ToolingChips {library} />
 		<span class="ulp-chip">{library.components.length} components</span>

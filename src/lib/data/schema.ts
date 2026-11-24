@@ -256,6 +256,64 @@ export interface Convention {
 	source: string
 }
 
+/**
+ * Release and repository activity, so the site can show a rough maintenance status
+ * (`maintenanceStatus()` in `index.ts`). Collect it with `node scripts/maintenance-facts.js <id>`.
+ */
+export interface Maintenance {
+	/**
+	 * Newest version published to npm and its publish date (YYYY-MM-DD), from `npm view <pkg> time`.
+	 * Prereleases count; nightly/canary builds don't. Omit for copy-paste registries without a
+	 * release tag. For registries with tags, use the newest tag instead.
+	 */
+	lastRelease?: { version: string, date: string }
+	/** Date (YYYY-MM-DD) of the newest commit on the repository's default branch. */
+	lastCommit?: string
+	/** `true` when the repository is archived (read-only) on its host. */
+	archived?: boolean
+	/**
+	 * Only when the maintainers explicitly deprecated it or said it is no longer maintained
+	 * (npm `deprecated` message, README or docs notice). Never infer this from inactivity.
+	 */
+	deprecated?: {
+		/** Own words: what upstream said, and what it points users to, if anything. */
+		summary: string
+		source: string
+	}
+	/** Date (YYYY-MM-DD) these facts were checked. The status is computed against this date. */
+	checked: string
+	/** Where you checked: the npm package page and the repository. */
+	sources: string[]
+}
+
+/** Rough maintenance status, computed from `Maintenance` (see `maintenanceInfo`). */
+export type MaintenanceStatus = 'active' | 'quiet' | 'legacy' | 'deprecated'
+
+/** The Svelte major the "active" status expects support for. Bump it when a new major ships. */
+export const currentSvelteMajor: SvelteMajor = 5
+
+/** Days without a release before a library counts as quiet, then legacy. */
+export const maintenanceThresholds = { quietAfterDays: 365, legacyAfterDays: 730 }
+
+export const maintenanceInfo: Record<MaintenanceStatus, { label: string, description: string }> = {
+	active: {
+		label: 'Active',
+		description: `Released in the 12 months before our check, and the current release supports Svelte ${currentSvelteMajor}.`,
+	},
+	quiet: {
+		label: 'Quiet',
+		description: 'Last release was 1 to 2 years before our check. Still published and may still be supported.',
+	},
+	legacy: {
+		label: 'Legacy',
+		description: `No release for over 2 years, or the current release does not support Svelte ${currentSvelteMajor}. Useful as a reference; expect migration work.`,
+	},
+	deprecated: {
+		label: 'Deprecated',
+		description: 'The repository is archived, or the maintainers explicitly deprecated it. We never infer this from inactivity alone.',
+	},
+}
+
 export interface Library {
 	/** URL-safe slug, must match the file name. */
 	id: string
@@ -293,6 +351,8 @@ export interface Library {
 	 * code to or from this library. See `conventionInfo` in `props.ts`.
 	 */
 	conventions?: Partial<Record<ConventionId, Convention>>
+	/** Release dates, archive and deprecation facts behind the maintenance badge. */
+	maintenance: Maintenance
 	/** ISO date (YYYY-MM-DD) the entry was last checked against the source. */
 	lastVerified: string
 	/** Optional extra caveats shown on the library page. */
@@ -372,6 +432,8 @@ export interface Tool {
 	/** Tracked libraries that build on or document this tool. `[]` if none. */
 	usedBy: ToolUsage[]
 	ai: AiPolicy
+	/** Release dates, archive and deprecation facts behind the maintenance badge. */
+	maintenance: Maintenance
 	/** ISO date (YYYY-MM-DD) the entry was last checked against the source. */
 	lastVerified: string
 	/** Optional extra caveats shown on the tool page. */

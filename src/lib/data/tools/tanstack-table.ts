@@ -43,6 +43,12 @@ export default defineTool({
 		upstreamContributing:
 			'AGENTS.md says AI-assisted changes follow CONTRIBUTING.md like any other: keep each change to one topic, understand and verify generated code, and follow the PR template. CONTRIBUTING warns that mass or low-quality AI-generated PRs are treated as spam.',
 	},
+	maintenance: {
+		lastRelease: { version: '9.3.2', date: '2026-11-14' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@tanstack/svelte-table', 'https://github.com/TanStack/table'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'Install @tanstack/svelte-table; it brings @tanstack/table-core as a dependency.',
