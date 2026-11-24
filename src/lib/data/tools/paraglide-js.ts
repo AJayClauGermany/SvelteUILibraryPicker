@@ -29,6 +29,12 @@ export default defineTool({
 		],
 		llmsTxt: 'https://paraglidejs.com/llms.txt',
 	},
+	maintenance: {
+		lastRelease: { version: '3.2.2', date: '2026-11-10' },
+		lastCommit: '2026-11-24',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@inlang/paraglide-js', 'https://github.com/generaltranslation/paraglide-js'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Framework-agnostic: the core package has no Svelte peer dependency (only optional vite and eslint peers), so no Svelte support data is recorded. The docs have a SvelteKit guide at https://paraglidejs.com/sveltekit.',

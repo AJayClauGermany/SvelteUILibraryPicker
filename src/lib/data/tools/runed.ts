@@ -53,6 +53,12 @@ export default defineTool({
 			'https://github.com/svecosystem/runed/blob/main/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '0.38.0', date: '2026-10-23' },
+		lastCommit: '2026-10-22',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/runed', 'https://github.com/svecosystem/runed'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'General-purpose helpers, not tied to one component, so no canonical components are listed.',

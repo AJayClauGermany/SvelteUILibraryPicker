@@ -33,6 +33,12 @@ export default defineTool({
 			'https://github.com/focus-trap/focus-trap/blob/master/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '8.2.6', date: '2026-11-22' },
+		lastCommit: '2026-11-22',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/focus-trap', 'https://github.com/focus-trap/focus-trap'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Framework-agnostic: it works on plain DOM elements, has no Svelte peer dependency, so no Svelte support data is recorded. It ships its own TypeScript types and depends on tabbable.',

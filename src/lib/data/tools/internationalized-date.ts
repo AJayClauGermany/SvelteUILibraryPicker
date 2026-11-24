@@ -81,6 +81,12 @@ export default defineTool({
 			'AI-assisted PRs are accepted, but you remain the author and must be able to explain every change. Point the assistant at AGENTS.md, describe the problem and intent separately from the fix, say what you tested, and be able to explain what changed between review rounds.',
 		llmsTxt: 'https://react-aria.adobe.com/llms.txt',
 	},
+	maintenance: {
+		lastRelease: { version: '3.12.4', date: '2026-09-01' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@internationalized/date', 'https://github.com/adobe/react-spectrum'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'Framework-agnostic: plain TypeScript with no framework peer dependency, so no Svelte support data is recorded. It is maintained by Adobe alongside React Aria and React Spectrum.',

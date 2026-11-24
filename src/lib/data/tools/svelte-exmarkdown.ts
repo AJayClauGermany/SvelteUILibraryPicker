@@ -31,6 +31,12 @@ export default defineTool({
 			'https://github.com/ssssota/svelte-exmarkdown/tree/main/docs',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '5.0.2', date: '2025-08-09' },
+		lastCommit: '2026-07-17',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-exmarkdown', 'https://github.com/ssssota/svelte-exmarkdown'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Renders at runtime rather than at build time, so it suits Markdown that arrives as data (CMS content, user input, chat output); for Markdown files compiled into pages, a preprocessor such as MDsveX is the usual choice.',

@@ -37,6 +37,12 @@ export default defineTool({
 			'https://github.com/iconify/documentation',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '5.2.4', date: '2026-11-01' },
+		lastCommit: '2026-11-01',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@iconify/svelte', 'https://github.com/iconify/iconify'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Version 5.x is Svelte 5 only. The svelte3 dist-tag points to 4.2.0 (peer `>4.0.0`) for Svelte 4 projects, and 3.x declares a peer of `*`.',

@@ -35,6 +35,12 @@ export default defineTool({
 			'https://github.com/svar-widgets/grid/blob/main/license.txt',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '2.7.6', date: '2026-11-07' },
+		lastCommit: '2026-11-07',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@svar-ui/svelte-grid', 'https://github.com/svar-widgets/grid'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'Depends on @svar-ui/svelte-core (tracked here as SVAR Svelte Core) at a pinned version: its cell editors, filters, tooltips and the Willow, WillowDark and Material theme wrappers reuse Core components.',

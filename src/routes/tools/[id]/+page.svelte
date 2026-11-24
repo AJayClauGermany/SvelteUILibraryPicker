@@ -3,6 +3,7 @@
 	import PageMeta from '#lib/components/PageMeta.svelte'
 	import AiPolicyBadge from '#lib/components/AiPolicyBadge.svelte'
 	import DocsLink from '#lib/components/DocsLink.svelte'
+	import MaintenanceDetails from '#lib/components/MaintenanceDetails.svelte'
 	import PreviewFrame from '#lib/components/PreviewFrame.svelte'
 	import SecondarySourceNotice from '#lib/components/SecondarySourceNotice.svelte'
 	import SvelteSupport from '#lib/components/SvelteSupport.svelte'
@@ -58,6 +59,7 @@
 				</td>
 			</tr>
 			<tr><th scope="row">Version checked</th><td><code>{tool.packages[0]}@{tool.version}</code></td></tr>
+			<tr><th scope="row">Maintenance</th><td><MaintenanceDetails entry={tool} /></td></tr>
 			<tr><th scope="row">Install</th><td>{#each tool.packages as p (p)}<code>{p}</code> {/each}</td></tr>
 			<tr><th scope="row">License</th><td><a href={tool.license.url} target="_blank" rel="noopener noreferrer">{tool.license.spdx}</a>{#if tool.license.notes}<div class="ulp-muted">{tool.license.notes}</div>{/if}</td></tr>
 			<tr>

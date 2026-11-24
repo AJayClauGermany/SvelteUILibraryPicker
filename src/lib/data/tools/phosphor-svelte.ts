@@ -38,6 +38,12 @@ export default defineTool({
 			'https://phosphoricons.com',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '3.1.1', date: '2026-10-09' },
+		lastCommit: '2026-10-09',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/phosphor-svelte', 'https://github.com/haruaki07/phosphor-svelte'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Usage docs live in the package README; the npm homepage, phosphoricons.com, is where you browse and search the icons.',

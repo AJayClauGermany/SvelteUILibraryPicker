@@ -31,6 +31,12 @@ export default defineTool({
 			'https://github.com/SauravKanchan/svelte-chartjs/blob/master/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '4.0.1', date: '2026-03-15' },
+		lastCommit: '2026-03-15',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-chartjs', 'https://github.com/SauravKanchan/svelte-chartjs'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'chart.js is a peer dependency you install yourself (^3.5.0 || ^4.0.0); you also register the Chart.js elements and scales you use, which keeps bundles tree-shaken.',

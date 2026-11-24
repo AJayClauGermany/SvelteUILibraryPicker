@@ -488,6 +488,11 @@ export default defineLibrary({
 		'render-delegation': { value: '`child` snippet on Bits UI-based parts such as `Dialog.Trigger`; Button renders an `<a>` when given `href`', notes: 'Some wrappers (Checkbox, Switch, Dialog.Content) strip the child snippet.', source: `${ui}/dialog/dialog-trigger.svelte` },
 		'composition': { value: 'compound parts (`Dialog.Root`, `Tabs.List`...) for Bits UI-based components; single components for Button, Input, Checkbox and Switch', source: `${ui}/dialog/index.ts` },
 	},
+	maintenance: {
+		lastCommit: '2026-10-07',
+		checked: '2026-11-24',
+		sources: ['https://github.com/olegpolin/neobrutalism-svelte'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Installed from a shadcn-svelte registry: run shadcn-svelte init, copy the theme blocks from the repo stylesheet, then add each component with the shadcn-svelte CLI and the registry URL shown on its docs page. There is no npm package of its own.',

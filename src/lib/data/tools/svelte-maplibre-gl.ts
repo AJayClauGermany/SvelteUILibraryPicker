@@ -37,6 +37,12 @@ export default defineTool({
 			'https://github.com/MIERUNE/svelte-maplibre-gl/blob/main/README.md',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '2.2.1', date: '2026-08-15' },
+		lastCommit: '2026-09-10',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-maplibre-gl', 'https://github.com/MIERUNE/svelte-maplibre-gl'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'You install maplibre-gl yourself (peer range ^5.19.0 || ^6.0.0) and provide a map style, from your own tile server or a hosted provider.',

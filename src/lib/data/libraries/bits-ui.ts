@@ -372,5 +372,11 @@ export default defineLibrary({
 		'render-delegation': { value: '`child` snippet: spread its `props` onto your own element', source: 'https://github.com/huntabyte/bits-ui/blob/bits-ui@2.20.4/docs/content/child-snippet.md' },
 		'composition': { value: 'compound parts (`Dialog.Root`, `Dialog.Trigger`, `Dialog.Content`...)', source: 'https://github.com/huntabyte/bits-ui/blob/bits-ui@2.20.4/docs/content/components/dialog.md' },
 	},
+	maintenance: {
+		lastRelease: { version: '2.22.0', date: '2026-11-21' },
+		lastCommit: '2026-11-21',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/bits-ui', 'https://github.com/huntabyte/bits-ui'],
+	},
 	lastVerified: '2026-11-22',
 })

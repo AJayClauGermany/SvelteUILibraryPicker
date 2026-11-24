@@ -30,6 +30,12 @@ export default defineTool({
 			'https://github.com/barvian/number-flow/blob/main/LICENSE.md',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '0.4.2', date: '2026-07-18' },
+		lastCommit: '2026-09-20',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@number-flow/svelte', 'https://github.com/barvian/number-flow'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'The Svelte package wraps a custom element (`<number-flow-svelte>`) built on the framework-agnostic number-flow package; the same author publishes React, Vue and vanilla versions from the same repo.',

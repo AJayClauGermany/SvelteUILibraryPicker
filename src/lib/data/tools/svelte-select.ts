@@ -32,6 +32,12 @@ export default defineTool({
 			'https://github.com/rob-balfre/svelte-select/blob/master/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '6.0.0', date: '2026-08-11' },
+		lastCommit: '2026-08-11',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-select', 'https://github.com/rob-balfre/svelte-select'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Version 6 is Svelte 5 only and moved to callback props and snippets; the repo has a migration guide for 5.x users. The 5.x line (last release 5.8.3) uses the Svelte 4 API.',

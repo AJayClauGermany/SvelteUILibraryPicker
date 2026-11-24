@@ -42,6 +42,12 @@ export default defineTool({
 			'Disclose any AI-tool use in the pull request description, and tick the PR template box confirming you reviewed and take responsibility for the changes. PRs must link to an issue assigned to you.',
 		llmsTxt: 'https://tiptap.dev/docs/llms.txt',
 	},
+	maintenance: {
+		lastRelease: { version: '3.35.0', date: '2026-11-20' },
+		lastCommit: '2026-11-22',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@tiptap/core', 'https://github.com/ueberdosis/tiptap'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Framework-agnostic: @tiptap/core has no Svelte peer dependency, so no Svelte support data is recorded. Tiptap ships React and Vue bindings but no official Svelte package; its Svelte install guide creates the Editor in onMount and binds it to an element with runes state.',

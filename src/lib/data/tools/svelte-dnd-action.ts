@@ -30,6 +30,12 @@ export default defineTool({
 			'https://github.com/isaacHagoel/svelte-dnd-action/blob/master/README.md',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '0.9.81', date: '2026-11-22' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-dnd-action', 'https://github.com/isaacHagoel/svelte-dnd-action'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'The documentation is the README on GitHub; there is no separate docs site.',

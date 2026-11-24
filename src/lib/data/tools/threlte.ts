@@ -32,6 +32,12 @@ export default defineTool({
 		],
 		llmsTxt: 'https://threlte.xyz/llms.txt',
 	},
+	maintenance: {
+		lastRelease: { version: '8.7.0', date: '2026-11-02' },
+		lastCommit: '2026-11-02',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@threlte/core', 'https://github.com/threlte/threlte'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'three is a required peer dependency (>=0.172) and is installed alongside @threlte/core.',

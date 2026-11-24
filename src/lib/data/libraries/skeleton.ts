@@ -695,6 +695,12 @@ export default defineLibrary({
 			source: `${svelte}/dialog/modules/anatomy.ts`,
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '5.0.6', date: '2026-11-19' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@skeletonlabs/skeleton-svelte', 'https://github.com/skeletonlabs/skeleton'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Install both @skeletonlabs/skeleton (Tailwind theme and utilities) and @skeletonlabs/skeleton-svelte (components); the same docs also cover a React package.',

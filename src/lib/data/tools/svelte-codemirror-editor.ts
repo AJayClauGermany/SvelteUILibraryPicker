@@ -33,6 +33,12 @@ export default defineTool({
 			'https://touchifyapp.github.io/svelte-codemirror-editor/',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '2.1.0', date: '2025-10-10' },
+		lastCommit: '2025-10-10',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-codemirror-editor', 'https://github.com/touchifyapp/svelte-codemirror-editor'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'codemirror is a peer dependency you install yourself; language support (@codemirror/lang-*) and themes such as @codemirror/theme-one-dark are separate packages passed in as props.',

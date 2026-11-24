@@ -486,6 +486,12 @@ export default defineLibrary({
 		'render-delegation': { value: '`child` snippet on parts that keep it from Bits UI (e.g. triggers)', notes: 'Some wrappers, such as Checkbox and Switch, drop it.', source: 'https://github.com/huntabyte/shadcn-svelte/blob/shadcn-svelte@1.8.0/docs/src/lib/registry/examples/collapsible-settings.svelte' },
 		'composition': { value: 'copied source; simple controls are one component (`Button`), the rest compound parts (`Dialog.Root`, `Dialog.Content`...)', source: 'https://github.com/huntabyte/shadcn-svelte/blob/shadcn-svelte@1.8.0/docs/content/components/dialog.md' },
 	},
+	maintenance: {
+		lastRelease: { version: '1.8.1', date: '2026-11-11' },
+		lastCommit: '2026-11-16',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/shadcn-svelte', 'https://github.com/huntabyte/shadcn-svelte'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'The npm package is the CLI; components are added to your project as source files you own.',

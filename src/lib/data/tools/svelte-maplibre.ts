@@ -34,6 +34,12 @@ export default defineTool({
 		upstreamContributing:
 			'Say in each pull request how much of it was AI-assisted and what you checked by hand. In bug reports, describe the symptoms you see rather than pasting an AI-generated diagnosis.',
 	},
+	maintenance: {
+		lastRelease: { version: '2.0.1', date: '2026-09-25' },
+		lastCommit: '2026-10-02',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-maplibre', 'https://github.com/dimfeld/svelte-maplibre'],
+	},
 	lastVerified: '2026-11-23',
 	notes: [
 		'maplibre-gl (^6.7.0) is a regular dependency, so it is installed with the package. With Vite you import the MapLibre worker URL and pass it to setWorkerUrl before the first map is created (see the README).',

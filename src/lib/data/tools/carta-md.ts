@@ -30,6 +30,12 @@ export default defineTool({
 			'https://github.com/BearToCode/carta/tree/master/docs',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '4.11.5', date: '2026-10-07' },
+		lastCommit: '2026-10-07',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/carta-md', 'https://github.com/BearToCode/carta'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Edits Markdown source rather than WYSIWYG content; the rendered preview sits beside the text area or in a separate tab.',

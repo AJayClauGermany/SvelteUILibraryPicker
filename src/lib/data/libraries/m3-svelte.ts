@@ -403,6 +403,12 @@ export default defineLibrary({
 			source: demos,
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '7.2.1', date: '2026-09-20' },
+		lastCommit: '2026-11-08',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/m3-svelte', 'https://github.com/KTibow/m3-svelte'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Docs have no per-component pages; component links point to the demo cards on the docs home page.',

@@ -661,6 +661,12 @@ export default defineLibrary({
 			source: src('Modal/composition.ts'),
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '2.2.3', date: '2026-11-23' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@winkintel/bootstrap-svelte', 'https://github.com/WinkIntel/bootstrap-svelte'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Sveltestrap (also listed here) is the other Bootstrap 5 option; the docs include a comparison guide. The short version: this library is Svelte 5-only with runes and TypeScript, Sveltestrap also supports Svelte 4 with a classic flat API.',

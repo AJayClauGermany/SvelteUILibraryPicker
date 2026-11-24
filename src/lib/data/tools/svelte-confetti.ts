@@ -32,6 +32,12 @@ export default defineTool({
 			'https://github.com/Mitcheljager/svelte-confetti/blob/master/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '2.3.2', date: '2025-07-02' },
+		lastCommit: '2025-12-27',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-confetti', 'https://github.com/Mitcheljager/svelte-confetti'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'The 2.x line targets Svelte 5; the README points Svelte 4 users to the 1.x line.',

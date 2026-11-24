@@ -36,6 +36,12 @@ export default defineTool({
 		upstreamContributing:
 			'Write issues, comments and PR descriptions for svelte-put yourself, not with an AI, and only submit code you fully understand.',
 	},
+	maintenance: {
+		lastRelease: { version: '4.2.1', date: '2026-11-21' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@svelte-put/shortcut', 'https://github.com/vnphanquang/svelte-put'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Part of the svelte-put monorepo (packages/shortcut). Version 4 dropped Svelte 4; it is used as an action (use:shortcut) and fires an onshortcut event.',

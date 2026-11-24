@@ -387,6 +387,12 @@ export default defineLibrary({
 		'rest-props': { value: 'not forwarded; only declared props are accepted', source: comp('Button') },
 		composition: { value: 'single components with props; options passed as data', source: types },
 	},
+	maintenance: {
+		lastRelease: { version: '2.6.2', date: '2026-11-05' },
+		lastCommit: '2026-11-05',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@svar-ui/svelte-core', 'https://github.com/svar-widgets/core'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Component links go to the official live samples because the API docs site is not in the repository and could not be verified per component.',

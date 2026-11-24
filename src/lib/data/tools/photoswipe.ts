@@ -26,6 +26,12 @@ export default defineTool({
 			'https://github.com/dimsemenov/PhotoSwipe/tree/master/demo-docs-website',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '5.4.4', date: '2024-05-24' },
+		lastCommit: '2025-12-04',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/photoswipe', 'https://github.com/dimsemenov/PhotoSwipe'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Framework-agnostic: it has no dependencies or Svelte peer dependency, so no Svelte support data is recorded. You create the lightbox in `onMount` (or an `$effect`) on your own gallery markup and destroy it on unmount.',

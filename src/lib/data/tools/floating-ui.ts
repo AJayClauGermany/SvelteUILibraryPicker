@@ -58,6 +58,12 @@ export default defineTool({
 			'https://github.com/floating-ui/floating-ui/tree/master/website',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.8.0', date: '2026-07-11' },
+		lastCommit: '2026-11-12',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@floating-ui/dom', 'https://github.com/floating-ui/floating-ui'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'Framework-agnostic: @floating-ui/dom works with plain DOM elements, so it has no Svelte peer dependency and no Svelte support data is recorded. The project ships React and Vue bindings but no official Svelte package.',

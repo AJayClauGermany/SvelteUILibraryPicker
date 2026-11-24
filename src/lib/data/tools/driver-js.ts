@@ -26,6 +26,12 @@ export default defineTool({
 		],
 		llmsTxt: 'https://driverjs.com/llms.txt',
 	},
+	maintenance: {
+		lastRelease: { version: '1.14.0', date: '2026-11-13' },
+		lastCommit: '2026-11-14',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/driver.js', 'https://github.com/nilbuild/driver.js'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Framework-agnostic: it works on plain DOM elements and has no Svelte peer dependency, so no Svelte support data is recorded. The docs have a React and Vue guide but none for Svelte; in Svelte you would create the driver in onMount or an effect.',

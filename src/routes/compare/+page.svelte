@@ -11,6 +11,7 @@
 	import { afterNavigate, replaceState } from '$app/navigation'
 	import { page } from '$app/state'
 	import DocsLink from '#lib/components/DocsLink.svelte'
+	import MaintenanceBadge from '#lib/components/MaintenanceBadge.svelte'
 	import PreviewFrame from '#lib/components/PreviewFrame.svelte'
 	import ToolingChips from '#lib/components/ToolingChips.svelte'
 	import { categories, componentsByCategory, components, coveredComponentIds, featureInfo, findComponent, libraries, usedFeatureTags } from '#lib/data/index.ts'
@@ -133,6 +134,10 @@
 				<tr>
 					<th scope="row">Build tooling</th>
 					{#each chosen as lib (lib.id)}<td class="chips"><ToolingChips library={lib} showOptional emptyText="None" /></td>{/each}
+				</tr>
+				<tr>
+					<th scope="row">Maintenance <a href={url('/guide/features/#maintenance')} class="ulp-muted">(?)</a></th>
+					{#each chosen as lib (lib.id)}<td><MaintenanceBadge entry={lib} /></td>{/each}
 				</tr>
 				<tr>
 					<th scope="row">License</th>

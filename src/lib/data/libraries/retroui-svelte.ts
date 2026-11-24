@@ -450,6 +450,12 @@ export default defineLibrary({
 		'render-delegation': { value: 'Bits UI `child` snippet on triggers; Button renders `<a>` when `href` is set', notes: 'Several wrappers (Checkbox, Switch, Dialog.Content, Select.Trigger) drop the `child` snippet.', source: `${gh}/registry/ui/dialog/dialog-trigger.svelte` },
 		'composition': { value: 'single components for simple controls, compound parts (`Dialog.Root`, `Dialog.Content`...) for the rest', source: `${gh}/registry/ui/dialog/index.ts` },
 	},
+	maintenance: {
+		lastRelease: { version: '0.9.3', date: '2026-11-17' },
+		lastCommit: '2026-11-17',
+		checked: '2026-11-24',
+		sources: ['https://github.com/Mhamad6000/retroui-svelte'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Installed from a shadcn-svelte registry: run `shadcn-svelte add` with the registry item URL (e.g. https://retroui-svelte.netlify.app/r/button.json). The project needs shadcn-svelte set up first.',

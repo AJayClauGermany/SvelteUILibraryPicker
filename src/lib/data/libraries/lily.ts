@@ -553,6 +553,12 @@ export default defineLibrary({
 			source: 'https://github.com/levish0/lily-svelte/blob/main/docs/content/components/dialog.md',
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '0.8.3', date: '2026-11-15' },
+		lastCommit: '2026-11-18',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/lily-svelte', 'https://github.com/levish0/lily-svelte'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'The npm package is only the CLI: `init` writes design tokens and a `cn` helper, `add` copies component source from the registry hosted on the docs site into `$lib/components/ui`. Component changes ship with the site, so 0.8.2 is the CLI version, not a component version.',

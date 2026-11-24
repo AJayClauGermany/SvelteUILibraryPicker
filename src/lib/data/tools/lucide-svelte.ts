@@ -64,6 +64,12 @@ export default defineTool({
 			'https://github.com/lucide-icons/lucide/blob/main/CONTRIBUTING.md',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.78.0', date: '2026-11-23' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@lucide/svelte', 'https://github.com/lucide-icons/lucide'],
+	},
 	lastVerified: '2026-11-23',
 	notes: [
 		'@lucide/svelte is for Svelte 5 only. The docs point Svelte 3/4 projects to the older lucide-svelte package (1.0.1, peer `^3 || ^4 || ^5.0.0-next.42`), which is marked deprecated on npm in favour of @lucide/svelte.',

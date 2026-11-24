@@ -31,6 +31,12 @@ export default defineTool({
 			'https://github.com/Rezi/svelte-gestures/blob/main/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '5.2.2', date: '2025-09-21' },
+		lastCommit: '2025-09-21',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-gestures', 'https://github.com/Rezi/svelte-gestures'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'The package declares no svelte peerDependency. The README says 5.2.x works only with Svelte 5, and the gestures are built on attachments (createAttachmentKey from svelte/attachments, bundled into the npm build), which Svelte added in 5.29.0.',

@@ -133,6 +133,12 @@ export default defineLibrary({
 		'render-delegation': { value: 'Bits UI `child` snippet on Bits-based parts; Button renders `<a>` when given `href`', notes: 'Parts forward rest props to Bits UI components, so `child` reaches them.', source: `${gh}/src/lib/components/ui/modal/modal-trigger.svelte` },
 		'composition': { value: 'compound parts (`Modal.Root`, `Modal.Content`...) plus single components', source: `${gh}/content/components/modal.md` },
 	},
+	maintenance: {
+		lastRelease: { version: '7.4.0', date: '2026-11-04' },
+		lastCommit: '2026-11-04',
+		checked: '2026-11-24',
+		sources: ['https://github.com/ieedan/shadcn-svelte-extras'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Installed from a jsrepo registry (`@ieedan/shadcn-svelte-extras`, the docs recommend this) or as shadcn-svelte registry items by URL; there is no npm package. Both routes assume a project already set up with shadcn-svelte.',

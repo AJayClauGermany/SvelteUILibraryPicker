@@ -33,6 +33,12 @@ export default defineTool({
 			'https://github.com/sibiraj-s/svelte-tiptap/blob/master/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '3.0.2', date: '2026-10-02' },
+		lastCommit: '2026-11-16',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-tiptap', 'https://github.com/sibiraj-s/svelte-tiptap'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'A Svelte layer on top of the Tiptap entry listed here, not a replacement: you still install @tiptap/core, @tiptap/pm and the Tiptap extensions you need (peer range ^3.0.0, plus the bubble and floating menu extensions and @floating-ui/dom), and configure the editor through the Tiptap docs.',

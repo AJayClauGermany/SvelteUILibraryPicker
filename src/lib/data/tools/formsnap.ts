@@ -36,6 +36,12 @@ export default defineTool({
 			'https://github.com/svecosystem/formsnap/tree/main/docs',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '2.1.0', date: '2026-10-20' },
+		lastCommit: '2026-10-20',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/formsnap', 'https://github.com/svecosystem/formsnap'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'Built on Superforms: sveltekit-superforms (^2.19.0 || ^3.0.0) is a required peer dependency and you use its APIs directly, so it inherits the SvelteKit requirement.',

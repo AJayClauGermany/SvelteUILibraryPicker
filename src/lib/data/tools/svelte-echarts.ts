@@ -32,6 +32,12 @@ export default defineTool({
 			'https://github.com/bherbruck/svelte-echarts/blob/main/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.0.0', date: '2025-04-25' },
+		lastCommit: '2025-04-24',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-echarts', 'https://github.com/bherbruck/svelte-echarts'],
+	},
 	lastVerified: '2026-11-23',
 	notes: [
 		'echarts is a peer dependency you install yourself. 1.0.0 declares ^5.0.0, while the current ECharts release is 6.x, so check compatibility before using ECharts 6.',

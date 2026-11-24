@@ -28,6 +28,12 @@ export default defineTool({
 			'https://github.com/formkit/auto-animate/tree/master/docs',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '0.11.0', date: '2026-11-23' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@formkit/auto-animate', 'https://github.com/formkit/auto-animate'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Framework-agnostic: the package has no Svelte peer dependency, so no Svelte support data is recorded. It also ships adapters for React, Vue (plus a Nuxt module), Preact, Solid, Angular and Marko.',

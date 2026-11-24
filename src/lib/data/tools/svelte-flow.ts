@@ -33,6 +33,12 @@ export default defineTool({
 		],
 		llmsTxt: 'https://svelteflow.dev/llms.txt',
 	},
+	maintenance: {
+		lastRelease: { version: '2.0.3', date: '2026-11-23' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@xyflow/svelte', 'https://github.com/xyflow/xyflow'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Needs a stylesheet import: style.css for the default look, base.css for the minimum, or xy-theme.css for the xyflow theme.',

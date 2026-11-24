@@ -31,6 +31,12 @@ export default defineTool({
 			'https://github.com/zerodevx/svelte-toast/blob/master/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '0.9.6', date: '2024-09-21' },
+		lastCommit: '2024-09-21',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@zerodevx/svelte-toast', 'https://github.com/zerodevx/svelte-toast'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Written in the Svelte 4 component syntax (export let, stores); the peer range accepts Svelte 5, where it runs in legacy mode.',

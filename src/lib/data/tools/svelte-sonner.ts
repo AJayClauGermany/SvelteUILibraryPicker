@@ -53,6 +53,12 @@ export default defineTool({
 			'https://github.com/wobsoriano/svelte-sonner/blob/main/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.2.3', date: '2026-11-02' },
+		lastCommit: '2026-11-02',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-sonner', 'https://github.com/wobsoriano/svelte-sonner'],
+	},
 	lastVerified: '2026-11-06',
 	notes: [
 		'The toast theme defaults to the system preference; shadcn-svelte and Lily pair it with mode-watcher to follow the app’s own light/dark setting.',

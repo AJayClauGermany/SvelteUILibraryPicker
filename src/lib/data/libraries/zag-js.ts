@@ -632,6 +632,12 @@ export default defineLibrary({
 			source: `${snip}/dialog/usage.mdx`,
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '1.49.0', date: '2026-11-22' },
+		lastCommit: '2026-11-22',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@zag-js/svelte', 'https://github.com/chakra-ui/zag'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Each component is its own npm package (@zag-js/accordion, @zag-js/dialog, ...) installed next to @zag-js/svelte; the adapter exports useMachine, normalizeProps, mergeProps and a portal helper.',

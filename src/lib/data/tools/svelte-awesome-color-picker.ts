@@ -31,6 +31,12 @@ export default defineTool({
 			'https://github.com/Ennoriel/svelte-awesome-color-picker/blob/master/LICENSE',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '4.1.3', date: '2026-05-28' },
+		lastCommit: '2026-05-28',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-awesome-color-picker', 'https://github.com/Ennoriel/svelte-awesome-color-picker'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Version 4 is a Svelte 5 rewrite with breaking changes; the docs include a v3 to v4 migration section. The last 3.x release (3.1.4) declares `^3.55.1 || ^4.0.0 || ^5.0.0`; earlier 3.x releases declare `^3.55.1 || ^4.0.0`.',

@@ -668,6 +668,12 @@ export default defineLibrary({
 			source: `${comp}/dialog/dialog.ts`,
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '5.25.2', date: '2026-11-23' },
+		lastCommit: '2026-11-23',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@ark-ui/svelte', 'https://github.com/chakra-ui/ark'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Headless: ships behaviour and accessibility only, so all styling is up to you.',

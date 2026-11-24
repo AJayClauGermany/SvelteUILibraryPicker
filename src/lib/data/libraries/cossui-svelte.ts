@@ -677,6 +677,12 @@ export default defineLibrary({
 			source: 'https://cossui-svelte.com/docs/get-started',
 		},
 	},
+	maintenance: {
+		lastRelease: { version: '1.2.0', date: '2026-11-11' },
+		lastCommit: '2026-11-20',
+		checked: '2026-11-24',
+		sources: ['https://github.com/cossui-svelte/cossui-svelte'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Installed from a shadcn-svelte registry: `shadcn-svelte add https://cossui-svelte.com/r/<name>.json` copies the source into your project (jsrepo can also read the registry). There is no importable npm package; `cossui-svelte` on npm is a placeholder.',

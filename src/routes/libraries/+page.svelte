@@ -8,8 +8,8 @@
 <script lang="ts">
 	import { url } from '#lib/url.ts'
 	import LibraryCard from '#lib/components/LibraryCard.svelte'
-	import type { FeatureTag, ToolingKind } from '#lib/data/index.ts'
-	import { dependencyKindLabels, featureInfo, libraries, requiredTooling, usedFeatureTags, usedToolingKinds } from '#lib/data/index.ts'
+	import type { FeatureTag, MaintenanceStatus, ToolingKind } from '#lib/data/index.ts'
+	import { dependencyKindLabels, featureInfo, libraries, maintenanceInfo, maintenanceStatus, maintenanceStatuses, requiredTooling, usedFeatureTags, usedToolingKinds } from '#lib/data/index.ts'
 
 	let query = $state('')
 	let svelteMajor = $state('5')
@@ -18,6 +18,7 @@
 	/** '' = any, 'none' = no extra build tooling, otherwise a tooling kind. */
 	let tooling = $state<'' | 'none' | ToolingKind>('')
 	let features = $state<FeatureTag[]>([])
+	let maintenance = $state<'' | MaintenanceStatus>('')
 
 	const stylingOptions = [...new Set(libraries.flatMap(l => l.styling))].sort()
 	const licenseOptions = [...new Set(libraries.map(l => l.license.spdx))].sort()
@@ -32,6 +33,7 @@
 			const tools = requiredTooling(l)
 			if (tooling === 'none' && tools.length) return false
 			if (tooling && tooling !== 'none' && !tools.includes(tooling)) return false
+			if (maintenance && maintenanceStatus(l) !== maintenance) return false
 			if (!features.every(f => l.features.includes(f))) return false
 			return true
 		}),
@@ -70,6 +72,12 @@
 			<option value="">Any</option>
 			<option value="none">None needed</option>
 			{#each usedToolingKinds as k (k)}<option value={k}>Needs {dependencyKindLabels[k]}</option>{/each}
+		</select>
+	</label>
+	<label>Maintenance
+		<select bind:value={maintenance}>
+			<option value="">Any</option>
+			{#each maintenanceStatuses as s (s)}<option value={s} title={maintenanceInfo[s].description}>{maintenanceInfo[s].label}</option>{/each}
 		</select>
 	</label>
 </div>

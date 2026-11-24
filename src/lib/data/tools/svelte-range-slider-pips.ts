@@ -33,6 +33,12 @@ export default defineTool({
 			'https://github.com/simeydotme/svelte-range-slider-pips/blob/main/LICENSE-MPL-2.0',
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '4.1.1', date: '2026-03-15' },
+		lastCommit: '2026-03-15',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-range-slider-pips', 'https://github.com/simeydotme/svelte-range-slider-pips'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'The component is written in Svelte\'s legacy syntax (export let props, dispatched events). It runs in Svelte 5 apps; the README notes issues in runes mode when $state values are also bound to an <input> element, suggests legacy mode where possible, and links an issue with a workaround.',

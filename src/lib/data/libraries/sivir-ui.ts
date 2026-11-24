@@ -597,6 +597,12 @@ export default defineLibrary({
 		'render-delegation': { value: 'no `child` snippet or `as` prop on these components; Button switches to <a> when `href` is set', source: 'https://github.com/aidan-neel/sivir-ui/blob/v0.4.5/packages/sivir/src/components/button/button.svelte' },
 		'composition': { value: 'single components for simple controls; compound namespaces (`Modal.Root`, `Select.Trigger`...) imported with `import * as`', source: 'https://github.com/aidan-neel/sivir-ui/blob/v0.4.5/packages/sivir/src/components/modal/index.ts' },
 	},
+	maintenance: {
+		lastRelease: { version: '0.4.5', date: '2026-10-07' },
+		lastCommit: '2026-11-20',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@sivir-ui/svelte', 'https://github.com/aidan-neel/sivir-ui'],
+	},
 	lastVerified: '2026-11-22',
 	notes: [
 		'Pre-1.0 (0.4.x): minor releases carry breaking renames, which the changelog documents (0.4.5 renamed Reasoning and Tool props, for example).',

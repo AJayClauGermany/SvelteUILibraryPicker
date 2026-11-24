@@ -39,6 +39,12 @@ export default defineTool({
 		],
 		llmsTxt: 'https://svelte-tel-input.vercel.app/llms.txt',
 	},
+	maintenance: {
+		lastRelease: { version: '4.3.4', date: '2026-10-16' },
+		lastCommit: '2026-10-16',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-tel-input', 'https://github.com/gyurielf/svelte-tel-input'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Ships no visual styles; an optional flags.css sprite sheet is included for building a country selector.',
