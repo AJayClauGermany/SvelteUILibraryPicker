@@ -6,13 +6,13 @@ import { defineLibrary } from '../schema'
 // returns 404). The repo's main branch ends at the 1.6.0 release (commit ba1813e).
 const site = 'https://fluent-svelte.vercel.app'
 const c = (slug: string, anchor?: string) => `${site}/docs/components/${slug}${anchor ? `#${anchor}` : ''}`
-const repo = 'https://github.com/tropix126/fluent-svelte'
+const repo = 'https://github.com/tropicaaal/fluent-svelte'
 
 export default defineLibrary({
 	id: 'fluent-svelte',
 	name: 'Fluent Svelte',
 	description:
-		'A Svelte 3 component set that recreates the look of Windows 11 WinUI controls (Microsoft Fluent Design), with scoped component styles and a shared theme file of CSS variables.',
+		'A Svelte 3 component set that recreates the look of Microsoft WinUI controls (Fluent Design), with scoped component styles and a shared theme file of CSS variables.',
 	docs: `${site}/docs`,
 	repository: repo,
 	packages: ['fluent-svelte'],
@@ -30,6 +30,7 @@ export default defineLibrary({
 	features: ['typescript', 'ssr', 'rtl', 'theming', 'dark-mode', 'design-system', 'i18n'],
 	components: [
 		{ id: 'button', name: 'Button', docs: c('button'), notes: `Standard, accent and hyperlink styles. A separate IconButton for icon-only buttons has its own page: ${c('iconbutton')}` },
+		{ id: 'link', name: 'Button', docs: c('button', 'styles'), notes: 'The hyperlink variant of Button; it renders an anchor when given an href. There is no separate link component.' },
 		{ id: 'checkbox', name: 'Checkbox', docs: c('checkbox'), notes: 'Supports an indeterminate state.' },
 		{ id: 'radio-group', name: 'RadioButton', docs: c('radiobutton', 'radio-groups'), notes: 'Individual RadioButtons grouped through a shared binding; there is no separate group component.' },
 		{ id: 'switch', name: 'ToggleSwitch', docs: c('toggleswitch') },
@@ -58,12 +59,18 @@ export default defineLibrary({
 			`${site}/docs`,
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.6.0', date: '2022-06-05' },
+		lastCommit: '2022-06-05',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/fluent-svelte', 'https://github.com/tropicaaal/fluent-svelte'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Svelte 3 only. The package declares no svelte peer dependency; the repo develops against svelte ^3.47.0 and tags itself svelte3, and nothing in the repo or changelog covers Svelte 4 or 5. Listed for reference and migration planning.',
 		'Components use Svelte 3 syntax (export let, $: statements, slots, createEventDispatcher, $$restProps). Many forward DOM events with get_current_component imported from svelte/internal, which is not public API and is gone in Svelte 5, so they would need rewriting rather than running in legacy mode.',
 		'The README describes the project as alpha and treats any component without a docs page as unstable.',
 		'Styles are compiled from Sass at publish time and scoped inside each component, so you need no Sass or other build tooling; you only import fluent-svelte/theme.css once. The theme follows the system light/dark preference through prefers-color-scheme.',
-		`Exported but without a docs page: AutoSuggestBox, ComboBox, NumberBox, ProgressBar, Tooltip, MenuBar, MenuFlyout and ContextMenu (all shown on the test page at ${site}/test), plus CalendarDatePicker, NavigationView and ScrollView (in the package only). We list only components with a docs page.`,
+		`Exported but without a docs page: AutoSuggestBox, ComboBox, NumberBox, ProgressBar, Tooltip, MenuBar, MenuFlyout and ContextMenu (all shown on the test page at ${site}/test), plus CalendarDatePicker and NavigationView (exported, but on neither page). A ScrollView component ships in the package without being exported. We list only components with a docs page.`,
 	],
 })

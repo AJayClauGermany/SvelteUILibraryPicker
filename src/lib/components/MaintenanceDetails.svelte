@@ -10,7 +10,7 @@
 	const m = $derived(entry.maintenance)
 </script>
 
-{#if m && status}
+{#if status}
 	<MaintenanceBadge {entry} /> <a href={url('/guide/features/#maintenance')} class="ulp-muted">what this means</a>
 	<div class="ulp-muted">{maintenanceInfo[status].description}</div>
 	<ul class="facts">

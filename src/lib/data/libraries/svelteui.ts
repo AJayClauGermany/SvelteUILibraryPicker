@@ -7,6 +7,8 @@ import { defineLibrary } from '../schema'
 // pages and name same-page parts in notes instead of using anchors.
 const site = 'https://svelteui.dev'
 const c = (slug: string) => `${site}/core/${slug}`
+// The clipboard, focus-trap and hotkeys rows are Svelte actions from @svelteuidev/composables
+// (/composables/<folder>, from apps/docs/src/routes/composables/*/+page.md).
 const repo = 'https://github.com/svelteuidev/svelteui'
 
 export default defineLibrary({
@@ -81,7 +83,7 @@ export default defineLibrary({
 		{ id: 'kbd', name: 'Kbd', docs: c('kbd') },
 		{ id: 'timeline', name: 'Timeline', docs: c('timeline') },
 		{ id: 'typography', name: 'Text', docs: c('text'), notes: `Title (${c('title')}) renders h1-h6, and TypographyProvider (${c('typography-provider')}) styles raw HTML content. Mark and Blockquote are separate pages.` },
-		{ id: 'code-block', name: 'Code', docs: c('code'), notes: `Inline or block code without highlighting. Highlighting is the Prism component from the separate @svelteuidev/prism package (${site}/others/prism).` },
+		{ id: 'code-block', name: 'Code', docs: c('code'), notes: `Shows code inline or as a block, with no syntax colouring. Highlighting is the Prism component from the separate @svelteuidev/prism package (${site}/others/prism).` },
 		{ id: 'alert', name: 'Alert', docs: c('alert'), notes: 'Notification is a similar static message card with a loading state; there is no toast queue.' },
 		{ id: 'spinner', name: 'Loader', docs: c('loader') },
 		{ id: 'progress', name: 'Progress', docs: c('progress') },
@@ -91,6 +93,9 @@ export default defineLibrary({
 		{ id: 'tooltip', name: 'Tooltip', docs: c('tooltip') },
 		{ id: 'popover', name: 'Popper', docs: c('popper'), notes: 'Low-level positioned dropdown (built on Floating UI) rather than a ready-made popover with trigger handling.' },
 		{ id: 'portal', name: 'Portal', docs: c('portal') },
+		{ id: 'clipboard', name: 'use-clipboard', docs: `${site}/composables/use-clipboard`, notes: 'The clipboard action from @svelteuidev/composables; copies text when the element is clicked.' },
+		{ id: 'focus-trap', name: 'use-focus-trap', docs: `${site}/composables/use-focus-trap`, notes: 'The focustrap action from @svelteuidev/composables.' },
+		{ id: 'hotkeys', name: 'use-hot-key', docs: `${site}/composables/use-hot-key`, notes: 'The hotkey action from @svelteuidev/composables; listens on the document, with getHotkeyHandler for a single element.' },
 		{ id: 'calendar', name: 'Month', docs: `${site}/dates/month`, notes: 'From the separate @svelteuidev/dates package. Shows one month with range, min/max and excluded-date options but no month navigation; the docs list Calendar and DatePicker as coming soon.' },
 	],
 	ai: {
@@ -102,6 +107,12 @@ export default defineLibrary({
 			`${repo}/blob/main/LICENSE`,
 			`${site}/`,
 		],
+	},
+	maintenance: {
+		lastRelease: { version: '0.15.7', date: '2024-07-07' },
+		lastCommit: '2026-07-29',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/@svelteuidev/core', 'https://github.com/svelteuidev/svelteui'],
 	},
 	lastVerified: '2026-11-24',
 	notes: [

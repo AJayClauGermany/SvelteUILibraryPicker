@@ -92,15 +92,55 @@ neobrutalism-svelte) were added on 2026-11-22 this way. Follow-ups from that pas
 | Svelte Polaris | `svelte-polaris` 0.0.7 | 0.0.x and idle |
 | lomer-ui | `lomer-ui` 0.0.22 | 0.0.x; describes itself as not a component library |
 | mielui | `@mielui/svelte` 0.4.0 | found via npm, not researched yet |
-| svelte-headlessui (CaptainCodeman) | `svelte-headlessui` 0.0.46 | 0.0.x, idle since 2025-01 |
 
-**Probably not, unless something changes:** apple-svelte (idle, no LICENSE file), Origin UI Svelte
-(idle since 2025-06), Tark UI (no LICENSE file), SvelteUI (Svelte 3/4 only), Atom Forge UI
-(custom non-SPDX "Patron License"), Material Svelte by flenze (repo not found).
+**Probably not, unless something changes:** apple-svelte (no LICENSE file), Tark UI (no LICENSE
+file), Atom Forge UI (custom non-SPDX "Patron License"), Material Svelte by flenze (repo not found).
 
-**Skipped on purpose:** archived or Svelte 3/4-only kits (svelte-5-ui-lib, STWUI, Attractions,
-rgossiaux svelte-headlessui, Smelte, fluent-svelte, svelte-atoms, Grail UI, radix-svelte, the
-legacy `@melt-ui/svelte`), non-Svelte libraries (AgnosticUI, FlyonUI, daisyUI), single-purpose
+**Older, idle and archived libraries (decision 2026-11-24).** These used to be skipped. They are
+now listed for reference and migration planning, each with a maintenance badge (Active, Quiet,
+Legacy, Deprecated; see the guide's "Maintenance status" section). Being old, idle, Svelte 3/4-only
+or archived is no longer a reason to leave a library out; a missing LICENSE file or missing public
+docs still is. Added on 2026-11-24: Ato UI, ikun-ui, Attractions, Smelte, SvelteUI, STWUI, Fluent
+Svelte, rgossiaux svelte-headlessui, svelte-headlessui (CaptainCodeman), svelte-atoms, Grail UI,
+Radix Svelte, svelte-5-ui-lib, Melt UI (legacy `@melt-ui/svelte`) and Origin UI Svelte. What their
+code shows about migrating between majors is in [legacy-libraries.md](legacy-libraries.md).
+Follow-ups:
+
+- No previews for any of them yet. Most need Svelte 3/4 or an old toolchain (Tailwind 2, UnoCSS
+  0.57, svelte-preprocess 4), and several import `svelte/internal`, so they won't run in the
+  Svelte 5 preview app. The ones that should (svelte-5-ui-lib, Origin UI Svelte, and maybe the
+  store-based Melt UI legacy builders) are candidates.
+- STWUI's README says it is no longer actively developed but still accepts issues and PRs. That
+  isn't an explicit deprecation, so its badge is Legacy (Svelte 4 only), not Deprecated.
+- Found in the same pass, not researched or added yet (leads from npm, awesome-svelte and web
+  search; versions and dates as reported then):
+
+| Library | Package | Notes |
+| --- | --- | --- |
+| Svelte Materialify | `svelte-materialify` 0.3.11 (2021) | Vuetify-style Material kit, Svelte 3. README says the author is archiving it. |
+| Svelma | `svelma` 0.4.5 (2021) | Bulma components, Svelte 3; you add Bulma 0.9 yourself. Check the docs link. |
+| Kahi UI | `@kahi-ui/framework` 0.6.4 (2022) | Large Svelte 3 framework with its own CSS; `svelte` is a regular dependency. |
+| svelte-chota | `svelte-chota` 1.8.6 (2021) | Small kit around the chota CSS micro-framework. |
+| YeSvelte | `yesvelte` | Tabler/Bootstrap kit; `latest` is a Svelte 3 prerelease, a `next` tag targets Svelte 5. |
+| svelte-mui | `svelte-mui` 0.5.12 (2024) | Small Material-inspired set; demo is a single page, so per-component links may not exist. |
+| Vitamin Svelte | `@vtmn/svelte` 4.6.4 (2024) | Decathlon's design system, Svelte 3, Apache-2.0. |
+| proi-ui | `@specialdoom/proi-ui` 4.1.8 (2023) | Svelte 3 kit; README announces an archive. |
+| svelte-spectre | `svelte-spectre` 0.5.7 (2026) | Spectre.css kit, BSD-3-Clause; recent releases on an old toolchain. |
+| Spaper | `spaper` 2.0.3 (2026) | PaperCSS kit, now Svelte 5 + Tailwind 4. |
+| STDF | `stdf` 3.0.0 (2026) | Mobile-first Svelte 5 + Tailwind library. |
+| MDB Svelte | `mdbsvelte` 1.0.12 (2020) | Material Design for Bootstrap, Svelte 3. |
+| Sveltin Essentials | `@sveltinio/essentials` 0.7.9 (2023) | Small typed set, Svelte 3/4. |
+| AgnosUI | `@agnos-ui/svelte-bootstrap` 0.11.0 (2026) | Amadeus framework-agnostic library with Svelte packages (headless and Bootstrap). |
+| PerfectThings UI | `@perfectthings/ui` 10.1.9 (2026) | Large Svelte 5 set; GPL-3.0 (check the exact SPDX id). |
+| Framework7 Svelte | `framework7-svelte` 9.3.0 (2026) | Mobile app framework with official Svelte bindings. |
+| ui-svelte (Nick Mazuk) | `@nick-mazuk/ui-svelte` 0.29.19 (2021) | Tailwind 2 kit, docs are a Storybook. |
+| Figma Plugin DS Svelte | `figma-plugin-ds-svelte` 1.4.3 (2022) | Figma-styled components for Figma plugins; README is the only docs. |
+
+  Not addable as they stand: Ionic Svelte (no LICENSE file at the repo root), Svelteit (alpha only),
+  Material Svelte `material-svelte` (docs site down), svelte-fui (alpha, no docs site), daisy-svelte
+  (docs site gone).
+
+**Skipped on purpose:** non-Svelte libraries (AgnosticUI, FlyonUI, daisyUI), single-purpose
 components (Formsnap, svelte-sonner, PaneForge, vaul-svelte, select-kit, data grids) and chart/3D
 libraries (LayerChart, Threlte). Single-purpose packages now live in the [Tools](#tools) section
 instead.

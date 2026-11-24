@@ -49,6 +49,7 @@ pnpm build      # static site -> dist/ (site, then preview app into dist/preview
 pnpm verify     # validate + check + build; run before opening a PR
 node scripts/preview-coverage.js --missing   # which listed components still lack a preview
 node scripts/check-previews.js <id>          # render-check previews in headless Chromium
+node scripts/maintenance-facts.js <id>       # npm release dates, last commit, archived flag (for `maintenance`)
 ```
 
 Node >= 22, pnpm 10.
@@ -86,7 +87,8 @@ Node >= 22, pnpm 10.
   into `previews/`.
 - Static svelte pages declare metadata with `<script module> export const frontmatter = {...}`.
 - Svelte 5 runes only (`$state`, `$derived`, `$props`, `$effect`). Tabs, single quotes, no semicolons.
-- Set `lastVerified` to today's date whenever you re-check an entry.
+- Set `lastVerified` to today's date whenever you re-check an entry, and `maintenance.checked`
+  whenever you refresh its maintenance facts.
 
 ## Playbooks
 

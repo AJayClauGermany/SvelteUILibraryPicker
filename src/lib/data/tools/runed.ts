@@ -42,6 +42,11 @@ export default defineTool({
 			how: 'Many copy-paste registry components (Stepper, Password, Number Field, Image Cropper, Emoji Picker and others) import its helpers, so adding them adds runed to your project.',
 			source: 'https://github.com/ieedan/shadcn-svelte-extras/tree/main/src/lib/components/ui/stepper',
 		},
+		{
+			library: 'origin-ui-svelte',
+			how: 'The base Timeline component uses it.',
+			source: 'https://github.com/max-got/originui-svelte/blob/main/src/lib/components/ui/timeline/timeline-context.svelte.ts',
+		},
 	],
 	ai: {
 		status: 'no-statement',

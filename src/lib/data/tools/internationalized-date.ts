@@ -66,6 +66,16 @@ export default defineTool({
 			how: 'Its copied date components import it directly, on top of Bits UI.',
 			source: 'https://github.com/levish0/lily-svelte/blob/main/docs/src/lib/registry/ui/date-picker/date-picker.svelte',
 		},
+		{
+			library: 'melt-ui',
+			how: 'The date and calendar builders work with its date objects; the Dates guide has you install it.',
+			source: 'https://melt-ui.com/docs/dates',
+		},
+		{
+			library: 'origin-ui-svelte',
+			how: 'The date and time input examples import it, next to Bits UI.',
+			source: 'https://github.com/max-got/originui-svelte/blob/main/src/lib/constants.ts',
+		},
 	],
 	ai: {
 		status: 'welcomes',

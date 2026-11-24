@@ -11,8 +11,8 @@ export default defineLibrary({
 	id: 'svelte-headlessui',
 	name: 'Svelte-HeadlessUI (CaptainCodeman)',
 	description:
-		'An unofficial Svelte take on Tailwind Headless UI where each widget is a create… factory that returns a store plus use: actions you attach to your own markup.',
-	docs: site,
+		'An unofficial Svelte take on Tailwind Headless UI where each widget is a createX factory that returns a store plus use: actions you attach to your own markup.',
+	docs: `${site}/`,
 	repository: repo,
 	packages: ['svelte-headlessui'],
 	license: {
@@ -83,10 +83,16 @@ export default defineLibrary({
 			`${site}/`,
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '0.0.46', date: '2025-01-26' },
+		lastCommit: '2025-01-26',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/svelte-headlessui', 'https://github.com/captaincodeman/svelte-headlessui'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Written in TypeScript with no .svelte files: each factory returns a svelte/store store and use: actions, so components are wired with $store and use:action rather than runes or snippets.',
-		'The peer range has allowed Svelte 5 since 0.0.34. In January 2025 the docs site was moved to Svelte 5 and its examples rewritten with runes, snippets and onclick attributes while using the library unchanged.',
+		'The peer range has allowed Svelte 5 since 0.0.34. The docs site itself now builds on Svelte 5, and its examples use runes, snippets and onclick attributes with the library unchanged.',
 		'Nothing is styled. The docs examples use Tailwind CSS classes, but Tailwind is not required.',
 		'The Radio Group docs page shows a plain bind:group pattern with native radio inputs; the package exports no radio group helper, so it is not listed as a component here.',
 		'The Transition page documents the separate svelte-transition package rather than an export of this one.',

@@ -7,9 +7,9 @@
 	const status = $derived(maintenanceStatus(entry))
 	const m = $derived(entry.maintenance)
 	/** "Archived" reads better than "Deprecated" when that is the only reason for red. */
-	const label = $derived(status === 'deprecated' && m?.archived && !m.deprecated ? 'Archived' : status && maintenanceInfo[status].label)
+	const label = $derived(status === 'deprecated' && m.archived && !m.deprecated ? 'Archived' : status && maintenanceInfo[status].label)
 	const title = $derived.by(() => {
-		if (!status || !m) return ''
+		if (!status) return ''
 		const facts = [
 			m.lastRelease && `Last release ${m.lastRelease.version} on ${m.lastRelease.date}`,
 			m.lastCommit && `last commit ${m.lastCommit}`,

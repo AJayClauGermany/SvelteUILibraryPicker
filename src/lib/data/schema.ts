@@ -352,7 +352,7 @@ export interface Library {
 	 */
 	conventions?: Partial<Record<ConventionId, Convention>>
 	/** Release dates, archive and deprecation facts behind the maintenance badge. */
-	maintenance?: Maintenance
+	maintenance: Maintenance
 	/** ISO date (YYYY-MM-DD) the entry was last checked against the source. */
 	lastVerified: string
 	/** Optional extra caveats shown on the library page. */
@@ -433,7 +433,7 @@ export interface Tool {
 	usedBy: ToolUsage[]
 	ai: AiPolicy
 	/** Release dates, archive and deprecation facts behind the maintenance badge. */
-	maintenance?: Maintenance
+	maintenance: Maintenance
 	/** ISO date (YYYY-MM-DD) the entry was last checked against the source. */
 	lastVerified: string
 	/** Optional extra caveats shown on the tool page. */

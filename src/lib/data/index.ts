@@ -55,7 +55,6 @@ function daysBetween(from: string, to: string): number {
  */
 export function maintenanceStatus(entry: Library | Tool): MaintenanceStatus | undefined {
 	const m = entry.maintenance
-	if (!m) return undefined
 	if (m.archived || m.deprecated) return 'deprecated'
 	if (entry.svelte && !entry.svelte.supported.includes(currentSvelteMajor)) return 'legacy'
 	const last = m.lastRelease?.date ?? m.lastCommit
@@ -82,7 +81,8 @@ export function requiredTooling(library: Library): ToolingKind[] {
 
 /** Short display label for a dependency, e.g. "Tailwind CSS 4", "Sass", "bootstrap 5". */
 export function dependencyLabel(d: ProjectDependency): string {
-	const major = d.range?.match(/\d+/)?.[0]
+	// `^4.1.0` -> "4"; for 0.x ranges the minor is the meaningful part: `^0.57.7` -> "0.57".
+	const major = d.range?.match(/\b0\.\d+|\d+/)?.[0]
 	const base = d.kind === 'css-framework' || d.kind === 'build-plugin' || d.kind === 'peer' || d.kind === 'framework'
 		? d.package
 		: dependencyKindLabels[d.kind]

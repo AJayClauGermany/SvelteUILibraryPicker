@@ -52,6 +52,11 @@ export default defineTool({
 			how: 'Depends on @lucide/svelte for its icons.',
 			source: 'https://github.com/aidan-neel/sivir-ui/blob/main/packages/sivir/package.json',
 		},
+		{
+			library: 'origin-ui-svelte',
+			how: 'Most examples import its icons.',
+			source: 'https://github.com/max-got/originui-svelte/blob/main/src/lib/constants.ts',
+		},
 	],
 	ai: {
 		status: 'welcomes',

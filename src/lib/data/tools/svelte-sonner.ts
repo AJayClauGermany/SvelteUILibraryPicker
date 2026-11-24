@@ -43,6 +43,11 @@ export default defineTool({
 			how: 'Its Sonner component wraps the svelte-sonner Toaster.',
 			source: 'https://github.com/levish0/lily-svelte/blob/main/docs/src/lib/registry/ui/sonner/sonner.svelte',
 		},
+		{
+			library: 'origin-ui-svelte',
+			how: 'The toast examples on the Notifications page use it.',
+			source: 'https://github.com/max-got/originui-svelte/blob/main/src/lib/constants.ts',
+		},
 	],
 	ai: {
 		status: 'no-statement',

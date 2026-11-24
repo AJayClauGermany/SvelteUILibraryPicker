@@ -32,7 +32,7 @@ function isHttpsUrl(value: string | undefined) {
 /** Shared rules for the `maintenance` field of libraries and tools. */
 function checkMaintenance(entry: Library | Tool) {
 	const m = entry.maintenance
-	// TEMP-SOFT: strict once the legacy-library workflow finishes
+	expect(m, 'add a maintenance field (node scripts/maintenance-facts.js <id>)').toBeDefined()
 	if (!m) return
 	expect(m.checked).toMatch(ISO_DATE)
 	expect(m.checked <= today, 'maintenance.checked is in the future').toBe(true)

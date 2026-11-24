@@ -90,6 +90,12 @@ export default defineLibrary({
 			`${site}/`,
 		],
 	},
+	maintenance: {
+		lastRelease: { version: '1.1.8', date: '2021-09-06' },
+		lastCommit: '2025-02-17',
+		checked: '2026-11-24',
+		sources: ['https://www.npmjs.com/package/smelte', 'https://github.com/matyunya/smelte'],
+	},
 	lastVerified: '2026-11-24',
 	notes: [
 		'Svelte 3 only. smelte 1.1.8 has no peerDependencies; it lists svelte ^3.31.2 as a regular dependency. Components use export let, slots, on: events, createEventDispatcher, $: statements and $$props. Listed for reference and migration planning; we found no Svelte 4 or 5 work upstream.',

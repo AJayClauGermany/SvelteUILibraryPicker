@@ -27,6 +27,11 @@ export default defineTool({
 			how: 'Its Phone Input component wraps the TelInput component and uses the package’s country list and flag sprites; the phone-input registry item lists svelte-tel-input as a devDependency, so adding the component installs it in your project.',
 			source: 'https://github.com/ieedan/shadcn-svelte-extras/blob/main/src/lib/components/ui/phone-input/phone-input.svelte',
 		},
+		{
+			library: 'origin-ui-svelte',
+			how: 'The phone number input example is built on it.',
+			source: 'https://github.com/max-got/originui-svelte/blob/main/src/lib/components/inputs/input-47.svelte',
+		},
 	],
 	ai: {
 		status: 'no-statement',
