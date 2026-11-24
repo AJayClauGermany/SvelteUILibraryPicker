@@ -122,7 +122,12 @@ add anything you wouldn't want shown.
 Floating UI (popover, tooltip), LayerChart, Lucide, Neodrag, PaneForge, SVAR DataGrid,
 svelte-chartjs, svelte-dnd-action, Iconify, svelte-easy-crop, svelte-echarts, svelte-highlight, svelte-maplibre,
 svelte-maplibre-gl, svelte-select (select, combobox), svelte-sonner, svelte-toast, TanStack Table,
-TanStack Virtual, Tiptap. Run `node scripts/preview-coverage.js` for the live numbers.
+TanStack Virtual, Tiptap; added 2026-11-24: AutoAnimate, emoji-picker-element, Event Calendar,
+NumberFlow, phosphor-svelte, PhotoSwipe, SVAR Gantt, svelte-awesome-color-picker,
+svelte-codemirror-editor, svelte-confetti, svelte-exmarkdown, Svelte Flow, svelte-gestures,
+svelte-i18n, svelte-range-slider-pips, svelte-tel-input, svelte-tiptap, Threlte. Left out on purpose:
+`@svelte-put/shortcut` (`ai.status` restricted) and Paraglide JS (a compiler that needs a
+project-level code-generation step). Run `node scripts/preview-coverage.js` for the live numbers.
 
 Everything else falls back to a "See it in the official docs" card. The goal is a preview for
 every visual component a library lists. Purely non-visual utilities (portals, locale/config

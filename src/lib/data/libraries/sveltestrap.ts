@@ -399,6 +399,7 @@ export default defineLibrary({
 				},
 			},
 		},
+		{ id: 'animation', name: 'Fade', docs: c('components-fade'), notes: 'Shows or hides its content with a fade transition when isOpen changes; Bootstrap itself has no Fade component.' },
 		{
 			id: 'collapsible',
 			name: 'Collapse',

@@ -578,6 +578,12 @@ export default defineLibrary({
 			docs: `${u}/focus-trap`,
 			notes: 'Framework-agnostic utility (@zag-js/focus-trap); the utilities pages have no Svelte-specific variant.',
 		},
+		{
+			id: 'hotkeys',
+			name: 'Hotkeys',
+			docs: `${u}/hotkeys`,
+			notes: 'Framework-agnostic utility (@zag-js/hotkeys): a store you register shortcuts with and attach to the DOM; supports sequences and scopes.',
+		},
 	],
 	ai: {
 		status: 'welcomes',
@@ -632,6 +638,6 @@ export default defineLibrary({
 		'Headless: a machine returns state and prop getters, you render the elements and write every style (parts expose data-part attributes for CSS hooks).',
 		'Ark UI (also listed here) wraps these same machines as ready-made Svelte components, so the component sets overlap closely.',
 		'Component pages are shared across frameworks; the /components/svelte/<slug> form pins the Svelte code examples. Utility pages (/utilities/<slug>) are framework-neutral.',
-		'Not mapped to a canonical id: Cascade Select (beta), Circular Progress, Nested Menu, Range Slider and Segmented Control (noted on related entries), Presence, and the Async List and Hotkeys utilities.',
+		'Not mapped to a canonical id: Cascade Select (beta), Circular Progress, Nested Menu, Range Slider and Segmented Control (noted on related entries), Presence, and the Async List utility.',
 	],
 })

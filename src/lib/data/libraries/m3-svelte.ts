@@ -366,6 +366,7 @@ export default defineLibrary({
 			},
 		} },
 		{ id: 'time-picker', name: 'TimePickerDial', docs: home, notes: 'Dial-style picker opened in a dialog. Its demo card has no anchor, so the link goes to the docs home page.' },
+		{ id: 'animation', name: 'UI transitions', docs: c('ui-transitions'), notes: 'Svelte transition functions rather than a component: sharedAxisTransition (X, Y or Z axis) and containerTransform, a send/receive pair that morphs one element into another.' },
 		{ id: 'icon', name: 'Icon', docs: c('icons'), notes: 'Renders Iconify-format icon objects; @ktibow/iconset-material-symbols comes in as a regular dependency of 7.2.1.' },
 	],
 	ai: {
@@ -405,7 +406,7 @@ export default defineLibrary({
 	lastVerified: '2026-11-22',
 	notes: [
 		'Docs have no per-component pages; component links point to the demo cards on the docs home page.',
-		'Also ships Material motion helpers (UI transitions, easings), a state-layer CSS class and shape paths, which have no comparison category.',
+		'Also ships Material easing curves, a state-layer CSS class and shape paths, which have no comparison category; the UI transitions are mapped to Animation.',
 		'ChipChooser and DatePickerDocked are exported but have no demo card of their own, so they are not listed here.',
 	],
 })

@@ -67,6 +67,9 @@ export const components = {
 	'angle-slider': { name: 'Angle Slider', category: 'forms', description: 'Pick an angle on a circular control.' },
 	'image-cropper': { name: 'Image Cropper', category: 'forms', description: 'Crop and resize an image.' },
 	'rich-text-editor': { name: 'Rich Text Editor', category: 'forms', description: 'Edits formatted text, HTML or Markdown.', aliases: ['WYSIWYG', 'Markdown Editor'] },
+	'code-editor': { name: 'Code Editor', category: 'forms', description: 'Editable source code with syntax highlighting and editor keybindings.', aliases: ['Code Input', 'Code Mirror'] },
+	'phone-input': { name: 'Phone Input', category: 'forms', description: 'Phone number field with a country picker and formatting.', aliases: ['Tel Input', 'Telephone Input'] },
+	'emoji-picker': { name: 'Emoji Picker', category: 'forms', description: 'Search and pick an emoji.' },
 
 	// Overlays
 	dialog: { name: 'Dialog', category: 'overlays', description: 'Modal window over the page.', aliases: ['Modal'] },
@@ -78,6 +81,7 @@ export const components = {
 	'command-palette': { name: 'Command Palette', category: 'overlays', description: 'Searchable list of commands.', aliases: ['Command'] },
 	'floating-panel': { name: 'Floating Panel', category: 'overlays', description: 'Draggable, resizable window-like panel.' },
 	tour: { name: 'Tour', category: 'overlays', description: 'Step-by-step walkthrough highlighting parts of the page.', aliases: ['Onboarding', 'Walkthrough'] },
+	lightbox: { name: 'Lightbox', category: 'overlays', description: 'Full-screen viewer for images or media, with zoom and swipe.', aliases: ['Image Viewer', 'Gallery Viewer'] },
 
 	// Navigation
 	tabs: { name: 'Tabs', category: 'navigation', description: 'Switch between panels of content.' },
@@ -110,6 +114,7 @@ export const components = {
 	spinner: { name: 'Spinner', category: 'feedback', description: 'Indeterminate loading indicator.', aliases: ['Loading', 'Loader'] },
 	skeleton: { name: 'Skeleton', category: 'feedback', description: 'Placeholder while content loads.', aliases: ['Placeholder'] },
 	'empty-state': { name: 'Empty State', category: 'feedback', description: 'Placeholder shown when there is nothing to display.', aliases: ['Empty'] },
+	confetti: { name: 'Confetti', category: 'feedback', description: 'Celebratory burst of particles.', aliases: ['Celebration', 'Fireworks'] },
 
 	// Data display
 	avatar: { name: 'Avatar', category: 'data-display', description: 'Image or initials for a user.' },
@@ -130,6 +135,10 @@ export const components = {
 	'virtual-list': { name: 'Virtual List', category: 'data-display', description: 'Renders only the visible rows of a long list.', aliases: ['Virtual Scroll', 'Infinite Scroll'] },
 	map: { name: 'Map', category: 'data-display', description: 'Interactive geographic map with layers and markers.' },
 	icon: { name: 'Icon', category: 'data-display', description: 'Renders an icon from a set or an SVG path.' },
+	'node-editor': { name: 'Node Editor', category: 'data-display', description: 'Interactive graph of nodes and edges for flowcharts, diagrams and visual editors.', aliases: ['Flow', 'Diagram', 'Node Graph'] },
+	'scene-3d': { name: '3D Scene', category: 'data-display', description: 'Interactive 3D scene rendered with WebGL or WebGPU.', aliases: ['3D', 'WebGL', 'Three.js'] },
+	'animated-value': { name: 'Animated Value', category: 'data-display', description: 'Number or value that animates when it changes.', aliases: ['Number Flow', 'Counter', 'Ticker'] },
+	markdown: { name: 'Markdown', category: 'data-display', description: 'Renders Markdown text as HTML or components.', aliases: ['Markdown Renderer'] },
 
 	// Date & Time
 	calendar: { name: 'Calendar', category: 'date-time', description: 'Inline month view for picking dates.' },
@@ -141,6 +150,8 @@ export const components = {
 	'date-range-field': { name: 'Date Range Field', category: 'date-time', description: 'Segmented keyboard-editable start and end date input.' },
 	'time-range-field': { name: 'Time Range Field', category: 'date-time', description: 'Segmented keyboard-editable start and end time input.' },
 	timer: { name: 'Timer', category: 'date-time', description: 'Counts up or down, or shows a relative time.', aliases: ['Countdown', 'Relative Time'] },
+	'event-calendar': { name: 'Event Calendar', category: 'date-time', description: 'Day, week or month views of scheduled events.', aliases: ['Scheduler', 'Agenda', 'Planner'] },
+	gantt: { name: 'Gantt Chart', category: 'date-time', description: 'Tasks laid out on a timeline with durations and dependencies.', aliases: ['Gantt', 'Project Timeline'] },
 
 	// Utilities
 	portal: { name: 'Portal', category: 'utilities', description: 'Render content elsewhere in the DOM.' },
@@ -150,6 +161,10 @@ export const components = {
 	'drag-and-drop': { name: 'Drag and Drop', category: 'utilities', description: 'Reorder or move items by dragging them.', aliases: ['Sortable', 'Draggable', 'DnD'] },
 	clipboard: { name: 'Clipboard', category: 'utilities', description: 'Copy to clipboard helpers.' },
 	'locale-provider': { name: 'Locale Provider', category: 'utilities', description: 'Sets locale, direction or environment for descendant components.', aliases: ['Locale', 'Environment Provider', 'Settings'] },
+	i18n: { name: 'Internationalization', category: 'utilities', description: 'Translates interface text and formats messages per locale.', aliases: ['i18n', 'Translations', 'Localization'] },
+	hotkeys: { name: 'Hotkeys', category: 'utilities', description: 'Binds keyboard shortcuts to actions.', aliases: ['Keyboard Shortcuts', 'Shortcut'] },
+	gestures: { name: 'Gestures', category: 'utilities', description: 'Recognises swipe, pinch, pan or long-press gestures.', aliases: ['Swipe', 'Touch', 'Pinch'] },
+	animation: { name: 'Animation', category: 'utilities', description: 'Animates elements as they enter, leave or move.', aliases: ['Motion', 'Auto Animate'] },
 } as const satisfies Record<string, ComponentDefinition>
 
 export type ComponentId = keyof typeof components

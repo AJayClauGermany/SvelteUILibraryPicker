@@ -451,6 +451,7 @@ export default defineLibrary({
 				},
 			},
 		},
+		{ id: 'phone-input', name: 'PhoneInput', docs: `${f}/phone-input`, notes: 'A tel input with a number pattern; the country-code picker in the examples is composed from Dropdown.' },
 		{
 			id: 'file-upload',
 			name: 'Fileupload',
@@ -461,7 +462,7 @@ export default defineLibrary({
 			id: 'input',
 			name: 'Input',
 			docs: `${f}/input-field`,
-			notes: 'Floating Label and Phone input variants have their own pages; Search is mapped separately.',
+			notes: 'Floating Label variants have their own page; Phone Input and Search are mapped separately.',
 			api: {
 				style: 'props',
 				parts: ['Input'],
@@ -735,6 +736,6 @@ export default defineLibrary({
 		'Role colors are limited to primary and secondary (set through Tailwind theme variables); status colors are picked by Tailwind palette name, e.g. red or green.',
 		'A 2.0 pre-release is published under the npm "next" tag; facts here describe the 1.x "latest" release.',
 		'Charts, DataTables and WYSIWYG are documented as plugins but ship in separate @flowbite-svelte-plugins packages; icons are also a separate package.',
-		'Not mapped to a canonical id: Banner, Device Mockups, Gallery, Indicator, Mega Menu, Video, Floating Label, Phone Input, Clipboard Manager, Kanban Board, Virtual Masonry, Close Button, Progressradial, StepIndicator, DataTables, WYSIWYG.',
+		'Not mapped to a canonical id: Banner, Device Mockups, Gallery, Indicator, Mega Menu, Video, Floating Label, Clipboard Manager, Kanban Board, Virtual Masonry, Close Button, Progressradial, StepIndicator, DataTables, WYSIWYG.',
 	],
 })
