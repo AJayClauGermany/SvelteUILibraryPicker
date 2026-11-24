@@ -55,6 +55,9 @@ const switches: Record<string, (dark: boolean) => void> = {
 	// colours, so the baseline color-scheme switch above selects the dark palette.
 	// SVAR Core themes through wrapper components (<Willow> / <WillowDark>), so each SVAR preview
 	// reads `theme.current` itself.
+	// Event Calendar README "Theming": the built-in dark theme applies when any parent of the calendar
+	// has the `ec-dark` class (https://github.com/vkurko/calendar#theming).
+	'event-calendar': dark => document.documentElement.classList.toggle('ec-dark', dark),
 }
 
 /**
@@ -68,6 +71,12 @@ const lightOnly = new Set([
 	// carta-md: default.css ships `*-dark` variables, but switching to them is CSS the app writes
 	// itself (docs "Editing Styles"), which would be styling of ours.
 	'carta-md',
+	// svelte-codemirror-editor: CodeMirror's base theme paints a fixed light gutter and light-theme
+	// highlight colours; the README documents no dark mode (only an optional oneDark `theme` prop).
+	'svelte-codemirror-editor',
+	// svelte-awesome-color-picker: the popup is `var(--cp-bg-color, white)` while input text inherits;
+	// its dark theme is CSS variables the app sets itself (docs Examples > Dark theme).
+	'svelte-awesome-color-picker',
 ])
 
 export function applyTheme(library: string, next: PreviewTheme) {

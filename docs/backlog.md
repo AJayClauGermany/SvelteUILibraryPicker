@@ -119,8 +119,13 @@ widened: tools may map to components no tracked library provides (new ids `map`,
   PhotoSwipe, @svelte-put/shortcut, svelte-awesome-color-picker, svelte-range-slider-pips,
   phosphor-svelte, svelte-tiptap). Libraries that document these components were mapped too.
   Follow-ups from that pass:
-  - Previews for the new tools (none yet). `@svelte-put/shortcut` is `restricted` (its docs site
-    blocks AI agents), so no preview for it.
+  - Previews were added for 18 of the 20 new tools (2026-11-24). No preview for `@svelte-put/shortcut`
+    (`restricted`: its docs site blocks AI agents) or Paraglide JS (needs its compiler step).
+    svelte-codemirror-editor and svelte-awesome-color-picker render light-only (their dark themes are
+    app-written CSS or an optional theme package). emoji-picker-element reads its emoji data from the
+    local `emoji-picker-element-data` package instead of its default CDN, so previews stay offline.
+    `@event-calendar/core` depends on `svelte` directly (not as a peer), so the root `svelte` was raised
+    to 5.59.1 to keep a single copy; keep them in step when either is bumped.
   - A Svelte 5 motion library (spring/layout animations beyond `svelte/motion`) is still open.
   - Second options considered: `bigger-picture` (lightbox; README withdrew Svelte usage pending
     Svelte 5 checks), `@humanspeak/svelte-markdown` (markdown; more recent releases than
