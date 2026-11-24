@@ -32,7 +32,7 @@ export default defineTool({
 	},
 	lastVerified: '2026-11-24',
 	notes: [
-		'The Svelte package wraps the number-flow custom element; the same author publishes React, Vue and vanilla versions from the same repo.',
+		'The Svelte package wraps a custom element (`<number-flow-svelte>`) built on the framework-agnostic number-flow package; the same author publishes React, Vue and vanilla versions from the same repo.',
 		'Components are written in legacy (non-runes) Svelte syntax, which Svelte 5 still runs.',
 		'Styling is done with plain CSS on the element and its exposed ::part() selectors.',
 	],

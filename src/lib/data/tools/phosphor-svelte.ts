@@ -24,7 +24,7 @@ export default defineTool({
 	usedBy: [
 		{
 			library: 'shadcn-svelte',
-			how: 'Its CLI offers Phosphor as one of the selectable icon libraries (installing phosphor-svelte), and the Lyra preset uses it by default.',
+			how: 'Its CLI offers Phosphor as one of the selectable icon libraries (installing phosphor-svelte).',
 			source: 'https://github.com/huntabyte/shadcn-svelte/blob/main/packages/cli/src/icons/libraries.ts',
 		},
 	],

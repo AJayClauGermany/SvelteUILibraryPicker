@@ -4,7 +4,7 @@ export default defineTool({
 	id: 'threlte',
 	name: 'Threlte',
 	description:
-		'A 3D framework for Svelte that wraps Three.js in declarative, reactive components: a Canvas, a <T> component for any Three.js object, render loop scheduling and pointer events.',
+		'A 3D framework for Svelte that wraps Three.js in declarative, reactive components: a Canvas, a <T> component for any Three.js object and render loop scheduling.',
 	kind: 'component',
 	docs: 'https://threlte.xyz',
 	repository: 'https://github.com/threlte/threlte',
@@ -35,7 +35,7 @@ export default defineTool({
 	lastVerified: '2026-11-24',
 	notes: [
 		'three is a required peer dependency (>=0.172) and is installed alongside @threlte/core.',
-		'@threlte/core is the minimum; optional packages such as @threlte/extras (ready-made helpers like controls, environments and text), @threlte/rapier (physics) and @threlte/xr can be added as needed.',
+		'@threlte/core is the minimum; optional packages such as @threlte/extras (ready-made helpers like controls, environments, text and pointer-event interactivity), @threlte/rapier (physics) and @threlte/xr can be added as needed.',
 		'Scenes are WebGL/WebGPU canvases with no UI-library styling; look and feel come from your Three.js materials, lights and models.',
 	],
 })

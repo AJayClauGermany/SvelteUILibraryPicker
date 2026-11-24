@@ -37,6 +37,6 @@ export default defineTool({
 	notes: [
 		'A Svelte layer on top of the Tiptap entry listed here, not a replacement: you still install @tiptap/core, @tiptap/pm and the Tiptap extensions you need (peer range ^3.0.0, plus the bubble and floating menu extensions and @floating-ui/dom), and configure the editor through the Tiptap docs.',
 		'What it adds is Svelte-side glue: a store-based createEditor helper, components that mount the editor and its menus, and a way to render Svelte components as Tiptap node views. Menu markup and all styling are yours to write.',
-		'Maintained by an individual developer, not by the Tiptap team. The README heading still mentions Tiptap v2, while the 3.x package peers on Tiptap 3.',
+		'Maintained by an individual developer, not by the Tiptap team. The README tagline still says Tiptap v2, while the 3.x package peers on Tiptap 3.',
 	],
 })

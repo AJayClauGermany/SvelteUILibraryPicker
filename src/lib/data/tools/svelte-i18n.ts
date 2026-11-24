@@ -4,7 +4,7 @@ export default defineTool({
 	id: 'svelte-i18n',
 	name: 'svelte-i18n',
 	description:
-		'Store-based internationalization for Svelte: load locale dictionaries, switch the active locale and format ICU messages, numbers, dates and times through FormatJS.',
+		'Store-based internationalization for Svelte: load locale dictionaries, switch the active locale, format ICU messages through FormatJS and numbers, dates and times with Intl.',
 	kind: 'utility',
 	// No separate docs site: the npm homepage points at the repo README, and the docs live as
 	// Markdown files in the repo's docs/ folder. Checked in a shallow clone of main.

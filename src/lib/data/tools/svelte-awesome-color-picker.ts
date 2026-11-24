@@ -33,7 +33,7 @@ export default defineTool({
 	},
 	lastVerified: '2026-11-24',
 	notes: [
-		'Version 4 is a Svelte 5 rewrite with breaking changes; the docs include a v3 to v4 migration section. The 3.x line declares `^3.55.1 || ^4.0.0 || ^5.0.0`.',
+		'Version 4 is a Svelte 5 rewrite with breaking changes; the docs include a v3 to v4 migration section. The last 3.x release (3.1.4) declares `^3.55.1 || ^4.0.0 || ^5.0.0`; earlier 3.x releases declare `^3.55.1 || ^4.0.0`.',
 		'Ships a default layout plus a Chrome-style variant and an accessibility-notice variant; inner parts (wrapper, text input, indicator...) can be replaced with your own components.',
 		'Styled through CSS custom properties, including a dark theme example. Color parsing uses the colord package.',
 		'Inside containers with hidden overflow the popup gets clipped; the docs suggest a portal or the responsive position prop.',

@@ -19,11 +19,12 @@ export default defineTool({
 	ai: {
 		status: 'no-statement',
 		summary:
-			'No llms.txt on the docs site, MCP server, AGENTS.md/CLAUDE.md for the project or AI section in the README contributing notes was found, and the MIT LICENSE has no AI clause. The repo keeps a .cursorrules file that describes the codebase for editor agents, but it states no policy.',
+			'No llms.txt on the docs site, MCP server, AGENTS.md/CLAUDE.md for the project or AI section in the README contributing notes was found, and the MIT LICENSE has no AI clause. The repo keeps a .cursorrules file that describes the codebase for editor agents, and a .dmux-hooks/ folder with auto-generated AGENTS.md/CLAUDE.md files for the dmux agent tool; neither states a policy for contributors.',
 		sources: [
 			'https://github.com/formkit/auto-animate',
 			'https://github.com/formkit/auto-animate/blob/master/README.md',
 			'https://github.com/formkit/auto-animate/blob/master/.cursorrules',
+			'https://github.com/formkit/auto-animate/tree/master/.dmux-hooks',
 			'https://github.com/formkit/auto-animate/tree/master/docs',
 		],
 	},
