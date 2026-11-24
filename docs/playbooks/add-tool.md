@@ -15,9 +15,13 @@ They're listed at `/tools/` and linked from the component and library pages.
 
 - It has public docs, a repo and an npm package.
 - It isn't already listed (`ls src/lib/data/tools`).
-- **Grounding rule (for now):** it maps to at least one canonical component that a tracked library
-  already provides (`pnpm validate` enforces this). Tools for components no library has yet wait
-  until we widen the scope; add them to `docs/backlog.md` instead.
+- It maps to at least one canonical component in `components.ts` (`pnpm validate` enforces this;
+  only `utility` tools may map to none). The component **doesn't** have to be provided by a tracked
+  library: tools that fill gaps (maps, flow diagrams, 3D scenes, scheduling calendars, i18n...) are
+  welcome. If no id fits, add a generic one to `components.ts` first, then map any tracked library
+  that already documents that component (with verified docs URLs).
+- It supports Svelte 5 (or is framework-agnostic with a documented way to use it in Svelte) and
+  has had a release in the last ~18 months. Note quiet or prerelease packages in `notes`.
 
 ## 2. Gather facts from primary sources
 
