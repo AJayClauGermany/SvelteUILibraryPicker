@@ -410,6 +410,7 @@ export default defineLibrary({
 			},
 		},
 		{ id: 'kbd', name: 'Shortcut', docs: `${d}/shortcut`, notes: 'Displays a key combination and can also run a handler when it is pressed.' },
+		{ id: 'hotkeys', name: 'Shortcut', docs: `${d}/shortcut`, notes: 'The same component as the Kbd entry: while mounted it listens for its key combination on the window and clicks its parent control or calls ontrigger.' },
 		{ id: 'sidebar', name: 'Sidebar', docs: `${d}/sidebar`, notes: 'Collapsible app-shell navigation with an inset layout.' },
 		{ id: 'skeleton', name: 'Skeleton', docs: `${d}/skeleton` },
 		{
@@ -570,7 +571,8 @@ export default defineLibrary({
 				},
 			},
 		},
-		{ id: 'typography', name: 'Typography', docs: `${d}/typography`, notes: 'Headings, text variants, inline code and metadata. A separate Markdown component (slug markdown) renders model output.' },
+		{ id: 'typography', name: 'Typography', docs: `${d}/typography`, notes: 'Headings, text variants, inline code and metadata. Rendered Markdown is mapped separately.' },
+		{ id: 'markdown', name: 'Markdown', docs: `${d}/markdown`, notes: 'Renders GitHub-flavoured Markdown safely, aimed at agent output; code fences use the Code Block component.' },
 	],
 	ai: {
 		status: 'welcomes',
@@ -599,7 +601,7 @@ export default defineLibrary({
 	notes: [
 		'Pre-1.0 (0.4.x): minor releases carry breaking renames, which the changelog documents (0.4.5 renamed Reasoning and Tool props, for example).',
 		'Two install modes: import from @sivir-ui/svelte, or run the bundled sivir CLI (npx @sivir-ui/svelte init, then add <component>) to copy component source into your project. The unrelated npm package named "sivir" is not this CLI.',
-		'Twelve of the 59 documented components are AI-interface primitives with no canonical id here: Composer, Conversation, Message, Response Stream, Reasoning, Tool, Source, Question, File Diff, Markdown, Show More and Fullscreen Nav. Two composed blocks (Thread, Agent) are documented under /docs/blocks.',
+		'Eleven of the 59 documented components are AI-interface primitives with no canonical id here: Composer, Conversation, Message, Response Stream, Reasoning, Tool, Source, Question, File Diff, Show More and Fullscreen Nav (the Markdown renderer is mapped). Two composed blocks (Thread, Agent) are documented under /docs/blocks.',
 		'Separator, Toolbar, Panel, Marquee and Approval Request were removed; the components index points to replacements.',
 		'Depends on @lucide/svelte for icons, Inter and JetBrains Mono via Fontsource, highlight.js and marked. In CLI mode these land in your own package.json: init installs the shared ones (cnfast, @floating-ui/dom and the two Fontsource fonts) and add offers to install whatever each copied component needs.',
 	],

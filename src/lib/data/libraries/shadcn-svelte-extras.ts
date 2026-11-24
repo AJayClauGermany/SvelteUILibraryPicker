@@ -70,6 +70,8 @@ export default defineLibrary({
 		{ id: 'tags-input', name: 'Tags Input', docs: `${d}/tags-input` },
 		{ id: 'file-upload', name: 'File Drop Zone', docs: `${d}/file-drop-zone` },
 		{ id: 'image-cropper', name: 'Image Cropper', docs: `${d}/image-cropper` },
+		{ id: 'phone-input', name: 'Phone Input', docs: `${d}/phone-input`, notes: 'Wraps svelte-tel-input and adds a country selector.' },
+		{ id: 'emoji-picker', name: 'Emoji Picker', docs: `${d}/emoji-picker`, notes: 'Composable parts: search, list, skin tone selector and footer.' },
 		{ id: 'number-input', name: 'Number Field', docs: `${d}/number-field`, api: {
 			style: 'compound',
 			parts: ['NumberField.Root', 'NumberField.Group', 'NumberField.Decrement', 'NumberField.Input', 'NumberField.Increment'],
@@ -108,6 +110,7 @@ export default defineLibrary({
 		{ id: 'meter', name: 'Meter', docs: `${d}/meter` },
 		{ id: 'tree-view', name: 'Tree View', docs: `${d}/tree-view` },
 		{ id: 'theme-switcher', name: 'Light Switch', docs: `${d}/light-switch`, notes: 'A Theme Selector component for picking between themes is also available.' },
+		{ id: 'hotkeys', name: 'Shortcut', docs: 'https://www.shadcn-svelte-extras.com/docs/actions/shortcut', notes: 'A Svelte action (also offered as an attachment) rather than a component; binds one or more key combinations to callbacks.' },
 	],
 	ai: {
 		status: 'welcomes',
@@ -135,9 +138,9 @@ export default defineLibrary({
 		'Installed from a jsrepo registry (`@ieedan/shadcn-svelte-extras`, the docs recommend this) or as shadcn-svelte registry items by URL; there is no npm package. Both routes assume a project already set up with shadcn-svelte.',
 		'`version` is the registry release (repo tag v7.4.0); `packages` lists the two CLIs that can install it.',
 		'Builds on shadcn-svelte: it pulls in shadcn-svelte components (button, dialog, drawer, tabs, tooltip...) as needed, but it has no Input, Checkbox, Switch, Select or Tooltip of its own.',
-		'Components without a canonical id yet: Chat, Emoji Picker, Field Set, GitHub Button, IPv4 Address Input, Language Switcher, NLP Date Input, Phone Input and Window.',
+		'Components without a canonical id yet: Chat, Field Set, GitHub Button, IPv4 Address Input, Language Switcher, NLP Date Input and Window.',
 		'Modal uses vaul-svelte for its drawer view, and Light Switch and Theme Selector need mode-watcher (its ModeWatcher in your root layout).',
-		'Also ships hooks (UseClipboard, UseMedia, UsePromise, UseFrecency...) and Svelte actions (Active, Shortcut, Typewriter).',
+		'Also ships hooks (UseClipboard, UseMedia, UsePromise, UseFrecency...) and Svelte actions (Active, Shortcut, Typewriter); Shortcut is mapped to Hotkeys.',
 		'The llms.txt on the site appears out of date: it links to an older URL layout. Each docs page also has a Markdown version at its URL plus `.md`.',
 	],
 })

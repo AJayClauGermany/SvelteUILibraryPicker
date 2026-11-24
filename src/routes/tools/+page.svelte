@@ -1,7 +1,7 @@
 <script module lang="ts">
 	export const frontmatter = {
 		title: 'Tools',
-		description: 'Single-purpose Svelte packages and building blocks (charts, data tables, toasts, positioning, maps, editors) to use next to or instead of a UI library.',
+		description: 'Single-purpose Svelte packages and building blocks (charts, data tables, maps, flow diagrams, 3D, calendars, editors, i18n) to use next to or instead of a UI library.',
 	}
 </script>
 
@@ -40,8 +40,9 @@
 <p class="ulp-muted">
 	Some tools cover components the <a href={url('/libraries/')}>libraries we track</a> also provide,
 	so you can compare them with each library's own version on the
-	<a href={url('/components/')}>component pages</a>. Others fill gaps no library covers (maps, drag
-	and drop, rich-text editing), and a few are general helpers that aren't tied to one component.
+	<a href={url('/components/')}>component pages</a>. Others fill gaps most UI libraries leave open
+	(maps, flow diagrams, 3D scenes, event calendars, Gantt charts, code editors, Markdown rendering,
+	translations), and a few are general helpers that aren't tied to one component.
 </p>
 
 <SecondarySourceNotice />

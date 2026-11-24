@@ -454,6 +454,7 @@ export default defineLibrary({
 		{ id: 'date-range-picker', name: 'DateRangeField', docs: c('DateRangeField'), notes: 'DateRange is the inline range selector.' },
 		{ id: 'date-field', name: 'DateField', docs: c('DateField'), notes: 'Masked typed date input, not a segmented field.' },
 		{ id: 'timer', name: 'Duration', docs: c('Duration'), notes: 'Live-updating elapsed or fixed duration display; no countdown mode.' },
+		{ id: 'animated-value', name: 'ScrollingValue', docs: c('ScrollingValue'), notes: 'Rolls the old value out and the new one in along the x or y axis. SpringValue and TweenedValue animate a number with a spring or a tween instead.' },
 		{ id: 'theme-switcher', name: 'ThemeSwitch', docs: c('ThemeSwitch'), notes: 'ThemeSelect picks from multiple themes.' },
 		{ id: 'clipboard', name: 'CopyButton', docs: c('CopyButton') },
 		{ id: 'locale-provider', name: 'Settings', docs: c('Settings'), notes: 'Scopes locale, formatting, theme and component defaults to a subtree.' },

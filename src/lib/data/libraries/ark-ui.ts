@@ -609,6 +609,12 @@ export default defineLibrary({
 		},
 		{ id: 'focus-trap', name: 'Focus Trap', docs: `${u}/focus-trap` },
 		{
+			id: 'hotkeys',
+			name: 'Hotkeys',
+			docs: `${u}/hotkeys`,
+			notes: 'Marked as preview in the docs. Rune-based hooks (useHotkey, useHotkeys...) built on @zag-js/hotkeys, with sequences, scopes and a shortcut recorder.',
+		},
+		{
 			id: 'locale-provider',
 			name: 'Locale',
 			docs: `${u}/locale`,
@@ -667,6 +673,6 @@ export default defineLibrary({
 		'Headless: ships behaviour and accessibility only, so all styling is up to you.',
 		'The site chooses the framework with a selector stored in a cookie; /svelte/docs/... links (the form used in Ark\'s llms.txt) redirect to the shared /docs/... page, which may open on React until Svelte is selected.',
 		'A 6.0 pre-release is on the npm "next" tag; facts here describe the 5.x "latest" release.',
-		'Not mapped to a canonical id: Fieldset, Progress - Circular and Segment Group (noted on related entries), and utilities such as Client Only, Download Trigger, Environment, Format helpers, Frame, Highlight, Hotkeys, JSON Tree View, Presence, Swap.',
+		'Not mapped to a canonical id: Fieldset, Progress - Circular and Segment Group (noted on related entries), and utilities such as Client Only, Download Trigger, Environment, Format helpers, Frame, Highlight, JSON Tree View, Presence, Swap.',
 	],
 })
