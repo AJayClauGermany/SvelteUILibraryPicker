@@ -310,6 +310,12 @@ importers:
       driver.js:
         specifier: 1.14.0
         version: 1.14.0
+      echarts:
+        specifier: 5.6.0
+        version: 5.6.0
+      embla-carousel:
+        specifier: 8.6.0
+        version: 8.6.0
       embla-carousel-svelte:
         specifier: 8.6.0
         version: 8.6.0(svelte@5.57.3)
@@ -367,9 +373,15 @@ importers:
       svelte-easy-crop:
         specifier: 5.0.1
         version: 5.0.1(svelte@5.57.3)
+      svelte-echarts:
+        specifier: 1.0.0
+        version: 1.0.0(echarts@5.6.0)(svelte@5.57.3)
       svelte-highlight:
         specifier: 7.25.2
         version: 7.25.2
+      svelte-maplibre:
+        specifier: 2.0.1
+        version: 2.0.1(immer@10.2.0)(svelte@5.57.3)(topojson-client@3.1.0)
       svelte-maplibre-gl:
         specifier: 2.2.1
         version: 2.2.1(maplibre-gl@6.19.0(immer@10.2.0))(svelte@5.57.3)
@@ -2340,6 +2352,9 @@ packages:
   '@types/hast@3.0.5':
     resolution: {integrity: sha512-rp/ezSWaD1m44dPKICGhiskI13nVr7qTloFwDa/IYkhhf5nzwP+zIQcIJh3WIFSBOy/H1PzB40jPjMDksN4F+g==}
 
+  '@types/leaflet@1.9.22':
+    resolution: {integrity: sha512-h3lhECYEKDasG7LFHu+GiHqAvsgLuQvlJvVZzJDGONo3sEL+wUOqSFLnwkZlK0qVxnxbuGFW8iBlJNYs5wgndA==}
+
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
 
@@ -3525,6 +3540,9 @@ packages:
   earcut@3.2.4:
     resolution: {integrity: sha512-FHc6yNpnTORB0tM5kmZ03iD2mDuNakDE2lvf4Hw1XkfxtEHIGVi01B/GqUSwx+NcC1WGjidAfpTXzeALtPtfpg==}
 
+  echarts@5.6.0:
+    resolution: {integrity: sha512-oTbVTsXfKuEhxftHqL5xprgLoc0k7uScAwtryCgWF6hPYFLRwOUHiFmHGCBKP5NPFNkDVopOieyUqYGH8Fa3kA==}
+
   ejs@3.1.10:
     resolution: {integrity: sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==}
     engines: {node: '>=0.10.0'}
@@ -3664,6 +3682,9 @@ packages:
     peerDependenciesMeta:
       picomatch:
         optional: true
+
+  fflate@0.8.3:
+    resolution: {integrity: sha512-tbZNuJrLwGUp3zshBtdy4W+ORxZuIh8a5ilyIEQDC5rY1f3U20JMry0Ll3WBzU58EZKsEuJFXhb5gwv8CsPvgA==}
 
   filelist@1.0.6:
     resolution: {integrity: sha512-5giy2PkLYY1cP39p17Ech+2xlpTRL9HLspOfEgm0L6CwBXBTgsK5ou0JtzYuepxkaQ/tvhCFIJ5uXo0OrM2DxA==}
@@ -4101,6 +4122,9 @@ packages:
   jsonpointer@5.0.1:
     resolution: {integrity: sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==}
     engines: {node: '>=0.10.0'}
+
+  just-compare@2.3.0:
+    resolution: {integrity: sha512-6shoR7HDT+fzfL3gBahx1jZG3hWLrhPAf+l7nCwahDdT9XDtosB9kIF0ZrzUp5QY8dJWfQVr5rnsPqsbvflDzg==}
 
   kampsy-ui@2.10.0:
     resolution: {integrity: sha512-5zVcUyjzwFzVzY0nzz3ZWQbvsERKb+8dMlF6HnWuBIazdl0AAVQKfKpi12oqbOMjpaNj+8ncyGcCrS/n7xWKlA==}
@@ -4631,6 +4655,9 @@ packages:
     resolution: {integrity: sha512-TfySrs/5nm8fQJDcBDuUng3VOUKsd7S+zqvbOTiGXHfxX4wK31ard+hoNuvkicM/2YFzlpDgABOevKSsB4G/FA==}
     engines: {node: '>= 6'}
 
+  pmtiles@3.2.1:
+    resolution: {integrity: sha512-3R4fBwwoli5mw7a6t1IGwOtfmcSAODq6Okz0zkXhS1zi9sz1ssjjIfslwPvcWw5TNhdjNBUg9fgfPLeqZlH6ng==}
+
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
     engines: {node: '>= 0.4'}
@@ -5157,6 +5184,12 @@ packages:
     peerDependencies:
       svelte: ^5.0.0
 
+  svelte-echarts@1.0.0:
+    resolution: {integrity: sha512-o0VgdxGJt+Km+IrxNo35qTJFqDsvj65p7JwAlIrk7CsWjBKKniJaUV6hKbMDNf0S34Su0idWbWEdymJNPX3anA==}
+    peerDependencies:
+      echarts: ^5.0.0
+      svelte: '>=5'
+
   svelte-floating-ui@1.5.8:
     resolution: {integrity: sha512-dVvJhZ2bT+kQDHlE4Lep8t+sgEc0XD96fXLzAi2DDI2bsaegBbClxXVNMma0C2WsG+n9GJSYx292dTvA8CYRtw==}
 
@@ -5168,6 +5201,24 @@ packages:
     peerDependencies:
       maplibre-gl: ^5.19.0 || ^6.0.0
       svelte: '>=5.0.0'
+
+  svelte-maplibre@2.0.1:
+    resolution: {integrity: sha512-bBWmpRSgRTBTx9+GaO5nd10RfnM/CEonVcxKH+grCCI7VWL9pUGt65cDHTqaZIS0xgzT+8bryEFyNIw2p0mynQ==}
+    peerDependencies:
+      '@deck.gl/core': ^9
+      '@deck.gl/layers': ^9
+      '@deck.gl/mapbox': ^9
+      svelte: ^5.0.0
+      topojson-client: ^3.0.0
+    peerDependenciesMeta:
+      '@deck.gl/core':
+        optional: true
+      '@deck.gl/layers':
+        optional: true
+      '@deck.gl/mapbox':
+        optional: true
+      topojson-client:
+        optional: true
 
   svelte-parse-markup@0.1.5:
     resolution: {integrity: sha512-T6mqZrySltPCDwfKXWQ6zehipVLk4GWfH1zCMGgRtLlOIFPuw58ZxVYxVvotMJgJaurKi1i14viB2GIRKXeJTQ==}
@@ -5349,6 +5400,9 @@ packages:
 
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
+
+  tslib@2.3.0:
+    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
 
   tslib@2.9.1:
     resolution: {integrity: sha512-a4Ux9VKuIMHsOS7ENbEq6hK2ZGYIT27Rtl0E4eD9KqwxhKiQeMZE/9xb3IdYwWaSOyIBQLExhQgXDTYoiCxnWA==}
@@ -5734,6 +5788,9 @@ packages:
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
+  zrender@5.6.1:
+    resolution: {integrity: sha512-OFXkDJKcrlx5su2XbzJvj/34Q3m6PvyCZkVPHGYpcCJ52ek4U/ymZyfuV1nKE23AyBJ51E/6Yr0mhZ7xGTO4ag==}
 
   zustand@5.1.0:
     resolution: {integrity: sha512-ciJZlP48M1PTQbVQq81CGVFxHTLpZNrFjKqwjtCU34AWuXTZT/jrF3p9+fI84Cf1eSCMLapxqBy/SNTfwOBuqA==}
@@ -7937,6 +7994,10 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
+  '@types/leaflet@1.9.22':
+    dependencies:
+      '@types/geojson': 7946.0.16
+
   '@types/mdast@4.0.4':
     dependencies:
       '@types/unist': 3.0.3
@@ -9742,6 +9803,11 @@ snapshots:
 
   earcut@3.2.4: {}
 
+  echarts@5.6.0:
+    dependencies:
+      tslib: 2.3.0
+      zrender: 5.6.1
+
   ejs@3.1.10:
     dependencies:
       jake: 10.9.4
@@ -9914,6 +9980,8 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.7):
     optionalDependencies:
       picomatch: 4.0.7
+
+  fflate@0.8.3: {}
 
   filelist@1.0.6:
     dependencies:
@@ -10366,6 +10434,8 @@ snapshots:
       graceful-fs: 4.2.11
 
   jsonpointer@5.0.1: {}
+
+  just-compare@2.3.0: {}
 
   kampsy-ui@2.10.0(svelte@5.57.3):
     dependencies:
@@ -11133,6 +11203,11 @@ snapshots:
 
   pirates@4.0.7: {}
 
+  pmtiles@3.2.1:
+    dependencies:
+      '@types/leaflet': 1.9.22
+      fflate: 0.8.3
+
   possible-typed-array-names@1.1.0: {}
 
   postcss-import@15.1.0(postcss@8.5.32):
@@ -11849,6 +11924,11 @@ snapshots:
     dependencies:
       svelte: 5.57.3
 
+  svelte-echarts@1.0.0(echarts@5.6.0)(svelte@5.57.3):
+    dependencies:
+      echarts: 5.6.0
+      svelte: 5.57.3
+
   svelte-floating-ui@1.5.8:
     dependencies:
       '@floating-ui/core': 1.8.0
@@ -11860,6 +11940,22 @@ snapshots:
     dependencies:
       maplibre-gl: 6.19.0(immer@10.2.0)
       svelte: 5.57.3
+
+  svelte-maplibre@2.0.1(immer@10.2.0)(svelte@5.57.3)(topojson-client@3.1.0):
+    dependencies:
+      d3-geo: 3.1.2
+      dequal: 2.0.3
+      just-compare: 2.3.0
+      maplibre-gl: 6.19.0(immer@10.2.0)
+      pmtiles: 3.2.1
+      svelte: 5.57.3
+    optionalDependencies:
+      topojson-client: 3.1.0
+    transitivePeerDependencies:
+      - '@types/react'
+      - immer
+      - react
+      - use-sync-external-store
 
   svelte-parse-markup@0.1.5(svelte@5.57.3):
     dependencies:
@@ -12081,6 +12177,8 @@ snapshots:
   trough@2.2.0: {}
 
   ts-interface-checker@0.1.13: {}
+
+  tslib@2.3.0: {}
 
   tslib@2.9.1: {}
 
@@ -12536,6 +12634,10 @@ snapshots:
   zimmerframe@1.1.5: {}
 
   zod@3.25.76: {}
+
+  zrender@5.6.1:
+    dependencies:
+      tslib: 2.3.0
 
   zustand@5.1.0(immer@10.2.0):
     optionalDependencies:

@@ -135,9 +135,10 @@ widened: tools may map to components no tracked library provides (new ids `map`,
 - `@zerodevx/svelte-toast` has had no release since 2024-09 and runs in legacy mode on Svelte 5;
   drop it if it stays idle.
 - Previews for tools were added on 2026-11-23 (see [previews.md](previews.md#tools)). Left out: mode-watcher
-  (it would fight the preview app's own theme switch), Iconify (fetches icons from its API), Formsnap and
+  (it would fight the preview app's own theme switch), Formsnap and
   Superforms (need a SvelteKit form action), vaul-svelte (the installed Svelte 5 prerelease differs from the
-  recorded 0.3.2), and the non-visual helpers.
+  recorded 0.3.2), and the non-visual helpers. Floating UI only has tooltip and popover; it also lists
+  dropdown menu, hover card, select, combobox, context menu and menubar.
 
 ## Component props
 

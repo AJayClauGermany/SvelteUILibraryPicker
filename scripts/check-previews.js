@@ -56,14 +56,25 @@ const page = await browser.newPage({ viewport: { width: 480, height: 400 } })
 const allowedHosts = new Set([
 	'localhost',
 	'cdn.svar.dev', // SVAR Willow themes load their fonts and icon font from here by default
+	'1.www.s81c.com', // Carbon's CSS loads its IBM Plex fonts from IBM's CDN
+	'fonts.googleapis.com', // Google Fonts imports in generated registry themes (e.g. RetroUI)
+	'fonts.gstatic.com',
+	'api.iconify.design', // @iconify/svelte fetches icon data from Iconify's API (Lily, Iconify)
+	'api2.iconify.design',
 ])
-await page.route(url => !allowedHosts.has(new URL(url).hostname), route => route.abort())
+let blocked = new Set()
+await page.route(url => !allowedHosts.has(new URL(url).hostname), (route) => {
+	blocked.add(new URL(route.request().url()).hostname)
+	return route.abort()
+})
 
 let failed = 0
 for (const t of targets) {
 	const [library, component] = t.split('/')
 	const problems = []
-	const onConsole = msg => msg.type() === 'error' && problems.push(`console: ${msg.text()}`)
+	blocked = new Set()
+	// A blocked request also logs "Failed to load resource"; it is reported once, with its host, below.
+	const onConsole = msg => msg.type() === 'error' && !msg.text().includes('net::ERR_FAILED') && problems.push(`console: ${msg.text()}`)
 	const onError = err => problems.push(`exception: ${err.message}`)
 	page.on('console', onConsole)
 	page.on('pageerror', onError)
@@ -82,6 +93,7 @@ for (const t of targets) {
 	catch (e) {
 		problems.push(`load: ${e.message.split('\n')[0]}`)
 	}
+	if (blocked.size) problems.push(`requests other hosts: ${[...blocked].join(', ')}`)
 	page.off('console', onConsole)
 	page.off('pageerror', onError)
 	if (problems.length) failed++

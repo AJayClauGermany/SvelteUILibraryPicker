@@ -43,7 +43,9 @@ form controls; that is all a headless library has), and styled libraries additio
 | Flowbite Svelte | `class="dark"` on `<html>` |
 | M3 Svelte | nothing extra: its theme CSS uses `light-dark()` |
 | Skeleton | `data-mode="dark"` on `<html>` + the data-attribute custom variant |
-| SVAR Core | `<WillowDark>` instead of `<Willow>` (the preview reads `theme.current`) |
+| SVAR Core, SVAR DataGrid | `<WillowDark>` instead of `<Willow>` (the preview reads `theme.current`) |
+| svelte-sonner, svelte-echarts, Carbon Charts, svelte-highlight | the tool's own documented theme prop or theme pair, set from `theme.current` in the preview |
+| svelte-select, Carta | stay light: no documented dark mode, and their fixed light surfaces would be unreadable under `color-scheme: dark` (`lightOnly` in `previews/theme.svelte.ts`) |
 | Sveltestrap, Bootstrap Svelte | Bootstrap's `data-bs-theme="dark"` on `<html>` |
 | Kampsy UI, Konsta UI, Sivir UI | `class="dark"` on `<html>` (each theme file's dark variant) |
 | shadcn-svelte and the copy-paste registries | `class="dark"` on `<html>` (what mode-watcher sets) with the generated `.dark` variables |
@@ -66,7 +68,9 @@ checks it).
   which still lack a preview (blocked entries are marked).
 - `node scripts/check-previews.js [<id>|<id>/<component>]... [--dark] [--shots <dir>]`: opens previews
   in headless Chromium (Playwright from the global install) against the preview app's own Vite
-  server, with other hosts blocked, and fails on console errors, exceptions or empty renders.
+  server, and fails on console errors, exceptions, empty renders or requests to other hosts. A short
+  `allowedHosts` list covers what libraries' own defaults load (Carbon's and SVAR's fonts, Google
+  Fonts in generated themes, the Iconify API); anything else is reported with its host name.
 
 ## How they appear on the site
 
@@ -113,6 +117,12 @@ add anything you wouldn't want shown.
 | SVAR Core | 31 | alert-dialog, avatar, button, calendar, checkbox, color-picker, combobox, date-picker, date-range-picker, dialog, drawer, form, icon, input, locale-provider, number-input, pagination, popover, radio-group, range-calendar, select, slider, switch, tabs, tags-input, textarea, time-picker, toast, toggle, toggle-group, tooltip |
 | Sveltestrap | 35 | accordion, alert, badge, breadcrumb, button, button-group, card, carousel, checkbox, collapsible, dialog, drawer, dropdown-menu, file-upload, form, grid, image, input, label, list, navigation-menu, pagination, popover, progress, radio-group, select, slider, spinner, switch, table, tabs, textarea, theme-switcher, toast, tooltip |
 | Zag.js | 53 | accordion, alert-dialog, angle-slider, avatar, calendar, carousel, checkbox, clipboard, collapsible, color-picker, combobox, context-menu, date-field, date-picker, date-range-field, date-range-picker, dialog, drawer, dropdown-menu, editable, file-upload, floating-panel, focus-trap, hover-card, image-cropper, list, marquee, navigation-menu, number-input, pagination, password-input, pin-input, popover, progress, radio-group, rating, resizable, scroll-area, select, signature-pad, slider, stepper, switch, table-of-contents, tabs, tags-input, timer, toast, toggle, toggle-group, tooltip, tour, tree-view |
+
+**Tools** (one preview per listed component): Carbon Charts, Carta, driver.js, Embla Carousel,
+Floating UI (popover, tooltip), LayerChart, Lucide, Neodrag, PaneForge, SVAR DataGrid,
+svelte-chartjs, svelte-dnd-action, Iconify, svelte-easy-crop, svelte-echarts, svelte-highlight, svelte-maplibre,
+svelte-maplibre-gl, svelte-select (select, combobox), svelte-sonner, svelte-toast, TanStack Table,
+TanStack Virtual, Tiptap. Run `node scripts/preview-coverage.js` for the live numbers.
 
 Everything else falls back to a "See it in the official docs" card. The goal is a preview for
 every visual component a library lists. Purely non-visual utilities (portals, locale/config
