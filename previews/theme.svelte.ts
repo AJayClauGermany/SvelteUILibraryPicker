@@ -31,6 +31,9 @@ const switches: Record<string, (dark: boolean) => void> = {
 	'sveltestrap': dark => document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light'),
 	// Bootstrap Svelte: same Bootstrap 5.3 colour modes (docs "Theming": https://bootstrap-svelte.vercel.app/theming).
 	'bootstrap-svelte': dark => document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light'),
+	// YeSvelte: tabler.css carries `[data-bs-theme=dark]` rules, and the docs site's own dark toggle
+	// sets `data-bs-theme` (https://github.com/yesvelte/yesvelte/blob/dev/src/doc-components/Layout.svelte).
+	'yesvelte': dark => document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light'),
 	// Kampsy UI: kampsy-ui/theme.css declares `@variant dark (&:where(.dark, .dark *))`, so `class="dark"`
 	// on <html> selects its dark tokens (https://ui.kampsy.xyz/installation).
 	'kampsy-ui': dark => document.documentElement.classList.toggle('dark', dark),
