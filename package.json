@@ -46,6 +46,7 @@
     "@iconify/svelte": "5.2.4",
     "@internationalized/date": "3.12.4",
     "@lucide/svelte": "1.77.0",
+    "@melt-ui/svelte": "0.86.6",
     "@neodrag/svelte": "2.3.3",
     "@number-flow/svelte": "0.4.2",
     "@perfectthings/ui": "10.1.9",
