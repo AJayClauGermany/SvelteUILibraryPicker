@@ -31,6 +31,13 @@ const switches: Record<string, (dark: boolean) => void> = {
 	'sveltestrap': dark => document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light'),
 	// Bootstrap Svelte: same Bootstrap 5.3 colour modes (docs "Theming": https://bootstrap-svelte.vercel.app/theming).
 	'bootstrap-svelte': dark => document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light'),
+	// YeSvelte: tabler.css carries `[data-bs-theme=dark]` rules, and the docs site's own dark toggle
+	// sets `data-bs-theme` (https://github.com/yesvelte/yesvelte/blob/dev/src/doc-components/Layout.svelte).
+	'yesvelte': dark => document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light'),
+	// AgnosUI (Bootstrap package): Bootstrap 5.3 colour modes; its docs' example frames set
+	// `data-bs-theme="dark"` on <html> when the docs theme is dark
+	// (https://github.com/AmadeusITGroup/AgnosUI/blob/main/svelte/demo/src/bootstrap/index.html).
+	'agnosui': dark => document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light'),
 	// Kampsy UI: kampsy-ui/theme.css declares `@variant dark (&:where(.dark, .dark *))`, so `class="dark"`
 	// on <html> selects its dark tokens (https://ui.kampsy.xyz/installation).
 	'kampsy-ui': dark => document.documentElement.classList.toggle('dark', dark),
@@ -39,6 +46,10 @@ const switches: Record<string, (dark: boolean) => void> = {
 	'konsta': dark => document.documentElement.classList.toggle('dark', dark),
 	// Sivir UI docs "Theming": dark mode applies when <html> has the `.dark` class (https://sivir.dev/docs/theming).
 	'sivir-ui': dark => document.documentElement.classList.toggle('dark', dark),
+	// Svelte 5 UI Lib: its install guide's app.css declares `@custom-variant dark (&:where(.dark, .dark *))`
+	// and its Darkmode component toggles `class="dark"` on <html>
+	// (https://github.com/shinokada/svelte-5-ui-lib/blob/main/src/routes/md/app-css.md).
+	'svelte-5-ui-lib': dark => document.documentElement.classList.toggle('dark', dark),
 	// shadcn-svelte and the registries built on it use the class strategy: `.dark` on <html> (which
 	// mode-watcher sets in an app) plus `@custom-variant dark (&:is(.dark *))` and the `.dark { ... }`
 	// variables in each library's generated ./src/<lib>/styles.css.
@@ -51,6 +62,17 @@ const switches: Record<string, (dark: boolean) => void> = {
 	'neobrutalism-svelte': dark => document.documentElement.classList.toggle('dark', dark),
 	'retroui-svelte': dark => document.documentElement.classList.toggle('dark', dark),
 	'lily': dark => document.documentElement.classList.toggle('dark', dark),
+	// Spaper: its PapierCSS styles switch to dark tokens with `class="dark"` on a parent, usually <html>
+	// (PapierCSS README, section "Theme": https://github.com/Oli8/papiercss#readme).
+	'spaper': dark => document.documentElement.classList.toggle('dark', dark),
+	// Origin UI - Svelte: the README's CSS variables block has a `.dark { ... }` set, and the repo's
+	// src/app.css (./src/origin-ui-svelte/styles.css) adds `@custom-variant dark (&:is(.dark *))`
+	// (https://github.com/max-got/originui-svelte#css-variables).
+	'origin-ui-svelte': dark => document.documentElement.classList.toggle('dark', dark),
+	// Framework7 docs "Color Themes" > "Dark Mode": a `dark` class on <html> (or any parent element)
+	// applies its dark layout; with the default `darkMode` param the app reads that class
+	// (https://framework7.io/docs/color-themes.html#dark-mode).
+	'framework7-svelte': dark => document.documentElement.classList.toggle('dark', dark),
 	// M3 Svelte needs nothing extra: its theme CSS is `color-scheme: light dark` with light-dark()
 	// colours, so the baseline color-scheme switch above selects the dark palette.
 	// SVAR Core themes through wrapper components (<Willow> / <WillowDark>), so each SVAR preview
@@ -58,6 +80,16 @@ const switches: Record<string, (dark: boolean) => void> = {
 	// Event Calendar README "Theming": the built-in dark theme applies when any parent of the calendar
 	// has the `ec-dark` class (https://github.com/vkurko/calendar#theming).
 	'event-calendar': dark => document.documentElement.classList.toggle('ec-dark', dark),
+	// PerfectThings UI: its ThemeSwitcher and initThemes() (https://ui.perfectthings.dev/#ThemeSwitcher) put
+	// `theme-light` or `theme-dark` on <html> (src/theme-switcher/utils.ts); with neither, its root CSS is dark.
+	'perfectthings-ui': dark => {
+		document.documentElement.classList.toggle('theme-dark', dark)
+		document.documentElement.classList.toggle('theme-light', !dark)
+	},
+	// STDF guide "Theme" > "Light and Dark Modes": switchMode() from stdf/theme sets `data-mode` on
+	// <html> ('dark' or 'primary' for light), which the custom variant in ./src/stdf/styles.css follows
+	// (https://stdf.dev/guide/theme?lang=en_US).
+	'stdf': dark => document.documentElement.setAttribute('data-mode', dark ? 'dark' : 'primary'),
 }
 
 /**

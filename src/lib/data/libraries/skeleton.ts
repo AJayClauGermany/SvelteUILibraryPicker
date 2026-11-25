@@ -653,12 +653,12 @@ export default defineLibrary({
 	ai: {
 		status: 'welcomes',
 		summary:
-			'The docs publish llms.txt files following the llmstxt.org convention, including a Svelte-specific full-docs file, and the repo ships Claude Code skills for maintainers. No restrictions on AI use were found in the repo or contribution guide.',
+			'The docs publish llms.txt files following the llmstxt.org convention, including a Svelte-specific full-docs file, and the repo ships agent skills (SKILL.md files in .agents/skills) for maintainers. No restrictions on AI use were found in the repo or contribution guide.',
 		sources: [
 			'https://www.skeleton.dev/docs/svelte/resources/llms',
 			'https://www.skeleton.dev/llms.txt',
 			'https://www.skeleton.dev/llms-svelte.txt',
-			'https://github.com/skeletonlabs/skeleton/tree/main/.claude/skills',
+			'https://github.com/skeletonlabs/skeleton/tree/main/.agents/skills',
 		],
 		llmsTxt: 'https://www.skeleton.dev/llms.txt',
 	},

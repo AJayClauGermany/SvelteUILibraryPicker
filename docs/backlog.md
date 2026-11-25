@@ -106,10 +106,10 @@ Radix Svelte, svelte-5-ui-lib, Melt UI (legacy `@melt-ui/svelte`) and Origin UI 
 code shows about migrating between majors is in [legacy-libraries.md](legacy-libraries.md).
 Follow-ups:
 
-- No previews for any of them yet. Most need Svelte 3/4 or an old toolchain (Tailwind 2, UnoCSS
-  0.57, svelte-preprocess 4), and several import `svelte/internal`, so they won't run in the
-  Svelte 5 preview app. The ones that should (svelte-5-ui-lib, Origin UI Svelte, and maybe the
-  store-based Melt UI legacy builders) are candidates.
+- Previews (2026-11-25): svelte-5-ui-lib, Origin UI Svelte and Melt UI (legacy) have them. The rest need Svelte 3/4
+  or an old toolchain (Tailwind 2, UnoCSS 0.57, svelte-preprocess 4), or import `svelte/internal`,
+  so they won't run in the Svelte 5 preview app; each reason is in `src/lib/data/preview-skips.ts`.
+  svelte-headlessui (CaptainCodeman) is store/action based and should run: still to do.
 - STWUI's README says it is no longer actively developed but still accepts issues and PRs. That
   isn't an explicit deprecation, so its badge is Legacy (Svelte 4 only), not Deprecated.
 - A second batch, found in the same discovery pass, was added later on 2026-11-24: Svelte
@@ -126,8 +126,15 @@ Follow-ups:
   - svelte-mui and Vitamin Svelte docs are client-rendered (any path returns 200), and ui-svelte's
     are a Storybook, so their component links were checked against the route lists in source,
     not by HTTP status. Figma Plugin DS Svelte links to README headings.
-  - No previews yet. STDF, Framework7 Svelte and PerfectThings UI are Svelte 5 and `welcomes`;
-    Spaper, AgnosUI and YeSvelte are Svelte 5 and `no-statement`. Those are the candidates.
+  - Previews added on 2026-11-25 for Spaper, AgnosUI, YeSvelte, PerfectThings UI, Framework7 Svelte
+    and STDF. Library quirks seen while doing so: YeSvelte's Alert and Toast hard-code a white
+    background in dark mode; Framework7 9.3.0's datepicker throws without a `value`, its gauge
+    defaults to black text in dark mode, and `framework7-svelte` imports `skeleton-elements`
+    without declaring it; svelte-5-ui-lib's install-guide base input styles are unlayered, so they
+    override the components' own classes under Tailwind 4, and it imports its own index as a
+    directory (`from '..'`), which the production build can't resolve without the small resolver in
+    `previews/vite.config.ts` (drop it once upstream uses explicit paths); STDF's built-in texts default to
+    Simplified Chinese unless wrapped in its ConfigProvider.
 
   Not addable as they stand: Ionic Svelte (no LICENSE file at the repo root), Svelteit (alpha only),
   Material Svelte `material-svelte` (docs site down), svelte-fui (alpha, no docs site), daisy-svelte

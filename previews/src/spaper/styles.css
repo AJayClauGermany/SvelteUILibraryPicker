@@ -1,0 +1,18 @@
+/*
+  Spaper's default setup, as its "Start" page describes: the optional PapierCSS fonts (Google
+  Fonts, imported first as papiercss/fonts.css asks), Tailwind, the PapierCSS stylesheet (theme
+  tokens, component classes and the `.dark` class variant) and an @source line for the spaper
+  package so the utilities used inside its components are generated. Nothing of ours is added.
+
+  `source(none)` turns off automatic class scanning; the two @source lines limit it to this
+  folder and the spaper package, so no other library's utilities end up here.
+  Dark mode: PapierCSS switches its tokens with `class="dark"` on a parent (its README), which
+  previews/theme.svelte.ts sets on <html>.
+  Docs: https://oli8.github.io/spaper/start
+*/
+@import 'papiercss/fonts.css';
+@import 'tailwindcss' source(none);
+@import 'papiercss';
+
+@source '.';
+@source '../../../node_modules/spaper/dist';

@@ -30,6 +30,9 @@ jobs:
           restore-keys: svp-code-${{ hashFiles('pnpm-lock.yaml', 'patches/**') }}-
       - name: Validate data (docs links, licenses, AI policy)
         run: pnpm validate
+      - name: Project status (job summary)
+        # Offline overview: counts, preview coverage, stale entries, version pins. See docs/maintaining.md.
+        run: pnpm --silent status --markdown >> "$GITHUB_STEP_SUMMARY"
       - name: Type check
         run: pnpm check
       - name: Build
