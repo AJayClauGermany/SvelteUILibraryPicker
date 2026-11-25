@@ -57,6 +57,10 @@ const switches: Record<string, (dark: boolean) => void> = {
 	// Spaper: its PapierCSS styles switch to dark tokens with `class="dark"` on a parent, usually <html>
 	// (PapierCSS README, section "Theme": https://github.com/Oli8/papiercss#readme).
 	'spaper': dark => document.documentElement.classList.toggle('dark', dark),
+	// Origin UI - Svelte: the README's CSS variables block has a `.dark { ... }` set, and the repo's
+	// src/app.css (./src/origin-ui-svelte/styles.css) adds `@custom-variant dark (&:is(.dark *))`
+	// (https://github.com/max-got/originui-svelte#css-variables).
+	'origin-ui-svelte': dark => document.documentElement.classList.toggle('dark', dark),
 	// M3 Svelte needs nothing extra: its theme CSS is `color-scheme: light dark` with light-dark()
 	// colours, so the baseline color-scheme switch above selects the dark palette.
 	// SVAR Core themes through wrapper components (<Willow> / <WillowDark>), so each SVAR preview
