@@ -46,6 +46,10 @@ const switches: Record<string, (dark: boolean) => void> = {
 	'konsta': dark => document.documentElement.classList.toggle('dark', dark),
 	// Sivir UI docs "Theming": dark mode applies when <html> has the `.dark` class (https://sivir.dev/docs/theming).
 	'sivir-ui': dark => document.documentElement.classList.toggle('dark', dark),
+	// Svelte 5 UI Lib: its install guide's app.css declares `@custom-variant dark (&:where(.dark, .dark *))`
+	// and its Darkmode component toggles `class="dark"` on <html>
+	// (https://github.com/shinokada/svelte-5-ui-lib/blob/main/src/routes/md/app-css.md).
+	'svelte-5-ui-lib': dark => document.documentElement.classList.toggle('dark', dark),
 	// shadcn-svelte and the registries built on it use the class strategy: `.dark` on <html> (which
 	// mode-watcher sets in an app) plus `@custom-variant dark (&:is(.dark *))` and the `.dark { ... }`
 	// variables in each library's generated ./src/<lib>/styles.css.
