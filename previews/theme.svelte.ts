@@ -61,6 +61,12 @@ const switches: Record<string, (dark: boolean) => void> = {
 	// Event Calendar README "Theming": the built-in dark theme applies when any parent of the calendar
 	// has the `ec-dark` class (https://github.com/vkurko/calendar#theming).
 	'event-calendar': dark => document.documentElement.classList.toggle('ec-dark', dark),
+	// PerfectThings UI: its ThemeSwitcher and initThemes() (https://ui.perfectthings.dev/#ThemeSwitcher) put
+	// `theme-light` or `theme-dark` on <html> (src/theme-switcher/utils.ts); with neither, its root CSS is dark.
+	'perfectthings-ui': dark => {
+		document.documentElement.classList.toggle('theme-dark', dark)
+		document.documentElement.classList.toggle('theme-light', !dark)
+	},
 }
 
 /**
