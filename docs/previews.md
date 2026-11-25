@@ -7,9 +7,9 @@ styling**, side by side, with a docs link for each.
 
 - **Styled libraries** (Carbon, Sveltestrap, Bootstrap Svelte, M3, …): load the library's default theme exactly as
   its install guide says, and add nothing.
-- **Headless libraries** (Bits UI, Melt, Ark UI, Zag): they ship no styles, so the preview is
+- **Headless libraries** (Bits UI, Melt, Melt UI legacy, Ark UI, Zag): they ship no styles, so the preview is
   intentionally unstyled. That *is* their default, and the compare page says so.
-- **Tailwind libraries** (Skeleton, Flowbite Svelte, Kampsy UI, Konsta UI, Sivir UI): Tailwind v4 runs inside the preview app
+- **Tailwind libraries** (Skeleton, Flowbite Svelte, Kampsy UI, Konsta UI, Sivir UI, Svelte 5 UI Lib, Spaper, STDF): Tailwind v4 runs inside the preview app
   only. Each library has its own `previews/src/<lib>/styles.css` that imports Tailwind with
   `source(none)`, the library's documented default theme, and `@source` limited to that
   library's folder and package, so themes and utilities never mix between libraries.
@@ -28,6 +28,18 @@ styling**, side by side, with a docs link for each.
   added in coss ui's color picker so `pnpm check` passes. coss ui's rich editor and map were left
   out because they need ~30 extra packages (Tiptap, Mermaid, MapLibre). To refresh one of these
   folders, re-run the library's CLI the same way and re-apply those changes.
+  **Origin UI Svelte** has no CLI or registry: its `src/lib/components/ui` folder, `utils.ts` and
+  `src/app.css` were copied from a shallow clone of `max-got/originui-svelte` at commit 0499ba8
+  (2025-06-18), with the same `$lib` rewrites, `source(none)`/`@source '.'` in `styles.css`, the
+  `@font-face` rules for two fonts we don't install removed, one `$props<{...}>()` turned into an
+  annotated `$props()` for current Svelte types, and `ui/data-table/` left out (it needs
+  `@tanstack/table-core`). Components that exist only as docs examples, with no base component,
+  are skipped (see `preview-skips.ts`).
+- **Framework7 Svelte** needs an initialised app around every component. Each preview wraps its
+  content in `previews/src/framework7-svelte/lib/F7App.svelte`, which follows the "Initialize App"
+  and "App Layout" docs (CSS bundle, `Framework7.use(Framework7Svelte)`, `App > View > Page`, default
+  theme `auto`). It also sets `box-sizing: border-box` on the preview page's `#app`, so the app's
+  `height: 100%` fits the padded frame; that fixes the frame, not the library's look.
 
 ## Light and dark
 
@@ -47,8 +59,10 @@ form controls; that is all a headless library has), and styled libraries additio
 | svelte-sonner, svelte-echarts, Carbon Charts, svelte-highlight | the tool's own documented theme prop or theme pair, set from `theme.current` in the preview |
 | svelte-select, Carta | stay light: no documented dark mode, and their fixed light surfaces would be unreadable under `color-scheme: dark` (`lightOnly` in `previews/theme.svelte.ts`) |
 | Sveltestrap, Bootstrap Svelte | Bootstrap's `data-bs-theme="dark"` on `<html>` |
-| Kampsy UI, Konsta UI, Sivir UI | `class="dark"` on `<html>` (each theme file's dark variant) |
-| shadcn-svelte and the copy-paste registries | `class="dark"` on `<html>` (what mode-watcher sets) with the generated `.dark` variables |
+| Kampsy UI, Konsta UI, Sivir UI, Svelte 5 UI Lib, Spaper, Framework7 Svelte | `class="dark"` on `<html>` (each library's documented dark class) |
+| YeSvelte, AgnosUI | Bootstrap's `data-bs-theme="dark"` on `<html>` (Tabler's and Bootstrap's colour modes) |
+| PerfectThings UI | `theme-dark` / `theme-light` on `<html>`, what its ThemeSwitcher sets (without either it follows the OS) |
+| shadcn-svelte, the copy-paste registries and Origin UI Svelte | `class="dark"` on `<html>` (what mode-watcher sets) with the generated `.dark` variables |
 
 The app picks the mode from `?theme=`, else from the embedding site's `dark` class, else the OS,
 and the site posts `{ type: 'ulp:theme', theme }` on toggles (see `previews/main.ts`).

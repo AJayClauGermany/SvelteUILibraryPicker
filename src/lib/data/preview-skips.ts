@@ -88,10 +88,21 @@ export const previewSkips: Record<string, Partial<Record<ComponentId | '*', stri
 		'sidebar': 'Panel only stays pinned in an app wider than the preview frame; narrower, it is the same closed panel as the drawer preview.',
 		'rich-text-editor': 'Its toolbar buttons are icon-font ligatures, which show as garbled text without the separate Framework7 Icons font.',
 	},
+	'stdf': {
+		'icon': 'No built-in icons: Icon reads an SVG sprite the app builds with a separate Vite plugin, or needs the Iconify Tailwind plugin and icon sets.',
+		'image': 'Its default buttons use sprite icons from that missing SVG sprite, so the page requests a file that doesn\'t exist.',
+		'lightbox': 'Its default buttons use sprite icons from that missing SVG sprite, so the page requests a file that doesn\'t exist.',
+	},
+	'melt-ui': { drawer: 'Not a builder: the docs show it as a styled Dialog example, so unstyled it would match the dialog preview.' },
 	'yesvelte': { icon: 'Icon is the `iconify-icon` web component, which fetches icon data from api.iconify.design at runtime.' },
 
 	// --- Tools ----------------------------------------------------------------------------------
 	'internationalized-date': { '*': 'Date and calendar utilities with no UI; libraries build their date components on it.' },
+	'floating-ui': {
+		'combobox': 'Floating UI presents a combobox only for its React package, not for @floating-ui/dom.',
+		'hover-card': 'Floating UI\'s docs don\'t present a hover card; they link to another library\'s.',
+		'menubar': 'Floating UI\'s docs only link to another library\'s menubar.',
+	},
 	'formsnap': { form: 'Needs a SvelteKit form action, which the preview app does not have.' },
 	'sveltekit-superforms': { form: 'Needs a SvelteKit form action, which the preview app does not have.' },
 	'mode-watcher': { 'theme-switcher': 'Would fight the preview app\'s own light/dark switch.' },
