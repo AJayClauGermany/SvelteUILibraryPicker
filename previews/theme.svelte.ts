@@ -69,6 +69,10 @@ const switches: Record<string, (dark: boolean) => void> = {
 	// src/app.css (./src/origin-ui-svelte/styles.css) adds `@custom-variant dark (&:is(.dark *))`
 	// (https://github.com/max-got/originui-svelte#css-variables).
 	'origin-ui-svelte': dark => document.documentElement.classList.toggle('dark', dark),
+	// Framework7 docs "Color Themes" > "Dark Mode": a `dark` class on <html> (or any parent element)
+	// applies its dark layout; with the default `darkMode` param the app reads that class
+	// (https://framework7.io/docs/color-themes.html#dark-mode).
+	'framework7-svelte': dark => document.documentElement.classList.toggle('dark', dark),
 	// M3 Svelte needs nothing extra: its theme CSS is `color-scheme: light dark` with light-dark()
 	// colours, so the baseline color-scheme switch above selects the dark palette.
 	// SVAR Core themes through wrapper components (<Willow> / <WillowDark>), so each SVAR preview
