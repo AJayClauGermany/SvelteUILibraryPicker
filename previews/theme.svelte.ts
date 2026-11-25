@@ -86,6 +86,10 @@ const switches: Record<string, (dark: boolean) => void> = {
 		document.documentElement.classList.toggle('theme-dark', dark)
 		document.documentElement.classList.toggle('theme-light', !dark)
 	},
+	// STDF guide "Theme" > "Light and Dark Modes": switchMode() from stdf/theme sets `data-mode` on
+	// <html> ('dark' or 'primary' for light), which the custom variant in ./src/stdf/styles.css follows
+	// (https://stdf.dev/guide/theme?lang=en_US).
+	'stdf': dark => document.documentElement.setAttribute('data-mode', dark ? 'dark' : 'primary'),
 }
 
 /**
