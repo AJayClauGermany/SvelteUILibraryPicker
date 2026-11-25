@@ -8,5 +8,6 @@
 	import { DatePicker } from 'yesvelte'
 </script>
 
-<!-- A range is DatePicker's `range` mode; it needs an array value (empty: nothing picked yet). -->
-<DatePicker range value={[]} placeholder="Pick a date range" />
+<!-- A range is DatePicker's `range` mode, which needs an array value; with an empty one the field
+     shows dashes, so this starts with a picked range (YYYY-MM-DD, the format it writes back). -->
+<DatePicker range value={['2026-03-02', '2026-03-06']} />

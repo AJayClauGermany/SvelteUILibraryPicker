@@ -7,8 +7,9 @@
 	import { setCurrentTheme, ThemeSwitcher } from '@perfectthings/ui'
 	import { theme } from '../../theme.svelte.ts'
 
-	// Start from the site's mode; ThemeSwitcher then puts theme-light / theme-dark on <html>.
-	setCurrentTheme(theme.current)
+	// Follow the site's mode: setCurrentTheme() updates the library's stored theme, so the
+	// switcher's selection and the theme-light / theme-dark class on <html> stay in step with it.
+	$effect(() => setCurrentTheme(theme.current))
 </script>
 
 <ThemeSwitcher />

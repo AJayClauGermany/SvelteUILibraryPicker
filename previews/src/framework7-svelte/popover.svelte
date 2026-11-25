@@ -15,9 +15,9 @@
 	{#snippet modals()}
 		<Popover class="preview-popover">
 			<List>
-				<ListItem title="Profile" popoverClose />
-				<ListItem title="Settings" popoverClose />
-				<ListItem title="Sign out" popoverClose />
+				<ListItem link title="Profile" popoverClose />
+				<ListItem link title="Settings" popoverClose />
+				<ListItem link title="Sign out" popoverClose />
 			</List>
 		</Popover>
 	{/snippet}

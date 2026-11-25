@@ -1,6 +1,8 @@
 <!--
   Svelte 5 UI Lib styles its components with Tailwind; ./styles.css loads its install guide's app.css.
-  Shown open with static positioning and no backdrop, as in the docs' static positioning example.
+  Shown open with no backdrop. Open, it always renders a transparent full-page layer first; with
+  the library's `position="absolute"` (one of its documented positions) the sidebar's own z-50
+  takes effect and it sits above that layer, so its links can be hovered and clicked.
   Docs: https://github.com/shinokada/svelte-5-ui-lib/blob/main/src/routes/components/sidebar/+page.svelte
 -->
 <script lang="ts">
@@ -8,7 +10,7 @@
 	import { Sidebar, SidebarGroup, SidebarItem } from 'svelte-5-ui-lib'
 </script>
 
-<Sidebar isOpen position="static" backdrop={false} activateClickOutside={false} activeUrl="#dashboard" ariaLabel="Main">
+<Sidebar isOpen position="absolute" backdrop={false} activateClickOutside={false} activeUrl="#dashboard" ariaLabel="Main">
 	<SidebarGroup>
 		<SidebarItem label="Dashboard" href="#dashboard" />
 		<SidebarItem label="Inbox" href="#inbox" />
