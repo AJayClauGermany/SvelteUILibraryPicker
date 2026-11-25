@@ -61,7 +61,9 @@ form controls; that is all a headless library has), and styled libraries additio
 | Sveltestrap, Bootstrap Svelte | Bootstrap's `data-bs-theme="dark"` on `<html>` |
 | Kampsy UI, Konsta UI, Sivir UI, Svelte 5 UI Lib, Spaper, Framework7 Svelte | `class="dark"` on `<html>` (each library's documented dark class) |
 | YeSvelte, AgnosUI | Bootstrap's `data-bs-theme="dark"` on `<html>` (Tabler's and Bootstrap's colour modes) |
-| PerfectThings UI | `theme-dark` / `theme-light` on `<html>`, what its ThemeSwitcher sets (without either it follows the OS) |
+| PerfectThings UI | `theme-dark` / `theme-light` on `<html>`, what its ThemeSwitcher sets (its stylesheet is dark when neither class is set, so light mode needs `theme-light`) |
+| STDF | `data-mode="dark"` (light is `data-mode="primary"`) on `<html>`, what its `switchMode()` sets, with the guide's dark variant in `./src/stdf/styles.css` |
+| Event Calendar | `class="ec-dark"` on `<html>` (the README's built-in dark theme) |
 | shadcn-svelte, the copy-paste registries and Origin UI Svelte | `class="dark"` on `<html>` (what mode-watcher sets) with the generated `.dark` variables |
 
 The app picks the mode from `?theme=`, else from the embedding site's `dark` class, else the OS,

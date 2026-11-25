@@ -7,7 +7,7 @@
  *   pnpm status --json             # machine-readable
  *   pnpm status --stale-days 120   # what counts as stale (default 90)
  */
-import { allEntries, c, componentIdsOf, daysBetween, isRegistryEntry, loadData, mdTable, parseArgs, previewSet, previewStates, readPackageJson, today } from './lib/shared.js'
+import { allEntries, c, componentIdsOf, daysBetween, isRegistryEntry, loadData, mdTable, parseArgs, previewSet, previewStates, readPackageJson, today, exit } from './lib/shared.js'
 
 const { flags } = parseArgs(process.argv.slice(2), { values: ['stale-days'] })
 const staleDays = Number(flags['stale-days'] ?? 90)
@@ -50,7 +50,7 @@ const pinDrift = entries.flatMap(({ kind, entry }) => {
 	const pkg = entry.packages[0]
 	const spec = dev[pkg]
 	const hasPreviews = componentIdsOf(entry).some(id => previews.has(`${entry.id}/${id}`))
-	if (!spec || !hasPreviews || spec === entry.version || isRegistryEntry(entry)) return []
+	if (!spec || !hasPreviews || spec === entry.version || isRegistryEntry(entry, data)) return []
 	return [{ kind, id: entry.id, package: pkg, installed: spec, recorded: entry.version }]
 })
 
@@ -79,7 +79,7 @@ const report = {
 
 if (flags.json) {
 	console.log(JSON.stringify(report, null, '\t'))
-	process.exit(0)
+	await exit(0)
 }
 
 const fmt = obj => Object.entries(obj).map(([k, v]) => `${k} ${v}`).join(', ')
@@ -109,7 +109,7 @@ if (flags.markdown) {
 		out.push(`### \`maintenance.checked\` older than ${staleDays} days (${staleMaintenance.length})`, '', mdTable(['Entry', 'Kind', 'Checked', 'Days'], staleMaintenance.map(e => [e.id, e.kind, e.date ?? '-', e.days])), '')
 	}
 	console.log(out.join('\n'))
-	process.exit(0)
+	await exit(0)
 }
 
 const h = s => `\n${c.bold(s)}`
@@ -141,5 +141,5 @@ console.log(`  ${libsWithoutConventions.length} libraries record no conventions`
 console.log(h('Next'))
 console.log(`  pnpm coverage --todo        previews that can still be added`)
 console.log(`  pnpm check:updates          newer npm releases than the data records`)
-console.log(`  pnpm show <id>              everything about one library, tool or component`)
+console.log(`  pnpm about <id>             everything about one library, tool or component`)
 console.log(`  docs/maintaining.md         which command answers which question`)

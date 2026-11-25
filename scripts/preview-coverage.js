@@ -12,7 +12,7 @@
  *   done, todo, skipped (reason in src/lib/data/preview-skips.ts), blocked (ai.status forbids
  *   previews), non-visual (nothing to show).
  */
-import { allEntries, c, loadData, parseArgs, previewSet, previewStates, table } from './lib/shared.js'
+import { allEntries, c, loadData, parseArgs, previewSet, previewStates, table, exit } from './lib/shared.js'
 
 const { flags } = parseArgs(process.argv.slice(2), { values: ['why'] })
 const data = await loadData()
@@ -38,13 +38,13 @@ if (flags.why) {
 	const row = rows.find(r => r.id === flags.why)
 	if (!row) {
 		console.error(`No library or tool "${flags.why}".`)
-		process.exit(1)
+		await exit(1)
 	}
 	const entry = allEntries(data).find(e => e.entry.id === flags.why).entry
 	const states = previewStates(data, entry, previews)
 	if (flags.json) console.log(JSON.stringify(states, null, '\t'))
 	else console.log(table(states.map(s => [s.id, s.state === 'done' ? c.green(s.state) : s.state === 'todo' ? c.yellow(s.state) : c.dim(s.state), s.reason ?? '']), { header: ['component', 'state', 'reason'] }))
-	process.exit(0)
+	await exit(0)
 }
 
 const todoOnly = flags.todo || flags.missing
@@ -52,7 +52,7 @@ const shown = rows.filter(r => (todoOnly ? r.todo.length > 0 : flags.all || r.do
 
 if (flags.json) {
 	console.log(JSON.stringify(shown, null, '\t'))
-	process.exit(0)
+	await exit(0)
 }
 
 console.log(table(shown.map((r) => {

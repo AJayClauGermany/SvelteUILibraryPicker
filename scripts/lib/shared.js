@@ -51,13 +51,20 @@ export function previewSet() {
 	return out
 }
 
+/** CLIs that install copy-paste registries (shadcn-style) rather than being the library itself. */
+export const REGISTRY_CLIS = new Set(['shadcn-svelte', 'jsrepo'])
+
 /**
  * Copy-paste registries (shadcn-style) record the registry's own version, while their first
- * package is the CLI or the primitive library they build on. npm facts about that package say
- * nothing about the registry, so version checks skip these.
+ * package is an install CLI or the primitive library they build on (another entry's package).
+ * npm facts about that package say nothing about the registry, so version checks skip these.
+ * Libraries that publish their own npm package (Sivir UI, Lily) are not registries here.
  */
-export function isRegistryEntry(entry) {
-	return (entry.styling ?? []).includes('copy-paste') && entry.packages[0] !== entry.id
+export function isRegistryEntry(entry, data) {
+	if (!(entry.styling ?? []).includes('copy-paste')) return false
+	const pkg = entry.packages[0]
+	if (REGISTRY_CLIS.has(pkg)) return pkg !== entry.id
+	return [...data.libraries, ...data.tools].some(e => e.id !== entry.id && e.packages[0] === pkg)
 }
 
 export const BLOCKED_AI = new Set(['restricted', 'unreviewed'])
@@ -123,6 +130,7 @@ export const c = { bold: paint(1), dim: paint(2), red: paint(31), green: paint(3
 /** Plain-text table with padded columns. */
 export function table(rows, { header } = {}) {
 	const all = header ? [header, ...rows] : rows
+	if (!all.length) return ''
 	// eslint-disable-next-line no-control-regex
 	const width = s => String(s).replace(/\x1B\[\d+m/g, '').length
 	const widths = all[0].map((_, i) => Math.max(...all.map(r => width(r[i] ?? ''))))
@@ -149,4 +157,13 @@ export async function mapLimit(items, limit, fn) {
 		}
 	}))
 	return out
+}
+
+/**
+ * Exits once everything written to stdout has been flushed. A plain process.exit() right after
+ * console.log() cuts piped output off at 64 KiB, so scripts `await exit()` instead.
+ */
+export async function exit(code = 0) {
+	await new Promise(resolve => process.stdout.write('', resolve))
+	process.exit(code)
 }

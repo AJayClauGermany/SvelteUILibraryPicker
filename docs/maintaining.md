@@ -19,8 +19,9 @@ find out what's missing or stale. All commands are read-only unless they say oth
 | Is my change valid? | `pnpm validate` (data rules), then `pnpm verify` before a PR |
 | I'm adding something new | `pnpm new library\|tool\|preview ...` (see below) |
 
-Every command takes `--json` (for agents and scripts), and `status`, `check:updates` and
-`check:links` also take `--markdown`.
+`status`, `about`, `coverage`, `check:updates` and `check:links` take `--json` (for agents and
+scripts); `status`, `check:updates` and `check:links` also take `--markdown`. `new` takes
+`--dry-run`, and `check:previews` takes `--dark` and `--shots <dir>`.
 
 ## The weekly routine
 

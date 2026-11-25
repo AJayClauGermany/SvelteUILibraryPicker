@@ -18,7 +18,7 @@
  * Copy-paste registries are skipped (their version is the registry's, not the CLI's; use
  * `pnpm facts <id>`). Source: the npm registry (registry.npmjs.org), the primary source for both.
  */
-import { allEntries, c, isRegistryEntry, loadData, mapLimit, mdTable, parseArgs, table } from './lib/shared.js'
+import { allEntries, c, isRegistryEntry, loadData, mapLimit, mdTable, parseArgs, table, exit } from './lib/shared.js'
 
 const { flags, positional } = parseArgs()
 const data = await loadData()
@@ -64,13 +64,18 @@ function bump(from, to) {
 	return 'prerelease'
 }
 
-/** The dist-tag the recorded version tracks: the tag pointing at it, else its prerelease id, else latest. */
+/**
+ * The dist-tag the recorded version tracks. A stable version always tracks `latest` (old tags
+ * such as `stable-0-113` often stay pointed at superseded releases). A prerelease tracks the tag
+ * pointing at it, else the tag named after its prerelease id (`next`), else `latest`.
+ */
 function channelOf(recorded, distTags) {
-	const exact = Object.entries(distTags).find(([, v]) => v === recorded)
+	const pre = parse(recorded)?.pre
+	if (!pre) return 'latest'
+	const exact = Object.entries(distTags).find(([tag, v]) => v === recorded && tag !== 'latest')
 	if (exact) return exact[0]
-	const pre = parse(recorded)?.pre?.split('.')[0]
-	if (pre && distTags[pre]) return pre
-	return 'latest'
+	const id = pre.split('.')[0]
+	return distTags[id] ? id : 'latest'
 }
 
 const cache = new Map()
@@ -86,7 +91,7 @@ async function packument(pkg) {
 const results = await mapLimit(entries, 8, async ({ kind, entry }) => {
 	const pkg = entry.packages[0]
 	const base = { kind, id: entry.id, package: pkg, recorded: entry.version, findings: [] }
-	if (isRegistryEntry(entry)) return { ...base, skipped: 'copy-paste registry: check its repo tags (pnpm facts)' }
+	if (isRegistryEntry(entry, data)) return { ...base, skipped: 'copy-paste registry: check its repo tags (pnpm facts)' }
 	const doc = await packument(pkg)
 	if (doc.error) return { ...base, findings: [{ level: 'error', text: `npm lookup failed (${doc.error})` }] }
 
@@ -102,6 +107,10 @@ const results = await mapLimit(entries, 8, async ({ kind, entry }) => {
 		out.update = bump(entry.version, newest)
 		out.findings.push({ level: out.update === 'patch' ? 'info' : 'update', text: `${out.update} update: ${entry.version} -> ${newest} (${channel}, ${out.newestDate ?? '?'})` })
 	}
+	// A prerelease channel can go stale when the project ships a stable release on `latest` instead.
+	const latest = distTags.latest
+	if (channel !== 'latest' && latest && compare(latest, entry.version) > 0)
+		out.findings.push({ level: 'update', text: `stable release on latest is newer than the recorded prerelease: ${latest} (${doc.time?.[latest]?.slice(0, 10) ?? '?'})` })
 	const recordedPeer = entry.svelte?.peerRange
 	const npmPeer = recordedMeta?.peerDependencies?.svelte
 	if (recordedMeta && recordedPeer && npmPeer && recordedPeer !== npmPeer)
@@ -120,14 +129,14 @@ const shown = flags.all ? results : results.filter(r => r.findings.length)
 
 if (flags.json) {
 	console.log(JSON.stringify(shown, null, '\t'))
-	process.exit(0)
+	await exit(0)
 }
 
 const color = { error: c.red, update: c.yellow, info: c.dim }
 if (flags.markdown) {
 	const rows = shown.flatMap(r => (r.findings.length ? r.findings : [{ level: 'ok', text: r.skipped ?? 'up to date' }]).map(f => [r.id, r.kind, `\`${r.package}\``, r.recorded, f.level, f.text]))
 	console.log(`## npm update check\n\n${rows.length ? mdTable(['Entry', 'Kind', 'Package', 'Recorded', 'Level', 'Finding'], rows) : 'Every entry matches npm.'}\n`)
-	process.exit(0)
+	await exit(0)
 }
 
 const rows = shown.flatMap(r => (r.findings.length ? r.findings : [{ level: 'ok', text: r.skipped ?? 'up to date' }])

@@ -51,12 +51,14 @@ async function npmFacts(pkg) {
 	const doc = await res.json()
 	const version = doc['dist-tags']?.latest
 	const meta = doc.versions?.[version] ?? {}
-	let repository = typeof meta.repository === 'string' ? meta.repository : meta.repository?.url
-	repository = repository?.replace(/^git\+/, '').replace(/^git:\/\//, 'https://').replace(/\.git$/, '').replace(/^github:/, 'https://github.com/')
-	if (repository && !repository.startsWith('http')) repository = `https://github.com/${repository}`
+	const repository = repoUrl(typeof meta.repository === 'string' ? meta.repository : meta.repository?.url)
+	// lastRelease is the newest publish of any version, like `pnpm facts` (schema: Maintenance).
+	const newest = Object.entries(doc.time ?? {})
+		.filter(([v]) => v !== 'created' && v !== 'modified' && doc.versions?.[v])
+		.sort((a, b) => b[1].localeCompare(a[1]) || (a[0] === version ? -1 : 1))[0]
 	return {
 		version,
-		date: doc.time?.[version]?.slice(0, 10),
+		newest: newest && { version: newest[0], date: newest[1].slice(0, 10) },
 		peer: meta.peerDependencies?.svelte,
 		license: typeof meta.license === 'string' ? meta.license : meta.license?.type,
 		repository,
@@ -67,10 +69,40 @@ async function npmFacts(pkg) {
 }
 
 /** Svelte majors a peer range admits, read from its `^N` / `>=N` parts (check by hand). */
+const SVELTE_MAJORS = [3, 4, 5]
+
+/** An https URL for npm's `repository` field, or undefined when its form isn't recognised. */
+function repoUrl(raw) {
+	if (!raw) return undefined
+	const hosts = { github: 'github.com', gitlab: 'gitlab.com', bitbucket: 'bitbucket.org' }
+	let url = raw.trim()
+		.replace(/^git\+/, '')
+		.replace(/^(?:ssh:\/\/)?git@([^:/]+)[:/]/, 'https://$1/')
+		.replace(/^git:\/\//, 'https://')
+		.replace(/^(github|gitlab|bitbucket):/, (_, h) => `https://${hosts[h]}/`)
+		.replace(/\.git$/, '')
+	if (/^[\w.-]+\/[\w.-]+$/.test(url)) url = `https://github.com/${url}` // npm shorthand "owner/repo"
+	return /^https:\/\/[^/]+\/[^/]+\/[^/]+/.test(url) ? url : undefined
+}
+
+/** Svelte majors (3-5) a peer range admits, one `||` alternative at a time. Check by hand. */
 function majorsOf(range) {
 	if (!range) return []
-	const found = new Set([...range.matchAll(/(?:\^|~|>=?|=|\s|^)(\d+)(?:\.|\s|$)/g)].map(m => Number(m[1])).filter(n => n >= 3 && n <= 5))
-	if (/>=\s*[34]/.test(range) && !/</.test(range)) found.add(5)
+	const found = new Set()
+	for (const alt of range.split('||').map(s => s.trim())) {
+		const lower = alt.match(/>=?\s*v?(\d+)/)
+		if (lower) {
+			// `>=N` / `>N`, up to a `<M` / `<=M` bound or to the newest major we track.
+			const upper = alt.match(/<(=?)\s*v?(\d+)(?:\.(\d+))?/)
+			const max = upper ? Number(upper[2]) - (upper[1] || Number(upper[3] ?? 0) > 0 ? 0 : 1) : Math.max(...SVELTE_MAJORS)
+			for (const m of SVELTE_MAJORS) if (m >= Number(lower[1]) && m <= max) found.add(m)
+			continue
+		}
+		// `^N`, `~N`, `N.x`, `N`, `=N`: the major is the first number.
+		const first = alt.match(/^[\^~=v]*\s*(\d+)/)
+		if (first && SVELTE_MAJORS.includes(Number(first[1]))) found.add(Number(first[1]))
+		if (alt === '*' || alt === '') SVELTE_MAJORS.forEach(m => found.add(m))
+	}
 	return [...found].sort()
 }
 
@@ -127,7 +159,7 @@ async function entryFile(kind) {
 		'\t\tsources: [],',
 		'\t},',
 		'\tmaintenance: {',
-		...(f.version && f.date ? [`\t\tlastRelease: { version: ${q(f.version)}, date: ${q(f.date)} },`] : []),
+		...(f.newest ? [`\t\tlastRelease: { version: ${q(f.newest.version)}, date: ${q(f.newest.date)} }, // newest publish on npm`] : []),
 		'\t\t// TODO: lastCommit and archived: run `pnpm facts ' + id + '`',
 		...(f.deprecated ? [`\t\tdeprecated: { summary: 'TODO: own words. npm says: ${JSON.stringify(f.deprecated).slice(1, -1).replace(/'/g, '\\\'')}', source: ${q(`https://www.npmjs.com/package/${pkg}`)} },`] : []),
 		`\t\tchecked: ${q(today)},`,
@@ -158,7 +190,10 @@ async function previewFile() {
 	// Reuse what every sibling preview shares: the "what default means" header and CSS imports.
 	const folder = join(root, 'previews/src', id)
 	const siblings = existsSync(folder) ? readdirSync(folder).filter(f => f.endsWith('.svelte')).map(f => readFileSync(join(folder, f), 'utf8')) : []
-	const header = siblings[0]?.match(/^<!--\n([\s\S]*?)\n\s*Docs:/)?.[1]
+	// The "what default means" text is reused only when every sibling has the same one; many
+	// folders have component-specific headers.
+	const headers = new Set(siblings.map(s => s.match(/^<!--\n([\s\S]*?)\n\s*Docs:/)?.[1]))
+	const header = headers.size === 1 ? [...headers][0] : undefined
 	const shared = siblings.length
 		? siblings.map(s => new Set(s.split('\n').filter(l => /^\timport '[^']+'$/.test(l)))).reduce((a, b) => new Set([...a].filter(x => b.has(x))))
 		: new Set()

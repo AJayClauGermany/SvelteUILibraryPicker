@@ -5,7 +5,7 @@
  * licenses are recorded, and library AI boundaries are respected. If a rule blocks a
  * legitimate change, change the rule in the same PR and explain why.
  */
-import { readdirSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import { basename, join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { previews } from '../previews'
@@ -78,7 +78,9 @@ describe('libraries', () => {
 	for (const lib of libraries) {
 		describe(lib.id, () => {
 			it('has no TODO left from `pnpm new`', () => {
-				expect(JSON.stringify(lib), 'replace every TODO placeholder').not.toContain('TODO')
+				// Reads the source, so a TODO left in a comment next to a valid-looking value counts too.
+				const src = readFileSync(join(__dirname, 'libraries', `${lib.id}.ts`), 'utf8')
+				expect(src.match(/^.*\bTODO\b.*$/m)?.[0]?.trim(), 'replace or remove every TODO from the scaffold').toBeUndefined()
 			})
 
 			it('has a valid slug and basic fields', () => {
@@ -195,7 +197,9 @@ describe('tools', () => {
 	for (const tool of tools) {
 		describe(tool.id, () => {
 			it('has no TODO left from `pnpm new`', () => {
-				expect(JSON.stringify(tool), 'replace every TODO placeholder').not.toContain('TODO')
+				// Reads the source, so a TODO left in a comment next to a valid-looking value counts too.
+				const src = readFileSync(join(__dirname, 'tools', `${tool.id}.ts`), 'utf8')
+				expect(src.match(/^.*\bTODO\b.*$/m)?.[0]?.trim(), 'replace or remove every TODO from the scaffold').toBeUndefined()
 			})
 
 			it('has a valid slug and basic fields', () => {

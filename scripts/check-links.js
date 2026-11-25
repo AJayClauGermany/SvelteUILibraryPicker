@@ -24,7 +24,7 @@
  */
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
-import { allEntries, c, loadData, mapLimit, mdTable, parseArgs, root, table } from './lib/shared.js'
+import { allEntries, c, loadData, mapLimit, mdTable, parseArgs, root, table, exit } from './lib/shared.js'
 import { urlsOf } from './lib/urls.js'
 
 const { flags, positional } = parseArgs()
@@ -146,4 +146,4 @@ else {
 	}
 	console.log(`\n${summary}`)
 }
-process.exit(count('broken') ? 1 : 0)
+await exit(count('broken') ? 1 : 0)

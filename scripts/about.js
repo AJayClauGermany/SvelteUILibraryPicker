@@ -4,11 +4,12 @@
  *   pnpm about melt              # a library: facts, file to edit, every component and its preview state
  *   pnpm about svelte-sonner     # a tool: the same, plus which libraries use it
  *   pnpm about dialog            # a component: every library and tool that has it, docs links, previews
- *   pnpm about modal             # aliases work too (Modal -> dialog)
+ *   pnpm about modal             # aliases and names work too (Modal -> dialog, "Bits UI" -> bits-ui)
+ *   pnpm about component:skeleton  # when an id names both an entry and a component
  *   pnpm about                   # list every id
  *   pnpm about <id> --json       # machine-readable
  */
-import { allEntries, c, dataFile, loadData, parseArgs, previewSet, previewStates, readPackageJson, table } from './lib/shared.js'
+import { allEntries, c, dataFile, loadData, parseArgs, previewSet, previewStates, readPackageJson, table, exit } from './lib/shared.js'
 
 const { flags, positional } = parseArgs()
 const data = await loadData()
@@ -21,7 +22,7 @@ if (!query) {
 	console.log(c.bold('Libraries'), data.libraries.map(l => l.id).sort().join(', '))
 	console.log(c.bold('\nTools'), data.tools.map(t => t.id).sort().join(', '))
 	console.log(c.bold('\nComponents'), [...data.componentIds].sort().join(', '))
-	process.exit(0)
+	await exit(0)
 }
 
 const stateMark = { 'done': c.green('preview'), 'todo': c.yellow('to do'), 'skipped': c.dim('skipped'), 'blocked': c.dim('blocked'), 'non-visual': c.dim('non-visual') }
@@ -79,33 +80,46 @@ function showComponent(id) {
 	if (data.hasCanonicalProps(id)) console.log(c.dim(`Canonical props: ${Object.keys(data.canonicalProps[id]).join(', ')}`))
 	const rows = [...libs, ...tools]
 	const done = rows.filter(r => r.preview === 'done').length
+	if (!rows.length) return console.log(c.dim('\nNo library or tool lists it yet.'))
 	console.log(`\n${c.bold(`${libs.length} libraries, ${tools.length} tools`)}; ${done} with a preview`)
 	console.log(table(rows.map(r => [r.kind, r.id, r.name, stateMark[r.preview], r.api ? 'props' : '', c.dim(r.docs)])))
 	console.log(c.dim(`\nSite page: /components/${id}/`))
 }
 
-const entry = entries.find(e => e.entry.id === query)
-if (entry) {
-	showEntry(entry)
+// `component:<id>`, `library:<id>` or `tool:<id>` picks one side when an id names both
+// (e.g. `skeleton` is a library and a component).
+const [, side, rest] = query.match(/^(component|library|tool):(.+)$/) ?? [undefined, undefined, query]
+const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '')
+const q = norm(rest)
+const entryById = side !== 'component' ? entries.find(e => e.entry.id === rest && (!side || e.kind === side)) : undefined
+const isComponent = side !== 'library' && side !== 'tool' && !!data.components[rest]
+
+if (entryById) {
+	showEntry(entryById)
+	if (isComponent && !flags.json) console.log(c.dim(`\n"${rest}" is also a component: pnpm about component:${rest}`))
 }
-else if (data.components[query]) {
-	showComponent(query)
+else if (isComponent) {
+	showComponent(rest)
 }
 else {
-	// Aliases ("Modal" -> dialog), library and tool names, then substring matches.
-	const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g, '')
-	const q = norm(query)
-	const byAlias = data.componentIds.filter(id => [data.components[id].name, ...(data.components[id].aliases ?? [])].some(a => norm(a) === q))
-	const byName = entries.filter(e => norm(e.entry.name) === q || e.entry.packages.some(p => norm(p) === q))
-	if (byAlias.length === 1 && !byName.length) showComponent(byAlias[0])
-	else if (byName.length === 1 && !byAlias.length) showEntry(byName[0])
+	// Ranked: an entry's exact name, then a component's name or alias ("Modal" -> dialog), then a
+	// package name. The best-ranked group wins when it has one match.
+	const ranked = [
+		side === 'component' ? [] : entries.filter(e => (!side || e.kind === side) && norm(e.entry.name) === q).map(e => ({ entry: e })),
+		side === 'library' || side === 'tool' ? [] : data.componentIds.filter(id => [data.components[id].name, ...(data.components[id].aliases ?? [])].some(a => norm(a) === q)).map(id => ({ component: id })),
+		side === 'component' ? [] : entries.filter(e => (!side || e.kind === side) && e.entry.packages.some(p => norm(p) === q)).map(e => ({ entry: e })),
+	]
+	const best = ranked.find(group => group.length)
+	if (best?.length === 1) {
+		if (best[0].entry) showEntry(best[0].entry)
+		else showComponent(best[0].component)
+	}
 	else {
-		const like = [
-			...byAlias, ...byName.map(e => e.entry.id),
-			...data.componentIds.filter(id => norm(id).includes(q)),
-			...entries.map(e => e.entry.id).filter(id => norm(id).includes(q)),
-		]
-		console.error(`Nothing is called "${query}".${like.length ? ` Did you mean: ${[...new Set(like)].join(', ')}?` : ' Run `pnpm about` to list every id.'}`)
-		process.exit(1)
+		const like = best
+			? best.map(m => (m.entry ? m.entry.entry.id : `component:${m.component}`))
+			: [...data.componentIds.filter(id => norm(id).includes(q)), ...entries.map(e => e.entry.id).filter(id => norm(id).includes(q))]
+		const what = best ? `Several things match "${rest}"` : `Nothing is called "${rest}"`
+		console.error(`${what}.${like.length ? ` Try: ${[...new Set(like)].map(x => `pnpm about ${x}`).join(', ')}` : ' Run `pnpm about` to list every id.'}`)
+		await exit(1)
 	}
 }
