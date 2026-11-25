@@ -51,6 +51,9 @@ const switches: Record<string, (dark: boolean) => void> = {
 	'neobrutalism-svelte': dark => document.documentElement.classList.toggle('dark', dark),
 	'retroui-svelte': dark => document.documentElement.classList.toggle('dark', dark),
 	'lily': dark => document.documentElement.classList.toggle('dark', dark),
+	// Spaper: its PapierCSS styles switch to dark tokens with `class="dark"` on a parent, usually <html>
+	// (PapierCSS README, section "Theme": https://github.com/Oli8/papiercss#readme).
+	'spaper': dark => document.documentElement.classList.toggle('dark', dark),
 	// M3 Svelte needs nothing extra: its theme CSS is `color-scheme: light dark` with light-dark()
 	// colours, so the baseline color-scheme switch above selects the dark palette.
 	// SVAR Core themes through wrapper components (<Willow> / <WillowDark>), so each SVAR preview

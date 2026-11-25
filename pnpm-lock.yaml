@@ -388,6 +388,9 @@ importers:
       paneforge:
         specifier: 1.0.2
         version: 1.0.2(svelte@5.59.1)
+      papiercss:
+        specifier: 1.0.2
+        version: 1.0.2(tailwindcss@4.3.4)
       phosphor-svelte:
         specifier: 3.1.1
         version: 3.1.1(svelte@5.59.1)(vite@8.3.5(@types/node@24.19.2)(jiti@1.21.7)(terser@5.51.2)(yaml@2.9.1))
@@ -403,6 +406,9 @@ importers:
       shiki:
         specifier: 4.6.0
         version: 4.6.0
+      spaper:
+        specifier: 2.0.3
+        version: 2.0.3(papiercss@1.0.2(tailwindcss@4.3.4))(svelte@5.59.1)(tailwindcss@4.3.4)
       svelte:
         specifier: ^5.59.1
         version: 5.59.1
@@ -2149,6 +2155,12 @@ packages:
     resolution: {integrity: sha512-WozocxlhoeJdo60qnY+JvvpVqyfV5AsB4PrBisAcIcMIMXMbXfI8a5JJ7KbqfONVjBl1AtRTqdFW6g3dBOlsIg==}
     peerDependencies:
       tailwindcss: ^4.0.0
+
+  '@sketchyicons/svelte@0.5.0':
+    resolution: {integrity: sha512-WNWEG9XbLtwBORjQ7t8Lg4vFs+pBY6u8fPGjpTDuMqD5QiZyReECKZ3/y/S8uyUseWKdKVOHQ6vNh6lsmmAdgg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      svelte: ^5.0.0
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
@@ -5090,6 +5102,11 @@ packages:
     peerDependencies:
       svelte: ^5.29.0
 
+  papiercss@1.0.2:
+    resolution: {integrity: sha512-rcEvLE8W2EdpLqUMk2vKI4uudmXtJuXAnje0IJmdHGp6iXdFb26ejn6dL9A5X+5vRVhal/KQVG4SHwvQ2XPuzw==}
+    peerDependencies:
+      tailwindcss: ^4.0.0
+
   parse-entities@4.0.2:
     resolution: {integrity: sha512-GG2AQYWoLgL877gQIKeRPGO1xF9+eG1ujIb5soS5gPvLQ1y2o8FL90w2QWNdf9I361Mpp7726c+lj3U0qK1uGw==}
 
@@ -5593,6 +5610,13 @@ packages:
 
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
+
+  spaper@2.0.3:
+    resolution: {integrity: sha512-n8iQLLkk13Kll5oCCx/T0LtKKu6+K3l7fL3wqJsflASQItiW0GWY9/CukjNqCY36LG5w0clg/OU1uVdq4LhoNw==}
+    peerDependencies:
+      papiercss: ^1.0.2
+      svelte: ^5.20.0
+      tailwindcss: ^4.0.0
 
   srvx@1.0.8:
     resolution: {integrity: sha512-ngFS/J6St4PJfHRHGjr78xkPPtbyXtdMOLNE4x/XZunEK3OhV7aGUWMHf9WTUEy6wm1U0W4okkd82ZFFWRVQTw==}
@@ -8154,6 +8178,10 @@ snapshots:
   '@skeletonlabs/skeleton@5.0.1(tailwindcss@4.3.4)':
     dependencies:
       tailwindcss: 4.3.4
+
+  '@sketchyicons/svelte@0.5.0(svelte@5.59.1)':
+    dependencies:
+      svelte: 5.59.1
 
   '@standard-schema/spec@1.1.0': {}
 
@@ -12205,6 +12233,10 @@ snapshots:
       svelte: 5.59.1
       svelte-toolbelt: 0.9.3(svelte@5.59.1)
 
+  papiercss@1.0.2(tailwindcss@4.3.4):
+    dependencies:
+      tailwindcss: 4.3.4
+
   parse-entities@4.0.2:
     dependencies:
       '@types/unist': 2.0.11
@@ -12847,6 +12879,13 @@ snapshots:
   source-map@0.8.0: {}
 
   space-separated-tokens@2.0.2: {}
+
+  spaper@2.0.3(papiercss@1.0.2(tailwindcss@4.3.4))(svelte@5.59.1)(tailwindcss@4.3.4):
+    dependencies:
+      '@sketchyicons/svelte': 0.5.0(svelte@5.59.1)
+      papiercss: 1.0.2(tailwindcss@4.3.4)
+      svelte: 5.59.1
+      tailwindcss: 4.3.4
 
   srvx@1.0.8: {}
 
