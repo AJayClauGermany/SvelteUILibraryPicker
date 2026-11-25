@@ -84,6 +84,10 @@ export const previewSkips: Record<string, Partial<Record<ComponentId | '*', stri
 		'tour': originExampleOnly,
 		'combobox': originExampleOnly,
 	},
+	'framework7-svelte': {
+		'sidebar': 'Panel only stays pinned in an app wider than the preview frame; narrower, it is the same closed panel as the drawer preview.',
+		'rich-text-editor': 'Its toolbar buttons are icon-font ligatures, which show as garbled text without the separate Framework7 Icons font.',
+	},
 	'yesvelte': { icon: 'Icon is the `iconify-icon` web component, which fetches icon data from api.iconify.design at runtime.' },
 
 	// --- Tools ----------------------------------------------------------------------------------
