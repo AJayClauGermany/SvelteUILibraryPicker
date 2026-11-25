@@ -131,7 +131,9 @@ Follow-ups:
     background in dark mode; Framework7 9.3.0's datepicker throws without a `value`, its gauge
     defaults to black text in dark mode, and `framework7-svelte` imports `skeleton-elements`
     without declaring it; svelte-5-ui-lib's install-guide base input styles are unlayered, so they
-    override the components' own classes under Tailwind 4; STDF's built-in texts default to
+    override the components' own classes under Tailwind 4, and it imports its own index as a
+    directory (`from '..'`), which the production build can't resolve without the small resolver in
+    `previews/vite.config.ts` (drop it once upstream uses explicit paths); STDF's built-in texts default to
     Simplified Chinese unless wrapped in its ConfigProvider.
 
   Not addable as they stand: Ionic Svelte (no LICENSE file at the repo root), Svelteit (alpha only),
