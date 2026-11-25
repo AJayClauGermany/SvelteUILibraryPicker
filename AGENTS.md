@@ -47,10 +47,21 @@ pnpm validate   # data rules (vitest), fast; run after any data change
 pnpm check      # svelte-check / TypeScript
 pnpm build      # static site -> dist/ (site, then preview app into dist/preview)
 pnpm verify     # validate + check + build; run before opening a PR
-node scripts/preview-coverage.js --missing   # which listed components still lack a preview
-node scripts/check-previews.js <id>          # render-check previews in headless Chromium
-node scripts/maintenance-facts.js <id>       # npm release dates, last commit, archived flag (for `maintenance`)
+
+pnpm status                 # one-screen overview: counts, preview gaps, stale entries, version pins
+pnpm about <id>             # everything about a library, tool or component (aliases work)
+pnpm coverage --todo        # previews that can still be added (--why <id> for reasons)
+pnpm check:updates [<id>]   # newer npm releases / changed Svelte peer ranges vs the data
+pnpm check:links [<id>]     # broken docs and source links
+pnpm check:previews <id>    # render-check previews in headless Chromium
+pnpm facts <id>             # npm release dates, last commit, archived flag (for `maintenance`)
+pnpm new library|tool <id> --package <npm>   # scaffold an entry prefilled from npm
+pnpm new preview <id> <component>            # scaffold a preview with its docs header
 ```
+
+Use these instead of reading data files to answer "what's missing / stale / where is X". Add
+`--json` for machine-readable output. [docs/maintaining.md](docs/maintaining.md) maps questions to
+commands and findings to actions.
 
 Node >= 22, pnpm 10.
 
@@ -65,7 +76,8 @@ Node >= 22, pnpm 10.
 | `src/lib/data/tools/<id>.ts` | One file per tool: single-purpose packages and building blocks (`defineTool({...})`) |
 | `src/lib/data/validate.test.ts` | The data rules `pnpm validate` enforces |
 | `previews/src/<library-or-tool>/<component>.svelte` | Live previews (default styling only) |
-| `scripts/` | Helper scripts for contributors and agents (preview coverage, preview render check) |
+| `src/lib/data/preview-skips.ts` | Why a listed component has no preview (the only place reasons live) |
+| `scripts/` | Maintainer commands behind `pnpm status`, `about`, `coverage`, `check:*`, `facts`, `new` |
 | `previews/` | Standalone Vite app that renders previews in isolation at `/preview/` |
 | `src/routes/` | Site pages (SveltePress: `.md` or `.svelte`) |
 | `docs/` | Architecture, previews guide, backlog of known gaps |
@@ -98,6 +110,7 @@ Step-by-step procedures (plain Markdown, usable by any agent):
 - [Add a live preview](docs/playbooks/add-preview.md)
 - [Add or update a tool](docs/playbooks/add-tool.md)
 - [Add component props and conventions](docs/playbooks/add-props.md)
+- [Maintaining: which command answers which question](docs/maintaining.md)
 
 ## Pull requests
 

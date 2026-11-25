@@ -16,7 +16,15 @@
     "prepare": "svelte-kit sync || echo ''",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "validate": "vitest run",
-    "verify": "pnpm validate && pnpm check && pnpm build"
+    "verify": "pnpm validate && pnpm check && pnpm build",
+    "status": "node scripts/status.js",
+    "coverage": "node scripts/preview-coverage.js",
+    "about": "node scripts/about.js",
+    "new": "node scripts/new.js",
+    "facts": "node scripts/maintenance-facts.js",
+    "check:updates": "node scripts/check-updates.js",
+    "check:links": "node scripts/check-links.js",
+    "check:previews": "node scripts/check-previews.js"
   },
   "devDependencies": {
     "@aejkatappaja/phantom-ui": "1.6.1",

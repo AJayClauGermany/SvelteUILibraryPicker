@@ -41,6 +41,11 @@ pnpm dev        # http://localhost:5173
 | `pnpm check` | `svelte-check` / TypeScript |
 | `pnpm build` | Static output in `dist/` (deployable to any static host) |
 | `pnpm verify` | All of the above |
+| `pnpm status` | Overview: counts, preview gaps, stale entries |
+| `pnpm about <id>` | Everything about one library, tool or component |
+
+More maintainer commands (update checks, link checks, scaffolding) are in
+[docs/maintaining.md](docs/maintaining.md).
 
 Requires Node 22+ and pnpm 10.
 

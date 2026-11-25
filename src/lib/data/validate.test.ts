@@ -11,6 +11,7 @@ import { describe, expect, it } from 'vitest'
 import { previews } from '../previews'
 import { componentIds, components } from './components'
 import { libraries, maintenanceStatus, tools } from './index'
+import { nonVisualComponents, previewSkips } from './preview-skips'
 import { canonicalProps, conventionInfo, getCanonicalProp, hasCanonicalProps } from './props'
 import type { Library, Tool } from './schema'
 import { apiStyleInfo, featureInfo } from './schema'
@@ -76,6 +77,10 @@ describe('libraries', () => {
 
 	for (const lib of libraries) {
 		describe(lib.id, () => {
+			it('has no TODO left from `pnpm new`', () => {
+				expect(JSON.stringify(lib), 'replace every TODO placeholder').not.toContain('TODO')
+			})
+
 			it('has a valid slug and basic fields', () => {
 				expect(lib.id).toMatch(SLUG)
 				expect(lib.name.trim()).not.toBe('')
@@ -189,6 +194,10 @@ describe('tools', () => {
 
 	for (const tool of tools) {
 		describe(tool.id, () => {
+			it('has no TODO left from `pnpm new`', () => {
+				expect(JSON.stringify(tool), 'replace every TODO placeholder').not.toContain('TODO')
+			})
+
 			it('has a valid slug and basic fields', () => {
 				expect(tool.id).toMatch(SLUG)
 				expect(tool.name.trim()).not.toBe('')
@@ -289,6 +298,31 @@ describe('previews', () => {
 				['welcomes', 'no-statement'],
 				`previews are not allowed while ai.status is "${owner!.ai.status}"`,
 			).toContain(owner!.ai.status)
+		})
+	}
+})
+
+// The skip list explains why a listed component has no preview (see `pnpm coverage`). Keep it honest:
+// a skip must point at a real gap, so it can't outlive the gap it explains.
+describe('preview skips', () => {
+	const has = new Set(previews.map(p => `${p.library}/${p.component}`))
+	for (const [id, skips] of Object.entries(previewSkips)) {
+		it(id, () => {
+			const entry = libraries.find(l => l.id === id) ?? tools.find(t => t.id === id)
+			expect(entry, `preview-skips.ts names "${id}", which is no library or tool`).toBeDefined()
+			if (!entry) return
+			expect(['restricted', 'unreviewed'], `"${id}" is ${entry.ai.status}: no previews are allowed anyway, drop the skip`).not.toContain(entry.ai.status)
+			const listed = entry.components.map(c => (typeof c === 'string' ? c : c.id)) as string[]
+			for (const [component, reason] of Object.entries(skips)) {
+				expect(reason?.trim(), `${id}/${component}: give a reason`).toBeTruthy()
+				if (component === '*') {
+					expect(listed.some(c => !has.has(`${id}/${c}`)), `${id}: every component has a preview, drop the '*' skip`).toBe(true)
+					continue
+				}
+				expect(listed, `${id} doesn't list "${component}"`).toContain(component)
+				expect(has.has(`${id}/${component}`), `${id}/${component} has a preview now, drop its skip`).toBe(false)
+				expect(nonVisualComponents as string[], `${id}/${component} is non-visual already`).not.toContain(component)
+			}
 		})
 	}
 })

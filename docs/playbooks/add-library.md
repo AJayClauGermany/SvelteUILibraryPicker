@@ -10,7 +10,7 @@ Works for any agent or human. Output: one file, `src/lib/data/libraries/<id>.ts`
 ## 1. Check it belongs
 
 - It's a Svelte UI component library (or builder/primitive set) with public docs.
-- It isn't already listed (`ls src/lib/data/libraries`).
+- It isn't already listed (`pnpm about <name>` finds ids, names and package names).
 - Old, idle, Svelte 3/4-only or archived libraries are welcome: the maintenance badge tells readers
   where they stand. A missing LICENSE file or missing public docs still rules a library out.
 
@@ -27,14 +27,16 @@ Works for any agent or human. Output: one file, `src/lib/data/libraries/<id>.ts`
 | `dependencies` | `npm view <pkg>@<version> peerDependencies peerDependenciesMeta --json`, plus the install / getting-started and theming docs (Tailwind, UnoCSS, Sass, PostCSS, CSS framework, Vite plugins) |
 | `features` | The docs and source, against the definitions in `featureInfo` in `schema.ts` (e.g. `semantic-colors` needs role-based color props the theme maps; `accessibility` needs per-component keyboard/ARIA docs) |
 | `ai` | Look for `llms.txt`, MCP servers, `AGENTS.md`/`CLAUDE.md`, CONTRIBUTING sections on AI, and LICENSE terms |
-| `maintenance` | `node scripts/maintenance-facts.js <id>` (npm release dates and `deprecated`, last commit, archived flag), plus the README and docs for an explicit deprecation notice |
+| `maintenance` | `pnpm facts <id>` (npm release dates and `deprecated`, last commit, archived flag), plus the README and docs for an explicit deprecation notice |
 
 If the docs site is unreachable: `git clone --depth 1 <repo>` into a temp dir and read the docs source.
 **Never guess a URL.**
 
 ## 3. Write the file
 
-Copy an existing entry (e.g. `bits-ui.ts`) and follow `src/lib/data/schema.ts`:
+Start from `pnpm new library <id> --package <npm-name>`: it writes the file with the npm facts
+(version, peer range, license id, repository, latest release) filled in and a `TODO` for everything
+else. `pnpm validate` fails until no `TODO` is left. Then follow `src/lib/data/schema.ts`:
 
 - `description`: one sentence in your own words.
 - `components`: map each documented component to a canonical id in `src/lib/data/components.ts`.
@@ -60,6 +62,12 @@ Copy an existing entry (e.g. `bits-ui.ts`) and follow `src/lib/data/schema.ts`:
 
 ```sh
 pnpm validate && pnpm check
+pnpm about <id>          # read the entry back as a summary
+pnpm check:links <id>    # every URL you recorded answers
+pnpm check:updates <id>  # version and peer range match npm
 ```
+
+To **update** an existing entry, start from `pnpm check:updates <id>`: it shows the newer release
+and whether the Svelte peer range changed.
 
 In the PR description, list how you verified each fact and anything you couldn't verify.

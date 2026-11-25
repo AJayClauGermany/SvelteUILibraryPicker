@@ -19,7 +19,8 @@ Output: `previews/src/<library-id>/<component-id>.svelte`, plus the library as a
 ## Steps
 
 1. `pnpm add -D <package>@<exact version recorded in the data file>`
-2. Create the preview file:
+2. Create the preview file. `pnpm new preview <library-id> <component-id>` writes it with the
+   header (docs URL from the data file) and the imports the library's other previews share. By hand:
 
    ```svelte
    <!--
@@ -52,10 +53,11 @@ Output: `previews/src/<library-id>/<component-id>.svelte`, plus the library as a
      library's install guide requires (e.g. `flowbite`, `@tailwindcss/forms`) as a devDependency.
    - Libraries that need a Vite plugin (e.g. M3 Svelte) register it in `previews/vite.config.ts`
      only, never in the site's root config.
-4. Check it: `node scripts/check-previews.js <id>` opens every preview of that library or tool in
+4. Check it: `pnpm check:previews <id>` opens every preview of that library or tool in
    headless Chromium and fails on console errors, exceptions, empty renders and requests to other
    hosts. Add `--dark` for dark mode and `--shots <dir>` to save PNGs you can look at. To see it in
    the site, `pnpm dev`, then open `/preview/?library=<id>&component=<id>` and the component's page
    at `/components/<id>/` (tools: `/tools/<id>/`).
-   To find what is still missing, run `node scripts/preview-coverage.js --missing`.
+   To find what is still missing, run `pnpm coverage --todo`. If a component can't get a preview,
+   add the reason to `src/lib/data/preview-skips.ts` so the next person doesn't retry it.
 5. `pnpm verify`

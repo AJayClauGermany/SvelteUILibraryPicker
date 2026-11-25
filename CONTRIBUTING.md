@@ -27,14 +27,21 @@ Before opening a PR, run `pnpm verify` (validate, type check, build).
 
 ## Common contributions
 
+### Find something to do
+
+`pnpm status` shows what's missing or stale, `pnpm check:updates` lists libraries with newer
+releases than we record, and the open `data-health` issue (updated weekly) collects both. See
+[docs/maintaining.md](docs/maintaining.md) for what each finding means.
+
 ### Fix or update data
 
-Edit `src/lib/data/libraries/<id>.ts`, set `lastVerified` to today, and run `pnpm validate`.
-In the PR, link the source that proves the change.
+Edit `src/lib/data/libraries/<id>.ts` (`pnpm about <id>` prints the path and current facts), set
+`lastVerified` to today, and run `pnpm validate`. In the PR, link the source that proves the change.
 
 ### Add a library
 
 Follow [docs/playbooks/add-library.md](docs/playbooks/add-library.md). One library per PR, please.
+`pnpm new library <id> --package <npm-name>` creates the file prefilled from npm.
 
 ### Add a tool
 

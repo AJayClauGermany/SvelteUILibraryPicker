@@ -14,7 +14,8 @@ They're listed at `/tools/` and linked from the component and library pages.
 ## 1. Check it belongs
 
 - It has public docs, a repo and an npm package.
-- It isn't already listed (`ls src/lib/data/tools`).
+- It isn't already listed (`pnpm about <name>`). Start the file with
+  `pnpm new tool <id> --package <npm-name>` (prefilled from npm, `TODO`s for the rest).
 - It maps to at least one canonical component in `components.ts` (`pnpm validate` enforces this;
   only `utility` tools may map to none). The component **doesn't** have to be provided by a tracked
   library: tools that fill gaps (maps, flow diagrams, 3D scenes, scheduling calendars, i18n...) are
@@ -42,7 +43,7 @@ the docs source.
 ## 3. Write the file
 
 Copy an existing tool (e.g. `layerchart.ts`) and follow the `Tool` type in `src/lib/data/schema.ts`.
-Description: one sentence, own words, neutral. Set `lastVerified` to today, and fill `maintenance` from `node scripts/maintenance-facts.js <id>` (same rules as in [add-library.md](add-library.md)).
+Description: one sentence, own words, neutral. Set `lastVerified` to today, and fill `maintenance` from `pnpm facts <id>` (same rules as in [add-library.md](add-library.md)).
 
 ## 4. Verify
 
