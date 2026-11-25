@@ -16,6 +16,12 @@ importers:
       '@aejkatappaja/phantom-ui':
         specifier: 1.6.1
         version: 1.6.1
+      '@agnos-ui/core-bootstrap':
+        specifier: 0.11.0
+        version: 0.11.0(@amadeus-it-group/tansu@2.0.0)(@floating-ui/dom@1.8.0)(embla-carousel@8.6.0)(esm-env@1.2.2)
+      '@agnos-ui/svelte-bootstrap':
+        specifier: 0.11.0
+        version: 0.11.0(@amadeus-it-group/tansu@2.0.0)(@floating-ui/dom@1.8.0)(embla-carousel@8.6.0)(esm-env@1.2.2)(svelte@5.59.1)
       '@ark-ui/svelte':
         specifier: 5.25.1
         version: 5.25.1(svelte@5.59.1)
@@ -518,9 +524,38 @@ packages:
     resolution: {integrity: sha512-7ZT4sW0YjuQp+Edq/5CM13l+ZUlNR5GtpfF+WbUVTzO9UvtfDv6d6qcPZdPP7PS1W6lP2fKpqVQiWb0iWdDheQ==}
     hasBin: true
 
+  '@agnos-ui/core-bootstrap@0.11.0':
+    resolution: {integrity: sha512-yT7voNwpMut8scC1ktXHaWfjaethc9qSUO/mnT4EXctPR8G1ZQQSBLyTZJGYV4JBYt0SQcxFi144DD+jxUgVDg==}
+    peerDependencies:
+      '@amadeus-it-group/tansu': ^2.0.0
+
+  '@agnos-ui/core@0.11.0':
+    resolution: {integrity: sha512-idSSa1882LQR5Pq1Bu0mJvDVbYYHR5Bn82Os4km0LGcAgTQy4vjEYbTm2pszWujhPRzfMa2q881hNx448WUMjA==}
+    peerDependencies:
+      '@amadeus-it-group/tansu': ^2.0.0
+      '@floating-ui/dom': ^1.6.12
+      embla-carousel: ^8.5.2
+      esm-env: ^1.2.1
+
+  '@agnos-ui/svelte-bootstrap@0.11.0':
+    resolution: {integrity: sha512-5gSSD8LZjnZTaWnWaiXAy3/iWnSnhOihrxgizfLoYoNehlPHaryIk3hZLxl6St/6CNSTRUf6kQwy1OgFV94EhA==}
+    peerDependencies:
+      '@amadeus-it-group/tansu': ^2.0.0
+      esm-env: ^1.2.1
+      svelte: ^5.16.0
+
+  '@agnos-ui/svelte-headless@0.11.0':
+    resolution: {integrity: sha512-q3cmlOvzFYXUaUmlEz9Gcb0dn/3TpFoQ9OnzHUdQ7XhrjSpEKu0o//mgasWhPQ5Emt+poiGZwIWWIIz95Nf3rg==}
+    peerDependencies:
+      '@amadeus-it-group/tansu': ^2.0.0
+      svelte: ^5.16.0
+
   '@alloc/quick-lru@5.3.0':
     resolution: {integrity: sha512-U4+70Pc5ZS9osnCBCE5Jha/ciHM+Yp+CNMNC/7HvYbNRk1Ldd+f7qO65W5qfhu/TCv+/ozljlXXe9Nj8419DMA==}
     engines: {node: '>=10'}
+
+  '@amadeus-it-group/tansu@2.0.0':
+    resolution: {integrity: sha512-KebRcEFWkdKix1vN12Y8cuGWdWKqkCzXiesXnxSAZbEULBDlPwm0sey+ygP98PudM1gBygtiWyWzGTeAL5+jIw==}
 
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
@@ -7051,7 +7086,47 @@ snapshots:
     dependencies:
       lit: 3.3.3
 
+  '@agnos-ui/core-bootstrap@0.11.0(@amadeus-it-group/tansu@2.0.0)(@floating-ui/dom@1.8.0)(embla-carousel@8.6.0)(esm-env@1.2.2)':
+    dependencies:
+      '@agnos-ui/core': 0.11.0(@amadeus-it-group/tansu@2.0.0)(@floating-ui/dom@1.8.0)(embla-carousel@8.6.0)(esm-env@1.2.2)
+      '@amadeus-it-group/tansu': 2.0.0
+    transitivePeerDependencies:
+      - '@floating-ui/dom'
+      - embla-carousel
+      - esm-env
+
+  '@agnos-ui/core@0.11.0(@amadeus-it-group/tansu@2.0.0)(@floating-ui/dom@1.8.0)(embla-carousel@8.6.0)(esm-env@1.2.2)':
+    dependencies:
+      '@amadeus-it-group/tansu': 2.0.0
+      '@floating-ui/dom': 1.8.0
+      clsx: 2.1.1
+      embla-carousel: 8.6.0
+      esm-env: 1.2.2
+
+  '@agnos-ui/svelte-bootstrap@0.11.0(@amadeus-it-group/tansu@2.0.0)(@floating-ui/dom@1.8.0)(embla-carousel@8.6.0)(esm-env@1.2.2)(svelte@5.59.1)':
+    dependencies:
+      '@agnos-ui/core-bootstrap': 0.11.0(@amadeus-it-group/tansu@2.0.0)(@floating-ui/dom@1.8.0)(embla-carousel@8.6.0)(esm-env@1.2.2)
+      '@agnos-ui/svelte-headless': 0.11.0(@amadeus-it-group/tansu@2.0.0)(@floating-ui/dom@1.8.0)(embla-carousel@8.6.0)(esm-env@1.2.2)(svelte@5.59.1)
+      '@amadeus-it-group/tansu': 2.0.0
+      esm-env: 1.2.2
+      svelte: 5.59.1
+    transitivePeerDependencies:
+      - '@floating-ui/dom'
+      - embla-carousel
+
+  '@agnos-ui/svelte-headless@0.11.0(@amadeus-it-group/tansu@2.0.0)(@floating-ui/dom@1.8.0)(embla-carousel@8.6.0)(esm-env@1.2.2)(svelte@5.59.1)':
+    dependencies:
+      '@agnos-ui/core': 0.11.0(@amadeus-it-group/tansu@2.0.0)(@floating-ui/dom@1.8.0)(embla-carousel@8.6.0)(esm-env@1.2.2)
+      '@amadeus-it-group/tansu': 2.0.0
+      svelte: 5.59.1
+    transitivePeerDependencies:
+      - '@floating-ui/dom'
+      - embla-carousel
+      - esm-env
+
   '@alloc/quick-lru@5.3.0': {}
+
+  '@amadeus-it-group/tansu@2.0.0': {}
 
   '@ampproject/remapping@2.3.0':
     dependencies:
