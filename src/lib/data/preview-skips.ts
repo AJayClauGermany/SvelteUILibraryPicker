@@ -23,6 +23,8 @@ const svelteInternal
 const legacySyntax
 	= 'Svelte 3/4 kit with an older build toolchain; not attempted in the Svelte 5 + Vite preview app (docs/legacy-libraries.md).'
 
+const originExampleOnly = 'No base component: the look is written in the docs example itself.'
+
 export const previewSkips: Record<string, Partial<Record<ComponentId | '*', string>>> = {
 	// --- Libraries that cannot run in the preview app -------------------------------------------
 	'svelte-ux': { '*': 'Svelte UX 1.x needs Tailwind 3 (its theme is a Tailwind 3 plugin); the preview app runs Tailwind 4. Revisit when 2.0 is stable.' },
@@ -66,6 +68,23 @@ export const previewSkips: Record<string, Partial<Record<ComponentId | '*', stri
 		icon: 'Needs the separate flowbite-svelte-icons package, which is not installed.',
 	},
 	'sveltestrap': { icon: 'Needs the bootstrap-icons font, which its docs load from a CDN.' },
+	'perfectthings-ui': { resizable: 'The Splitter is only a drag handle between elements the app lays out itself, so a preview would need layout styles of ours.' },
+	// Origin UI has no base component for these: the look lives in each docs example's own markup,
+	// so a preview would copy the example.
+	'origin-ui-svelte': {
+		'alert': originExampleOnly,
+		'button-group': originExampleOnly,
+		'password-input': originExampleOnly,
+		'number-input': originExampleOnly,
+		'pin-input': originExampleOnly,
+		'date-picker': originExampleOnly,
+		'date-range-picker': originExampleOnly,
+		'clipboard': originExampleOnly,
+		'phone-input': originExampleOnly,
+		'tour': originExampleOnly,
+		'combobox': originExampleOnly,
+	},
+	'yesvelte': { icon: 'Icon is the `iconify-icon` web component, which fetches icon data from api.iconify.design at runtime.' },
 
 	// --- Tools ----------------------------------------------------------------------------------
 	'internationalized-date': { '*': 'Date and calendar utilities with no UI; libraries build their date components on it.' },
