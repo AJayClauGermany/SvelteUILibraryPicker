@@ -31,6 +31,9 @@ importers:
       '@codemirror/lang-javascript':
         specifier: 6.2.5
         version: 6.2.5
+      '@emoji-mart/data':
+        specifier: 1.2.1
+        version: 1.2.1
       '@event-calendar/core':
         specifier: 5.21.2
         version: 5.21.2
@@ -214,6 +217,9 @@ importers:
       '@zag-js/focus-trap':
         specifier: 1.47.0
         version: 1.47.0
+      '@zag-js/hotkeys':
+        specifier: 1.47.0
+        version: 1.47.0
       '@zag-js/hover-card':
         specifier: 1.47.0
         version: 1.47.0
@@ -349,6 +355,9 @@ importers:
       codemirror:
         specifier: 6.0.2
         version: 6.0.2
+      country-flag-icons:
+        specifier: 1.6.20
+        version: 1.6.20
       driver.js:
         specifier: 1.14.0
         version: 1.14.0
@@ -1149,6 +1158,9 @@ packages:
 
   '@emnapi/runtime@1.11.3':
     resolution: {integrity: sha512-Xz4Tpyki7XyrpbUK1jR1AhdAdaXyhhY4lZ3neLodmhpuWfy2PAQN5B46sAiU4liOXGLkHypn/qU+jvfWSCYYLA==}
+
+  '@emoji-mart/data@1.2.1':
+    resolution: {integrity: sha512-no2pQMWiBy6gpBEiqGeU77/bFejDqUTRY7KX+0+iur13op3bqUsXdnwoZs6Xb1zbv0gAj5VvS1PWoUUckSr5Dw==}
 
   '@esbuild/aix-ppc64@0.19.12':
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
@@ -3845,6 +3857,9 @@ packages:
   core-js-compat@3.51.0:
     resolution: {integrity: sha512-52r6fkXgxv4GLMjmFcMWRx7X9bw071xTTdrDcdyPGRqU2oE+9pCG0bAOMifSBdLw0JRBZKEF0q3B55qPlLuE8g==}
     engines: {node: '>=6.4.0'}
+
+  country-flag-icons@1.6.20:
+    resolution: {integrity: sha512-py8JiEKzjhYw6HPJ0L7SxLgCYim36UPRTZX43/kqGueUCZLSvnrqAiwW8HtQibur7mdkFQUkjOgdK+o/9FBtaw==}
 
   crelt@1.0.7:
     resolution: {integrity: sha512-aK6BbWfhf4U/wCcLHKPJl/xa6VkVstRaPywWtMKGwuOLc/wZTyQYuoxgvZnNsBvv7Kg3YTBQYYBCggcviQczuA==}
@@ -8073,6 +8088,8 @@ snapshots:
       tslib: 2.9.1
     optional: true
 
+  '@emoji-mart/data@1.2.1': {}
+
   '@esbuild/aix-ppc64@0.19.12':
     optional: true
 
@@ -11357,6 +11374,8 @@ snapshots:
   core-js-compat@3.51.0:
     dependencies:
       browserslist: 4.29.5
+
+  country-flag-icons@1.6.20: {}
 
   crelt@1.0.7: {}
 
