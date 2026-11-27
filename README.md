@@ -43,6 +43,7 @@ pnpm dev        # http://localhost:5173
 | `pnpm verify` | All of the above |
 | `pnpm status` | Overview: counts, preview gaps, stale entries |
 | `pnpm about <id>` | Everything about one library, tool or component |
+| `pnpm changes` | What your branch changes in the data, compared with `main` |
 
 More maintainer commands (update checks, link checks, scaffolding) are in
 [docs/maintaining.md](docs/maintaining.md).
@@ -67,12 +68,16 @@ in `previews/`; see [docs/architecture.md](docs/architecture.md).
 
 ## Contributing
 
-Humans and AI agents are both welcome.
+We welcome small, focused contributions from people who check their own work: one library, tool,
+preview set or fix per PR, starting from an issue. AI tools are fine to use, but a person reads the
+diff, checks the sources and answers review comments.
 
-- Humans: start with [CONTRIBUTING.md](CONTRIBUTING.md).
-- Agents: read [AGENTS.md](AGENTS.md). Claude Code, Gemini CLI and Copilot have small pointer
-  files (`CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`).
-- Known gaps and good first issues: [docs/backlog.md](docs/backlog.md).
+- Start with [CONTRIBUTING.md](CONTRIBUTING.md).
+- Agents (and the people driving them): [AGENTS.md](AGENTS.md). Claude Code, Gemini CLI and Copilot
+  have small pointer files (`CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`), and
+  Claude Code gets project skills in `.claude/skills/`.
+- Open work: [docs/backlog.md](docs/backlog.md). Why things are the way they are:
+  [docs/decisions.md](docs/decisions.md).
 
 ## License
 

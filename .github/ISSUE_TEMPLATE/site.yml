@@ -1,0 +1,31 @@
+name: Site bug or idea
+description: Something on the site is broken, confusing, or could work better.
+labels: [site]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - Bug
+        - Improvement
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: URL or route, e.g. /compare/?libs=bits-ui,melt
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens, and what you expected
+      description: For a bug, include browser and steps to reproduce. For an idea, say what problem it solves for someone choosing a library.
+    validations:
+      required: true
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Contribution
+      options:
+        - label: I'd like to work on this myself (a maintainer will confirm the approach first)
