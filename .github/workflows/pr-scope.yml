@@ -2,8 +2,11 @@ name: Linked issue
 
 # Contributions start from an issue that a maintainer has labelled "pr-allowed" in the weekly
 # triage (CONTRIBUTING.md, docs/maintaining.md). This check fails when a PR doesn't link one.
-# It passes for PRs by owners, members and collaborators, and for PRs labelled "pr-allowed"
-# themselves (how a maintainer accepts a typo fix or a PR that came without an issue).
+# It passes for PRs from a branch in this repository (only people with write access can push
+# one; outside contributors open PRs from forks), for PRs by owners, members and collaborators,
+# and for PRs labelled "pr-allowed" themselves (how a maintainer accepts a typo fix or a PR that
+# came without an issue). author_association alone isn't enough: it often reads CONTRIBUTOR for
+# people who do have write access.
 # It only reads the PR and its linked issues.
 
 on:
@@ -25,8 +28,12 @@ jobs:
           # Passed through env, never interpolated into the script: the body is user input.
           BODY: ${{ github.event.pull_request.body }}
           ASSOCIATION: ${{ github.event.pull_request.author_association }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
           PR_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
         run: |
+          if [ "$HEAD_REPO" = "$REPO" ]; then
+            echo "Opened from a branch in $REPO (write access): no linked issue needed."; exit 0
+          fi
           case "$ASSOCIATION" in
             OWNER|MEMBER|COLLABORATOR) echo "Opened by a maintainer ($ASSOCIATION): no linked issue needed."; exit 0 ;;
           esac

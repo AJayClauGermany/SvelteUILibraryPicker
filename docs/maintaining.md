@@ -44,7 +44,8 @@ the search):
   closing the ones you won't label soon keeps the list short; they can be reopened later.
 
 The "Linked issue" check (`.github/workflows/pr-scope.yml`) fails on PRs that don't link a
-`pr-allowed` issue. It skips PRs by owners, members and collaborators, and PRs that carry
+`pr-allowed` issue. It skips PRs opened from a branch in this repository (people with write
+access), PRs by owners, members and collaborators, and PRs that carry
 `pr-allowed` themselves (add it to accept a PR that came without an issue). It re-runs when the
 PR is edited or labelled; after you label the *issue*, re-run the check from the PR's Checks tab.
 It is not a required check unless you make it one in branch protection.
