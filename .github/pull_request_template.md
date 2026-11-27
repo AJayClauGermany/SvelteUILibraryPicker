@@ -1,9 +1,15 @@
 <!--
 Thanks for contributing. Please keep a PR to ONE library, tool, preview set, component id, fix
 or page (CONTRIBUTING.md). Larger PRs are usually asked to split before review.
+
+The linked issue needs the `pr-allowed` label (a maintainer adds it during weekly triage).
+Typo and broken-link fixes don't need an issue.
+
+Found something outside this PR (docs that contradict each other, an undocumented field, a bug
+elsewhere)? Leave it out of this PR. Post it as a comment after this description and open an issue.
 -->
 
-Closes #<!-- issue number; required unless this is a typo or broken-link fix -->
+Closes #<!-- the number of an issue labelled pr-allowed -->
 
 ## What and why
 

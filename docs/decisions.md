@@ -74,7 +74,9 @@ that says what changed since the decision was made. Open work lives in [backlog.
 ## Contributions
 
 - **Small, human-reviewed PRs** (2026-11-27). One library, tool, preview set, component id, fix or
-  page per PR, starting from an issue. AI tools are welcome as tools, but a person reads the diff,
+  page per PR, starting from an issue that a maintainer has labelled `pr-allowed` in the weekly
+  triage. Problems found outside a PR's scope become a PR comment and a new issue, not more changes
+  in the same PR. Small units keep the project open to more contributors and easy to review. AI tools are welcome as tools, but a person reads the diff,
   checks the sources and answers review comments; PRs opened by an agent on its own are closed.
   Sweeping updates are done by maintainers from the weekly `data-health` issue. See
   [CONTRIBUTING.md](../CONTRIBUTING.md).

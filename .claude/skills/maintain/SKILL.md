@@ -10,6 +10,10 @@ of finding to what to do. Use the commands instead of reading data files:
 - `pnpm check:updates [<id>]`, `pnpm check:links [<id>]`, `pnpm facts <id>`
 - `pnpm about <id>`: everything about one library, tool or component
 
+For the weekly issue triage (open issues without `pr-allowed`), list them with a one-line
+summary and a suggested action (label, split, close) for the maintainer. Adding the label or
+closing issues is their decision; don't do it yourself.
+
 Fix findings **one entry per branch**, using the add-library, add-tool or add-preview skill for
 the actual change. If the user asks for a sweep across many entries, suggest one PR per entry (or
 a small batch of the same kind of fix agreed in an issue), and list what you'd do first.

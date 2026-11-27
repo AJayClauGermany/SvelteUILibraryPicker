@@ -1,0 +1,49 @@
+name: Linked issue
+
+# Contributions start from an issue that a maintainer has labelled "pr-allowed" in the weekly
+# triage (CONTRIBUTING.md, docs/maintaining.md). This check fails when a PR doesn't link one.
+# It passes for PRs by owners, members and collaborators, and for PRs labelled "pr-allowed"
+# themselves (how a maintainer accepts a typo fix or a PR that came without an issue).
+# It only reads the PR and its linked issues.
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, labeled, unlabeled]
+
+permissions:
+  issues: read
+  pull-requests: read
+
+jobs:
+  pr-allowed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for a linked pr-allowed issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          # Passed through env, never interpolated into the script: the body is user input.
+          BODY: ${{ github.event.pull_request.body }}
+          ASSOCIATION: ${{ github.event.pull_request.author_association }}
+          PR_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: |
+          case "$ASSOCIATION" in
+            OWNER|MEMBER|COLLABORATOR) echo "Opened by a maintainer ($ASSOCIATION): no linked issue needed."; exit 0 ;;
+          esac
+          if [[ ",$PR_LABELS," == *",pr-allowed,"* ]]; then
+            echo "The PR itself is labelled pr-allowed."; exit 0
+          fi
+          # Issue numbers after a closing keyword, ignoring HTML comments in the template.
+          issues=$(printf '%s' "$BODY" | perl -0pe 's/<!--.*?-->//gs' \
+            | grep -oiE '\b(close[sd]?|fix(e[sd])?|resolve[sd]?):? +#[0-9]+' | grep -oE '[0-9]+$' | sort -u || true)
+          if [ -z "$issues" ]; then
+            echo "::error title=No linked issue::Add 'Closes #<number>' for an issue labelled pr-allowed to the PR description. No issue yet? Open one first; maintainers label issues during the weekly triage. See CONTRIBUTING.md."
+            exit 1
+          fi
+          for n in $issues; do
+            if gh api "repos/$REPO/issues/$n" --jq '.labels[].name' 2>/dev/null | grep -qx 'pr-allowed'; then
+              echo "#$n is labelled pr-allowed."; exit 0
+            fi
+          done
+          echo "::error title=Issue not ready for a PR::None of the linked issues ($(echo $issues | sed 's/[0-9]\+/#&/g')) has the pr-allowed label yet. A maintainer adds it during the weekly triage; then re-run this check. See CONTRIBUTING.md."
+          exit 1

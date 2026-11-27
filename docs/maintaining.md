@@ -31,9 +31,27 @@ Use the [review playbook](playbooks/review-change.md). Each PR's CI job summary 
 it touches more than one entry. Ask for a split rather than reviewing a large PR as one piece;
 sweeping updates are maintainer work from the `data-health` issue.
 
-Labels worth keeping on the repo: `good first issue` and `help wanted` for issues that are ready
-to pick up, plus the ones the issue templates set (`library-request`, `data`, `site`,
-`maintainer-request`) and `data-health` from the weekly workflow.
+## Weekly issue triage
+
+Contributions are paced by one label: **`pr-allowed`** means "a PR for this issue is welcome
+now". Once a week, go through the open issues that don't have it (the `data-health` issue links
+the search):
+
+- **Ready and in scope**: add `pr-allowed`, plus `good first issue` or `help wanted` where it
+  fits. Make sure the issue says what "done" looks like, sized for one small PR.
+- **Too big**: split it into issues that are each one PR, then label those.
+- **Not now, duplicate or out of scope**: close it with a short reason. When many issues come in,
+  closing the ones you won't label soon keeps the list short; they can be reopened later.
+
+The "Linked issue" check (`.github/workflows/pr-scope.yml`) fails on PRs that don't link a
+`pr-allowed` issue. It skips PRs by owners, members and collaborators, and PRs that carry
+`pr-allowed` themselves (add it to accept a PR that came without an issue). It re-runs when the
+PR is edited or labelled; after you label the *issue*, re-run the check from the PR's Checks tab.
+It is not a required check unless you make it one in branch protection.
+
+The weekly health workflow creates the labels this process uses (`pr-allowed`,
+`good first issue`, `help wanted`, `site`, `data-health`); the issue templates also set
+`library-request`, `data` and `maintainer-request`.
 
 ## The weekly routine
 
@@ -95,7 +113,8 @@ and check commands you need next. Add `--dry-run` to see the file first.
 | Every PR and push to `main` | `pnpm validate`, `pnpm check`, `pnpm build`, and `pnpm status` in the job summary | [ci.yml](../.github/workflows/ci.yml) |
 | Every PR | `pnpm changes` in the job summary, with a warning when it touches more than one entry | [ci.yml](../.github/workflows/ci.yml) |
 | Every push to `main` | Build and deploy to GitHub Pages | [deploy.yml](../.github/workflows/deploy.yml) |
-| Mondays, or by hand | `check:updates`, `check:links`, `status` into the `data-health` issue | [health.yml](../.github/workflows/health.yml) |
+| Every PR (opened, edited, labelled) | Links an issue labelled `pr-allowed`, unless a maintainer opened it | [pr-scope.yml](../.github/workflows/pr-scope.yml) |
+| Mondays, or by hand | `check:updates`, `check:links`, `status` into the `data-health` issue, a link to the issues waiting for triage, and the process labels | [health.yml](../.github/workflows/health.yml) |
 
 ## Where to change what
 

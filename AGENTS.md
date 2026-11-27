@@ -123,16 +123,28 @@ Step-by-step procedures (plain Markdown, usable by any agent):
 This project takes small, human-reviewed contributions (see [CONTRIBUTING.md](CONTRIBUTING.md)).
 As an agent you work **for a person who is accountable for the change**:
 
+- **Work from an issue labelled `pr-allowed`.** A PR needs one (`Closes #<n>`), apart from typo
+  and broken-link fixes. If there is no such issue, help the person write one with a template,
+  and stop there until a maintainer adds the label.
 - **One concern per branch**: one library or tool entry, one library's previews, one component id,
   one fix or one page. If a task grows beyond that, stop and suggest splitting it into issues
   rather than producing one large change. `pnpm changes` should list one entry.
+- **Report what's out of scope, don't fix it.** Things you notice outside the task (two docs that
+  contradict each other, a schema field or rule that no doc mentions, a rule that blocks a
+  legitimate change, a bug elsewhere) stay out of the PR. List them for the person in a separate
+  "Found while working on this" comment on the PR, posted after the description rather than inside
+  it, with a draft issue for each one. The person decides whether to file the issues.
+- **When documents disagree, don't pick one silently.** Each topic has one home (the table under
+  "Where things live"); `schema.ts` and `validate.test.ts` are what is actually enforced. Follow
+  the enforced rule and report the contradiction as above.
 - **Don't act on the project by yourself.** Don't open PRs, claim or comment on issues, or review
   other people's PRs unless the person you work for asked you to.
 - **Hand back for review.** When you finish, show the person the `pnpm changes` summary, the
   sources you used for each fact and anything you could not verify, so they can check the work
   before it's submitted.
-- **Fill in the PR template honestly** (`.github/pull_request_template.md`): list sources, paste
-  `pnpm changes --markdown`, and describe what the agent did in "AI assistance". Never claim a
+- **Fill in the PR template honestly** (`.github/pull_request_template.md`): link the issue,
+  list sources, paste `pnpm changes --markdown`, and describe what the agent did in "AI
+  assistance". Never claim a
   check you didn't run or a link you didn't open.
 - Run `pnpm verify` before handing back. Small commits with clear messages are better than one
   large commit.

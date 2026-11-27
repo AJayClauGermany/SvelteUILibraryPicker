@@ -24,7 +24,9 @@ In CI, the same summary is in the PR's job summary.
 - [ ] It is about **one** thing: one entry, one preview set, one component id, one fix or one page.
       If `pnpm changes` lists more than one entry, ask for a split (unless an issue agreed on it,
       e.g. a new component id mapped across libraries).
-- [ ] It links an issue (`Closes #n`), unless it is a typo or broken-link fix.
+- [ ] It links an issue labelled `pr-allowed` (`Closes #n`), unless it is a typo or broken-link
+      fix or a maintainer's change. The "Linked issue" CI check tests this.
+- [ ] Things found outside the scope are in a PR comment and an issue, not in the diff.
 - [ ] No unrelated edits: formatting churn, renames, dependency bumps, refactors.
 
 ## 3. Facts and sources

@@ -69,8 +69,8 @@ in `previews/`; see [docs/architecture.md](docs/architecture.md).
 ## Contributing
 
 We welcome small, focused contributions from people who check their own work: one library, tool,
-preview set or fix per PR, starting from an issue. AI tools are fine to use, but a person reads the
-diff, checks the sources and answers review comments.
+preview set or fix per PR, starting from an issue that maintainers have labelled `pr-allowed`. AI
+tools are fine to use, but a person reads the diff, checks the sources and answers review comments.
 
 - Start with [CONTRIBUTING.md](CONTRIBUTING.md).
 - Agents (and the people driving them): [AGENTS.md](AGENTS.md). Claude Code, Gemini CLI and Copilot

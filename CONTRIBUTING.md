@@ -7,25 +7,38 @@ checked their work themselves**.
 
 ## How we work
 
-1. **Start from an issue.** Pick an open issue (look for `good first issue` and `help wanted`)
-   or open one with a template first. Comment on it to say you're taking it. Typo and broken-link
-   fixes can skip this step.
+1. **Start from an issue labelled `pr-allowed`.** Open an issue with a template, or pick an
+   existing one. Maintainers triage new issues every week and add `pr-allowed` to the ones that are
+   ready for a PR (`good first issue` and `help wanted` mark the easier ones). Wait for the label
+   before you open a PR, and comment on the issue to say you're taking it. Typo and broken-link
+   fixes can go straight to a PR.
 2. **One concern per PR.** One library or tool entry, one preview set (one library), one new
-   component id, one bug fix or one page. If you find something else on the way, open an issue
-   for it instead of adding it to your PR.
-3. **Keep it reviewable.** `pnpm changes` summarises what your branch does to the data. If it
+   component id, one bug fix or one page.
+3. **Report what's out of scope, don't fix it.** If you find something else on the way (two docs
+   that contradict each other, a schema field nobody documented, a rule that blocks a legitimate
+   change, a bug elsewhere), leave it out of your PR. Add a comment on your PR, after the
+   description, that lists what you found, and open an issue for each one. Someone can pick it up
+   once the issue has `pr-allowed`.
+4. **Keep it reviewable.** `pnpm changes` summarises what your branch does to the data. If it
    lists more than one entry, split the PR. Small commits with clear messages
    (`Add Melt dialog preview`, `Fix Skeleton tabs docs link`) are easier to review than one large
    commit.
-4. **Link your sources.** Every fact you add or change needs a source in the PR: npm, a file in
+5. **Link your sources.** Every fact you add or change needs a source in the PR: npm, a file in
    the library's repo, or an official docs page. "Couldn't verify, left out" is a good outcome.
-5. **Run the checks.** `pnpm verify` must pass before you ask for review.
+6. **Run the checks.** `pnpm verify` must pass before you ask for review. A CI check also looks
+   for a linked `pr-allowed` issue (`Closes #<n>` in the description).
+
+Why so small? This is meant to be a collaborative project. Small issues and PRs let more people
+take part, including people who use AI tools, and keep every change easy to understand and
+review. Maintainers may still make larger, sweeping changes where a project-wide update needs
+them.
 
 A maintainer reviews against the [review checklist](docs/playbooks/review-change.md). You can run
 the same checklist on your own PR before you open it.
 
 ### What we don't merge
 
+- PRs for issues that don't have `pr-allowed` yet (open the issue first and wait for triage).
 - Bulk PRs that touch many entries at once (mass "updates", re-formatting, regenerated data).
   Maintainers run sweeping updates themselves from the weekly `data-health` issue.
 - Facts without a primary source, guessed URLs, or text copied from a library's docs.
@@ -48,7 +61,8 @@ author, so:
   checked every link and the npm facts").
 - **Answer review comments yourself.** Don't paste agent replies.
 - **Keep the scope small.** Agents make it easy to produce a lot at once; please don't. One entry
-  per PR applies to agent-assisted work too.
+  per PR applies to agent-assisted work too. If the agent notices problems outside the task, they
+  go in a PR comment and a new issue, not in the PR.
 - **Respect each library's rules.** No previews or generated content for `restricted` or
   `unreviewed` libraries, and if you contribute upstream to a library, follow its own policy
   (recorded as `ai.upstreamContributing` on its entry).

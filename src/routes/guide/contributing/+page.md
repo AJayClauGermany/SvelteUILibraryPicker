@@ -8,10 +8,12 @@ who check their own work**. The full guide is
 
 ## How it works
 
-1. **Start from an issue.** Pick an open one or open one with a template. Typo and broken-link
-   fixes can skip this.
+1. **Start from an issue.** Open one with a template, or pick an existing one. Maintainers triage
+   issues weekly and add the `pr-allowed` label to the ones ready for a PR; wait for it before you
+   open one. Typo and broken-link fixes can skip this.
 2. **One concern per PR**: one library or tool entry, one library's previews, one component type,
-   one fix or one page.
+   one fix or one page. Found something else on the way? Mention it in a comment on your PR and
+   open an issue for it, rather than fixing it in the same PR.
 3. **Link a source for every fact** you add or change: npm, the library's repo, or its official
    docs. If you can't verify something, leave it out and say so.
 4. **Run the checks**: `pnpm verify` must pass, and `pnpm changes` shows what your branch does to

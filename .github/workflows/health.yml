@@ -46,6 +46,10 @@ jobs:
             pnpm --silent check:updates --markdown
             pnpm --silent check:links --markdown || true
             pnpm --silent status --markdown
+            echo
+            echo "## Issue triage"
+            echo
+            echo "Open issues waiting for triage (no \`pr-allowed\` label): [search](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/issues?q=is%3Aissue+is%3Aopen+-label%3Apr-allowed+-label%3Adata-health). Label the ones ready for a PR, split or close the rest (docs/maintaining.md)."
           } > report.md
           cat report.md >> "$GITHUB_STEP_SUMMARY"
       - name: Update the data-health issue
@@ -59,7 +63,12 @@ jobs:
           else
             cp report.md body.md
           fi
+          # Labels the contribution process relies on (docs/maintaining.md). --force keeps them in step.
           gh label create data-health --color 0E8A16 --description "Weekly data health report" --force
+          gh label create pr-allowed --color 1D76DB --description "Triaged: a PR for this issue is welcome" --force
+          gh label create "good first issue" --color 7057FF --description "Small and well defined; good for a first PR" --force
+          gh label create "help wanted" --color 008672 --description "Ready for a contributor to pick up" --force
+          gh label create site --color C5DEF5 --description "Site bug or improvement" --force
           number=$(gh issue list --label data-health --state open --json number --jq '.[0].number')
           if [ -n "$number" ]; then
             gh issue edit "$number" --body-file body.md
