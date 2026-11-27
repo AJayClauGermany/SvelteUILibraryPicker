@@ -1,14 +1,18 @@
 # Svelte UI Library Picker
 
-> A secondary-source comparison of Svelte UI libraries: Svelte version support, components (mapped to a shared taxonomy), licenses, AI policies and live previews of default styles. Always defer to each library's official documentation, which every page links to.
+> A secondary-source comparison of Svelte UI libraries: Svelte version support, components (mapped to a shared taxonomy), licenses, AI policies, maintenance status and live previews of default styles. Always defer to each library's official documentation, which every page links to.
 
 ## Pages
 
-- [Libraries](./libraries/): all tracked libraries with filters
-- [Components](./components/): every component type and which libraries provide it
-- [Compare](./compare/): side-by-side matrix with live previews; state in ?libs=a,b&component=x
+- [Libraries](./libraries/): all tracked libraries with filters; one page per library at ./libraries/<id>/
+- [Components](./components/): every component type and which libraries provide it, with props tables and previews; one page per component at ./components/<id>/
+- [Compare](./compare/): side-by-side matrix with live previews; state in ?libs=a,b&component=x&category=y
+- [Port](./port/): prop-by-prop view of moving a component between two libraries; state in ?from=a&to=b&component=x
+- [Tools](./tools/): single-purpose packages and building blocks (charts, toasts, maps, editors...); one page per tool at ./tools/<id>/
+- [Features and badges](./guide/features/): what the feature tags and maintenance badges mean
 - [Licenses & AI policy](./guide/licenses-and-ai/): how we use library material and respect AI boundaries
+- [About](./guide/about/) and [Contributing](./guide/contributing/)
 
 ## Source data
 
-- [Repository](https://github.com/AJayClauGermany/SvelteUILibraryPicker): one TypeScript file per library in src/lib/data/libraries/
+- [Repository](https://github.com/AJayClauGermany/SvelteUILibraryPicker): one TypeScript file per library in src/lib/data/libraries/ and per tool in src/lib/data/tools/

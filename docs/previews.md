@@ -78,6 +78,21 @@ look unstyled on purpose. Tool previews appear on the tool's page and under "Rel
 component page. Library and tool ids must never collide, since both key the folder (`pnpm validate`
 checks it).
 
+## Package quirks to know
+
+Setup details that are easy to undo by accident:
+
+- `@event-calendar/core` depends on `svelte` directly (not as a peer), so the root `svelte`
+  devDependency is kept at a version that satisfies it, to keep a single Svelte copy. Bump them
+  together.
+- emoji-picker-element reads its emoji data from the local `emoji-picker-element-data` package
+  instead of its default CDN, so previews stay offline.
+- svelte-5-ui-lib's install-guide base input styles are unlayered, so under Tailwind 4 they override
+  the components' own classes. It also imports its own index as a directory (`from '..'`), which the
+  production build only resolves through the small resolver in `previews/vite.config.ts`.
+- svelte-codemirror-editor and svelte-awesome-color-picker render light-only: their dark themes are
+  app-written CSS or an optional theme package.
+
 ## Helper scripts
 
 - `pnpm coverage [--todo|--why <id>|--json]`: components each library and tool lists, and which
@@ -128,8 +143,8 @@ portals and locale providers), so they are kept in one place and checked by `pnp
 Libraries whose `ai.status` is `restricted` or `unreviewed` (e.g. Svelte Material UI) get no
 previews at all.
 
-## Roadmap
+## Open work
 
-- **Svelte UX 2.0**: add a `styles.css` and previews once 2.0 is stable (then drop its line in
-  `preview-skips.ts`).
-- **Screenshot tests** (Playwright) so preview regressions show up in PRs.
+Open preview work (Svelte UX 2.0, more shared components, type hovers) is in
+[backlog.md](backlog.md#previews); why screenshot tests are deferred is in
+[decisions.md](decisions.md#previews).

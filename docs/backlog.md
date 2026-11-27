@@ -1,85 +1,67 @@
-# Backlog and good first issues
+# Backlog
 
-Known gaps from the initial research (2026-11-03), updated 2026-11-04. Each item is a good self-contained task for
-a human or an agent. Re-verify against the official docs before acting; these notes are leads,
-not facts.
+Open work, grouped by kind. Each bullet is meant to be one issue and one PR. These are leads, not
+facts: re-check the official docs before acting on one. Settled questions (what we list, how
+previews work, why something is left out) are in [decisions.md](decisions.md). For what is missing
+or stale right now, the commands are more current than this file: `pnpm status`,
+`pnpm coverage --todo`, `pnpm check:updates` and the weekly `data-health` issue.
 
-## Component types we don't have yet
+When you take an item, open an issue for it (or find the existing one) and remove the bullet in
+your PR.
 
-The first batch of suggestions (date/time range fields, typography, empty state, code block, split
-button, search, password input, editable, signature pad, angle slider, image cropper, floating
-panel, tour, marquee, QR code, timeline, table of contents, bottom navigation, footer, stack,
-virtual list, icon, timer, locale provider) was added to the taxonomy on 2026-11-04 and mapped
-for every library that documents them.
+## Component ids to add
 
-These components still exist in at least one library but have no canonical id. To fix one: add
-the id to `src/lib/data/components.ts`, then map every library that has it (with verified docs
-URLs; most of these are already mentioned in `notes` of a nearby entry).
+Each exists in at least one library but has no canonical id. To fix one: add the id to
+`src/lib/data/components.ts`, then map the libraries that have it (with verified docs URLs; most
+are already mentioned in the `notes` of a nearby entry). One id per PR.
 
 | Suggested id | Category | Seen in |
 | --- | --- | --- |
-| `segmented-control` | actions | Ark UI (Segment Group), Skeleton (Segmented Control) — currently folded into `toggle-group` |
-| `chip` (interactive) | actions | Skeleton (Chips), M3 Svelte (ChipChooser, undocumented) — currently folded into `badge` |
-| `progress-circular` | feedback | Ark UI, Skeleton, Flowbite (Progressradial) — currently a note under `progress` |
-| `banner` | feedback | Flowbite Svelte (Banner), Carbon (PageHeader is different) |
+| `segmented-control` | actions | Ark UI (Segment Group), Skeleton (Segmented Control); currently folded into `toggle-group` |
+| `chip` (interactive) | actions | Skeleton (Chips), M3 Svelte (ChipChooser, undocumented); currently folded into `badge` |
+| `progress-circular` | feedback | Ark UI, Skeleton, Flowbite (Progressradial); currently a note under `progress` |
+| `banner` | feedback | Flowbite Svelte (Banner) |
 | `page-header` | layout | Carbon (PageHeader) |
 | `description-list` | data-display | Carbon (DescriptionList, StructuredList) |
 | `content-switcher` | navigation | Carbon (ContentSwitcher) |
-| `step-indicator` | navigation | Flowbite Svelte (Step Indicator) — currently a note under `stepper` |
+| `step-indicator` | navigation | Flowbite Svelte (Step Indicator); currently a note under `stepper` |
 | `kanban` | data-display | Flowbite Svelte (Kanban Board) |
 | `masonry` | layout | Flowbite Svelte (Virtual Masonry) |
 | `video` | data-display | Flowbite Svelte (Video) |
 | `device-mockup` | data-display | Flowbite Svelte (Device Mockups) |
-| `floating-label` | forms | Flowbite Svelte (Floating Label) — currently a note under `input` |
+| `floating-label` | forms | Flowbite Svelte (Floating Label); currently a note under `input` |
 | `input-group` | forms | Sveltestrap (InputGroup), shadcn-svelte (Input Group), Carbon (InputGroup, master only) |
 | `close-button` | actions | Flowbite Svelte (Close Button) |
-| `rich-text-editor` | forms | Flowbite Svelte (WYSIWYG plugin) |
 | `fullscreen` | utilities | SVAR Core (Fullscreen) |
-| `presence` | utilities | Ark UI and Zag.js (Presence: delays unmount for exit animations). Sveltestrap Fade and M3 Svelte UI transitions are now mapped to `animation` |
+| `presence` | utilities | Ark UI and Zag.js (Presence: delays unmount for exit animations) |
 | `highlight` | data-display | Ark UI (Highlight) |
 | `format` helpers | utilities | Ark UI (Format Byte / Number / Time / Relative Time) |
 | `download-trigger` | utilities | Ark UI |
 | `client-only` / `lazy` | utilities | Ark UI (Client Only), Svelte UX (Lazy), Carbon (LazyMount, master only) |
-| `json-tree-view` | data-display | Ark UI (preview) — currently a note under `tree-view` |
+| `json-tree-view` | data-display | Ark UI (preview); currently a note under `tree-view` |
 | `toggletip` | overlays | Carbon (Toggletip) |
 | `overlay` | overlays | Svelte UX (Overlay) |
 | `effects` | utilities | Svelte UX (Shine, Tilt, Gooey) |
 | `storage` | utilities | Carbon (LocalStorage, SessionStorage) |
 | `spatial-menu` | navigation | Melt (WIP, no usage docs yet) |
+| `window` | layout | suggested by newer libraries; needs a survey first |
+| `places-autocomplete` | forms | suggested by newer libraries; needs a survey first |
 | chat components | (new category?) | shadcn-svelte (Message, Message Scroller, Bubble, Attachment, Marker, Trace, Questionnaire; plus an "AI Elements" docs section), Carbon (ChatLog, ChatButton on master; `@carbon/ai-chat` is a separate package) |
 
-Documented as guides or recipes rather than shipped components, so not mapped on purpose:
-Skeleton's Code Block (Shiki integration), Table of Contents, Alerts, Breadcrumbs, Light Switch and
-Clipboard cookbook pages. Revisit if the taxonomy ever lists recipes.
+Mapping follow-ups for ids that already exist:
 
-Exported but undocumented (no deep link possible, so left out): Svelte UX `Kbd`, `SectionDivider`;
-Sveltestrap `Portal`, `Jumbotron`, `FormText`, `FormCheck`; M3 Svelte `ChipChooser`,
-`DatePickerDocked`; Ark UI `Portal`.
+- Flowbite Svelte's WYSIWYG plugin is not mapped to `rich-text-editor` yet.
+- coss ui for Svelte has a `split-pane` component with no docs page yet; map it to `resizable`
+  when one appears.
+- RetroUI Svelte's registry also ships Chart, Data Table, Scroll Area and Sidebar, without docs
+  pages yet; map them when pages appear.
 
-## Libraries to consider adding
+## Libraries to consider
 
-Source: the "What's new in Svelte" posts from January 2024 to October 2026 (read from the
-`sveltejs/svelte.dev` repo) plus well-known older kits, checked against npm and each repo on
-2026-11-04. Added in that pass: Svelte Material UI, Zag.js, Konsta UI, Kampsy UI, Bootstrap Svelte,
-Sivir UI and Lily. Still open:
+Found in the "What's new in Svelte" posts (January 2024 to October 2026) and npm, checked on
+2026-11-04 and 2026-11-24.
 
-**shadcn-svelte registries (no npm package).** These install through the `shadcn-svelte` or
-`jsrepo` CLI. Decision (2026-11-04): add each one as a normal library entry. Record the CLI package
-in `packages` (e.g. `shadcn-svelte`, `jsrepo`), the registry's own release or repo version in
-`version`, `styling: ['copy-paste', 'tailwind']`, and say in `notes` that it is installed from a
-shadcn-svelte (or jsrepo) registry, the same way entries already note that a library needs Tailwind
-or Bootstrap CSS. All four candidates (coss ui for Svelte, shadcn-svelte-extras, RetroUI Svelte,
-neobrutalism-svelte) were added on 2026-11-22 this way. Follow-ups from that pass:
-
-- RetroUI Svelte's registry also ships Chart, Data Table, Scroll Area and Sidebar, but they have no
-  docs pages yet, so they aren't mapped. Its `package.json` says 0.8.0 while the latest tag is 0.9.3
-  (recorded).
-- neobrutalism-svelte has no tags or releases; the private `package.json` version (0.0.1) is recorded.
-- coss ui for Svelte has a `split-pane` component with no docs page yet; map it to `resizable` when
-  one appears.
-- shadcn-svelte-extras' `llms.txt` links to an older URL layout.
-
-**Wait for a stable release or public docs:**
+**Waiting for a stable release or public docs:**
 
 | Library | Package | Why it waits |
 | --- | --- | --- |
@@ -91,195 +73,106 @@ neobrutalism-svelte) were added on 2026-11-22 this way. Follow-ups from that pas
 | Trioxide | `@obelusfi/trioxide` 0.4.12 | work in progress, no LICENSE file |
 | Svelte Polaris | `svelte-polaris` 0.0.7 | 0.0.x and idle |
 | lomer-ui | `lomer-ui` 0.0.22 | 0.0.x; describes itself as not a component library |
+| Svelteit | | alpha only |
+| svelte-fui | | alpha, no docs site |
 | mielui | `@mielui/svelte` 0.4.0 | found via npm, not researched yet |
 
-**Probably not, unless something changes:** apple-svelte (no LICENSE file), Tark UI (no LICENSE
-file), Atom Forge UI (custom non-SPDX "Patron License"), Material Svelte by flenze (repo not found).
+**To review as a library:** `svelte-widgets` (svelte-widgets.janosh.dev, MIT, Svelte ^5.48.0), the
+successor of `svelte-multiselect` with 30+ components.
 
-**Older, idle and archived libraries (decision 2026-11-24).** These used to be skipped. They are
-now listed for reference and migration planning, each with a maintenance badge (Active, Quiet,
-Legacy, Deprecated; see the guide's "Maintenance status" section). Being old, idle, Svelte 3/4-only
-or archived is no longer a reason to leave a library out; a missing LICENSE file or missing public
-docs still is. Added on 2026-11-24: Ato UI, ikun-ui, Attractions, Smelte, SvelteUI, STWUI, Fluent
-Svelte, rgossiaux svelte-headlessui, svelte-headlessui (CaptainCodeman), svelte-atoms, Grail UI,
-Radix Svelte, svelte-5-ui-lib, Melt UI (legacy `@melt-ui/svelte`) and Origin UI Svelte. What their
-code shows about migrating between majors is in [legacy-libraries.md](legacy-libraries.md).
-Follow-ups:
+**Not addable as they stand:** apple-svelte, Tark UI and Ionic Svelte (no LICENSE file), Atom
+Forge UI (custom non-SPDX "Patron License"), Material Svelte by flenze (repo not found), Material
+Svelte `material-svelte` (docs site down), daisy-svelte (docs site gone).
 
-- Previews (2026-11-25): svelte-5-ui-lib, Origin UI Svelte and Melt UI (legacy) have them. The rest need Svelte 3/4
-  or an old toolchain (Tailwind 2, UnoCSS 0.57, svelte-preprocess 4), or import `svelte/internal`,
-  so they won't run in the Svelte 5 preview app; each reason is in `src/lib/data/preview-skips.ts`.
-  svelte-headlessui (CaptainCodeman) is store/action based and should run: still to do.
-- STWUI's README says it is no longer actively developed but still accepts issues and PRs. That
-  isn't an explicit deprecation, so its badge is Legacy (Svelte 4 only), not Deprecated.
-- A second batch, found in the same discovery pass, was added later on 2026-11-24: Svelte
-  Materialify, Svelma, Kahi UI, svelte-chota, YeSvelte, svelte-mui, Vitamin Svelte, proi-ui,
-  svelte-spectre, Spaper, STDF, MDB Svelte, Sveltin Essentials, AgnosUI, PerfectThings UI,
-  Framework7 Svelte, ui-svelte (Nick Mazuk) and Figma Plugin DS Svelte. Points to re-check:
-  - Kahi UI is Deprecated because its README calls it unsupported and on indefinite hiatus, and
-    tells users to look for alternatives. npm has no deprecation flag and the repo is not
-    archived, so revisit this if the notice changes.
-  - Vitamin Svelte's upstream says this version takes bug fixes only while a new Vitamin is built.
-    That is a freeze, not a deprecation, so the badge is Legacy (Svelte 3 only).
-  - YeSvelte records the `next` dist-tag (0.2.1-next.4, Svelte 5), which its docs install;
-    `latest` still points at a Svelte 3 prerelease.
-  - svelte-mui and Vitamin Svelte docs are client-rendered (any path returns 200), and ui-svelte's
-    are a Storybook, so their component links were checked against the route lists in source,
-    not by HTTP status. Figma Plugin DS Svelte links to README headings.
-  - Previews added on 2026-11-25 for Spaper, AgnosUI, YeSvelte, PerfectThings UI, Framework7 Svelte
-    and STDF. Library quirks seen while doing so: YeSvelte's Alert and Toast hard-code a white
-    background in dark mode; Framework7 9.3.0's datepicker throws without a `value`, its gauge
-    defaults to black text in dark mode, and `framework7-svelte` imports `skeleton-elements`
-    without declaring it; svelte-5-ui-lib's install-guide base input styles are unlayered, so they
-    override the components' own classes under Tailwind 4, and it imports its own index as a
-    directory (`from '..'`), which the production build can't resolve without the small resolver in
-    `previews/vite.config.ts` (drop it once upstream uses explicit paths); STDF's built-in texts default to
-    Simplified Chinese unless wrapped in its ConfigProvider.
+## Tools to consider
 
-  Not addable as they stand: Ionic Svelte (no LICENSE file at the repo root), Svelteit (alpha only),
-  Material Svelte `material-svelte` (docs site down), svelte-fui (alpha, no docs site), daisy-svelte
-  (docs site gone).
+- A Svelte 5 motion library (spring and layout animations beyond `svelte/motion`).
+- `@humanspeak/svelte-markdown` as a second markdown option (more recent releases than
+  svelte-exmarkdown).
+- A Shiki-based code-block package with real docs. None found on 2026-11-23 (`svelte-shiki` is from
+  2020; `@shikijs/magic-move` is an animation package).
+- Considered and waiting: `bigger-picture` (lightbox; README withdrew Svelte usage pending
+  Svelte 5 checks), `canvas-confetti` (framework-agnostic).
 
-**Skipped on purpose:** non-Svelte libraries (AgnosticUI, FlyonUI, daisyUI), single-purpose
-components (Formsnap, svelte-sonner, PaneForge, vaul-svelte, select-kit, data grids) and chart/3D
-libraries (LayerChart, Threlte). Single-purpose packages now live in the [Tools](#tools) section
-instead.
+## Entries to re-check
 
-## Tools
-
-The Tools section (`src/lib/data/tools/`, added 2026-11-06). On 2026-11-22 the grounding rule was
-widened: tools may map to components no tracked library provides (new ids `map`, `drag-and-drop`,
-`rich-text-editor`), and general `utility` helpers (runed, svelte-toolbelt) may map to none. Next steps:
-
-- 2026-11-24: 15 more gap ids (`code-editor`, `phone-input`, `emoji-picker`, `lightbox`, `confetti`,
-  `node-editor`, `scene-3d`, `animated-value`, `markdown`, `event-calendar`, `gantt`, `i18n`, `hotkeys`,
-  `gestures`, `animation`) and 20 tools for them or as second options (Svelte Flow, Threlte, Event
-  Calendar, SVAR Gantt, emoji-picker-element, svelte-codemirror-editor, svelte-tel-input, NumberFlow,
-  svelte-confetti, svelte-gestures, Paraglide JS, svelte-i18n, AutoAnimate, svelte-exmarkdown,
-  PhotoSwipe, @svelte-put/shortcut, svelte-awesome-color-picker, svelte-range-slider-pips,
-  phosphor-svelte, svelte-tiptap). Libraries that document these components were mapped too.
-  Follow-ups from that pass:
-  - Previews were added for 18 of the 20 new tools (2026-11-24). No preview for `@svelte-put/shortcut`
-    (`restricted`: its docs site blocks AI agents) or Paraglide JS (needs its compiler step).
-    svelte-codemirror-editor and svelte-awesome-color-picker render light-only (their dark themes are
-    app-written CSS or an optional theme package). emoji-picker-element reads its emoji data from the
-    local `emoji-picker-element-data` package instead of its default CDN, so previews stay offline.
-    `@event-calendar/core` depends on `svelte` directly (not as a peer), so the root `svelte` was raised
-    to 5.59.1 to keep a single copy; keep them in step when either is bumped.
-  - A Svelte 5 motion library (spring/layout animations beyond `svelte/motion`) is still open.
-  - Second options considered: `bigger-picture` (lightbox; README withdrew Svelte usage pending
-    Svelte 5 checks), `@humanspeak/svelte-markdown` (markdown; more recent releases than
-    svelte-exmarkdown, worth adding as a second option), `canvas-confetti` (framework-agnostic).
-  - Quiet packages to re-check: svelte-i18n (last release 2024-10), PhotoSwipe (last release 2024-05,
-    v6 in development), svelte-codemirror-editor (last release 2025-10).
-  - Several entries link the repo README as docs because there is no docs site (Event Calendar,
-    svelte-gestures, svelte-tiptap, svelte-codemirror-editor, emoji-picker-element, phosphor-svelte).
-  - github.com pages returned 403 through the research sandbox's proxy, so github.com blob URLs were
-    checked through clones and raw.githubusercontent.com instead.
-- Second options where one was picked: `svelte-tiptap` (Svelte bindings for Tiptap). Added 2026-11-23:
-  `svelte-maplibre` (map) and `svelte-echarts` (chart; README-only docs, echarts peer still ^5 while
-  ECharts is on 6.x, no release since 2025-04; drop it if it stays idle).
-- `svelte-multiselect` was skipped (2026-11-23): its repo was renamed to `janosh/svelte-widgets` and the
-  package restarted as `svelte-widgets` (1.x, MultiSelect is one of 30+ components). The old
-  `janosh.github.io/svelte-multiselect` docs URL now returns 404 and npm `svelte-multiselect` stopped at
-  11.8.0 (2026-07). `svelte-widgets` (svelte-widgets.janosh.dev, MIT, Svelte ^5.48.0) is broad enough to
-  be reviewed as a library rather than a tool.
-- A Shiki-based code-block package with real docs (Lily's Code Block and Skeleton's Shiki guide use Shiki).
-  None found on 2026-11-23: `svelte-shiki` is from 2020, and `@shikijs/magic-move` is an animation
-  package, not a code block.
-- Licenses without an SPDX id: `svelte-select` is recorded as `LicenseRef-svelte-select` (the text
-  reads like the Copyfree Open Innovation License, unconfirmed). Decide how the site shows these.
-- Re-check: Neodrag when 3.0 is stable; the iconify.design docs URL and any llms.txt there (blocked
-  here); that `https://svhe.onrender.com/llms.txt` is served; whether `kamranahmedse/driver.js`
-  redirects to `nilbuild/driver.js`.
-- `@zerodevx/svelte-toast` has had no release since 2024-09 and runs in legacy mode on Svelte 5;
-  drop it if it stays idle.
-- Previews for tools were added on 2026-11-23 (see [previews.md](previews.md#tools)). Left out: mode-watcher
-  (it would fight the preview app's own theme switch), Formsnap and
-  Superforms (need a SvelteKit form action), vaul-svelte (the installed Svelte 5 prerelease differs from the
-  recorded 0.3.2), and the non-visual helpers. Floating UI only has tooltip and popover; it also lists
-  dropdown menu, hover card, select, combobox, context menu and menubar.
-
-## Component props
-
-Added 2026-11-22: canonical props for 28 components (`src/lib/data/props.ts`), `api` on those
-components for every library that lists them, library-wide `conventions`, props tables on component
-pages and the `/port/` page. Next steps:
-
-- Still without canonical props: card, table, list, breadcrumb, navigation menu, sidebar, menubar,
-  context menu, hover card, command palette, calendar, file upload, tags input, PIN input, rating,
-  color picker, tree view, carousel, stepper, skeleton. Card and table vary too much for a short list;
-  the overlay and form ones would follow the patterns already in `props.ts`.
-- Value mapping for choice props (e.g. a variant in one library to the closest one in another) is
-  left out on purpose: it is a judgement call, not a fact. Revisit only with a clear rule.
-- `lastVerified` was bumped only where a whole entry was re-checked; some entries kept the older
-  date because only props were checked.
-- Possible upstream bugs noticed while reading source (worth an issue upstream, not data here):
-  Sveltestrap 7.1.0 `Input type="select"` renders nothing with `multiple`; Bootstrap Svelte's
-  Tooltip doc comment says `placement` defaults to `'right'` but the source sets no default.
-- New component ids suggested by the new libraries: `chat`/composer, `window`, `input-group` (now in several libraries), `segmented-control`,
-  `places-autocomplete`.
+- **Svelte UX 2.0** (Svelte 5, runes, Tailwind 4) is in prerelease (`next` dist-tag). Update the
+  entry and add previews when it's released, then drop its line in `preview-skips.ts`.
+- **Carbon Components Svelte**: re-map the components its `master` docs already show (Card,
+  SidePanel, Splitter, StarRating, Stepper, TagInput, Kbd, ConfirmModal, EmptyState, InlineEdit,
+  TableOfContents, LayoutDirection, Countdown, Prose, Layer, ThemeZone, AILabel, ChatLog,
+  ChatButton, CopyText, CssGrid, InputGroup, TooltipGroup, LazyMount) when 0.114.0 ships.
+- **Kahi UI** is Deprecated because its README calls it unsupported and on indefinite hiatus. npm
+  has no deprecation flag and the repo is not archived, so revisit if the notice changes.
+- **Neodrag**: update when 3.0 is stable.
+- **Quiet tools**, drop them if they stay idle: `@zerodevx/svelte-toast` (no release since
+  2024-09, runs in legacy mode on Svelte 5), `svelte-echarts` (README-only docs, echarts peer still
+  ^5 while ECharts is on 6.x, no release since 2025-04), svelte-i18n (last release 2024-10),
+  PhotoSwipe (last release 2024-05, v6 in development), svelte-codemirror-editor (last release
+  2025-10).
+- **Versions to watch**: RetroUI Svelte's `package.json` says 0.8.0 while its latest tag is 0.9.3
+  (recorded); neobrutalism-svelte has no tags, so its private version 0.0.1 is recorded.
+- **Links to confirm from a normal browser**: the iconify.design docs URL and any llms.txt there;
+  whether `https://svhe.onrender.com/llms.txt` is served; whether `kamranahmedse/driver.js`
+  redirects to `nilbuild/driver.js`; shadcn-svelte-extras' `llms.txt` links to an older URL layout.
+- **License without an SPDX id**: `svelte-select` is recorded as `LicenseRef-svelte-select` (the
+  text reads like the Copyfree Open Innovation License, unconfirmed). Decide how the site shows these.
 
 ## Previews
 
-Coverage is tracked in [previews.md](previews.md#current-coverage). Open items:
+`pnpm coverage --todo` lists every preview that can still be added; this section is only for what
+the command can't tell you.
 
-- **Svelte UX**: blocked on Tailwind 3 until 2.0 is stable (2.0.0-next.26 as of 2026-11-04).
-- **shadcn-svelte**: needs generated components; see the roadmap in previews.md.
-- Grow the per-library set beyond the eight target components (e.g. select, combobox,
-  date-picker, table) where several libraries share them.
-- **Type hovers in preview code** (twoslash, added 2026-11-08) are thin for some libraries:
-  twoslash type-checks in its own TypeScript setup, so where a library's types don't resolve
-  there (or the library ships none), components hover as `any`. Options: per-library
-  `compilerOptions`/`paths` for twoslash, or hand-written `customTypes` for libraries without
-  TypeScript. Diagnostics are off (`noErrors`) for the same reason.
-- **Props in type hovers**: the props tables (see [Component props](#component-props)) could link
-  to, or be checked against, the twoslash hovers above.
-- **Screenshot tests** (Playwright) are deferred on purpose. The open question is how useful they
-  are when run deterministically in CI: fonts, third-party CDN assets and animation timing make
-  pixel comparisons flaky, and a tolerant comparison may miss real regressions. For now previews
-  are checked by opening each one in a headless browser and asserting that it renders without
-  console errors (see the scripts used in the 2026-11-04 pass). Revisit once there is a plan for
-  deterministic rendering (bundled fonts, blocked network, disabled animations).
+- **svelte-headlessui (CaptainCodeman)** is store/action based and should run in the preview app.
+- **More shared components**: grow per-library sets where several libraries share a component
+  (select, combobox, date picker, table).
+- **Tools without previews**: vaul-svelte (the installed Svelte 5 prerelease differs from the
+  recorded 0.3.2), Floating UI's dropdown menu, hover card, combobox, context menu and menubar.
+- **Type hovers** are thin for libraries whose types don't resolve in twoslash's own TypeScript
+  setup (or that ship none): options are per-library `compilerOptions`/`paths` for twoslash, or
+  hand-written `customTypes`.
+- **Props in type hovers**: the props tables could link to, or be checked against, the hovers.
+- **Upstream workarounds to drop** when upstream fixes them: the resolver in
+  `previews/vite.config.ts` for svelte-5-ui-lib's directory import (`from '..'`); the
+  `@sveltepress/theme-default` patch (see [architecture.md](architecture.md#sveltepress-quirks-to-know)).
 
-## Data notes to double-check
+## Component props
 
-- **Ark UI** docs URLs use the `/svelte/docs/...` form from its llms.txt. The site may open in
-  another framework until the visitor switches to Svelte.
-- **SVAR** component links go to official live samples, because the API docs site wasn't
-  verifiable from the repo.
-- **M3 Svelte** links go to anchored demo cards on its single-page docs.
-- **Sveltestrap** uses one `Input` component for many form controls, and several entries point
-  to that page.
-- **Svelte UX 2.0** (Svelte 5, runes, Tailwind 4) is still in prerelease (`next` dist-tag,
-  2.0.0-next.26). Update the entry and add previews when it's released.
-- **Carbon Components Svelte** deploys its docs site from `master`, which documents about 25
-  components that the published 0.113.1 does not export (Card, SidePanel, Splitter, StarRating,
-  Stepper, TagInput, Kbd, ConfirmModal, EmptyState, InlineEdit, TableOfContents, LayoutDirection,
-  Countdown, Prose, Layer, ThemeZone, AILabel, ChatLog, ChatButton, CopyText, CssGrid, InputGroup,
-  TooltipGroup, LazyMount). The entry follows the npm release; re-map these when 0.114.0 ships.
-- **M3 Svelte** demo cards without controls (Bottom Sheet, Snackbar, Time Picker, Layer) have no
-  anchor, so those entries link to the docs home.
-- **Dependencies and feature tags (2026-11-04 pass).** Most docs hosts were blocked, so
-  `dependencies` sources and the new `semantic-colors` tag were checked against npm and each repo's
-  docs source; several GitHub README anchors were derived from heading text. Judgment calls worth a
-  second look:
-  - `@tailwindcss/vite` is recorded as optional for Skeleton, shadcn-svelte and Sivir UI, and not
-    listed for Flowbite, Konsta or Kampsy, because the install guides set Tailwind up through
-    `sv add tailwindcss` rather than naming the plugin.
-  - Konsta's Tailwind range (`4`) comes from its 5.0.0 changelog; the install docs don't state a major.
-  - M3 Svelte: `vite-plugin-functions-mixins` is an optional peer on npm but recorded as required,
-    because the quick start always registers it and the components use its mixins.
-  - Svelte Material UI: `sass` comes in through `smui-theme`, so it's listed as optional.
-  - `semantic-colors` is borderline for Flowbite Svelte (only primary/secondary are theme roles;
-    status colors are palette names). Kampsy UI was left out because its role variants map to fixed
-    palette tokens per component, not to theme tokens.
-  - `accessibility` was removed from Skeleton (its own pages make general claims and link to Zag.js
-    for keyboard/ARIA details). It's borderline for Melt and Lily. Not added for Flowbite, Konsta,
-    SVAR, Sveltestrap, Svelte UX, Sivir UI or Svelte Material UI under the per-component bar.
-- **Docs hosts and network policy**: in the cloud agent environment most docs hosts (bits-ui.com,
-  ark-ui.com, skeleton.dev, flowbite-svelte.com, shadcn-svelte.com, next.melt-ui.com,
-  svelte.carbondesignsystem.com, kendell.dev, docs.svar.dev, sveltestrap.js.org,
-  svelte-ux.techniq.dev, svelte.dev) were blocked, so the 2026-11-04 URLs were derived from each
-  repo's docs source routing in a shallow clone, not fetched live. A spot check from a normal
-  browser is welcome.
+- **Components without canonical props yet**: list, breadcrumb, navigation menu, sidebar, menubar,
+  context menu, hover card, command palette, calendar, file upload, tags input, PIN input, rating,
+  color picker, tree view, carousel, stepper, skeleton. The overlay and form ones would follow the
+  patterns already in `props.ts`. One component per PR.
+- **Possible upstream bugs** noticed while reading source (worth an issue upstream, not data here):
+  Sveltestrap 7.1.0 `Input type="select"` renders nothing with `multiple`; Bootstrap Svelte's
+  Tooltip doc comment says `placement` defaults to `'right'` but the source sets no default.
+
+## Judgement calls worth a second look
+
+From the 2026-11-04 pass, when most docs hosts were blocked and facts were checked against npm and
+each repo's docs source:
+
+- `@tailwindcss/vite` is recorded as optional for Skeleton, shadcn-svelte and Sivir UI, and not
+  listed for Flowbite, Konsta or Kampsy, because their install guides set Tailwind up through
+  `sv add tailwindcss` rather than naming the plugin.
+- Konsta's Tailwind range (`4`) comes from its 5.0.0 changelog; the install docs don't state a major.
+- M3 Svelte: `vite-plugin-functions-mixins` is an optional peer on npm but recorded as required,
+  because the quick start always registers it and the components use its mixins.
+- Svelte Material UI: `sass` comes in through `smui-theme`, so it's listed as optional.
+- `semantic-colors` is borderline for Flowbite Svelte (only primary/secondary are theme roles).
+  Kampsy UI was left out because its role variants map to fixed palette tokens per component.
+- `accessibility` is borderline for Melt and Lily, and was not added for Flowbite, Konsta, SVAR,
+  Sveltestrap, Svelte UX, Sivir UI or Svelte Material UI under the per-component bar.
+- Several GitHub README anchors were derived from heading text, and the docs URLs for bits-ui,
+  Ark UI, Skeleton, Flowbite Svelte, shadcn-svelte, Melt, Carbon, M3 Svelte, SVAR, Sveltestrap and
+  Svelte UX were derived from docs source routing. A spot check from a normal browser is welcome.
+- Link styles to know when checking: Ark UI uses `/svelte/docs/...` URLs (the site may open in
+  another framework until the visitor switches); SVAR links go to live samples; M3 Svelte links to
+  anchored demo cards (cards without controls link to the docs home); Sveltestrap points several
+  form controls at its one `Input` page; svelte-mui and Vitamin Svelte docs are client-rendered
+  (any path returns 200) and ui-svelte's are a Storybook, so their links were checked against
+  route lists in source.
+- Library quirks seen while adding previews (2026-11-25), possibly worth an upstream issue:
+  YeSvelte's Alert and Toast hard-code a white background in dark mode; Framework7 9.3.0's
+  datepicker throws without a `value`, its gauge defaults to black text in dark mode, and
+  `framework7-svelte` imports `skeleton-elements` without declaring it; STDF's built-in texts
+  default to Simplified Chinese unless wrapped in its ConfigProvider.
