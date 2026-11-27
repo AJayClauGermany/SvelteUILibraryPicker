@@ -10,9 +10,12 @@ src/
       props.ts               canonical props per component, library-wide API conventions
       libraries/<id>.ts      one file per library (eagerly globbed)
       tools/<id>.ts          one file per tool: single-purpose packages and building blocks
+      preview-skips.ts       why a listed component has no preview
       index.ts               queries: libraries, getLibrary, librariesWith, ...
-      validate.test.ts       `pnpm validate`
+      validate.test.ts       `pnpm validate` (with port.test.ts)
     previews.ts              which previews exist and their URLs (file list only)
+    url.ts                   url() for internal links under the base path
+    site-theme.svelte.ts     site dark-mode state (from the theme's `dark` class on <html>)
     components/              site UI (cards, badges, DocsLink, PreviewFrame, ...)
     styles/site.css          site tokens on top of the SveltePress theme
   routes/                    SveltePress pages (.md / .svelte), all prerendered
@@ -25,7 +28,11 @@ src/
 previews/
   index.html, main.ts        standalone preview app (Vite + Svelte, no SvelteKit)
   vite.config.ts             builds to dist/preview, mounted at /preview/ in dev
+  theme.svelte.ts            each library's documented dark-mode switch
   src/<library>/<component>.svelte
+scripts/                     maintainer commands (`pnpm status`, `about`, `changes`, `check:*`...)
+docs/                        guides, decisions, backlog and playbooks (docs/playbooks/)
+.claude/skills/              Claude Code skills that point at the playbooks
 ```
 
 ## Data flow

@@ -170,7 +170,3 @@ export const components = {
 export type ComponentId = keyof typeof components
 
 export const componentIds = Object.keys(components) as ComponentId[]
-
-export function getComponent(id: ComponentId): ComponentDefinition {
-	return components[id]
-}

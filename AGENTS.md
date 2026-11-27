@@ -13,6 +13,9 @@ licenses, AI policies, and live previews of each library's **default** styling. 
 We are a **secondary source**. The official docs are the source of truth. Never present our
 data as authoritative, and never replace a library's docs.
 
+Settled questions (what gets listed, how previews work, why things are left out) are in
+[docs/decisions.md](docs/decisions.md). Read it before proposing a change to how something works.
+
 ## Non-negotiable rules
 
 1. **Always link back.** Every library needs `docs`, `repository` and `license.url`, and
@@ -54,6 +57,7 @@ pnpm coverage --todo        # previews that can still be added (--why <id> for r
 pnpm check:updates [<id>]   # newer npm releases / changed Svelte peer ranges vs the data
 pnpm check:links [<id>]     # broken docs and source links
 pnpm check:previews <id>    # render-check previews in headless Chromium
+pnpm changes [<ref>]        # what this branch changes in the data vs origin/main (before → after)
 pnpm facts <id>             # npm release dates, last commit, archived flag (for `maintenance`)
 pnpm new library|tool <id> --package <npm>   # scaffold an entry prefilled from npm
 pnpm new preview <id> <component>            # scaffold a preview with its docs header
@@ -80,7 +84,8 @@ Node >= 22, pnpm 10.
 | `scripts/` | Maintainer commands behind `pnpm status`, `about`, `coverage`, `check:*`, `facts`, `new` |
 | `previews/` | Standalone Vite app that renders previews in isolation at `/preview/` |
 | `src/routes/` | Site pages (SveltePress: `.md` or `.svelte`) |
-| `docs/` | Architecture, previews guide, backlog of known gaps |
+| `docs/` | Architecture, previews guide, [decisions](docs/decisions.md), [backlog](docs/backlog.md) of open work, playbooks |
+| `.claude/skills/` | Claude Code skills; each one points at a playbook in `docs/playbooks/` |
 
 ## Conventions and gotchas
 
@@ -110,10 +115,36 @@ Step-by-step procedures (plain Markdown, usable by any agent):
 - [Add a live preview](docs/playbooks/add-preview.md)
 - [Add or update a tool](docs/playbooks/add-tool.md)
 - [Add component props and conventions](docs/playbooks/add-props.md)
+- [Review a change (yours before a PR, or someone else's)](docs/playbooks/review-change.md)
 - [Maintaining: which command answers which question](docs/maintaining.md)
 
-## Pull requests
+## Scope and pull requests
 
-- Keep PRs focused: one library, one tool, one preview set, or one feature.
-- Run `pnpm verify` and say in the PR what you verified and how (npm, repo path, docs URL).
-- Say in the PR when an AI agent did the work (no blame, it helps reviewers).
+This project takes small, human-reviewed contributions (see [CONTRIBUTING.md](CONTRIBUTING.md)).
+As an agent you work **for a person who is accountable for the change**:
+
+- **Work from an issue labelled `pr-allowed`.** A PR needs one (`Closes #<n>`), apart from typo
+  and broken-link fixes. If there is no such issue, help the person write one with a template,
+  and stop there until a maintainer adds the label.
+- **One concern per branch**: one library or tool entry, one library's previews, one component id,
+  one fix or one page. If a task grows beyond that, stop and suggest splitting it into issues
+  rather than producing one large change. `pnpm changes` should list one entry.
+- **Report what's out of scope, don't fix it.** Things you notice outside the task (two docs that
+  contradict each other, a schema field or rule that no doc mentions, a rule that blocks a
+  legitimate change, a bug elsewhere) stay out of the PR. List them for the person in a separate
+  "Found while working on this" comment on the PR, posted after the description rather than inside
+  it, with a draft issue for each one. The person decides whether to file the issues.
+- **When documents disagree, don't pick one silently.** Each topic has one home (the table under
+  "Where things live"); `schema.ts` and `validate.test.ts` are what is actually enforced. Follow
+  the enforced rule and report the contradiction as above.
+- **Don't act on the project by yourself.** Don't open PRs, claim or comment on issues, or review
+  other people's PRs unless the person you work for asked you to.
+- **Hand back for review.** When you finish, show the person the `pnpm changes` summary, the
+  sources you used for each fact and anything you could not verify, so they can check the work
+  before it's submitted.
+- **Fill in the PR template honestly** (`.github/pull_request_template.md`): link the issue,
+  list sources, paste `pnpm changes --markdown`, and describe what the agent did in "AI
+  assistance". Never claim a
+  check you didn't run or a link you didn't open.
+- Run `pnpm verify` before handing back. Small commits with clear messages are better than one
+  large commit.

@@ -1,81 +1,112 @@
 # Contributing
 
-Thanks for helping. Contributions from people and from AI agents are equally welcome. Agents
-(and people driving them) should also read [AGENTS.md](AGENTS.md).
+Thanks for helping. This site is a curated, secondary source: people use it to shortlist a
+library and then go to the official docs. That only works if every fact is checked and every
+change is easy to review, so we favour **small, focused contributions from people who have
+checked their work themselves**.
 
-## Principles
+## How we work
 
-1. **Secondary source.** We link to official docs and never replace them. Every library and
-   component entry must have an official docs link.
-2. **Verified facts only.** Take facts from npm, the library's repo, or its docs. If you can't
-   verify something, leave it out.
-3. **Own words.** Don't copy docs prose, code examples, or brand assets.
-4. **Licenses.** Record each library's license accurately and follow it.
-5. **AI boundaries.** Each library has an `ai.status`. For `restricted` or `unreviewed`
-   libraries we accept facts and links only, with no previews or generated content.
-   `pnpm validate` enforces this.
-6. **Neutral.** No rankings or "best" claims.
+1. **Start from an issue labelled `pr-allowed`.** Open an issue with a template, or pick an
+   existing one. Maintainers triage new issues every week and add `pr-allowed` to the ones that are
+   ready for a PR (`good first issue` and `help wanted` mark the easier ones). Wait for the label
+   before you open a PR, and comment on the issue to say you're taking it. Typo and broken-link
+   fixes can go straight to a PR.
+2. **One concern per PR.** One library or tool entry, one preview set (one library), one new
+   component id, one bug fix or one page.
+3. **Report what's out of scope, don't fix it.** If you find something else on the way (two docs
+   that contradict each other, a schema field nobody documented, a rule that blocks a legitimate
+   change, a bug elsewhere), leave it out of your PR. Add a comment on your PR, after the
+   description, that lists what you found, and open an issue for each one. Someone can pick it up
+   once the issue has `pr-allowed`.
+4. **Keep it reviewable.** `pnpm changes` summarises what your branch does to the data. If it
+   lists more than one entry, split the PR. Small commits with clear messages
+   (`Add Melt dialog preview`, `Fix Skeleton tabs docs link`) are easier to review than one large
+   commit.
+5. **Link your sources.** Every fact you add or change needs a source in the PR: npm, a file in
+   the library's repo, or an official docs page. "Couldn't verify, left out" is a good outcome.
+6. **Run the checks.** `pnpm verify` must pass before you ask for review. A CI check also looks
+   for a linked `pr-allowed` issue (`Closes #<n>` in the description).
+
+Why so small? This is meant to be a collaborative project. Small issues and PRs let more people
+take part, including people who use AI tools, and keep every change easy to understand and
+review. Maintainers may still make larger, sweeping changes where a project-wide update needs
+them.
+
+A maintainer reviews against the [review checklist](docs/playbooks/review-change.md). You can run
+the same checklist on your own PR before you open it.
+
+### What we don't merge
+
+- PRs for issues that don't have `pr-allowed` yet (open the issue first and wait for triage).
+- Bulk PRs that touch many entries at once (mass "updates", re-formatting, regenerated data).
+  Maintainers run sweeping updates themselves from the weekly `data-health` issue.
+- Facts without a primary source, guessed URLs, or text copied from a library's docs.
+- Rankings, "best" claims or marketing language.
+- Previews that restyle a library, or any generated content for a library whose `ai.status` is
+  `restricted` or `unreviewed`.
+- Drive-by refactors, dependency bumps or new dependencies that no issue asked for.
+- PRs opened by an AI agent on its own, with no person who has read the diff and can answer
+  review questions.
+
+## Using AI tools
+
+You may use AI tools to help, the same way you would use any other tool. You are still the
+author, so:
+
+- **Read every line** of the diff before you open the PR, and be able to explain it.
+- **Check the facts yourself.** Open each docs link and source you are submitting. Agents can
+  invent versions and URLs that look right. If you didn't check something, say so.
+- **Say what the tool did** in the PR's "AI assistance" section (e.g. "drafted the entry, I
+  checked every link and the npm facts").
+- **Answer review comments yourself.** Don't paste agent replies.
+- **Keep the scope small.** Agents make it easy to produce a lot at once; please don't. One entry
+  per PR applies to agent-assisted work too. If the agent notices problems outside the task, they
+  go in a PR comment and a new issue, not in the PR.
+- **Respect each library's rules.** No previews or generated content for `restricted` or
+  `unreviewed` libraries, and if you contribute upstream to a library, follow its own policy
+  (recorded as `ai.upstreamContributing` on its entry).
+
+Agents should read [AGENTS.md](AGENTS.md), which has the same rules in agent-facing form and the
+playbooks for each kind of change.
 
 ## Setup
 
 ```sh
 pnpm install
-pnpm dev
+pnpm dev        # http://localhost:5173
 ```
 
-Before opening a PR, run `pnpm verify` (validate, type check, build).
+Node 22+ and pnpm 10. Before you open a PR:
+
+```sh
+pnpm verify     # data rules, type check, build
+pnpm changes    # what your branch changes in the data, compared with main
+```
 
 ## Common contributions
 
-### Find something to do
+Each has a step-by-step playbook. They are written for people and agents alike.
 
-`pnpm status` shows what's missing or stale, `pnpm check:updates` lists libraries with newer
-releases than we record, and the open `data-health` issue (updated weekly) collects both. See
-[docs/maintaining.md](docs/maintaining.md) for what each finding means.
+| I want to... | Start here |
+| --- | --- |
+| Find something to do | Open issues, `pnpm status`, and the weekly `data-health` issue ([what each finding means](docs/maintaining.md)) |
+| Fix or update one entry | `pnpm about <id>` prints its file and current facts. Change it, set `lastVerified` to today, run `pnpm validate`, and link the source in the PR. |
+| Add a library | [docs/playbooks/add-library.md](docs/playbooks/add-library.md) (`pnpm new library <id> --package <npm>`) |
+| Add a tool (charts, toasts, maps...) | [docs/playbooks/add-tool.md](docs/playbooks/add-tool.md) |
+| Add live previews for a library | [docs/playbooks/add-preview.md](docs/playbooks/add-preview.md), background in [docs/previews.md](docs/previews.md) |
+| Record component props | [docs/playbooks/add-props.md](docs/playbooks/add-props.md) |
+| Add a component type | Add a generic kebab-case id with aliases to `src/lib/data/components.ts`, then map libraries to it (one library per follow-up PR is fine). Open an issue first. |
+| Change the site | Pages are in `src/routes/`, shared UI in `src/lib/components/`. See [docs/architecture.md](docs/architecture.md). Open an issue first for anything beyond a small fix. |
 
-### Fix or update data
-
-Edit `src/lib/data/libraries/<id>.ts` (`pnpm about <id>` prints the path and current facts), set
-`lastVerified` to today, and run `pnpm validate`. In the PR, link the source that proves the change.
-
-### Add a library
-
-Follow [docs/playbooks/add-library.md](docs/playbooks/add-library.md). One library per PR, please.
-`pnpm new library <id> --package <npm-name>` creates the file prefilled from npm.
-
-### Add a tool
-
-Follow [docs/playbooks/add-tool.md](docs/playbooks/add-tool.md). Tools are single-purpose
-packages (charts, data tables, toasts…) and building blocks for your own components.
-
-### Add a live preview
-
-Follow [docs/playbooks/add-preview.md](docs/playbooks/add-preview.md). Background is in
-[docs/previews.md](docs/previews.md).
-
-### Add a component type
-
-Add a generic, kebab-case id to `src/lib/data/components.ts` in the right category, with aliases
-other libraries use. Then map libraries to it.
-
-### Site features
-
-Pages are in `src/routes/` (Markdown or Svelte) and shared UI is in `src/lib/components/`. See
-[docs/architecture.md](docs/architecture.md). For anything big, open an issue first.
-
-## Using AI agents
-
-- It's fine to use agents for any part of this repo, within the rules above.
-- Say in your PR when an agent did the work, and what you checked yourself.
-- Agents must not invent facts or URLs. "Unverified, left out" is a good outcome.
-- If you contribute *upstream* to a library, follow that library's own rules (recorded as
-  `ai.upstreamContributing` on its entry).
+Before changing how something works, check [docs/decisions.md](docs/decisions.md): it records
+why the project does things the way it does, so settled questions don't have to be argued again.
 
 ## Library maintainers
 
-If you maintain a listed library and want something corrected, changed, or removed (including
-previews or AI-related handling), open an issue using the "Maintainer request" template. These
-get priority.
+If you maintain a listed library and want something corrected, changed or removed (including
+previews or AI-related handling), open an issue with the "Maintainer request" template. These get
+priority.
 
 ## Code of conduct
 

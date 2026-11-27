@@ -21,3 +21,9 @@ body:
       description: Official docs page, repo file, npm, changelog…
     validations:
       required: true
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Contribution
+      options:
+        - label: I'd like to open the PR myself (one entry per PR; see CONTRIBUTING.md)

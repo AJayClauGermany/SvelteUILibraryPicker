@@ -32,4 +32,4 @@ body:
     attributes:
       label: Contribution
       options:
-        - label: I'd like to open the PR myself (see docs/playbooks/add-library.md)
+        - label: I'd like to open the PR myself (see docs/playbooks/add-library.md; one library per PR)

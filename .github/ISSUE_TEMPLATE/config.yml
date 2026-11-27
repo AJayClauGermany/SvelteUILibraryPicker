@@ -1,1 +1,6 @@
-blank_issues_enabled: true
+# Blank issues are off so every issue starts as a concrete, reviewable task.
+blank_issues_enabled: false
+contact_links:
+  - name: How to contribute
+    url: https://github.com/AJayClauGermany/SvelteUILibraryPicker/blob/main/CONTRIBUTING.md
+    about: How we work (issue first, one change per PR) and how to use AI tools here.
