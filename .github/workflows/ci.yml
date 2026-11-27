@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history, so `pnpm changes` can find the merge base with the PR's base branch.
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -33,6 +36,11 @@ jobs:
       - name: Project status (job summary)
         # Offline overview: counts, preview coverage, stale entries, version pins. See docs/maintaining.md.
         run: pnpm --silent status --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Data changes in this PR (job summary)
+        # What the PR changes in the data, with before and after values; warns when it touches
+        # more than one entry. See docs/playbooks/review-change.md.
+        if: github.event_name == 'pull_request'
+        run: pnpm --silent changes "origin/${{ github.base_ref }}" --markdown >> "$GITHUB_STEP_SUMMARY"
       - name: Type check
         run: pnpm check
       - name: Build

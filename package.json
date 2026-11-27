@@ -22,6 +22,7 @@
     "about": "node scripts/about.js",
     "new": "node scripts/new.js",
     "facts": "node scripts/maintenance-facts.js",
+    "changes": "node scripts/changes.js",
     "check:updates": "node scripts/check-updates.js",
     "check:links": "node scripts/check-links.js",
     "check:previews": "node scripts/check-previews.js"
