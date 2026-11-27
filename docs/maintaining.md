@@ -17,11 +17,23 @@ find out what's missing or stale. All commands are read-only unless they say oth
 | Is the maintenance badge still right? | `pnpm facts <id>` (npm dates, last commit, archived) |
 | Do the previews of a library still render? | `pnpm check:previews <id>` (add `--dark`, `--shots <dir>`) |
 | Is my change valid? | `pnpm validate` (data rules), then `pnpm verify` before a PR |
+| What does this branch or PR change in the data? | `pnpm changes` (or `pnpm changes <ref>`); then the [review playbook](playbooks/review-change.md) |
 | I'm adding something new | `pnpm new library\|tool\|preview ...` (see below) |
 
-`status`, `about`, `coverage`, `check:updates` and `check:links` take `--json` (for agents and
-scripts); `status`, `check:updates` and `check:links` also take `--markdown`. `new` takes
+`status`, `about`, `coverage`, `changes`, `check:updates` and `check:links` take `--json` (for
+agents and scripts); `status`, `changes`, `check:updates` and `check:links` also take `--markdown`. `new` takes
 `--dry-run`, and `check:previews` takes `--dark` and `--shots <dir>`.
+
+## Reviewing pull requests
+
+Use the [review playbook](playbooks/review-change.md). Each PR's CI job summary has the
+`pnpm changes` report (entries, fields before and after, previews), and a warning annotation when
+it touches more than one entry. Ask for a split rather than reviewing a large PR as one piece;
+sweeping updates are maintainer work from the `data-health` issue.
+
+Labels worth keeping on the repo: `good first issue` and `help wanted` for issues that are ready
+to pick up, plus the ones the issue templates set (`library-request`, `data`, `site`,
+`maintainer-request`) and `data-health` from the weekly workflow.
 
 ## The weekly routine
 
@@ -81,6 +93,7 @@ and check commands you need next. Add `--dry-run` to see the file first.
 | When | What | Where |
 | --- | --- | --- |
 | Every PR and push to `main` | `pnpm validate`, `pnpm check`, `pnpm build`, and `pnpm status` in the job summary | [ci.yml](../.github/workflows/ci.yml) |
+| Every PR | `pnpm changes` in the job summary, with a warning when it touches more than one entry | [ci.yml](../.github/workflows/ci.yml) |
 | Every push to `main` | Build and deploy to GitHub Pages | [deploy.yml](../.github/workflows/deploy.yml) |
 | Mondays, or by hand | `check:updates`, `check:links`, `status` into the `data-health` issue | [health.yml](../.github/workflows/health.yml) |
 
