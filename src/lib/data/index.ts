@@ -229,10 +229,5 @@ export function summarizePort(rows: PortRow[]): PortSummary {
 	return sum
 }
 
-/** Short text for a mapping, e.g. "`open` on Dialog.Root (bindable)". */
-export function describeMapping(m: PropMapping): string {
-	return [m.name, m.on ? `on ${m.on}` : '', m.bindable ? '(bindable)' : ''].filter(Boolean).join(' ')
-}
-
 export { apiStyleInfo, canonicalPropIds, canonicalProps, categories, componentIds, components, conventionIds, conventionInfo, currentSvelteMajor, dependencyKindLabels, featureInfo, getCanonicalProp, hasCanonicalProps, maintenanceInfo, maintenanceThresholds, propComponentIds, propKindInfo, toolKindInfo, toolingKinds }
 export type { ApiStyle, CategoryId, ComponentApi, ComponentId, ConventionId, DependencyKind, FeatureTag, Library, LibraryComponent, Maintenance, MaintenanceStatus, ProjectDependency, PropComponentId, PropMapping, Tool, ToolKind }

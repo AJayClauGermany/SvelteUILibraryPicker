@@ -5,7 +5,7 @@
  * `src/lib/data/index.ts` (and the preview skip list) through Vite, so TypeScript files and
  * `import.meta.glob` work without a build. Nothing here writes to data files.
  */
-import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -99,10 +99,6 @@ export function daysBetween(from, to = today) {
 
 export function readPackageJson() {
 	return JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
-}
-
-export function fileExists(rel) {
-	return existsSync(join(root, rel))
 }
 
 /** Minimal flag parser: `--name value`, `--flag`, and positional args. */

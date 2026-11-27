@@ -16,38 +16,25 @@
  *    Uses `gh api` when available, since anonymous GitHub API calls are heavily rate limited.
  */
 import { execFile } from 'node:child_process'
-import { mkdtemp, readdir, readFile, rm } from 'node:fs/promises'
+import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { promisify } from 'node:util'
+import { allEntries, loadData, REGISTRY_CLIS } from './lib/shared.js'
 
 const run = promisify(execFile)
-const root = new URL('..', import.meta.url).pathname
 const args = process.argv.slice(2)
 const asJson = args.includes('--json')
 const only = new Set(args.filter(a => !a.startsWith('--')))
 
-/** CLIs that install copy-paste registries; when one is the first package, npm dates say nothing about the registry. */
-const registryClis = new Set(['shadcn-svelte', 'jsrepo'])
 /** Versions published by bots, not releases: nightly, canary, experimental and snapshot builds. */
 const automatedBuild = /nightly|canary|experimental|snapshot|insiders/i
 
 async function entries() {
-	const out = []
-	for (const dir of ['libraries', 'tools']) {
-		const base = join(root, 'src/lib/data', dir)
-		for (const file of (await readdir(base)).filter(f => f.endsWith('.ts')).sort()) {
-			const src = await readFile(join(base, file), 'utf8')
-			const id = src.match(/^\tid: '([^']+)'/m)?.[1]
-			// `repository: 'https://…'`, or `repository: repo` with `const repo = 'https://…'` above.
-			const repoValue = src.match(/^\trepository: (?:'([^']+)'|(\w+))/m)
-			const repository = repoValue?.[1] ?? src.match(new RegExp(`^const ${repoValue?.[2]} = '([^']+)'`, 'm'))?.[1]
-			const packages = [...(src.match(/^\tpackages: \[([^\]]*)\]/m)?.[1] ?? '').matchAll(/'([^']+)'/g)].map(m => m[1])
-			if (!id || (only.size && !only.has(id))) continue
-			out.push({ kind: dir === 'libraries' ? 'library' : 'tool', id, repository, packages })
-		}
-	}
-	return out
+	const data = await loadData()
+	return allEntries(data)
+		.filter(({ entry }) => !only.size || only.has(entry.id))
+		.map(({ kind, entry }) => ({ kind, id: entry.id, repository: entry.repository, packages: entry.packages }))
 }
 
 async function npmFacts(pkg) {
@@ -117,7 +104,7 @@ async function gitFacts(repo) {
 
 async function collect(entry) {
 	const repo = parseRepo(entry.repository)
-	const isRegistry = registryClis.has(entry.packages[0]) && entry.id !== entry.packages[0]
+	const isRegistry = REGISTRY_CLIS.has(entry.packages[0]) && entry.id !== entry.packages[0]
 	const [npm, arch, git] = await Promise.all([
 		isRegistry ? undefined : npmFacts(entry.packages[0]),
 		repo ? archived(repo) : { error: 'repository is not on github.com or gitlab.com' },
